@@ -17,8 +17,11 @@ def downsampling(mat, interval):
         add_mat = np.zeros((add_num, num_col))  # 创建全零矩阵进行补充
         mat = np.concatenate((mat, add_mat))  # 将补充后的矩阵与原矩阵连接
     num_row, num_col = mat.shape  # 重新获取补充后的矩阵的行数和列数
+    # interval采样间隔,num_row/interval采样间隔包含的行数
     mat_tmp = np.zeros((interval, int(num_row / interval), num_col))  # 创建临时矩阵
     for i in range(interval):  # 循环间隔次数
+        # i::interval从矩阵的第i行开始，每隔interval行取一次
+        # 这个赋值操作将 mat[i::interval, :]的结果赋值给mat_tmp的第i层。
         mat_tmp[i, ...] = mat[i::interval, :]  # 对每个间隔进行采样
     return np.mean(mat_tmp, 0)  # 返回降采样后的矩阵
 
@@ -136,10 +139,10 @@ if __name__ == '__main__':
     train_x = downsampling(swat_normal_np, config.downsampling_fre)[3000:, :]  # 对正常数据进行降采样和预处理
     split = 0.8  # 训练集和验证集划分比例
     length = config.target_len  # 序列长度
-    max_, min_, all_data = swat_generate(copy.copy(train_x), split, length, 'train_swat.npz')  # 生成训练和验证数据集
+    max_, min_, all_data = swat_generate(copy.copy(train_x), split, length, 'train_swat_repetition.npz')  # 生成训练和验证数据集
 
     test_x = downsampling(swat_abnormal_np, config.downsampling_fre)  # 对异常数据进行降采样和预处理
-    max_, min_, all_data_test = swat_generate_test(copy.copy(test_x), length, 'test_swat.npz', copy.copy(max_), copy.copy(min_))  # 生成测试数据集
+    max_, min_, all_data_test = swat_generate_test(copy.copy(test_x), length, 'test_swat_repetition.npz', copy.copy(max_), copy.copy(min_))  # 生成测试数据集
 
     test_gr = all_data_test['test']['x']  # 加载生成的测试数据
     test_old = np.load("/home/zwq/Test/test_60_complete (1).npz")['train_x']  # 加载旧的测试数据
