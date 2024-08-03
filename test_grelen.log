@@ -1,0 +1,19 @@
+2024-08-02 17:26:32,757:INFO:Model loaded...
+2024-08-02 17:26:50,913:INFO:Graph saved...
+2024-08-02 17:26:50,913:INFO:Evaluation...
+2024-08-02 17:33:32,900:INFO:Model loaded...
+2024-08-02 17:33:50,616:INFO:Graph saved...
+2024-08-02 17:33:50,617:INFO:Evaluation...
+2024-08-02 17:36:33,162:INFO:F1 score: 0.8802197802197802
+2024-08-02 17:36:33,166:INFO:Precision score: 0.8585209003215434
+2024-08-02 17:36:33,170:INFO:Recall score: 0.90304396843292
+2024-08-02 17:36:33,186:INFO:Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       0.99      0.98      0.98      6534
+         1.0       0.86      0.90      0.88       887
+
+    accuracy                           0.97      7421
+   macro avg       0.92      0.94      0.93      7421
+weighted avg       0.97      0.97      0.97      7421
+

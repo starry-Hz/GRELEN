@@ -11,7 +11,10 @@ from sklearn.metrics import f1_score
 from lib.utils import *
 from model.GRELEN import *
 
-
+import logging
+# 日志配置
+logging.basicConfig(filename='test_grelen.log', level=logging.INFO,
+                    format='%(asctime)s:%(levelname)s:%(message)s')
 
 
 if __name__ == '__main__':
@@ -66,6 +69,7 @@ if __name__ == '__main__':
     net.load_state_dict(torch.load(param_file))
 
     print('Model loaded...')
+    logging.info('Model loaded...')
     target_tensor = torch.zeros((0, N, target_T))
     reconstructed_tensor = torch.zeros((0, N, target_T))
     prob_tensor = torch.zeros((0, N * (N - 1), Graph_learner_head))
@@ -85,9 +89,11 @@ if __name__ == '__main__':
     if config.save_result == True:
         np.save(save_path+'/'+os.path.basename(param_file).split('.')[0]+'.npy', np.array(mat_test))
     print('Graph saved...')
+    logging.info('Graph saved...')
 
     ### Evaluation
     print('Evaluation...')
+    logging.info('Evaluation...')
     w = config.moving_window_
     anomaly_time = pd.read_csv(config.anomaly_file)
     anomaly_time = np.array(anomaly_time.iloc[:, :2])
@@ -116,6 +122,11 @@ if __name__ == '__main__':
     print('Precision score: ', precision_score(anomaly, ground_truth))
     print('Recall score: ', recall_score(anomaly, ground_truth))
     print('Confusion matrix: ', classification_report(anomaly, ground_truth))
+    # Log the messages
+    logging.info(f"F1 score: {f1_score(anomaly, ground_truth)}")
+    logging.info(f"Precision score: {precision_score(anomaly, ground_truth)}")
+    logging.info(f"Recall score: {recall_score(anomaly, ground_truth)}")
+    logging.info(f"Confusion matrix: \n{classification_report(anomaly, ground_truth)}")
 
 
 

@@ -4,8 +4,10 @@ from time import time
 from tensorboardX import SummaryWriter
 from model.GRELEN import *
 
-
-
+import logging
+# 日志配置
+logging.basicConfig(filename='train_grelen.log', level=logging.INFO,
+                    format='%(asctime)s:%(levelname)s:%(message)s')
 
 
 def val_epoch(net, val_loader, sw, epoch, config):
@@ -34,6 +36,7 @@ def val_epoch(net, val_loader, sw, epoch, config):
 
         validation_loss = sum(tmp) / len(tmp)
         print('epoch: %s, validation loss: %.2f' % (epoch, validation_loss))
+        logging.info('epoch: %s, validation loss: %.2f' % (epoch, validation_loss))
         sw.add_scalar('validation_loss', validation_loss, epoch)
     return validation_loss
 
@@ -90,6 +93,7 @@ if __name__ == '__main__':
 
     sw = SummaryWriter(logdir=params_path, flush_secs=5)
     print(net)
+    logging.info(net)
 
 
     best_epoch = 0
@@ -101,7 +105,9 @@ if __name__ == '__main__':
         params_filename = os.path.join(params_path, 'epoch_%s.params' % start_epoch)
         net.load_state_dict(torch.load(params_filename))
         print('start epoch:', start_epoch)
+        logging.info('start epoch:', start_epoch)
         print('load weight from: ', params_filename)
+        logging.info('load weight from: ', params_filename)
 
     # train model
     for epoch in range(start_epoch, 300):
@@ -113,6 +119,7 @@ if __name__ == '__main__':
             best_epoch = epoch
             torch.save(net.state_dict(), params_filename)
             print('save parameters to file: %s' % params_filename)
+            logging.info('save parameters to file: %s' % params_filename)
 
         net.train()  # ensure dropout layers are in train mode
         kl_train = []
@@ -146,6 +153,7 @@ if __name__ == '__main__':
         nll_train_ = torch.tensor(nll_train)
         kl_train_ = torch.tensor(kl_train)
         print('epoch: %s, kl loss: %.2f, nll loss: %.2f' % (epoch,  kl_train_.mean(), nll_train_.mean()))
+        logging.info('epoch: %s, kl loss: %.2f, nll loss: %.2f' % (epoch,  kl_train_.mean(), nll_train_.mean()))
         if epoch == 30:
             adjust_learning_rate(optimizer, 0.0002)
         if epoch == 100:
