@@ -1,5 +1,8 @@
-
+# Ignore all .params files
 *.params
+
+# But not this one
+!experiments/swat_test/test_model.params
 *.npy
 *.csv
 
