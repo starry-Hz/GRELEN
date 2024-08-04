@@ -58,7 +58,7 @@ if __name__ == '__main__':
     net = Grelen(config.device, T, target_T, Graph_learner_n_hid, Graph_learner_n_head_dim, Graph_learner_head,
                  temperature, hard, GRU_n_dim, max_diffusion_step, num_nodes, num_rnn_layers, filter_type, do_prob=0.).to(config.device)
 
-    # 加载模型参数
+    # 加载模型参数 self.param_file = "experiments/swat_test/test_model.params"
     param_file = config.param_file
     net.load_state_dict(torch.load(param_file))
 
