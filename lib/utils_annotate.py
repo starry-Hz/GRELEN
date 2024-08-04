@@ -13,6 +13,11 @@ import torch.nn.functional as F  # 导入PyTorch中的功能模块
 # 设置设备为GPU（如果可用），否则为CPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+import logging
+# 日志配置
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s:%(levelname)s:%(message)s')
+
 def sample_gumbel(shape, eps=1e-10):
     """
     从Gumbel(0, 1)分布中采样
@@ -63,6 +68,7 @@ def gumbel_softmax(logits, tau=1, hard=False, eps=1e-10):
 def kl_categorical(preds, log_prior, num_atoms, eps=1e-16):
     """
     计算KL散度
+    ********KL散度损失,3.7中的L2********
 
     preds: 预测分布
     log_prior: 先验分布的对数
@@ -75,17 +81,23 @@ def kl_categorical(preds, log_prior, num_atoms, eps=1e-16):
 def nll_gaussian(preds, target, variance, add_const=False):
     """
     计算高斯负对数似然
+    ********总重建损失,3.7中的L1********
+    评估预测值与真实值之间的误差
 
-    preds: 预测值
-    target: 目标值
-    variance: 方差
-    add_const: 是否添加常数项
+    preds: 预测值 (tensor)
+    target: 目标值 (tensor)
+    variance: 方差 (float)
+    add_const: 是否添加常数项 (bool)
     """
-    neg_log_p = ((preds - target) ** 2 / (2 * variance))  # 计算负对数似然
+    # 计算负对数似然
+    neg_log_p = ((preds - target) ** 2 / (2 * variance))  # 计算平方误差并除以2倍方差
+
     if add_const:
-        const = 0.5 * np.log(2 * np.pi * variance)  # 计算常数项
-        neg_log_p += const  # 添加常数项
-    return neg_log_p.sum() / (target.size(0) * target.size(1))  # 返回归一化的负对数似然
+        const = 0.5 * np.log(2 * np.pi * variance)  # 计算常数项 0.5 * log(2 * pi * variance)
+        neg_log_p += const  # 添加常数项到负对数似然中
+
+    # 返回归一化的负对数似然
+    return neg_log_p.sum() / (target.size(0) * target.size(1))  # 求和并除以目标值的元素数量（批量大小和序列长度的乘积）
 
 def adjust_learning_rate(optimizer, lr):
     """
@@ -147,6 +159,8 @@ def load_data_train(filename, DEVICE, batch_size, shuffle=True):
     # 打印训练和验证数据的尺寸
     print('train:', train_x_tensor.size(), train_target_tensor.size())
     print('val:', val_x_tensor.size(), val_target_tensor.size())
+    logging.info(f'train: {train_x_tensor.size()}, {train_target_tensor.size()}')
+    logging.info(f'val: {val_x_tensor.size()}, {val_target_tensor.size()}')
 
     # 返回训练数据加载器、训练目标数据、验证数据加载器、验证目标数据、均值和标准差
     return train_loader, train_target_tensor, val_loader, val_target_tensor, mean, std
@@ -180,9 +194,10 @@ def moving_average(x, w):
     """
     计算移动平均值
 
-    x: 输入数据
-    w: 窗口大小
+    x: 输入数据 (array-like)
+    w: 窗口大小 (int)
     """
+    # 使用卷积计算移动平均值
     return np.convolve(x, np.ones(w), 'valid') / w  # 返回移动平均值
 
 def point_adjust_eval(anomaly_start, anomaly_end, down, loss, thr1, thr2):

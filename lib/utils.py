@@ -11,6 +11,11 @@ from torch.autograd import Variable
 import torch.nn.functional as F
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+import logging
+# 日志配置
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s:%(levelname)s:%(message)s')
+
 def sample_gumbel(shape, eps=1e-10):
     """
     NOTE: Stolen from https://github.com/pytorch/pytorch/pull/3341/commits/327fcfed4c44c62b208f750058d14d4dc1b9a9d3
@@ -137,6 +142,8 @@ def load_data_train(filename, DEVICE, batch_size, shuffle=True):
 
     print('train:', train_x_tensor.size(), train_target_tensor.size())
     print('val:', val_x_tensor.size(), val_target_tensor.size())
+    logging.info(f'train: {train_x_tensor.size()}, {train_target_tensor.size()}')
+    logging.info(f'val: {val_x_tensor.size()}, {val_target_tensor.size()}')
 
 
     return train_loader, train_target_tensor, val_loader, val_target_tensor, mean, std
