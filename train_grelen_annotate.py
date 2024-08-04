@@ -25,25 +25,23 @@ def val_epoch(net, val_loader, sw, epoch, config):
     # 从配置中获取参数
     B, N, T, target_T = config.B, config.N, config.T, config.target_T
     prior = config.prior
-    log_prior = torch.FloatTensor(np.log(prior))
-    log_prior = torch.unsqueeze(log_prior, 0)
-    log_prior = torch.unsqueeze(log_prior, 0)
-    log_prior = Variable(log_prior)
-    log_prior = log_prior.cuda()
-    # 将prior转换为log_prior，并将其转移到GPU
+    log_prior = torch.FloatTensor(np.log(prior))  # 将prior转换为log_prior
+    log_prior = torch.unsqueeze(log_prior, 0)  # 添加一个维度
+    log_prior = torch.unsqueeze(log_prior, 0)  # 再添加一个维度
+    log_prior = Variable(log_prior)  # 转换为变量
+    log_prior = log_prior.cuda()  # 将变量转移到GPU
 
     # 将网络设置为评估模式
     net.train(False)
 
     # 不计算梯度
     with torch.no_grad():
-        tmp = []
+        tmp = []  # 临时存储每个batch的损失
         # 遍历验证数据加载器
         for batch_index, batch_data in enumerate(val_loader):
-            encoder_inputs, labels = batch_data
-            encoder_inputs = encoder_inputs[:, :, 0, :]
-            labels = labels[:, :, 0, T-target_T:]
-            # 处理输入和标签数据
+            encoder_inputs, labels = batch_data  # 获取输入数据和标签
+            encoder_inputs = encoder_inputs[:, :, 0, :]  # 处理输入数据
+            labels = labels[:, :, 0, T-target_T:]  # 处理标签数据
 
             # 前向传播
             prob, output = net(encoder_inputs)
@@ -51,9 +49,8 @@ def val_epoch(net, val_loader, sw, epoch, config):
             # 计算KL散度损失和负对数似然损失
             loss_kl = kl_categorical(torch.mean(prob, 1), log_prior, 1).to(device)
             loss_nll = nll_gaussian(output, labels, variation).to(device)
-            loss = loss_kl + loss_nll
-            tmp.append(loss.item())
-            # 计算总损失并保存
+            loss = loss_kl + loss_nll  # 总损失
+            tmp.append(loss.item())  # 保存损失
 
         # 计算平均验证损失
         validation_loss = sum(tmp) / len(tmp)
@@ -75,11 +72,11 @@ if __name__ == '__main__':
     config = Config()
 
     # 从配置中获取参数
-    device = config.device
-    batch_size = config.batch_size
-    learning_rate = config.learning_rate
-    epochs = config.epochs
-    train_filename = config.train_filename
+    device = config.device  # 设备
+    batch_size = config.batch_size  # 批处理大小
+    learning_rate = config.learning_rate  # 学习率
+    epochs = config.epochs  # 训练周期数
+    train_filename = config.train_filename  # 训练数据文件名
 
     # 加载训练和验证数据
     train_loader, train_target_tensor, val_loader, val_target_tensor, _mean, _std = load_data_train(train_filename, device, batch_size)
@@ -112,11 +109,11 @@ if __name__ == '__main__':
     variation = 1
 
     # 将prior转换为log_prior，并将其转移到GPU
-    log_prior = torch.FloatTensor(np.log(prior))
-    log_prior = torch.unsqueeze(log_prior, 0)
-    log_prior = torch.unsqueeze(log_prior, 0)
-    log_prior = Variable(log_prior)
-    log_prior = log_prior.cuda()
+    log_prior = torch.FloatTensor(np.log(prior))  # 将prior转换为log_prior
+    log_prior = torch.unsqueeze(log_prior, 0)  # 添加一个维度
+    log_prior = torch.unsqueeze(log_prior, 0)  # 再添加一个维度
+    log_prior = Variable(log_prior)  # 转换为变量
+    log_prior = log_prior.cuda()  # 将变量转移到GPU
 
     # 初始化Grelen模型并将其转移到GPU
     net = Grelen(
@@ -140,8 +137,8 @@ if __name__ == '__main__':
     # 初始化训练过程中的变量
     best_epoch = 0
     global_step = 0
-    best_val_loss = np.inf
-    start_time = time()
+    best_val_loss = np.inf  # 初始化为正无穷
+    start_time = time()  # 记录开始时间
 
     # 如果start_epoch大于0，则加载之前的模型参数
     if start_epoch > 0:
@@ -173,34 +170,32 @@ if __name__ == '__main__':
         nll_train = []
         # 遍历训练数据加载器
         for batch_index, batch_data in enumerate(train_loader):
-            encoder_inputs, labels = batch_data
-            encoder_inputs = encoder_inputs[:, :, 0, :]
-            labels = labels[:, :, 0, T - target_T:]
-            # 处理输入和标签数据
+            encoder_inputs, labels = batch_data  # 获取输入数据和标签
+            encoder_inputs = encoder_inputs[:, :, 0, :]  # 处理输入数据
+            labels = labels[:, :, 0, T - target_T:]  # 处理标签数据
 
             # 前向传播
-            optimizer.zero_grad()
+            optimizer.zero_grad()  # 梯度清零
             prob, output = net(encoder_inputs)
 
             # 计算KL散度损失和负对数似然损失
             loss_kl = kl_categorical(torch.mean(prob, 1), log_prior, 1).to(device)
             loss_nll = nll_gaussian(output, labels, variation).to(device)
-            loss = loss_kl + loss_nll
-            nll_train.append(loss_nll)
-            kl_train.append(loss_kl)
-            # 计算总损失并保存
+            loss = loss_kl + loss_nll  # 总损失
+            nll_train.append(loss_nll)  # 记录负对数似然损失
+            kl_train.append(loss_kl)  # 记录KL散度损失
 
             # 反向传播和优化
             loss.to(device)
-            loss.backward()
-            optimizer.step()
+            loss.backward()  # 反向传播
+            optimizer.step()  # 优化一步
 
             # 记录训练损失
             training_loss = loss.item()
             global_step += 1
-            sw.add_scalar('training_loss', training_loss, global_step)
-            sw.add_scalar('kl_loss', loss_kl.item(), global_step)
-            sw.add_scalar('nll_loss', loss_nll.item(), global_step)
+            sw.add_scalar('training_loss', training_loss, global_step)  # 记录训练损失
+            sw.add_scalar('kl_loss', loss_kl.item(), global_step)  # 记录KL损失
+            sw.add_scalar('nll_loss', loss_nll.item(), global_step)  # 记录负对数似然损失
 
         # 打印并记录每个epoch的平均KL损失和负对数似然损失
         nll_train_ = torch.tensor(nll_train)
