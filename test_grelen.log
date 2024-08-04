@@ -17,3 +17,19 @@
    macro avg       0.92      0.94      0.93      7421
 weighted avg       0.97      0.97      0.97      7421
 
+2024-08-04 15:03:10,495:INFO:Model loaded...
+2024-08-04 15:03:27,445:INFO:Graph saved...
+2024-08-04 15:03:27,446:INFO:Evaluation...
+2024-08-04 15:06:16,781:INFO:F1 score: 0.8802197802197802
+2024-08-04 15:06:16,786:INFO:Precision score: 0.8585209003215434
+2024-08-04 15:06:16,790:INFO:Recall score: 0.90304396843292
+2024-08-04 15:06:16,806:INFO:Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       0.99      0.98      0.98      6534
+         1.0       0.86      0.90      0.88       887
+
+    accuracy                           0.97      7421
+   macro avg       0.92      0.94      0.93      7421
+weighted avg       0.97      0.97      0.97      7421
+
