@@ -4,9 +4,18 @@ sys.path.append('..')  # 将上级目录添加到系统路径中，以便导入�
 from lib.utils import *  # 从 lib.utils 模块中导入所有功能，用于后续代码中的工具函数
 
 # 定义一个多层感知机模型（MLP）
+"""
+多层感知机(MLP,Multilayer Perceptron)也叫人工神经网络(ANN,Artificial Neural Network)
+Figure3中的Feature Extraction(提取特征)
+***输入时间序列数据通过MLP类进行特征提取***
+多个时间序列S通过特征提取转换为隐含表示h
+
+相关代码：
+X = self.mlp1(inputs)  # 使用 MLP 提取特征Graph_learner类中的forward函数
+"""
 class MLP(nn.Module):
     """Two-layer fully-connected ELU net with batch norm."""
-    # 定义一个具有两个全连接层、ELU 激活函数和批量归一化的多层感知机模型
+    # 定义一个具有两个全连接层、ELU(指数线性单元) 激活函数和批量归一化的多层感知机模型
 
     def __init__(self, n_in, n_hid, n_out, do_prob=0.):
         """
@@ -26,7 +35,7 @@ class MLP(nn.Module):
 
     def init_weights(self):
         """
-        初始化权重和偏置
+        初始化模型中所有全连接层和批量归一化层的权重和偏置
         """
         for m in self.modules():  # 遍历模型中的所有子模块
             if isinstance(m, nn.Linear):  # 如果子模块是全连接层
@@ -58,6 +67,15 @@ class MLP(nn.Module):
         return self.batch_norm(x)  # 返回批量归一化后的输出
 
 # 定义一个图学习模型
+"""
+Figure3中的Relation Inference(关系推断)部分,显示了如何从提取的特征h推断出节点之间的关系𝜃
+
+在输入数据中学习节点之间的关系
+1.特征提取:通过MLP模型对输入数据进行特征提取,将其转换为更高维的隐含表示。   代码中的 self.mlp1 部分
+2.计算查询和键:通过'wq'和'wk'线性层计算查询和键向量。   代码中的 self.Wq(X) 和 self.Wk(X) 部分。
+3.关系推断:通过查询向量和键向量的点积计算注意力权重矩阵。通过向量之间的点积来推断节点之间的关系。点积结果表示节点之间的相似度和关联程度,即注意力权重。
+代码中的 torch.matmul(Xq, Xk.transpose(-1, -2)) 部分，对应图中的关系推断部分。
+"""
 class Graph_learner(nn.Module):
     def __init__(self, n_in, n_hid, n_head_dim, head, do_prob=0.):  # n_in = T
         """
@@ -75,6 +93,7 @@ class Graph_learner(nn.Module):
         self.n_head_dim = n_head_dim  # 每个头的维度
 
         self.mlp1 = MLP(n_in, n_hid, n_hid, do_prob)  # 定义一个 MLP 模型，用于处理输入数据
+        # Wq和Wk线性层用于计算关系矩阵
         self.Wq = nn.Linear(n_hid, n_head_dim * head)  # 定义查询权重矩阵，维度为 n_hid 到 n_head_dim * head
         self.Wk = nn.Linear(n_hid, n_head_dim * head)  # 定义键权重矩阵，维度为 n_hid 到 n_head_dim * head
         for m in [self.Wq, self.Wk]:  # 对权重矩阵进行初始化
@@ -96,10 +115,14 @@ class Graph_learner(nn.Module):
         Xk = Xk.view(B, N, self.head, self.n_head_dim)  # 重塑键向量，形状为 [B, N, head, head_dim]
         Xq = Xq.permute(0, 2, 1, 3)  # 调整维度顺序，形状为 [B, head, N, head_dim]
         Xk = Xk.permute(0, 2, 1, 3)  # 调整维度顺序，形状为 [B, head, N, head_dim]
-        probs = torch.matmul(Xq, Xk.transpose(-1, -2))  # 计算注意力权重矩阵
+        probs = torch.matmul(Xq, Xk.transpose(-1, -2))  # 计算注意力权重矩阵    Relation Inference,Figure3中的关系推断
         return probs
 
-# 定义一个带有图卷积操作的 GRU 单元（DCGRU 单元）
+# 定义一个带有图卷积操作的 GRU 单元（DCGRU 单元）***Decoder***
+"""
+Figure3中的Decoder部分,展示了如何通过系列重建模块将潜在向量Z转换回时间序列数据,并使用学习到的图结重建数据
+从时空数据中提取特征，计算更新和重置门，并更新隐藏状态，通过图卷积实现时空依赖关系的捕捉和建模。
+"""
 class DCGRUCell_(torch.nn.Module):
     def __init__(self, device, num_units, max_diffusion_step, num_nodes, nonlinearity='tanh',
                  filter_type="laplacian", use_gc_for_ru=True):
@@ -113,20 +136,20 @@ class DCGRUCell_(torch.nn.Module):
         :param filter_type: 图卷积滤波器类型（'laplacian' 或其他）
         :param use_gc_for_ru: 是否使用图卷积来计算更新和重置门
         """
-        super().__init__()
+        super().__init__()  # 调用父类的初始化方法
         self._activation = torch.tanh if nonlinearity == 'tanh' else torch.relu  # 根据 nonlinearity 选择激活函数
-        self.device = device  # 设备
-        self._num_nodes = num_nodes  # 节点数量
-        self._num_units = num_units  # 单元数
-        self._max_diffusion_step = max_diffusion_step  # 最大扩散步数
-        self._supports = []  # 支持的图卷积
-        self._use_gc_for_ru = use_gc_for_ru  # 是否使用图卷积计算更新和重置门
+        self.device = device  # 设置设备
+        self._num_nodes = num_nodes  # 设置节点数量
+        self._num_units = num_units  # 设置单元数量
+        self._max_diffusion_step = max_diffusion_step  # 设置最大扩散步数
+        self._supports = []  # 初始化支持的图卷积列表
+        self._use_gc_for_ru = use_gc_for_ru  # 设置是否使用图卷积计算更新和重置门
 
         # 定义用于图卷积的线性层
-        self._gconv_0 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units * 2)
-        self._gconv_1 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units * 2)
-        self._gconv_c_0 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units)
-        self._gconv_c_1 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units)
+        self._gconv_0 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units * 2)  # 定义第一个图卷积层
+        self._gconv_1 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units * 2)  # 定义第二个图卷积层
+        self._gconv_c_0 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units)  # 定义第三个图卷积层，用于计算新的隐藏状态
+        self._gconv_c_1 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units)  # 定义第四个图卷积层，用于计算新的隐藏状态
         for m in self.modules():  # 遍历模型中的所有子模块
             if isinstance(m, nn.Linear):  # 如果子模块是全连接层
                 nn.init.xavier_normal_(m.weight.data)  # 使用 Xavier 正态分布初始化权重
@@ -166,10 +189,10 @@ class DCGRUCell_(torch.nn.Module):
         :param L: 输入矩阵
         :return: 构建后的稀疏矩阵
         """
-        L = L.tocoo()
-        indices = np.column_stack((L.row, L.col))
-        indices = indices[np.lexsort((indices[:, 0], indices[:, 1]))]
-        L = torch.sparse_coo_tensor(indices.T, L.data, L.shape, device=device)
+        L = L.tocoo()  # 将矩阵转换为 COOrdinate 格式
+        indices = np.column_stack((L.row, L.col))  # 获取矩阵的行列索引
+        indices = indices[np.lexsort((indices[:, 0], indices[:, 1]))]  # 按行列排序索引
+        L = torch.sparse_coo_tensor(indices.T, L.data, L.shape, device=device)  # 构建稀疏张量
         return L
 
     def _calculate_random_walk_matrix(self, adj_mx):
@@ -178,27 +201,27 @@ class DCGRUCell_(torch.nn.Module):
         :param adj_mx: 邻接矩阵
         :return: 随机游走矩阵
         """
-        adj_mx = adj_mx + torch.eye(int(adj_mx.shape[0])).to(self.device)
-        d = torch.sum(adj_mx, 1)
-        d_inv = 1. / d
-        d_inv = torch.where(torch.isinf(d_inv), torch.zeros(d_inv.shape).to(self.device), d_inv)
-        d_mat_inv = torch.diag(d_inv)
-        random_walk_mx = torch.mm(d_mat_inv, adj_mx)
+        adj_mx = adj_mx + torch.eye(int(adj_mx.shape[0])).to(self.device)  # 在邻接矩阵上加单位矩阵
+        d = torch.sum(adj_mx, 1)  # 计算每个节点的度
+        d_inv = 1. / d  # 计算度的倒数
+        d_inv = torch.where(torch.isinf(d_inv), torch.zeros(d_inv.shape).to(self.device), d_inv)  # 处理无穷大的情况
+        d_mat_inv = torch.diag(d_inv)  # 构建度的倒数对角矩阵
+        random_walk_mx = torch.mm(d_mat_inv, adj_mx)  # 计算随机游走矩阵
         return random_walk_mx
 
-    def _calculate_random_walk0(self, adj_mx, B):  # adj_mx 是 tensor 形式
+    def _calculate_random_walk0(self, adj_mx, B):
         """
         计算随机游走矩阵，适用于批量操作
         :param adj_mx: 邻接矩阵
         :param B: 批量大小
         :return: 随机游走矩阵
         """
-        adj_mx = adj_mx + torch.eye(int(adj_mx.shape[1])).unsqueeze(0).repeat(B, 1, 1).to(self.device)
-        d = torch.sum(adj_mx, 1)
-        d_inv = 1. / d
-        d_inv = torch.where(torch.isinf(d_inv), torch.zeros(d_inv.shape).to(self.device), d_inv)
-        d_mat_inv = torch.diag_embed(d_inv)
-        random_walk_mx = torch.matmul(d_mat_inv, adj_mx)
+        adj_mx = adj_mx + torch.eye(int(adj_mx.shape[1])).unsqueeze(0).repeat(B, 1, 1).to(self.device)  # 在邻接矩阵上加单位矩阵，并扩展为批量大小
+        d = torch.sum(adj_mx, 1)  # 计算每个节点的度
+        d_inv = 1. / d  # 计算度的倒数
+        d_inv = torch.where(torch.isinf(d_inv), torch.zeros(d_inv.shape).to(self.device), d_inv)  # 处理无穷大的情况
+        d_mat_inv = torch.diag_embed(d_inv)  # 构建度的倒数对角矩阵
+        random_walk_mx = torch.matmul(d_mat_inv, adj_mx)  # 计算随机游走矩阵
         return random_walk_mx
 
     @staticmethod
@@ -209,8 +232,8 @@ class DCGRUCell_(torch.nn.Module):
         :param x_: 张量 x_
         :return: 连接后的张量
         """
-        x_ = x_.unsqueeze(0)
-        return torch.cat([x, x_], dim=0)
+        x_ = x_.unsqueeze(0)  # 在第一个维度上增加一个维度
+        return torch.cat([x, x_], dim=0)  # 在第一个维度上连接两个张量
 
     def _fc(self, inputs, state, output_size, bias_start=0.0):
         """
@@ -221,15 +244,15 @@ class DCGRUCell_(torch.nn.Module):
         :param bias_start: 偏置的初始值
         :return: 计算后的值
         """
-        batch_size = inputs.shape[0]
-        inputs = torch.reshape(inputs, (batch_size * self._num_nodes, -1))
-        state = torch.reshape(state, (batch_size * self._num_nodes, -1))
-        inputs_and_state = torch.cat([inputs, state], dim=-1)
-        input_size = inputs_and_state.shape[-1]
-        weights = self._fc_params.get_weights((input_size, output_size))
-        value = torch.sigmoid(torch.matmul(inputs_and_state, weights))
-        biases = self._fc_params.get_biases(output_size, bias_start)
-        value += biases
+        batch_size = inputs.shape[0]  # 获取批量大小
+        inputs = torch.reshape(inputs, (batch_size * self._num_nodes, -1))  # 重塑输入数据的形状
+        state = torch.reshape(state, (batch_size * self._num_nodes, -1))  # 重塑隐藏状态的形状
+        inputs_and_state = torch.cat([inputs, state], dim=-1)  # 连接输入数据和隐藏状态
+        input_size = inputs_and_state.shape[-1]  # 获取输入大小
+        weights = self._fc_params.get_weights((input_size, output_size))  # 获取全连接层的权重
+        value = torch.sigmoid(torch.matmul(inputs_and_state, weights))  # 计算全连接层的输出，并应用 sigmoid 函数
+        biases = self._fc_params.get_biases(output_size, bias_start)  # 获取全连接层的偏置
+        value += biases  # 加上偏置
         return value
 
     def _gconv(self, inputs, adj_mx, state, output_size, bias_start=0.0):
@@ -242,45 +265,45 @@ class DCGRUCell_(torch.nn.Module):
         :param bias_start: 偏置的初始值
         :return: 计算后的值
         """
-        B = inputs.shape[0]
-        adj_mx0 = self._calculate_random_walk0(adj_mx, B)
-        adj_mx1 = self._calculate_random_walk0(adj_mx.permute(0, 2, 1), B)
+        B = inputs.shape[0]  # 获取批量大小
+        adj_mx0 = self._calculate_random_walk0(adj_mx, B)  # 计算随机游走矩阵
+        adj_mx1 = self._calculate_random_walk0(adj_mx.permute(0, 2, 1), B)  # 计算转置后的随机游走矩阵
 
-        batch_size = inputs.shape[0]
-        inputs = torch.reshape(inputs, (batch_size, self._num_nodes, -1))
-        state = torch.reshape(state, (batch_size, self._num_nodes, -1))
-        inputs_and_state = torch.cat([inputs, state], dim=2)
-        input_size = inputs_and_state.size(2)
+        batch_size = inputs.shape[0]  # 获取批量大小
+        inputs = torch.reshape(inputs, (batch_size, self._num_nodes, -1))  # 重塑输入数据的形状
+        state = torch.reshape(state, (batch_size, self._num_nodes, -1))  # 重塑隐藏状态的形状
+        inputs_and_state = torch.cat([inputs, state], dim=2)  # 连接输入数据和隐藏状态
+        input_size = inputs_and_state.size(2)  # 获取输入大小
 
         x = inputs_and_state  # [B, N, 2 * C]
-        x0_0 = torch.unsqueeze(x, 0)
-        x1_0 = torch.unsqueeze(x, 0)
+        x0_0 = torch.unsqueeze(x, 0)  # 在第一个维度上增加一个维度
+        x1_0 = torch.unsqueeze(x, 0)  # 在第一个维度上增加一个维度
 
-        if self._max_diffusion_step == 0:
-            pass
+        if self._max_diffusion_step == 0:  # 如果最大扩散步数为0
+            pass  # 不进行扩散
         else:
-            x0_1 = torch.matmul(adj_mx0, x0_0)
-            x1_1 = torch.matmul(adj_mx1, x1_0)
-            x0_0 = torch.cat([x0_0, x0_1], dim=0)
-            x1_0 = torch.cat([x1_0, x1_1], dim=0)
+            x0_1 = torch.matmul(adj_mx0, x0_0)  # 计算扩散步数为1的图卷积
+            x1_1 = torch.matmul(adj_mx1, x1_0)  # 计算转置后的扩散步数为1的图卷积
+            x0_0 = torch.cat([x0_0, x0_1], dim=0)  # 连接扩散步数为0和1的图卷积结果
+            x1_0 = torch.cat([x1_0, x1_1], dim=0)  # 连接转置后的扩散步数为0和1的图卷积结果
 
-            for k in range(2, self._max_diffusion_step + 1):
-                x0_2 = torch.matmul(adj_mx0, x0_1)
-                x1_2 = torch.matmul(adj_mx1, x1_1)
-                x0_0 = torch.cat([x0_0, x0_1], dim=0)
-                x1_0 = torch.cat([x1_0, x1_1], dim=0)
-                x0_1 = x0_2
-                x1_1 = x1_2
+            for k in range(2, self._max_diffusion_step + 1):  # 计算更大扩散步数的图卷积
+                x0_2 = torch.matmul(adj_mx0, x0_1)  # 计算扩散步数为k的图卷积
+                x1_2 = torch.matmul(adj_mx1, x1_1)  # 计算转置后的扩散步数为k的图卷积
+                x0_0 = torch.cat([x0_0, x0_1], dim=0)  # 连接扩散步数为0到k的图卷积结果
+                x1_0 = torch.cat([x1_0, x1_1], dim=0)  # 连接转置后的扩散步数为0到k的图卷积结果
+                x0_1 = x0_2  # 更新扩散步数为k的图卷积结果
+                x1_1 = x1_2  # 更新转置后的扩散步数为k的图卷积结果
 
-        num_matrices = self._max_diffusion_step + 1  # Adds for x itself.
-        x0_0 = x0_0.permute(1, 2, 3, 0)
-        x1_0 = x1_0.permute(1, 2, 3, 0)
-        x0_0 = torch.reshape(x0_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])
-        x1_0 = torch.reshape(x1_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])
-        x0_0 = self._gconv_0(x0_0)
-        x1_0 = self._gconv_1(x1_0)
+        num_matrices = self._max_diffusion_step + 1  # 确定图卷积矩阵的数量
+        x0_0 = x0_0.permute(1, 2, 3, 0)  # 调整图卷积结果的维度
+        x1_0 = x1_0.permute(1, 2, 3, 0)  # 调整转置后的图卷积结果的维度
+        x0_0 = torch.reshape(x0_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])  # 重塑图卷积结果的形状
+        x1_0 = torch.reshape(x1_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])  # 重塑转置后的图卷积结果的形状
+        x0_0 = self._gconv_0(x0_0)  # 计算图卷积的输出
+        x1_0 = self._gconv_1(x1_0)  # 计算转置后图卷积的输出
 
-        return torch.reshape(x0_0 + x1_0, [batch_size, self._num_nodes * output_size])
+        return torch.reshape(x0_0 + x1_0, [batch_size, self._num_nodes * output_size])  # 返回图卷积的输出
 
     def _gconv_c(self, inputs, adj_mx, state, output_size, bias_start=0.0):
         """
@@ -292,45 +315,46 @@ class DCGRUCell_(torch.nn.Module):
         :param bias_start: 偏置的初始值
         :return: 计算后的值
         """
-        B = inputs.shape[0]
-        adj_mx0 = self._calculate_random_walk0(adj_mx, B)
-        adj_mx1 = self._calculate_random_walk0(adj_mx.permute(0, 2, 1), B)
+        B = inputs.shape[0]  # 获取批量大小
+        adj_mx0 = self._calculate_random_walk0(adj_mx, B)  # 计算随机游走矩阵
+        adj_mx1 = self._calculate_random_walk0(adj_mx.permute(0, 2, 1), B)  # 计算转置后的随机游走矩阵
 
-        batch_size = inputs.shape[0]
-        inputs = torch.reshape(inputs, (batch_size, self._num_nodes, -1))
-        state = torch.reshape(state, (batch_size, self._num_nodes, -1))
-        inputs_and_state = torch.cat([inputs, state], dim=2)
-        input_size = inputs_and_state.size(2)
+        batch_size = inputs.shape[0]  # 获取批量大小
+        inputs = torch.reshape(inputs, (batch_size, self._num_nodes, -1))  # 重塑输入数据的形状
+        state = torch.reshape(state, (batch_size, self._num_nodes, -1))  # 重塑隐藏状态的形状
+        inputs_and_state = torch.cat([inputs, state], dim=2)  # 连接输入数据和隐藏状态
+        input_size = inputs_and_state.size(2)  # 获取输入大小
 
         x = inputs_and_state  # [B, N, 2 * C]
-        x0_0 = torch.unsqueeze(x, 0)
-        x1_0 = torch.unsqueeze(x, 0)
+        x0_0 = torch.unsqueeze(x, 0)  # 在第一个维度上增加一个维度
+        x1_0 = torch.unsqueeze(x, 0)  # 在第一个维度上增加一个维度
 
-        if self._max_diffusion_step == 0:
-            pass
+        if self._max_diffusion_step == 0:  # 如果最大扩散步数为0
+            pass  # 不进行扩散
         else:
-            x0_1 = torch.matmul(adj_mx0, x0_0)
-            x1_1 = torch.matmul(adj_mx1, x1_0)
-            x0_0 = torch.cat([x0_0, x0_1], dim=0)
-            x1_0 = torch.cat([x1_0, x1_1], dim=0)
+            x0_1 = torch.matmul(adj_mx0, x0_0)  # 计算扩散步数为1的图卷积
+            x1_1 = torch.matmul(adj_mx1, x1_0)  # 计算转置后的扩散步数为1的图卷积
+            x0_0 = torch.cat([x0_0, x0_1], dim=0)  # 连接扩散步数为0和1的图卷积结果
+            x1_0 = torch.cat([x1_0, x1_1], dim=0)  # 连接转置后的扩散步数为0和1的图卷积结果
 
-            for k in range(2, self._max_diffusion_step + 1):
-                x0_2 = torch.matmul(adj_mx0, x0_1)
-                x1_2 = torch.matmul(adj_mx1, x1_1)
-                x0_0 = torch.cat([x0_0, x0_1], dim=0)
-                x1_0 = torch.cat([x1_0, x1_1], dim=0)
-                x0_1 = x0_2
-                x1_1 = x1_2
+            for k in range(2, self._max_diffusion_step + 1):  # 计算更大扩散步数的图卷积
+                x0_2 = torch.matmul(adj_mx0, x0_1)  # 计算扩散步数为k的图卷积
+                x1_2 = torch.matmul(adj_mx1, x1_1)  # 计算转置后的扩散步数为k的图卷积
+                x0_0 = torch.cat([x0_0, x0_1], dim=0)  # 连接扩散步数为0到k的图卷积结果
+                x1_0 = torch.cat([x1_0, x1_1], dim=0)  # 连接转置后的扩散步数为0到k的图卷积结果
+                x0_1 = x0_2  # 更新扩散步数为k的图卷积结果
+                x1_1 = x1_2  # 更新转置后的扩散步数为k的图卷积结果
 
-        num_matrices = self._max_diffusion_step + 1  # Adds for x itself.
-        x0_0 = x0_0.permute(1, 2, 3, 0)
-        x1_0 = x1_0.permute(1, 2, 3, 0)
-        x0_0 = torch.reshape(x0_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])
-        x1_0 = torch.reshape(x1_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])
-        x0_0 = self._gconv_c_0(x0_0)
-        x1_0 = self._gconv_c_1(x1_0)
+        num_matrices = self._max_diffusion_step + 1  # 确定图卷积矩阵的数量
+        x0_0 = x0_0.permute(1, 2, 3, 0)  # 调整图卷积结果的维度
+        x1_0 = x1_0.permute(1, 2, 3, 0)  # 调整转置后的图卷积结果的维度
+        x0_0 = torch.reshape(x0_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])  # 重塑图卷积结果的形状
+        x1_0 = torch.reshape(x1_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])  # 重塑转置后的图卷积结果的形状
+        x0_0 = self._gconv_c_0(x0_0)  # 计算图卷积的输出
+        x1_0 = self._gconv_c_1(x1_0)  # 计算转置后图卷积的输出
 
-        return torch.reshape(x0_0 + x1_0, [batch_size, self._num_nodes * output_size])
+        return torch.reshape(x0_0 + x1_0, [batch_size, self._num_nodes * output_size])  # 返回图卷积的输出
+
 
 # 定义编码器模型
 class EncoderModel(nn.Module):
