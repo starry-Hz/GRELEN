@@ -30,6 +30,7 @@ class MLP(nn.Module):
         self.fc2 = nn.Linear(n_hid, n_out)  # 定义第二个全连接层，输入维度为 n_hid，输出维度为 n_out
         self.bn = nn.BatchNorm1d(n_out)  # 定义批量归一化层，用于规范化输出层的输出
         self.dropout_prob = do_prob  # 保存 dropout 概率
+        # dropout 是一种防止神经网络过拟合的正则化技术。基本思想：在每次训练过程中，随机丢弃一部分神经元，迫使神经网络不依赖某些特定的节点和路径，增强模型的泛化能力
 
         self.init_weights()  # 调用初始化权重的方法
 
@@ -80,11 +81,11 @@ class Graph_learner(nn.Module):
     def __init__(self, n_in, n_hid, n_head_dim, head, do_prob=0.):  # n_in = T
         """
         初始化图学习模型
-        :param n_in: 输入维度
-        :param n_hid: 隐藏层维度
-        :param n_head_dim: 每个头的维度
-        :param head: 头的数量
-        :param do_prob: dropout 的概率
+        :param n_in: 输入维度（特征数量 T)
+        :param n_hid: 隐藏层维度（用于 MLP 的隐藏层大小）
+        :param n_head_dim: 每个注意力头的维度
+        :param head: 注意力头的数量
+        :param do_prob: dropout 的概率（默认值为 0)
         """
         super(Graph_learner, self).__init__()
         self.n_hid = n_hid  # 隐藏层的维度
@@ -92,12 +93,16 @@ class Graph_learner(nn.Module):
         self.n_in = n_in  # 输入维度
         self.n_head_dim = n_head_dim  # 每个头的维度
 
+        # 定义一个多层感知机（MLP）用于特征提取
         self.mlp1 = MLP(n_in, n_hid, n_hid, do_prob)  # 定义一个 MLP 模型，用于处理输入数据
-        # Wq和Wk线性层用于计算关系矩阵
+        
+        # Wq 和 Wk 是用于计算查询（Query）和键（Key）的线性变换层
+        # 输出维度 n_head_dim * head，即多头注意力机制中每个头的维度乘以头的数量
         self.Wq = nn.Linear(n_hid, n_head_dim * head)  # 定义查询权重矩阵，维度为 n_hid 到 n_head_dim * head
         self.Wk = nn.Linear(n_hid, n_head_dim * head)  # 定义键权重矩阵，维度为 n_hid 到 n_head_dim * head
+
         for m in [self.Wq, self.Wk]:  # 对权重矩阵进行初始化
-            if isinstance(m, nn.Linear):
+            if isinstance(m, nn.Linear):  # 如果子模块是全连接层
                 nn.init.xavier_normal_(m.weight.data)  # 使用 Xavier 正态分布初始化权重
                 m.bias.data.fill_(0.1)  # 将偏置初始化为 0.1
 
@@ -110,13 +115,21 @@ class Graph_learner(nn.Module):
         X = self.mlp1(inputs)  # 通过 MLP 模型处理输入数据
         Xq = self.Wq(X)  # 计算查询向量
         Xk = self.Wk(X)  # 计算键向量
-        B, N, n_hid = Xq.shape  # 获取批量大小、节点数量和隐藏层维度
+
+        # 获取输入的维度信息
+        B, N, n_hid = Xq.shape  # 获取批量大小 B，节点数量 N，隐藏层维度 n_hid
+
+        # 调整查询和键向量的形状以适应多头注意力机制
         Xq = Xq.view(B, N, self.head, self.n_head_dim)  # 重塑查询向量，形状为 [B, N, head, head_dim]
         Xk = Xk.view(B, N, self.head, self.n_head_dim)  # 重塑键向量，形状为 [B, N, head, head_dim]
+
+        # 调整维度顺序，便于后续的矩阵乘法操作
         Xq = Xq.permute(0, 2, 1, 3)  # 调整维度顺序，形状为 [B, head, N, head_dim]
         Xk = Xk.permute(0, 2, 1, 3)  # 调整维度顺序，形状为 [B, head, N, head_dim]
+
+        # 计算注意力权重矩阵，使用矩阵乘法将查询向量和键向量相乘，并对最后两个维度进行转置
         probs = torch.matmul(Xq, Xk.transpose(-1, -2))  # 计算注意力权重矩阵    Relation Inference,Figure3中的关系推断
-        return probs
+        return probs # 返回注意力权重矩阵
 
 # 定义一个带有图卷积操作的 GRU 单元（DCGRU 单元）***Decoder***
 """
