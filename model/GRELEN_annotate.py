@@ -23,7 +23,7 @@ class MLP(nn.Module):
         :param n_in: 输入层的节点数
         :param n_hid: 隐藏层的节点数
         :param n_out: 输出层的节点数
-        :param do_prob: dropout 的概率，默认值为 0（即不使用 dropout）
+        :param do_prob: dropout 的概率，默认值为 0(即不使用 dropout)
         """
         super(MLP, self).__init__()  # 调用父类（nn.Module）的初始化函数
         self.fc1 = nn.Linear(n_in, n_hid)  # 定义第一个全连接层，输入维度为 n_in，输出维度为 n_hid
