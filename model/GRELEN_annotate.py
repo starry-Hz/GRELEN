@@ -435,6 +435,7 @@ class EncoderModel(nn.Module):
         # 返回最后一层的输出和所有隐藏状态
         return output, torch.stack(hidden_states)
 
+# 定义 GRELEN 模型
 class Grelen(nn.Module):
     """
     GRELEN Model.
@@ -443,7 +444,7 @@ class Grelen(nn.Module):
                  hard, GRU_n_dim, max_diffusion_step, num_nodes, num_rnn_layers, filter_type, do_prob=0.):
         """
         初始化 GRELEN 模型
-        :param device: 设备（CPU 或 GPU）
+        :param device: 设备(CPU 或 GPU)
         :param T: 输入序列长度
         :param target_T: 目标序列长度
         :param Graph_learner_n_hid: 图学习器隐藏层维度
@@ -464,6 +465,7 @@ class Grelen(nn.Module):
         self.target_T = target_T  # 设置预测的目标序列长度
 
         # 初始化图学习器，负责学习节点之间的关系（Relation Inference 部分）
+        # 通过计算每个节点的q和k确定节点之间的关系，从而生成图结构的概率。
         self.graph_learner = Graph_learner(T, Graph_learner_n_hid, Graph_learner_n_head_dim, Graph_learner_head, do_prob)
         
         # 用于输入时序数据投影的线性层，投影维度为 GRU 的隐藏维度
@@ -482,6 +484,7 @@ class Grelen(nn.Module):
         self.head = Graph_learner_head  # 图学习器的头数量
 
         # 定义多个 EncoderModel 模型，用于对输入数据进行编码，每个图学习头都对应一个 EncoderModel
+        # 编码器从输入时序数据中提取特征,由多个EncoderModel模块组成,处理多头注意力的图结构。
         self.encoder_model = nn.ModuleList(
             [EncoderModel(self.device, GRU_n_dim, GRU_n_dim, max_diffusion_step, num_nodes, num_rnn_layers, filter_type)
              for _ in range(self.head - 1)]
@@ -508,7 +511,7 @@ class Grelen(nn.Module):
     def encoder(self, inputs, adj, head):
         """
         编码器的前向传播
-        :param inputs: 输入数据（形状为 B x N x T）
+        :param inputs: 输入数据（形状为 B x N x T)
         :param adj: 邻接矩阵（表示图结构）
         :param head: 图学习器的头编号
         :return: 编码后的隐藏状态张量
@@ -567,12 +570,15 @@ class Grelen(nn.Module):
 
         # 对每个头进行编码
         for head in range(self.head - 1):
-            # 调用编码器进行前向传播，并将编码结果存储到 state_for_output 中
+            # 调用编码器进行前向传播，从输入数据中提取时序特征，并在每个head生成对应的隐藏状态h，并将编码结果存储到 state_for_output 中
             state_for_output[head, ...] = self.encoder(input_projected, adj_list[head + 1, ...], head)
 
+        # state_for_output2和output对应图中的Decoder和Series Reconstruction部分
+        # 将编码后的时序特征通过线性层进行重构，生成预测输出 output。此过程对应图中的解码器和序列重构部分，它负责将编码后的特征（或隐藏状态）还原为预测的时间序列。
         # 对所有头的编码结果取平均值，并调整维度
         state_for_output2 = torch.mean(state_for_output, 0).permute(0, 1, 3, 2)
         # 通过输出层生成最终的预测结果
         output = self.linear_out(state_for_output2).squeeze(-1)[..., -1 - self.target_T:-1]
 
+        # prob表示图结构的学习结果(各节点的关系),output是基于图结构进行预测的时间序列
         return prob, output  # 返回图结构的概率和预测的时间序列结果
