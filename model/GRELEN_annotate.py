@@ -119,6 +119,7 @@ class Graph_learner(nn.Module):
         # 获取输入的维度信息
         B, N, n_hid = Xq.shape  # 获取批量大小 B，节点数量 N，隐藏层维度 n_hid
 
+        # 多头注意力机制
         # 调整查询和键向量的形状以适应多头注意力机制
         Xq = Xq.view(B, N, self.head, self.n_head_dim)  # 重塑查询向量，形状为 [B, N, head, head_dim]
         Xk = Xk.view(B, N, self.head, self.n_head_dim)  # 重塑键向量，形状为 [B, N, head, head_dim]
@@ -133,7 +134,7 @@ class Graph_learner(nn.Module):
 
 # 定义一个带有图卷积操作的 GRU 单元（DCGRU 单元）***Decoder***
 """
-Figure3中的Decoder部分,展示了如何通过系列重建模块将潜在向量Z转换回时间序列数据,并使用学习到的图结重建数据
+Figure3中的Decoder部分,展示了如何通过系列重建模块将潜在向量Z转换回时间序列数据,并使用学习到的图结构重建数据
 从时空数据中提取特征，计算更新和重置门，并更新隐藏状态，通过图卷积实现时空依赖关系的捕捉和建模。
 """
 class DCGRUCell_(torch.nn.Module):
@@ -141,12 +142,12 @@ class DCGRUCell_(torch.nn.Module):
                  filter_type="laplacian", use_gc_for_ru=True):
         """
         初始化 DCGRU 单元
-        :param device: 设备（CPU 或 GPU）
+        :param device: 设备(CPU 或 GPU)
         :param num_units: 单元数
         :param max_diffusion_step: 最大扩散步数
         :param num_nodes: 节点数量
-        :param nonlinearity: 非线性激活函数（'tanh' 或 'relu'）
-        :param filter_type: 图卷积滤波器类型（'laplacian' 或其他）
+        :param nonlinearity: 非线性激活函数('tanh' 或 'relu')
+        :param filter_type: 图卷积滤波器类型('laplacian' 或其他）
         :param use_gc_for_ru: 是否使用图卷积来计算更新和重置门
         """
         super().__init__()  # 调用父类的初始化方法
@@ -159,6 +160,8 @@ class DCGRUCell_(torch.nn.Module):
         self._use_gc_for_ru = use_gc_for_ru  # 设置是否使用图卷积计算更新和重置门
 
         # 定义用于图卷积的线性层
+        # 输入是 self._num_units * 2 * (self._max_diffusion_step + 1),输出是 self._num_units * 2
+        # _gconv_0和_gconv_1用于计算更新门和重置门，_gconv_c_0和_gconv_c_1用于计算候选隐藏状态
         self._gconv_0 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units * 2)  # 定义第一个图卷积层
         self._gconv_1 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units * 2)  # 定义第二个图卷积层
         self._gconv_c_0 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units)  # 定义第三个图卷积层，用于计算新的隐藏状态
@@ -171,9 +174,9 @@ class DCGRUCell_(torch.nn.Module):
     def forward(self, inputs, hx, adj):
         """
         前向传播
-        :param inputs: 输入数据
-        :param hx: 隐藏状态
-        :param adj: 图的邻接矩阵
+        :param inputs: 当前时间步的输入数据
+        :param hx: 上一个时间步的隐藏状态
+        :param adj: 当前图的邻接矩阵
         :return: 更新后的隐藏状态
         """
         output_size = 2 * self._num_units  # 输出大小为单元数量的两倍
@@ -184,15 +187,19 @@ class DCGRUCell_(torch.nn.Module):
         value = torch.sigmoid(fn(inputs, adj, hx, output_size, bias_start=1.0))  # 计算更新和重置门的值
 
         value = torch.reshape(value, (-1, self._num_nodes, output_size))  # 重塑值的形状
+        # r：重置门，用于决定是否忘记之前的信息；u：更新门，用于控制信息从当前输入和前一隐藏状态传递的比例
+        # r,u对应3.6中的rt'和ut'
         r, u = torch.split(tensor=value, split_size_or_sections=self._num_units, dim=-1)  # 分割更新和重置门的值
         r = torch.reshape(r, (-1, self._num_nodes * self._num_units))  # 重塑重置门的值
         u = torch.reshape(u, (-1, self._num_nodes * self._num_units))  # 重塑更新门的值
 
+        # r * hx将重置门的输出和隐藏状态相乘，调整隐藏状态中的信息
+        # c：候选新的隐藏状态，通过图卷积_gconv_c计算得到,对应3.6公式中的ct'
         c = self._gconv_c(inputs, adj, r * hx, self._num_units)  # 通过图卷积计算新的隐藏状态
         if self._activation is not None:
             c = self._activation(c)  # 应用激活函数
 
-        new_state = u * hx + (1.0 - u) * c  # 计算新的隐藏状态
+        new_state = u * hx + (1.0 - u) * c  # 计算新的隐藏状态,对应3.6公式中的hgt
         return new_state
 
     @staticmethod
@@ -225,6 +232,7 @@ class DCGRUCell_(torch.nn.Module):
     def _calculate_random_walk0(self, adj_mx, B):
         """
         计算随机游走矩阵，适用于批量操作
+        支持批处理的随机游走计算
         :param adj_mx: 邻接矩阵
         :param B: 批量大小
         :return: 随机游走矩阵
@@ -295,6 +303,7 @@ class DCGRUCell_(torch.nn.Module):
         if self._max_diffusion_step == 0:  # 如果最大扩散步数为0
             pass  # 不进行扩散
         else:
+            # 图卷积操作,对应3.6中的WQ*Ay
             x0_1 = torch.matmul(adj_mx0, x0_0)  # 计算扩散步数为1的图卷积
             x1_1 = torch.matmul(adj_mx1, x1_0)  # 计算转置后的扩散步数为1的图卷积
             x0_0 = torch.cat([x0_0, x0_1], dim=0)  # 连接扩散步数为0和1的图卷积结果
@@ -370,11 +379,15 @@ class DCGRUCell_(torch.nn.Module):
 
 
 # 定义编码器模型
+"""
+实现了一个基于图卷积门控单元(DCGRU)的编码器模型,主要用于处理时间序列数据和图结构数据。
+将输入数据与图的邻接矩阵相结合,学习节点之间的关系,通过循环网络层进行时间序列建模。
+"""
 class EncoderModel(nn.Module):
     def __init__(self, device, n_dim, n_hid, max_diffusion_step, num_nodes, num_rnn_layers, filter_type):
         """
         初始化编码器模型
-        :param device: 设备（CPU 或 GPU）
+        :param device: 设备(CPU 或 GPU)
         :param n_dim: 输入维度
         :param n_hid: 隐藏层维度
         :param max_diffusion_step: 最大扩散步数
@@ -390,7 +403,9 @@ class EncoderModel(nn.Module):
         self.num_nodes = num_nodes  # 节点数量
         self.num_rnn_layers = num_rnn_layers  # RNN 层数
         self.filter_type = filter_type  # 滤波器类型
+        # # 定义每层的隐藏状态大小：节点数 * 隐藏单元数
         self.hidden_state_size = self.num_nodes * self.rnn_units  # 隐藏状态大小
+        # 创建了num_rnn_layers个DCGRU单元,每层用于处理输入数据和邻接矩阵,并逐层递归更新隐藏状态
         self.dcgru_layers = nn.ModuleList(
             [DCGRUCell_(self.device, self.rnn_units, self.max_diffusion_step, self.num_nodes,
                        filter_type=self.filter_type) for _ in range(self.num_rnn_layers)])  # 定义多个 DCGRU 单元
@@ -405,17 +420,21 @@ class EncoderModel(nn.Module):
         """
         batch_size = inputs.shape[0]  # 获取批量大小
         if hidden_state is None:
+            # 如果没有提供隐藏状态，则初始化为全零
             hidden_state = torch.zeros((self.num_rnn_layers, batch_size, self.hidden_state_size)).to(self.device)  # 初始化隐藏状态
-        hidden_states = []  # 存储隐藏状态
-        output = inputs  # 输入数据
+        hidden_states = []  # 用于存储每一层的隐藏状态
+        output = inputs  # 输入数据作为初始的输出
+
+        # 逐层处理数据
         for layer_num, dcgru_layer in enumerate(self.dcgru_layers):
+            # 调用每一层 DCGRU，计算输出和更新隐藏状态
             next_hidden_state = dcgru_layer(output, hidden_state[layer_num], adj)  # 计算下一个隐藏状态
-            hidden_states.append(next_hidden_state)  # 保存隐藏状态
-            output = next_hidden_state  # 更新输出数据
+            hidden_states.append(next_hidden_state)  # 保存每一层的隐藏状态
+            output = next_hidden_state  # 更新输出，将其作为下一层的输入
 
-        return output, torch.stack(hidden_states)  # 返回输出和隐藏状态
+        # 返回最后一层的输出和所有隐藏状态
+        return output, torch.stack(hidden_states)
 
-# 定义 GRELEN 模型
 class Grelen(nn.Module):
     """
     GRELEN Model.
@@ -439,52 +458,72 @@ class Grelen(nn.Module):
         :param filter_type: 滤波器类型
         :param do_prob: dropout 概率
         """
-        super(Grelen, self).__init__()
-        self.device = device  # 设备
-        self.len_sequence = T  # 输入序列长度
-        self.target_T = target_T  # 目标序列长度
-        self.graph_learner = Graph_learner(T, Graph_learner_n_hid, Graph_learner_n_head_dim, Graph_learner_head,
-                                           do_prob)  # 图学习器
-        self.linear1 = nn.Linear(1, GRU_n_dim)  # 第一个线性层，用于投影
-        nn.init.xavier_normal_(self.linear1.weight.data)  # 初始化权重
-        self.linear1.bias.data.fill_(0.1)  # 初始化偏置
+        super(Grelen, self).__init__()  # 调用父类的初始化方法
+        self.device = device  # 设置模型运行的设备
+        self.len_sequence = T  # 设置输入序列长度
+        self.target_T = target_T  # 设置预测的目标序列长度
 
-        self.temperature = temperature  # Gumbel-softmax 温度参数
+        # 初始化图学习器，负责学习节点之间的关系（Relation Inference 部分）
+        self.graph_learner = Graph_learner(T, Graph_learner_n_hid, Graph_learner_n_head_dim, Graph_learner_head, do_prob)
+        
+        # 用于输入时序数据投影的线性层，投影维度为 GRU 的隐藏维度
+        self.linear1 = nn.Linear(1, GRU_n_dim)
+        
+        # 初始化线性层的权重，使用 Xavier 正态分布
+        nn.init.xavier_normal_(self.linear1.weight.data)
+        
+        # 将偏置初始化为 0.1
+        self.linear1.bias.data.fill_(0.1)
+
+        self.temperature = temperature  # Gumbel-softmax 的温度参数，用于控制采样的“随机性”
         self.hard = hard  # 是否使用硬 Gumbel-softmax
-        self.GRU_n_dim = GRU_n_dim  # GRU 隐藏层维度
-        self.num_nodes = num_nodes  # 节点数量
-        self.head = Graph_learner_head  # 图学习器头数量
+        self.GRU_n_dim = GRU_n_dim  # GRU 隐藏层的维度
+        self.num_nodes = num_nodes  # 图的节点数量
+        self.head = Graph_learner_head  # 图学习器的头数量
+
+        # 定义多个 EncoderModel 模型，用于对输入数据进行编码，每个图学习头都对应一个 EncoderModel
         self.encoder_model = nn.ModuleList(
-            [EncoderModel(self.device, GRU_n_dim, GRU_n_dim, max_diffusion_step, num_nodes, num_rnn_layers, filter_type) \
-             for _ in range(self.head - 1)])  # 定义多个编码器模型
-        self.linear_out = nn.Linear(GRU_n_dim, 1)  # 输出线性层
-        nn.init.xavier_normal_(self.linear_out.weight.data)  # 初始化权重
-        self.linear_out.bias.data.fill_(0.1)  # 初始化偏置
+            [EncoderModel(self.device, GRU_n_dim, GRU_n_dim, max_diffusion_step, num_nodes, num_rnn_layers, filter_type)
+             for _ in range(self.head - 1)]
+        )
+
+        # 定义输出层，用于将编码结果输出为时间序列预测结果
+        self.linear_out = nn.Linear(GRU_n_dim, 1)
+        
+        # 初始化输出层的权重，使用 Xavier 正态分布
+        nn.init.xavier_normal_(self.linear_out.weight.data)
+        
+        # 初始化输出层的偏置为 0.1
+        self.linear_out.bias.data.fill_(0.1)
 
     def _compute_sampling_threshold(self, batches_seen):
         """
-        计算采样阈值
+        动态计算采样阈值，随着训练进行动态调整采样策略
         :param batches_seen: 已见批次
         :return: 采样阈值
         """
         return self.cl_decay_steps / (
-                self.cl_decay_steps + np.exp(batches_seen / self.cl_decay_steps))
+            self.cl_decay_steps + np.exp(batches_seen / self.cl_decay_steps))
 
     def encoder(self, inputs, adj, head):
         """
-        编码器前向传播
-        :param inputs: 输入数据
-        :param adj: 邻接矩阵
-        :param head: 头编号
-        :return: 编码后的隐藏状态
+        编码器的前向传播
+        :param inputs: 输入数据（形状为 B x N x T）
+        :param adj: 邻接矩阵（表示图结构）
+        :param head: 图学习器的头编号
+        :return: 编码后的隐藏状态张量
         """
-        encoder_hidden_state = None
-        encoder_hidden_state_tensor = torch.zeros(inputs.shape).to(self.device)
+        encoder_hidden_state = None  # 初始化隐藏状态
+        encoder_hidden_state_tensor = torch.zeros(inputs.shape).to(self.device)  # 初始化存储隐藏状态的张量
+
+        # 对每一个时间步执行编码操作
         for t in range(self.len_sequence):
+            # 调用对应头编号的编码器模型进行编码，更新隐藏状态
             _, encoder_hidden_state = self.encoder_model[head](inputs[..., t], adj, encoder_hidden_state)
-            encoder_hidden_state_tensor[..., t] = encoder_hidden_state[-1, ...].reshape(-1, self.num_nodes,
-                                                                                        self.GRU_n_dim)
-        return encoder_hidden_state_tensor
+            # 将编码后的隐藏状态保存到张量中
+            encoder_hidden_state_tensor[..., t] = encoder_hidden_state[-1, ...].reshape(-1, self.num_nodes, self.GRU_n_dim)
+
+        return encoder_hidden_state_tensor  # 返回编码后的隐藏状态张量
 
     def forward(self, inputs):
         """
@@ -492,27 +531,48 @@ class Grelen(nn.Module):
         :param inputs: 输入数据
         :return: 概率和输出
         """
-        B = inputs.shape[0]  # 获取批量大小
-        input_projected = self.linear1(inputs.unsqueeze(-1))  # 通过线性层进行投影
-        input_projected = input_projected.permute(0, 1, 3, 2)  # 调整维度顺序
-        probs = self.graph_learner(inputs)  # 通过图学习器计算概率
+        B = inputs.shape[0]  # 获取输入批量大小
+        input_projected = self.linear1(inputs.unsqueeze(-1))  # 通过线性层对输入进行投影
+        input_projected = input_projected.permute(0, 1, 3, 2)  # 调整维度顺序以适应模型的输入格式
+
+        # 通过图学习器计算节点之间的关系概率（图中的 Relation Inference）
+        probs = self.graph_learner(inputs)
+
+        # 构建掩码矩阵，用于去除图中节点与自己的连接
+        # 生成一个对角线为True,其他部分为false的掩码矩阵mask_loc,用于忽略自己连接(节点与自己的连接)
         mask_loc = torch.eye(self.num_nodes, dtype=bool).to(self.device)
+        # 去除对角线的元素，获取节点之间的连接概率
         probs_reshaped = probs.masked_select(~mask_loc).view(B, self.head, self.num_nodes * (self.num_nodes - 1)).to(self.device)
         probs_reshaped = probs_reshaped.permute(0, 2, 1)
-        prob = F.softmax(probs_reshaped, -1)
-        edges = gumbel_softmax(torch.log(prob + 1e-5), tau=self.temperature, hard=True).to(self.device)
 
+        # 对连接概率应用 softmax，将权重归一化为概率分布
+        prob = F.softmax(probs_reshaped, -1)
+
+        # 通过 Gumbel-softmax 进行采样，确定最终的图结构
+        edges = gumbel_softmax(torch.log(prob + 1e-5), tau=self.temperature, hard=True).to(self.device)
+        # 计算出的图关系通过Gumbel-softmax进行采样,采样后的结构变为潜在变量z,用以确定节点之间的连接
+
+        # 初始化邻接矩阵列表，用于存储每个头的邻接矩阵
         adj_list = torch.ones(self.head, B, self.num_nodes, self.num_nodes).to(self.device)
+        # 构建掩码，用于忽略对角元素（节点与自身的连接）
         mask = ~torch.eye(self.num_nodes, dtype=bool).unsqueeze(0).unsqueeze(0).to(self.device)
         mask = mask.repeat(self.head, B, 1, 1).to(self.device)
+
+        # 将采样得到的边填充到邻接矩阵中
         adj_list[mask] = edges.permute(2, 0, 1).flatten()
+
+        # 初始化输出状态张量，用于存储编码结果
         state_for_output = torch.zeros(input_projected.shape).to(self.device)
         state_for_output = (state_for_output.unsqueeze(0)).repeat(self.head - 1, 1, 1, 1, 1)
 
+        # 对每个头进行编码
         for head in range(self.head - 1):
+            # 调用编码器进行前向传播，并将编码结果存储到 state_for_output 中
             state_for_output[head, ...] = self.encoder(input_projected, adj_list[head + 1, ...], head)
 
+        # 对所有头的编码结果取平均值，并调整维度
         state_for_output2 = torch.mean(state_for_output, 0).permute(0, 1, 3, 2)
+        # 通过输出层生成最终的预测结果
         output = self.linear_out(state_for_output2).squeeze(-1)[..., -1 - self.target_T:-1]
 
-        return prob, output
+        return prob, output  # 返回图结构的概率和预测的时间序列结果
