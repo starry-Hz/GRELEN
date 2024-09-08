@@ -47,8 +47,8 @@ def val_epoch(net, val_loader, sw, epoch, config):
             prob, output = net(encoder_inputs)
 
             # 计算KL散度损失和负对数似然损失
-            loss_kl = kl_categorical(torch.mean(prob, 1), log_prior, 1).to(device)
-            loss_nll = nll_gaussian(output, labels, variation).to(device)
+            loss_kl = kl_categorical(torch.mean(prob, 1), log_prior, 1).to(device)  # 计算KL散度
+            loss_nll = nll_gaussian(output, labels, variation).to(device)  # 计算负对数似然损失
             loss = loss_kl + loss_nll  # 总损失
             tmp.append(loss.item())  # 保存损失
 

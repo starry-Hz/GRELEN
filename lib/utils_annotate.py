@@ -150,6 +150,8 @@ def load_data_train(filename, DEVICE, batch_size, shuffle=True):
     train_dataset = torch.utils.data.TensorDataset(train_x_tensor, train_target_tensor)  # 创建训练数据集
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=shuffle)  # 创建训练数据加载器
 
+    # 创建PyTorch的TensorDataset，将输入和目标数据组合为一个数据集，再通过DataLoader将数据集包装起来，以便分批次迭代使用
+
     # ------- 验证数据加载器 -------
     val_x_tensor = torch.from_numpy(val_x).type(torch.FloatTensor).to(DEVICE)  # 将验证输入数据转换为Tensor并转移到设备
     val_target_tensor = torch.from_numpy(val_target).type(torch.FloatTensor).to(DEVICE)  # 将验证目标数据转换为Tensor并转移到设备
@@ -224,4 +226,5 @@ def point_adjust_eval(anomaly_start, anomaly_end, down, loss, thr1, thr2):
         anomaly[int(anomaly_start[i]/down)] = ground_truth[int(anomaly_start[i]/down)]  # 调整开始点
         anomaly[int(anomaly_end[i]/down)] = ground_truth[int(anomaly_end[i]/down)]  # 调整结束点
 
+    # anomaly调整后的异常检测结果;  ground_truth实际的异常标记
     return anomaly, ground_truth  # 返回调整后的异常和真实值
