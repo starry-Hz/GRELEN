@@ -11,11 +11,18 @@ from sklearn.metrics import f1_score
 from lib.utils import *
 from model.GRELEN import *
 
+# import logging
+# # 日志配置
+# logging.basicConfig(filename='test_grelen.log', level=logging.INFO,
+#                     format='%(asctime)s:%(levelname)s:%(message)s')
 import logging
-# 日志配置
-logging.basicConfig(filename='test_grelen.log', level=logging.INFO,
-                    format='%(asctime)s:%(levelname)s:%(message)s')
 
+logger = logging.getLogger(__name__)
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    filename='test_grelen.log',
+                    filemode='w')
 
 if __name__ == '__main__':
     from config_files.SWAT_config import Config

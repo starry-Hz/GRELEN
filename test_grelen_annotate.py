@@ -7,11 +7,18 @@ from sklearn.metrics import classification_report, precision_score, recall_score
 from lib.utils import *  # 导入自定义工具函数
 from model.GRELEN import *  # 导入GRELEN模型
 
-import logging  # 导入日志模块
+# import logging
+# # 日志配置
+# logging.basicConfig(filename='test_grelen.log', level=logging.INFO,
+#                     format='%(asctime)s:%(levelname)s:%(message)s')
+import logging
 
-# 日志配置
-logging.basicConfig(filename='test_grelen.log', level=logging.INFO,
-                    format='%(asctime)s:%(levelname)s:%(message)s')
+logger = logging.getLogger(__name__)
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    filename='test_grelen.log',
+                    filemode='w')
 
 if __name__ == '__main__':
     from config_files.SWAT_config import Config  # 导入配置文件

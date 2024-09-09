@@ -11,10 +11,15 @@ from torch.autograd import Variable
 import torch.nn.functional as F
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# import logging
+# # 日志配置
+# logging.basicConfig(level=logging.INFO,
+#                     format='%(asctime)s:%(levelname)s:%(message)s')
+
 import logging
-# 日志配置
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s:%(levelname)s:%(message)s')
+
+# 引用主程序中的日志记录器
+logger = logging.getLogger(__name__)
 
 def sample_gumbel(shape, eps=1e-10):
     """

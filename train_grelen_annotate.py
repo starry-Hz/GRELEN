@@ -10,15 +10,18 @@ from tensorboardX import SummaryWriter
 # 从model.GRELEN库中导入所有模块
 from model.GRELEN import *
 
-# 导入logging库
+# import logging
+# # 日志配置
+# logging.basicConfig(filename='train_grelen.log', level=logging.INFO,
+#                     format='%(asctime)s:%(levelname)s:%(message)s')
 import logging
 
-# 日志配置
-logging.basicConfig(
-    filename='train_grelen.log',  # 日志文件名
-    level=logging.INFO,  # 日志记录级别
-    format='%(asctime)s:%(levelname)s:%(message)s'  # 日志记录格式
-)
+logger = logging.getLogger(__name__)
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    filename='train_grelen.log',
+                    filemode='w')
 
 # 验证一个epoch的函数
 def val_epoch(net, val_loader, sw, epoch, config):

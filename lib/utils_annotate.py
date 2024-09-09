@@ -13,10 +13,15 @@ import torch.nn.functional as F  # 导入PyTorch中的功能模块
 # 设置设备为GPU（如果可用），否则为CPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# import logging
+# # 日志配置
+# logging.basicConfig(level=logging.INFO,
+#                     format='%(asctime)s:%(levelname)s:%(message)s')
+
 import logging
-# 日志配置
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s:%(levelname)s:%(message)s')
+
+# 引用主程序中的日志记录器
+logger = logging.getLogger(__name__)
 
 def sample_gumbel(shape, eps=1e-10):
     """
