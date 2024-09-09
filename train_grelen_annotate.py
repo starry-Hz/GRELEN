@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    filename='train_grelen.log',
+                    filename='./log/train_grelen1.log',
                     filemode='w')
 
 # 验证一个epoch的函数
