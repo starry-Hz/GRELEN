@@ -175,7 +175,8 @@ if __name__ == '__main__':
             labels = labels[:, :, 0, T - target_T:]  # 处理标签数据
 
             optimizer.zero_grad()  # 梯度清零
-            # 调用了Grelen类的forward方法。在类的实例化对象后加上括号，相当于调用__call__方法，__call__方法中调用了forward函数，实现了前向传播
+            # 调用了Grelen类的forward方法。在类的实例化对象后加上括号，相当于调用__call__方法，
+            # __call__方法中调用了forward函数，实现了前向传播
             prob, output = net(encoder_inputs)
 
             # 计算KL散度损失和负对数似然损失
