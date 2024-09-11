@@ -9,7 +9,7 @@ class Config(object):
 
         # 模型配置
         self.device = 'cuda:0'  # 设备
-        self.batch_size = 128  # 批处理大小
+        self.batch_size = 128  # 批处理大小,决定模型在训练过程中一次处理的数据量大小
         self.learning_rate = 0.001  # 学习率
         self.epochs = 200  # 训练周期数
         self.train_filename = 'data/SWAT/train_swat.npz'  # 训练数据文件名

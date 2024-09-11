@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     filename='./log/train_grelen1.log',
-                    filemode='w')
+                    filemode='a')
 
 # 验证一个epoch的函数
 def val_epoch(net, val_loader, sw, epoch, config):
@@ -85,25 +85,25 @@ if __name__ == '__main__':
     train_loader, train_target_tensor, val_loader, val_target_tensor, _mean, _std = load_data_train(train_filename, device, batch_size)
 
     # 从配置中获取参数
-    B, N, T, target_T = config.B, config.N, config.T, config.target_T
+    B, N, T, target_T = config.B, config.N, config.T, config.target_T   # B:批次大小, N:节点数, T:输入序列长度, target_T:目标序列长度
 
     # 从配置中获取模型参数
-    n_in = config.n_in
-    n_hid = config.n_hid
-    do_prob = config.do_prob
+    n_in = config.n_in  # 输入特征数
+    n_hid = config.n_hid  # 隐藏层维度
+    do_prob = config.do_prob # dropout概率
 
-    Graph_learner_n_hid = config.Graph_learner_n_hid
-    Graph_learner_n_head_dim = config.Graph_learner_n_head_dim
-    Graph_learner_head = config.Graph_learner_head
-    prior = config.prior
-    temperature = config.temperature
-    GRU_n_dim = config.GRU_n_dim
-    max_diffusion_step = config.max_diffusion_step
-    num_rnn_layers = config.num_rnn_layers
+    Graph_learner_n_hid = config.Graph_learner_n_hid  # 图学习器隐藏层维度
+    Graph_learner_n_head_dim = config.Graph_learner_n_head_dim  # 图学习器头部维度
+    Graph_learner_head = config.Graph_learner_head  # 图学习器头数
+    prior = config.prior  # 先验概率
+    temperature = config.temperature  # 温度参数
+    GRU_n_dim = config.GRU_n_dim  # GRU维度
+    max_diffusion_step = config.max_diffusion_step  # 最大扩散步数
+    num_rnn_layers = config.num_rnn_layers  # RNN层数
 
     # 从配置中获取训练参数
-    start_epoch = config.start_epoch
-    params_path = config.save_dir
+    start_epoch = config.start_epoch  # 起始训练周期
+    params_path = config.save_dir  # 保存目录
 
     # 设置训练参数
     num_nodes = N
@@ -113,8 +113,8 @@ if __name__ == '__main__':
 
     # 将prior转换为log_prior，并将其转移到GPU
     log_prior = torch.FloatTensor(np.log(prior))  # 将prior转换为log_prior
-    log_prior = torch.unsqueeze(log_prior, 0)  # 添加一个维度
-    log_prior = torch.unsqueeze(log_prior, 0)  # 再添加一个维度
+    log_prior = torch.unsqueeze(log_prior, 0)  # 添加一个维度,形状从(4)变为(1,4)
+    log_prior = torch.unsqueeze(log_prior, 0)  # 再添加一个维度,形状从(1,4)变为(1,1,4)
     log_prior = Variable(log_prior)  # 转换为变量
     log_prior = log_prior.cuda()  # 将变量转移到GPU
 
@@ -131,11 +131,14 @@ if __name__ == '__main__':
     optimizer = torch.optim.Adam(net.parameters(), lr=0.001)
 
     # 初始化SummaryWriter
+    # 创建文件,并保存数据到文件,利用这种方法可以在训练循环过程中,将数据写入文件中,并不会延缓训练的速度
     sw = SummaryWriter(logdir=params_path, flush_secs=5)
 
     # 打印并记录模型信息
+    ##########################################################################################################
     print(net)
     logging.info(net)
+    ##########################################################################################################
 
     # 初始化训练过程中的变量
     best_epoch = 0
@@ -143,7 +146,7 @@ if __name__ == '__main__':
     best_val_loss = np.inf  # 初始化为正无穷
     start_time = time()  # 记录开始时间
 
-    # 如果start_epoch大于0，则加载之前的模型参数
+    # 如果start_epoch大于0,则加载之前的模型参数。实现断点续训功能,在之前的训练中保存了模型,可以从指定的epoch加载保存的参数
     if start_epoch > 0:
         params_filename = os.path.join(params_path, 'epoch_%s.params' % start_epoch)
         net.load_state_dict(torch.load(params_filename))
@@ -166,7 +169,8 @@ if __name__ == '__main__':
             print('save parameters to file: %s' % params_filename)
             logging.info('save parameters to file: %s' % params_filename)
 
-        # 将网络设置为训练模式
+        # 设置为训练模式,模型会进行反向传播和参数更新
+        # dropout:随机丢弃神经元,batchnorm:使用当前batch的统计信息,并更新内部的均值和方差
         net.train()
 
         kl_train = []
@@ -179,7 +183,8 @@ if __name__ == '__main__':
 
             optimizer.zero_grad()  # 梯度清零
             # 调用了Grelen类的forward方法。在类的实例化对象后加上括号，相当于调用__call__方法，
-            # __call__方法中调用了forward函数，实现了前向传播
+            # __call__方法中调用了forward函数，params实现了前向传播
+            # prob是图结构的概率分布,output是时间序列预测的输出
             prob, output = net(encoder_inputs)
 
             # 计算KL散度损失和负对数似然损失

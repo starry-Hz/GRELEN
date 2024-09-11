@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     filename='./log/test_grelen.log',
-                    filemode='w')
+                    filemode='a')
 
 if __name__ == '__main__':
     from config_files.SWAT_config import Config
@@ -95,8 +95,8 @@ if __name__ == '__main__':
     save_path = path.dirname(param_file)
     if config.save_result == True:
         np.save(save_path+'/'+os.path.basename(param_file).split('.')[0]+'.npy', np.array(mat_test))
-    print('Graph saved...')
-    logging.info('Graph saved...')
+    print(f'Graph saved: {save_path}/{os.path.basename(param_file).split(".")[0]}.npy')
+    logging.info(f'Graph saved: {save_path}/{os.path.basename(param_file).split(".")[0]}.npy')
 
     ### Evaluation
     print('Evaluation...')

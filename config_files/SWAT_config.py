@@ -31,7 +31,8 @@ class Config(object):
 
         self.save_dir = 'experiments/swat_test'
         self.start_epoch = 0
-        self.param_file = "experiments/swat_test/test_model.params"
+        # self.param_file = "experiments/swat_test/test_model.params"
+        self.param_file = "experiments/swat_test/epoch_299.params"
         self.save_result = True
         self.moving_window_ = 2
         self.anomaly_file = 'data/SWAT/SWAT_Time.csv'

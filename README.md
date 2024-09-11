@@ -31,3 +31,9 @@ python test_grelen.py
 ```
 
 The config files for datasets, model and evaluation should be put in the config_files folder. Config files should contain the data path, model hyper-parameters, training settings for model training. Target model (parameter path) should be included while model testing.
+
+查看tensorboard，kl_loss和nll_loss
+```
+tensorboard --logdir /home/hz/code/GRELEN/experiments/swat_test
+```
+在terminal运行之后点击http://localhost:6006/ 即可查看tensorboard页面

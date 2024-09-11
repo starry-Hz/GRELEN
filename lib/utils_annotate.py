@@ -168,6 +168,10 @@ def load_data_train(filename, DEVICE, batch_size, shuffle=True):
     print('val:', val_x_tensor.size(), val_target_tensor.size())
     logging.info(f'train: {train_x_tensor.size()}, {train_target_tensor.size()}')
     logging.info(f'val: {val_x_tensor.size()}, {val_target_tensor.size()}')
+    """
+    2024-09-09 10:34:23,543 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+    2024-09-09 10:34:23,544 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+    """
 
     # 返回训练数据加载器、训练目标数据、验证数据加载器、验证目标数据、均值和标准差
     return train_loader, train_target_tensor, val_loader, val_target_tensor, mean, std

@@ -554,6 +554,7 @@ class Grelen(nn.Module):
         # 通过 Gumbel-softmax 进行采样，确定最终的图结构
         edges = gumbel_softmax(torch.log(prob + 1e-5), tau=self.temperature, hard=True).to(self.device)
         # 计算出的图关系通过Gumbel-softmax进行采样,采样后的结构变为潜在变量z,用以确定节点之间的连接
+        # **对应图中的sampling**
 
         # 初始化邻接矩阵列表，用于存储每个头的邻接矩阵
         adj_list = torch.ones(self.head, B, self.num_nodes, self.num_nodes).to(self.device)
