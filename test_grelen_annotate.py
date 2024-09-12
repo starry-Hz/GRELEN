@@ -22,6 +22,9 @@ logging.basicConfig(level=logging.DEBUG,
 
 if __name__ == '__main__':
     from config_files.SWAT_config import Config  # 导入配置文件
+    from torch.utils.tensorboard import SummaryWriter
+    # 创建 TensorBoard 的 SummaryWriter 对象
+    writer = SummaryWriter(log_dir='loss')
 
     config = Config()  # 加载配置
 
@@ -112,13 +115,20 @@ if __name__ == '__main__':
 
     # 计算移动平均并过滤
     # moving average filtering是一种信号滤波算法,用于减小信号中的噪声或去除高频成分,从而平滑信号
-    total_out_degree_move_filtered = np.zeros((mat_test.shape[1] - w + 1, N))  # 初始化存储移动平均滤波后的结果
+    total_out_degree_move_filtered = np.zeros((mat_test.shape[1] - w + 1, N))  # 初始化存储移动平均滤波后的结果,数组形状(时间步数,节点数)
     for fe in range(N):  # 遍历每个节点
         y = torch.mean(mat_test[0, :, :, fe], -1)  # 计算节点 `fe` 的出度,取图结构矩阵的均值
         xx = moving_average(y, w)  # 计算 `y` 的移动平均,窗口大小为 `w`
         total_out_degree_move_filtered[:, fe] = y[w-1:] - xx  # 计算出度变化,将 `y` 减去移动平均值后存储
 
     loss = np.mean(total_out_degree_move_filtered, 1)  # 计算每个时间步的平均损失
+
+    # 将损失写入 TensorBoard
+    for i, l in enumerate(loss):
+        writer.add_scalar('Loss', l, i)
+    # 关闭 writer
+    writer.close()
+
     f1 = np.zeros((200, 200))  # 初始化F1分数矩阵,用于存储不同阈值组合下的F1得分
     for i in range(200):  # 遍历第一个阈值范围
         for j in range(200):  # 遍历第二个阈值范围
