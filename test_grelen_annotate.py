@@ -33,7 +33,7 @@ if __name__ == '__main__':
     learning_rate = config.learning_rate  # 获取学习率
     epochs = config.epochs  # 获取训练轮数
     test_filename = config.test_filename  # 获取测试文件名
-    # batch_size*10是为了在测试阶段加载更多的数据批次
+    # batch_size*10是为了在测试阶段加载更多的数据批次,希望一次性处理更多的数据
     test_loader, test_target_tensor, _mean, _std = load_data_test(test_filename, device, batch_size*10)  # 加载测试数据
 
     # 获取配置中的参数
@@ -78,8 +78,10 @@ if __name__ == '__main__':
     print('Model loaded...')
     logging.info('Model loaded...')
 
+    target_tensor = torch.zeros((0, N, target_T))   # 用于存储目标输出（真实值）
+    reconstructed_tensor = torch.zeros((0, N, target_T))    # 用于存储模型的重构输出（预测值）
     # 初始化张量用于存储测试结果,N*(N-1)表示图中所有节点对(去除自连接)的数量
-    prob_tensor = torch.zeros((0, N * (N - 1), Graph_learner_head))
+    prob_tensor = torch.zeros((0, N * (N - 1), Graph_learner_head)) # 用于存储图学习器输出的概率（节点关系的概率矩阵）
 
     # 测试模型
     with torch.no_grad():   # 禁用梯度计算
@@ -90,14 +92,15 @@ if __name__ == '__main__':
             labels = labels[:, :, 0, 1:]
             # prob:模型学习到的节点之间的关系概率矩阵;output:模型的预测输出
             prob, output = net(encoder_inputs)
+            # 将当前批次的prob拼接到prob_tensor中
             prob_tensor = torch.cat([prob_tensor, prob.cpu()], dim=0)
 
     # 将累积的概率张量prob_tensor从GPU移动到CPU,去除计算图,并转换为Numpy数据
     prob_result = prob_tensor.cpu().detach().numpy()
-    # 对概率张量进行重塑,适配图结构
+    # 调整边的形状，得到测试图矩阵
     mat_test = reshape_edges(prob_tensor, N).cpu()
 
-    # 保存结果
+    # 保存结果,将节点间的关系矩阵mat_test保存为.npy文件
     save_path = path.dirname(param_file)
     if config.save_result:
         np.save(save_path + '/' + os.path.basename(param_file).split('.')[0] + '.npy', np.array(mat_test))
@@ -140,7 +143,7 @@ if __name__ == '__main__':
 
     pos = np.unravel_index(np.argmax(f1), f1.shape)  # 找到F1得分最高的阈值组合位置
     logging.info(f"最高的阈值组合为{pos}")
-    # 使用找到的最佳阈值组合,重新评估异常检测效果
+    # 使用找到的最佳阈值组合,重新评估异常检测效果,应用点调整策略
     anomaly, ground_truth = point_adjust_eval(anomaly_start, anomaly_end, config.downsampling_fre, loss, pos[0] * 0.0005, -pos[1] * 0.0005)
 
     # 输出并记录评估结果

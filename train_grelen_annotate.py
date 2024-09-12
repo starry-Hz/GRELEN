@@ -24,6 +24,7 @@ logging.basicConfig(level=logging.DEBUG,
                     filemode='a')
 
 # 验证一个epoch的函数
+# 通过验证集计算模型的损失,并记录每个epoch的验证损失
 def val_epoch(net, val_loader, sw, epoch, config):
     # 从配置中获取参数
     B, N, T, target_T = config.B, config.N, config.T, config.target_T
@@ -35,10 +36,11 @@ def val_epoch(net, val_loader, sw, epoch, config):
     log_prior = log_prior.cuda()  # 将变量转移到GPU
 
     # 将网络设置为评估模式
+    # 禁用 dropout 和 batch normalization 中的随机行为，确保模型在验证集上进行评估时具有稳定的表现。
     net.train(False)
 
     # 不计算梯度
-    with torch.no_grad():
+    with torch.no_grad():   # 验证过程中不需要反向传播
         tmp = []  # 临时存储每个batch的损失
         # 遍历验证数据加载器
         for batch_index, batch_data in enumerate(val_loader):
@@ -46,7 +48,7 @@ def val_epoch(net, val_loader, sw, epoch, config):
             encoder_inputs = encoder_inputs[:, :, 0, :]  # 处理输入数据
             labels = labels[:, :, 0, T-target_T:]  # 处理标签数据
 
-            # 前向传播
+            # 前向传播,获取预测输出
             prob, output = net(encoder_inputs)
 
             # 计算KL散度损失和负对数似然损失
@@ -132,7 +134,7 @@ if __name__ == '__main__':
 
     # 初始化SummaryWriter
     # 创建文件,并保存数据到文件,利用这种方法可以在训练循环过程中,将数据写入文件中,并不会延缓训练的速度
-    sw = SummaryWriter(logdir=params_path, flush_secs=5)
+    sw = SummaryWriter(logdir=params_path, flush_secs=5) # flush_secs=5 表示每隔5秒将日志缓冲区的数据刷新到磁盘
 
     # 打印并记录模型信息
     ##########################################################################################################
