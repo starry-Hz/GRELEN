@@ -27,7 +27,7 @@ logging.basicConfig(level=logging.DEBUG,
 # 通过验证集计算模型的损失,并记录每个epoch的验证损失
 def val_epoch(net, val_loader, sw, epoch, config):
     # 从配置中获取参数
-    B, N, T, target_T = config.B, config.N, config.T, config.target_T
+    B, N, T, target_T = config.B, config.N, config.T, config.target_T     # B:批次大小, N:节点数, T:输入序列长度, target_T:目标序列长度
     prior = config.prior
     log_prior = torch.FloatTensor(np.log(prior))  # 将prior转换为log_prior
     log_prior = torch.unsqueeze(log_prior, 0)  # 添加一个维度
@@ -35,7 +35,7 @@ def val_epoch(net, val_loader, sw, epoch, config):
     log_prior = Variable(log_prior)  # 转换为变量
     log_prior = log_prior.cuda()  # 将变量转移到GPU
 
-    # 将网络设置为评估模式
+    # 设置为评估模式
     # 禁用 dropout 和 batch normalization 中的随机行为，确保模型在验证集上进行评估时具有稳定的表现。
     net.train(False)
 
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     # 从配置中获取模型参数
     n_in = config.n_in  # 输入特征数
     n_hid = config.n_hid  # 隐藏层维度
-    do_prob = config.do_prob # dropout概率
+    do_prob = config.do_prob # dropout概率,随机将一部分神经元暂时“关闭”,防止过拟合
 
     Graph_learner_n_hid = config.Graph_learner_n_hid  # 图学习器隐藏层维度
     Graph_learner_n_head_dim = config.Graph_learner_n_head_dim  # 图学习器头部维度
