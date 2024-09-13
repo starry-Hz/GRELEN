@@ -142,7 +142,7 @@ def swat_generate_test(xx, length, filename=None, max_=None, min_=None):
 
     return max_, min_, all_data  # 返回最大值、最小值和生成的测试数据集
 
-if __name__ == '__main__':  # 检查该脚本是否作为主程序执行
+if __name__ == '__main__':
     sys.path.append("../..")  # 将项目上两级目录添加到系统路径中，方便导入模块
     from config_files.SWAT_config import Config  # 从配置文件中导入Config类
     config = Config()  # 初始化配置对象，读取配置参数

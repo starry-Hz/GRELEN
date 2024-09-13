@@ -152,10 +152,11 @@ def load_data_train(filename, DEVICE, batch_size, shuffle=True):
     # ------- 训练数据加载器 -------
     train_x_tensor = torch.from_numpy(train_x).type(torch.FloatTensor).to(DEVICE)  # 将训练输入数据转换为Tensor并转移到设备
     train_target_tensor = torch.from_numpy(train_target).type(torch.FloatTensor).to(DEVICE)  # 将训练目标数据转换为Tensor并转移到设备
-    train_dataset = torch.utils.data.TensorDataset(train_x_tensor, train_target_tensor)  # 创建训练数据集
+    train_dataset = torch.utils.data.TensorDataset(train_x_tensor, train_target_tensor)  # 创建训练数据集 
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=shuffle)  # 创建训练数据加载器
 
-    # 创建PyTorch的TensorDataset，将输入和目标数据组合为一个数据集，再通过DataLoader将数据集包装起来，以便分批次迭代使用
+    # tensorDataset主要功能是将多个张量(通常是输入数据和目标数据)组合成一个数据集,其中每个样本通过索引从所有的张量的第一个维度中提取
+    # 创建PyTorch的TensorDataset，将输入和目标数据组合为一个数据集，再通过DataLoader将数据集包装起来,以便分批次迭代使用,shuffle=True随机迭代索引
 
     # ------- 验证数据加载器 -------
     val_x_tensor = torch.from_numpy(val_x).type(torch.FloatTensor).to(DEVICE)  # 将验证输入数据转换为Tensor并转移到设备
