@@ -165,7 +165,7 @@ class DCGRUCell_(torch.nn.Module):
         self._use_gc_for_ru = use_gc_for_ru  # 设置是否使用图卷积计算更新和重置门
 
         # 定义用于图卷积的线性层
-        # 输入是 self._num_units * 2 * (self._max_diffusion_step + 1),输出是 self._num_units * 2
+        # 输入是 self._num_units * 2 * (self._max_diffusion_step + 1),输出是 self._num_units * 2,因为同时计算了更新门和重置门
         # _gconv_0和_gconv_1用于计算更新门和重置门,_gconv_c_0和_gconv_c_1用于计算候选隐藏状态
         self._gconv_0 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units * 2)  # 定义第一个图卷积层
         self._gconv_1 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units * 2)  # 定义第二个图卷积层
@@ -190,14 +190,16 @@ class DCGRUCell_(torch.nn.Module):
         else:
             fn = self._fc  # 否则使用全连接函数
         value = torch.sigmoid(fn(inputs, adj, hx, output_size, bias_start=1.0))  # 计算更新和重置门的值,fn表示使用了图卷积或者全连接函数
-        # fn()使用扩散卷积,考虑多阶邻接信息
+        # 图卷积操作用于替代标准 GRU 中的线性变换。fn()使用扩散卷积,考虑多阶邻接信息,value [B,N,2*Fhid]
 
         value = torch.reshape(value, (-1, self._num_nodes, output_size))  # 重塑值的形状
         # r：重置门,用于决定是否忘记之前的信息；u：更新门,用于控制信息从当前输入和前一隐藏状态传递的比例
         # r,u对应3.6中的rt'和ut'
+        # 因为线性层的输出是按照特征维度顺序排列的，前半部分对应𝑟，后半部分对应𝑢,
+        # 最后一个维度[0:num_units-1]是重置门r,[num_units:2*num_units-1]对应更新门u的线性变换结果
         r, u = torch.split(tensor=value, split_size_or_sections=self._num_units, dim=-1)  # 分割更新和重置门的值
-        r = torch.reshape(r, (-1, self._num_nodes * self._num_units))  # 重塑重置门的值
-        u = torch.reshape(u, (-1, self._num_nodes * self._num_units))  # 重塑更新门的值
+        r = torch.reshape(r, (-1, self._num_nodes * self._num_units))  # 重塑重置门的值 [B,N,Fhid]
+        u = torch.reshape(u, (-1, self._num_nodes * self._num_units))  # 重塑更新门的值 [B,N,Fhid]
 
         # r * hx将重置门的输出和隐藏状态相乘,调整隐藏状态中的信息
         # c：候选新的隐藏状态,通过图卷积_gconv_c计算得到,对应3.6公式中的ct'
@@ -298,9 +300,9 @@ class DCGRUCell_(torch.nn.Module):
         adj_mx1 = self._calculate_random_walk0(adj_mx.permute(0, 2, 1), B)  # 计算转置后的随机游走矩阵  反向随机游走矩阵
 
         batch_size = inputs.shape[0]  # 获取批量大小
-        inputs = torch.reshape(inputs, (batch_size, self._num_nodes, -1))  # 重塑输入数据的形状
-        state = torch.reshape(state, (batch_size, self._num_nodes, -1))  # 重塑隐藏状态的形状
-        inputs_and_state = torch.cat([inputs, state], dim=2)  # 拼接输入数据和隐藏状态 X=[Xin,H]
+        inputs = torch.reshape(inputs, (batch_size, self._num_nodes, -1))  # 重塑输入数据的形状 [B,N.Fin]
+        state = torch.reshape(state, (batch_size, self._num_nodes, -1))  # 重塑隐藏状态的形状   [B,N,Fhid]
+        inputs_and_state = torch.cat([inputs, state], dim=2)  # 拼接输入数据和隐藏状态 X=[Xin,H]    [B,N,Fin+Fhid]
         input_size = inputs_and_state.size(2)  # 获取输入大小
 
         x = inputs_and_state  # [B, N, 2 * C]
@@ -338,6 +340,7 @@ class DCGRUCell_(torch.nn.Module):
     def _gconv_c(self, inputs, adj_mx, state, output_size, bias_start=0.0):
         """
         图卷积操作,用于计算新的隐藏状态
+        与 _gconv 输出维度不一样, _gconv 输出维度为2*Fhid, _gconv_c 输出维度为Fhid
         :param inputs: 输入数据
         :param adj_mx: 邻接矩阵
         :param state: 隐藏状态
@@ -388,7 +391,7 @@ class DCGRUCell_(torch.nn.Module):
 
 # 定义编码器模型
 """
-实现了一个基于图卷积门控单元(DCGRU)的编码器模型,主要用于处理时间序列数据和图结构数据。
+实现了一个基于多层扩散卷积门控循环单元(DCGRU)的编码器模型,主要用于处理时间序列数据和图结构数据。
 将输入数据与图的邻接矩阵相结合,学习节点之间的关系,通过循环网络层进行时间序列建模。
 通过堆叠多层DCGRUCell_,实现了对图结构时序数据的编码
 """
@@ -398,7 +401,7 @@ class EncoderModel(nn.Module):
         初始化编码器模型
         :param device: 设备(CPU 或 GPU)
         :param n_dim: 输入维度
-        :param n_hid: 隐藏层维度
+        :param n_hid: 隐藏层维度,每个DCGRU的隐藏层单元数量Fhid
         :param max_diffusion_step: 最大扩散步数
         :param num_nodes: 节点数量
         :param num_rnn_layers: RNN 层数
@@ -533,6 +536,7 @@ class Grelen(nn.Module):
         # 对每一个时间步执行编码操作
         for t in range(self.len_sequence):
             # 调用对应头编号的编码器模型进行编码,更新隐藏状态
+            # 隐藏状态h_t由当前输入x_t和上一时间步的隐藏状态h_(t-1)共同决定
             _, encoder_hidden_state = self.encoder_model[head](inputs[..., t], adj, encoder_hidden_state)
             # 将编码后的隐藏状态保存到张量中
             encoder_hidden_state_tensor[..., t] = encoder_hidden_state[-1, ...].reshape(-1, self.num_nodes, self.GRU_n_dim)
@@ -580,7 +584,7 @@ class Grelen(nn.Module):
         state_for_output = torch.zeros(input_projected.shape).to(self.device)
         state_for_output = (state_for_output.unsqueeze(0)).repeat(self.head - 1, 1, 1, 1, 1)
 
-        # 对每个头进行编码
+        # 对每个头进行编码,在头部维度上循环,处理不同的图结构
         for head in range(self.head - 1):
             # 调用编码器进行前向传播,从输入数据中提取时序特征,并在每个head生成对应的隐藏状态h,并将编码结果存储到 state_for_output 中
             state_for_output[head, ...] = self.encoder(input_projected, adj_list[head + 1, ...], head)
