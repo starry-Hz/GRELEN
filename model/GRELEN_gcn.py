@@ -3,6 +3,10 @@ import sys  # 导入系统模块,用于操作系统相关功能
 sys.path.append('..')  # 将上级目录添加到系统路径中,以便导入其他模块
 from lib.utils import *  # 从 lib.utils 模块中导入所有功能,用于后续代码中的工具函数
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
 import logging
 
 # 引用主程序中的日志记录器
@@ -394,85 +398,113 @@ class DCGRUCell_(torch.nn.Module):
 
         return torch.reshape(x0_0 + x1_0, [batch_size, self._num_nodes * output_size])  # 返回图卷积的输出
 
-class GCNCell(torch.nn.Module):
-    def __init__(self, device, num_units, max_diffusion_step, num_nodes, nonlinearity='relu'):
-        super().__init__()
-        self._activation = torch.relu if nonlinearity == 'relu' else torch.tanh
+class GCNCell(nn.Module):
+    def __init__(self, device, num_units, max_diffusion_step, num_nodes, num_proj=None,
+                 filter_type="laplacian", use_gc_for_ru=True):
+        super(GCNCell, self).__init__()
         self.device = device
-        self._num_nodes = num_nodes
-        self._num_units = num_units
-        self._max_diffusion_step = max_diffusion_step
+        self.num_units = num_units  # 隐藏状态的维度
+        self.num_nodes = num_nodes  # 节点数量
+        self.num_proj = num_proj  # 投影层的维度（如果有）
+        self.use_gc_for_ru = use_gc_for_ru  # 是否在门控中使用图卷积
 
-        # 定义图卷积的线性层
-        self._gconv_0 = nn.Linear(self._num_units * (self._max_diffusion_step + 1), self._num_units)
-        self._gconv_1 = nn.Linear(self._num_units * (self._max_diffusion_step + 1), self._num_units)
+        # 定义用于门控的 GCN 层
+        # 输入维度为 num_units * 2（inputs 和 hx 拼接）
+        self.gate_linear = nn.Linear(num_units * 2, num_units * 2)
+        # 定义用于候选隐藏状态的 GCN 层
+        self.candidate_linear = nn.Linear(num_units * 2, num_units)
 
-        # 初始化权重和偏置
-        for m in self.modules():
-            if isinstance(m, nn.Linear):
-                nn.init.xavier_normal_(m.weight.data)
-                m.bias.data.fill_(0.1)
-
-    def _calculate_random_walk0(self, adj_mx, B):
-        # 计算随机游走矩阵
-        adj_mx = adj_mx + torch.eye(int(adj_mx.shape[1])).unsqueeze(0).repeat(B, 1, 1).to(self.device)
-        d = torch.sum(adj_mx, 1)
-        d_inv = 1. / d
-        d_inv = torch.where(torch.isinf(d_inv), torch.zeros(d_inv.shape).to(self.device), d_inv)
-        d_mat_inv = torch.diag_embed(d_inv)
-        random_walk_mx = torch.matmul(d_mat_inv, adj_mx)
-        return random_walk_mx
-
-    def forward(self, inputs, adj):
-        batch_size = inputs.shape[0]
-        B = batch_size
-        # 计算随机游走矩阵
-        adj_mx0 = self._calculate_random_walk0(adj, B)
-        adj_mx1 = self._calculate_random_walk0(adj.permute(0, 2, 1), B)
-
-        inputs = torch.reshape(inputs, (batch_size, self._num_nodes, -1))
-        input_size = inputs.size(2)
-
-        x = inputs  # [B, N, C]
-        x0_0 = torch.unsqueeze(x, 0)
-        x1_0 = torch.unsqueeze(x, 0)
-
-        # 扩散卷积
-        if self._max_diffusion_step == 0:
-            pass
+        # 如果需要投影层
+        if num_proj is not None:
+            self.project_linear = nn.Linear(num_units, num_proj)
         else:
-            x0_1 = torch.matmul(adj_mx0, x0_0)
-            x1_1 = torch.matmul(adj_mx1, x1_0)
+            self.project_linear = None
 
-            x0_0 = torch.cat([x0_0, x0_1], dim=0)
-            x1_0 = torch.cat([x1_0, x1_1], dim=0)
+    def forward(self, inputs, adj, hx):
+        """
+        前向传播函数
 
-            for k in range(2, self._max_diffusion_step + 1):
-                x0_2 = torch.matmul(adj_mx0, x0_1)
-                x1_2 = torch.matmul(adj_mx1, x1_1)
-                x0_0 = torch.cat([x0_0, x0_1], dim=0)
-                x1_0 = torch.cat([x1_0, x1_1], dim=0)
-                x0_1 = x0_2
-                x1_1 = x1_2
+        参数：
+        - inputs: 输入特征，形状为 (batch_size, num_nodes * input_dim)
+        - adj: 邻接矩阵，形状为 (num_nodes, num_nodes)
+        - hx: 前一时间步的隐藏状态，形状为 (batch_size, num_nodes * num_units)
 
-        num_matrices = self._max_diffusion_step + 1  # 包含 x 自身
-        x0_0 = x0_0.permute(1, 2, 3, 0)  # [batch_size, num_nodes, input_size, K]
-        x1_0 = x1_0.permute(1, 2, 3, 0)
+        返回：
+        - h_new: 更新后的隐藏状态，形状为 (batch_size, num_nodes * num_units) 或投影后的维度
+        """
+        batch_size = inputs.shape[0]
+        # 调整输入形状
+        inputs = inputs.view(batch_size, self.num_nodes, -1)  # (batch_size, num_nodes, input_dim)
+        hx = hx.view(batch_size, self.num_nodes, -1)  # (batch_size, num_nodes, num_units)
 
-        x0_0 = torch.reshape(x0_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])
-        x1_0 = torch.reshape(x1_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])
+        # 归一化邻接矩阵
+        adj_norm = self.normalize_adj(adj)  # (num_nodes, num_nodes)
 
-        # 线性变换
-        x0_0 = self._gconv_0(x0_0)
-        x1_0 = self._gconv_1(x1_0)
+        # 计算门控
+        # 拼接 inputs 和 hx
+        inputs_and_hx = torch.cat([inputs, hx], dim=-1)  # (batch_size, num_nodes, input_dim + num_units)
+        # 进行图卷积操作
+        gate_inputs = self._gconv(inputs_and_hx, adj_norm, self.gate_linear)  # (batch_size, num_nodes, 2 * num_units)
+        # 分割得到重置门 r 和 更新门 u
+        r, u = torch.split(gate_inputs, self.num_units, dim=-1)  # 每个的形状: (batch_size, num_nodes, num_units)
+        r = torch.sigmoid(r)
+        u = torch.sigmoid(u)
 
-        output = x0_0 + x1_0
-        if self._activation is not None:
-            output = self._activation(output)
+        # 计算候选隐藏状态
+        # 拼接 inputs 和 r * hx
+        inputs_and_rhx = torch.cat([inputs, r * hx], dim=-1)  # (batch_size, num_nodes, input_dim + num_units)
+        candidate = self._gconv(inputs_and_rhx, adj_norm, self.candidate_linear)  # (batch_size, num_nodes, num_units)
+        n = torch.tanh(candidate)
 
-        output = torch.reshape(output, [batch_size, self._num_nodes * self._num_units])
-        logging.info('GCNcell ouput....')
+        # 计算新的隐藏状态
+        h_new = (1 - u) * n + u * hx  # (batch_size, num_nodes, num_units)
+
+        # 如果有投影层，则应用投影
+        if self.project_linear is not None:
+            h_new = h_new.view(batch_size, self.num_nodes, -1)
+            h_new = self.project_linear(h_new)  # (batch_size, num_nodes, num_proj)
+            h_new = h_new.view(batch_size, -1)  # 展平为 (batch_size, num_nodes * num_proj)
+        else:
+            h_new = h_new.view(batch_size, -1)  # 展平为 (batch_size, num_nodes * num_units)
+
+        return h_new
+
+    def _gconv(self, inputs, adj_norm, linear):
+        """
+        图卷积操作
+
+        参数：
+        - inputs: 输入特征，形状为 (batch_size, num_nodes, input_dim)
+        - adj_norm: 归一化的邻接矩阵，形状为 (num_nodes, num_nodes)
+        - linear: 线性层，nn.Linear(input_dim, output_dim)
+
+        返回：
+        - output: 图卷积的输出，形状为 (batch_size, num_nodes, output_dim)
+        """
+        # 执行图卷积
+        support = torch.einsum('ij,bjk->bik', adj_norm, inputs)  # (batch_size, num_nodes, input_dim)
+        output = linear(support)  # (batch_size, num_nodes, output_dim)
         return output
+
+    def normalize_adj(self, adj):
+        """
+        归一化邻接矩阵
+
+        参数：
+        - adj: 原始邻接矩阵，形状为 (num_nodes, num_nodes)
+
+        返回：
+        - adj_norm: 归一化的邻接矩阵，形状为 (num_nodes, num_nodes)
+        """
+        # 计算 D^{-1/2} A D^{-1/2}
+        
+        D = torch.diag(adj.sum(1))  # 度矩阵
+        D_inv_sqrt = torch.diag(1.0 / torch.sqrt(D.diag() + 1e-5))
+        adj_norm = D_inv_sqrt @ adj @ D_inv_sqrt
+        return adj_norm
+
+
+
 
 # 定义编码器模型
 """

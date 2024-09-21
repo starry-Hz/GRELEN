@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    filename='./log/train_grelen.log',
+                    filename='./log/train_grelen_gcn.log',
                     filemode='a')
 
 
@@ -120,7 +120,7 @@ if __name__ == '__main__':
 
     # train model
     # for epoch in range(start_epoch, 300):
-    for epoch in range(start_epoch, 500):
+    for epoch in range(start_epoch, 10):
         params_filename = os.path.join(params_path, 'epoch_%s.params' % epoch)
         val_loss = val_epoch(net, val_loader, sw, epoch, config)
 
