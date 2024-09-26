@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    filename='./log/train_grelen1.log',
+                    filename='./log/train_grelen2.log',
                     filemode='a')
 
 # 验证一个epoch的函数
@@ -158,7 +158,7 @@ if __name__ == '__main__':
         logging.info('load weight from: ', params_filename)
 
     # 开始训练循环
-    for epoch in range(start_epoch, 300):
+    for epoch in range(start_epoch, 1):
         params_filename = os.path.join(params_path, 'epoch_%s.params' % epoch)
         # 验证一个epoch并获取验证损失
         val_loss = val_epoch(net, val_loader, sw, epoch, config)

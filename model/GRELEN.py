@@ -114,6 +114,8 @@ class DCGRUCell_(torch.nn.Module):
         return random_walk_mx
 
     def _calculate_random_walk0(self, adj_mx, B):  # adj_mx是tensor形式
+        # print(f"随机游走中的adj形状{adj_mx.shape}")
+        logging.info(f"随机游走中的adj形状{adj_mx.shape}")  # [128, 51, 51]
         adj_mx = adj_mx + torch.eye(int(adj_mx.shape[1])).unsqueeze(0).repeat(B, 1, 1).to(self.device)
         d = torch.sum(adj_mx, 1)
         d_inv = 1. / d
@@ -123,6 +125,9 @@ class DCGRUCell_(torch.nn.Module):
         return random_walk_mx
 
     def forward(self, inputs, hx, adj):
+        logging.info(f"DCGRUCell_类中的输入inputs形状为{inputs.shape}")  # [128, 51, 64]
+        logging.info(f"DCGRUCell_类中的hx矩阵的形状为{hx.shape}")   # [128, 3264]
+        logging.info(f"DCGRUCell_类中的adj矩阵的形状为{adj.shape}") # [128, 51, 51]
         output_size = 2 * self._num_units
         if self._use_gc_for_ru:
             fn = self._gconv
@@ -370,6 +375,7 @@ class Grelen(nn.Module):
         mask = ~torch.eye(self.num_nodes, dtype=bool).unsqueeze(0).unsqueeze(0).to(self.device)
         mask = mask.repeat(self.head, B, 1, 1).to(self.device)
         adj_list[mask] = edges.permute(2, 0, 1).flatten()
+        logging.info(f"邻接矩阵的形状为{adj_list.shape}")   # [4, 128, 51, 51]
         state_for_output = torch.zeros(input_projected.shape).to(self.device)
         state_for_output = (state_for_output.unsqueeze(0)).repeat(self.head - 1, 1, 1, 1, 1)
 

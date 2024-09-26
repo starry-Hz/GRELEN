@@ -33,7 +33,7 @@ class Config(object):
         self.start_epoch = 0
         # self.param_file = "experiments/swat_test/test_model.params"
         # self.start_epoch = 299
-        self.param_file = "experiments/swat_test/epoch_494.params"
+        self.param_file = "experiments/swat_test/epoch_8.params"
         self.save_result = True
         self.moving_window_ = 2
         self.anomaly_file = 'data/SWAT/SWAT_Time.csv'

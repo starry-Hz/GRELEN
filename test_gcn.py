@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    filename='./log/test_grelen.log',
+                    filename='./log/test_grelen_gcn.log',
                     filemode='a')
 
 if __name__ == '__main__':
