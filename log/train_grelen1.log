@@ -1,0 +1,29 @@
+2024-09-09 10:34:23,543 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-09-09 10:34:23,544 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-09-09 10:34:23,568 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (dcgru_layers): ModuleList(
+        (0): DCGRUCell_(
+          (_gconv_0): Linear(in_features=384, out_features=128, bias=True)
+          (_gconv_1): Linear(in_features=384, out_features=128, bias=True)
+          (_gconv_c_0): Linear(in_features=384, out_features=64, bias=True)
+          (_gconv_c_1): Linear(in_features=384, out_features=64, bias=True)
+        )
+      )
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+)
+2024-09-09 10:34:28,871 - root - INFO - epoch: 0, validation loss: 3.11
+2024-09-09 10:34:28,881 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
