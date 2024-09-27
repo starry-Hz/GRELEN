@@ -219,7 +219,7 @@ class GCNCell(torch.nn.Module):
         return random_walk_mx
 
     def forward(self, inputs, hj,adj):
-        logging.info(f"GCNCell输入inputs形状为{inputs.shape}")  # [128, 51, 64]
+        # logging.info(f"GCNCell输入inputs形状为{inputs.shape}")  # [128, 51, 64]
         # logging.info(f"邻接矩阵adj形状为{adj.shape}")  # [128, 51, 51]
 
         B = inputs.shape[0]
