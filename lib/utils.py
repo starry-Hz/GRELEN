@@ -182,7 +182,7 @@ def moving_average(x, w):
 
 def point_adjust_eval(anomaly_start, anomaly_end, down, loss, thr1, thr2):
     len_ = int(anomaly_end[-1]/down)+1
-    logging.info(f"len数值{len_}")
+    # logging.info(f"len数值{len_}") # len_长度为7421
     anomaly = np.zeros((len_))
     loss = loss[:len_]
     anomaly[np.where(loss>thr1)] = 1

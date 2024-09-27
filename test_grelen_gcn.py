@@ -38,7 +38,6 @@ if __name__ == '__main__':
     logging.info(f"训练集文件{test_filename}")
     logging.info(f"test_loader的形状为{len(test_loader.dataset)}")  # test_loader的形状为7470
     logging.info(f"test_target_tensor的形状为{len(test_target_tensor)}")    # test_target_tensor的形状为7470
-    # logging.info(f"{}")
 
     # 获取配置中的参数
     B, N, T, target_T = config.B, config.N, config.T, config.target_T  # B:批次大小, N:节点数, T:输入序列长度, target_T:目标序列长度

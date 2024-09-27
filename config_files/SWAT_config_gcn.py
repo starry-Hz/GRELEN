@@ -36,7 +36,7 @@ class Config(object):
         # 保存相关配置
         self.save_dir = 'experiments/swat_test'  # 保存目录
         self.start_epoch = 0  # 起始训练周期
-        self.param_file = "experiments/swat_test/epoch_9.params"  # 模型参数文件
+        self.param_file = "experiments/swat_test/epoch_8.params"  # 模型参数文件
         self.save_result = True  # 是否保存结果
         self.moving_window_ = 2  # 移动窗口大小
         self.anomaly_file = 'data/SWAT/SWAT_Time.csv'  # 异常数据文件

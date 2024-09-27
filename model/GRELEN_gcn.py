@@ -147,52 +147,7 @@ class Graph_learner(nn.Module):
         return probs # 返回注意力权重矩阵,每个头上,各节点之间的相关性矩阵[B,H,N,N]
         # probs表示节点之间的相关性,可以用于生成邻接矩阵
 
-# # GCN实现1
-# class GCNCell(torch.nn.Module):
-#     def __init__(self, device, num_units, max_diffusion_step, num_nodes, 
-#                 filter_type="laplacian",nonlinearity='tanh'):
-#         super().__init__()
-#         self._activation = torch.tanh if nonlinearity == 'tanh' else torch.relu
-#         self.device = device
-#         self._num_nodes = num_nodes
-#         self._num_units = num_units
-
-#         self._gconv = nn.Linear(self._num_units, self._num_units)
-
-#         for m in self.modules():
-#             if isinstance(m, nn.Linear):
-#                 nn.init.xavier_normal_(m.weight.data)
-#                 m.bias.data.fill_(0.1)
-
-#     def _calculate_random_walk_matrix(self, adj_mx):
-#         adj_mx = adj_mx + torch.eye(int(adj_mx.shape[0])).to(self.device)
-#         d = torch.sum(adj_mx, 1)
-#         d_inv = 1. / d
-#         d_inv = torch.where(torch.isinf(d_inv), torch.zeros(d_inv.shape).to(self.device), d_inv)
-#         d_mat_inv = torch.diag(d_inv)
-#         random_walk_mx = torch.mm(d_mat_inv, adj_mx)
-#         return random_walk_mx
-
-#     def forward(self, inputs, hx,adj):
-#         logging.info(f"输入inputs形状为{inputs.shape}")  # [128, 51, 64]
-#         logging.info(f"邻接矩阵adj形状为{adj.shape}")  # [128, 51, 51]
-
-#         # 输入重塑
-#         B = inputs.shape[0]
-#         inputs = inputs.reshape(B, self._num_nodes, -1)  # [128, 51, 64]
-
-#         # 计算随机游走矩阵
-#         random_walk_mx = self._calculate_random_walk_matrix(adj[0])  # 只使用第一个批次的邻接矩阵
-#         random_walk_mx = random_walk_mx.unsqueeze(0).repeat(B, 1, 1)  # [128, 51, 51]
-
-#         # 图卷积计算
-#         gconv_output = self._gconv(inputs)  # [128, 51, 64]
-#         if self._activation is not None:
-#             gconv_output = self._activation(gconv_output)
-
-#         return gconv_output.reshape(B, -1)  # [128, 3264]
-
-
+# 两层图卷积
 class GCNCell(torch.nn.Module):
     def __init__(self, device, num_units, max_diffusion_step, num_nodes, 
                 filter_type="laplacian",nonlinearity='tanh'):
@@ -202,7 +157,9 @@ class GCNCell(torch.nn.Module):
         self._num_nodes = num_nodes
         self._num_units = num_units
 
-        self._gconv = nn.Linear(self._num_units, self._num_units)
+        # 两层图卷积
+        self._gconv1 = nn.Linear(self._num_units, self._num_units)
+        self._gconv2 = nn.Linear(self._num_units, self._num_units)
 
         for m in self.modules():
             if isinstance(m, nn.Linear):
@@ -219,7 +176,7 @@ class GCNCell(torch.nn.Module):
         return random_walk_mx
 
     def forward(self, inputs, hj,adj):
-        # logging.info(f"GCNCell输入inputs形状为{inputs.shape}")  # [128, 51, 64]
+        # logging.info(f"两层图卷积形状的输入inputs形状为{inputs.shape}")  # [128, 51, 64]
         # logging.info(f"邻接矩阵adj形状为{adj.shape}")  # [128, 51, 51]
 
         B = inputs.shape[0]
@@ -229,15 +186,25 @@ class GCNCell(torch.nn.Module):
         random_walk_mx = self._calculate_random_walk_matrix(adj[0])  # 只使用第一个批次的邻接矩阵
         random_walk_mx = random_walk_mx.unsqueeze(0).repeat(B, 1, 1)  # [128, 51, 51]
 
-        # 使用图卷积进行信息传播
-        gconv_output = torch.bmm(random_walk_mx, inputs)  # [128, 51, 64]
-        
-        # 应用激活函数
+        # 第一层图卷积
+        gconv_output1 = torch.bmm(random_walk_mx, inputs)  # [128, 51, 64]
+        gconv_output1 = self._gconv1(gconv_output1)  # [128, 51, 64]
         if self._activation is not None:
-            gconv_output = self._activation(gconv_output)
+            gconv_output1 = self._activation(gconv_output1)
 
-        return gconv_output.reshape(B, -1)  # [128, 3264]
+        # 第二层图卷积
+        random_walk_mx2 = self._calculate_random_walk_matrix(adj[0])  # 重新计算
+        random_walk_mx2 = random_walk_mx2.unsqueeze(0).repeat(B, 1, 1)  # [128, 51, 51]
 
+        gconv_output2 = torch.bmm(random_walk_mx2, gconv_output1)  # [128, 51, 64]
+        gconv_output2 = self._gconv2(gconv_output2)  # [128, 51, 64]
+        if self._activation is not None:
+            gconv_output2 = self._activation(gconv_output2)
+
+        return gconv_output2.reshape(B, -1)  # [128, 3264]
+
+# 反向传播，两层图卷积再加反向传播
+# PyTorch会自动处理反向传播的过程，只需确保在训练时调用loss.backward()和优化器.step()
 
 
 # 定义编码器模型

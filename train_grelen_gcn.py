@@ -159,7 +159,7 @@ if __name__ == '__main__':
         logging.info('load weight from: ', params_filename)
 
     # 开始训练循环
-    for epoch in range(start_epoch, 1):
+    for epoch in range(start_epoch, 10):
         params_filename = os.path.join(params_path, 'epoch_%s.params' % epoch)
         # 验证一个epoch并获取验证损失
         val_loss = val_epoch(net, val_loader, sw, epoch, config)
