@@ -5,11 +5,13 @@ import numpy as np  # 导入NumPy库,用于数值计算
 from sklearn.metrics import classification_report, precision_score, recall_score, f1_score  # 导入评价指标
 
 from lib.utils import *  # 导入自定义工具函数
-from model.GRELEN_gcn import *  # 导入GRELEN_gcn模型
+
+#####################################################################修改模型
+from model.GRELEN_gcn2 import *  # 导入GRELEN_gcn模型
 
 # import logging
 # # 日志配置
-# logging.basicConfig(filename='test_grelen.log', level=logging.INFO,
+# logging.basicConfig(filename='test_grelen2.log', level=logging.INFO,
 #                     format='%(asctime)s:%(levelname)s:%(message)s')
 import logging
 
@@ -93,7 +95,7 @@ if __name__ == '__main__':
         for batch_index, batch_data in enumerate(test_loader):
             # print(len(batch_data))batch_data长度为6
             # logging.info(f"{batch_index}批次的数据batch_data{batch_data.shape}")
-            logging.info(f"{batch_index} 批次的数据类型: {type(batch_data)}, 长度: {len(batch_data)}")   # 批次的数据类型: <class 'list'>, 长度: 2
+            # logging.info(f"{batch_index} 批次的数据类型: {type(batch_data)}, 长度: {len(batch_data)}")   # 批次的数据类型: <class 'list'>, 长度: 2
             encoder_inputs, labels = batch_data
             encoder_inputs = encoder_inputs[:, :, 0, :]
             labels = labels[:, :, 0, 1:]

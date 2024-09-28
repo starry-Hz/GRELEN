@@ -147,53 +147,8 @@ class Graph_learner(nn.Module):
         return probs # 返回注意力权重矩阵,每个头上,各节点之间的相关性矩阵[B,H,N,N]
         # probs表示节点之间的相关性,可以用于生成邻接矩阵
 
-# # GCN实现1
-# class GCNCell(torch.nn.Module):
-#     def __init__(self, device, num_units, max_diffusion_step, num_nodes, 
-#                 filter_type="laplacian",nonlinearity='tanh'):
-#         super().__init__()
-#         self._activation = torch.tanh if nonlinearity == 'tanh' else torch.relu
-#         self.device = device
-#         self._num_nodes = num_nodes
-#         self._num_units = num_units
-
-#         self._gconv = nn.Linear(self._num_units, self._num_units)
-
-#         for m in self.modules():
-#             if isinstance(m, nn.Linear):
-#                 nn.init.xavier_normal_(m.weight.data)
-#                 m.bias.data.fill_(0.1)
-
-#     def _calculate_random_walk_matrix(self, adj_mx):
-#         adj_mx = adj_mx + torch.eye(int(adj_mx.shape[0])).to(self.device)
-#         d = torch.sum(adj_mx, 1)
-#         d_inv = 1. / d
-#         d_inv = torch.where(torch.isinf(d_inv), torch.zeros(d_inv.shape).to(self.device), d_inv)
-#         d_mat_inv = torch.diag(d_inv)
-#         random_walk_mx = torch.mm(d_mat_inv, adj_mx)
-#         return random_walk_mx
-
-#     def forward(self, inputs, hx,adj):
-#         logging.info(f"输入inputs形状为{inputs.shape}")  # [128, 51, 64]
-#         logging.info(f"邻接矩阵adj形状为{adj.shape}")  # [128, 51, 51]
-
-#         # 输入重塑
-#         B = inputs.shape[0]
-#         inputs = inputs.reshape(B, self._num_nodes, -1)  # [128, 51, 64]
-
-#         # 计算随机游走矩阵
-#         random_walk_mx = self._calculate_random_walk_matrix(adj[0])  # 只使用第一个批次的邻接矩阵
-#         random_walk_mx = random_walk_mx.unsqueeze(0).repeat(B, 1, 1)  # [128, 51, 51]
-
-#         # 图卷积计算
-#         gconv_output = self._gconv(inputs)  # [128, 51, 64]
-#         if self._activation is not None:
-#             gconv_output = self._activation(gconv_output)
-
-#         return gconv_output.reshape(B, -1)  # [128, 3264]
-
 # bmm 第二种gcn
-class GCNCell(torch.nn.Module):
+class GraphConvolution(torch.nn.Module):
     def __init__(self, device, num_units, max_diffusion_step, num_nodes, 
                 filter_type="laplacian",nonlinearity='tanh'):
         super().__init__()
@@ -219,7 +174,7 @@ class GCNCell(torch.nn.Module):
         return random_walk_mx
 
     def forward(self, inputs, hj,adj):
-        # logging.info(f"GCNCell输入inputs形状为{inputs.shape}")  # [128, 51, 64]
+        # logging.info(f"GraphConvolution输入inputs形状为{inputs.shape}")  # [128, 51, 64]
         # logging.info(f"邻接矩阵adj形状为{adj.shape}")  # [128, 51, 51]
 
         B = inputs.shape[0]
@@ -231,6 +186,8 @@ class GCNCell(torch.nn.Module):
 
         # 使用图卷积进行信息传播
         gconv_output = torch.bmm(random_walk_mx, inputs)  # [128, 51, 64]
+        # 增加权重矩阵
+        gconv_output = self._gconv(gconv_output) 
         
         # 应用激活函数
         if self._activation is not None:
@@ -270,7 +227,7 @@ class EncoderModel(nn.Module):
         self.hidden_state_size = self.num_nodes * self.rnn_units  # 隐藏状态大小
         # 创建了num_rnn_layers个DCGRU单元,每层用于处理输入数据和邻接矩阵,并逐层递归更新隐藏状态
         self.dcgru_layers = nn.ModuleList(
-            [GCNCell(self.device, self.rnn_units, self.max_diffusion_step, self.num_nodes,
+            [GraphConvolution(self.device, self.rnn_units, self.max_diffusion_step, self.num_nodes,
                        filter_type=self.filter_type) for _ in range(self.num_rnn_layers)])  # 定义多个 DCGRU 单元
 
     def forward(self, inputs, adj, hidden_state=None):
@@ -400,6 +357,7 @@ class Grelen(nn.Module):
         :param inputs: 输入数据 [B,N,T]
         :return: 概率和输出
         """
+        # logging.info("GRELEN_gcn2")
         B = inputs.shape[0]  # 获取输入批量大小
         input_projected = self.linear1(inputs.unsqueeze(-1))  # 通过线性层对输入进行投影    [B, N, T, GRU_n_dim]
         input_projected = input_projected.permute(0, 1, 3, 2)  # 调整维度顺序以适应模型的输入格式   [B, N, GRU_n_dim, T]
@@ -431,7 +389,7 @@ class Grelen(nn.Module):
         # 将采样得到的边填充到邻接矩阵中,即学习到的图结构(节点之间的连接)填充到邻接矩阵中
         adj_list[mask] = edges.permute(2, 0, 1).flatten()
         # print(adj_list.shape)
-        logging.info(f"GRELEN_gcn邻接矩阵的形状为{adj_list.shape}")
+        # logging.info(f"GRELEN_gcn邻接矩阵的形状为{adj_list.shape}")
 
         # 初始化输出状态张量,用于存储编码结果
         state_for_output = torch.zeros(input_projected.shape).to(self.device)

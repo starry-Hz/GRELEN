@@ -149,7 +149,7 @@ if __name__ == '__main__':
     swat_normal = pd.read_csv('SWaT_Dataset_Normal_v0.csv')  # 读取正常的SWaT数据集
     swat_abnormal = pd.read_csv('SWaT_Dataset_Attack_v0.csv')  # 读取异常的SWaT数据集
     
-    swat_normal_np = np.array(swat_normal.iloc[:, 1: -1])  # 将正常数据集的第2列到倒数第2列转换为NumPy数组
+    swat_normal_np = np.array(swat_normal.iloc[:, 1: -1])  # 将正常数据集的第2列到倒数第2列转换为NumPy数组,FIT101-P603
     swat_abnormal_np = np.array(swat_abnormal.iloc[:, 1: -1])  # 将异常数据集的第2列到倒数第2列转换为NumPy数组
 
     # 对正常数据集进行降采样处理，并丢弃前3000行数据

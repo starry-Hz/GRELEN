@@ -147,37 +147,83 @@ class Graph_learner(nn.Module):
         return probs # 返回注意力权重矩阵,每个头上,各节点之间的相关性矩阵[B,H,N,N]
         # probs表示节点之间的相关性,可以用于生成邻接矩阵
 
-# 两层图卷积
-class GraphConvolution(torch.nn.Module):
-    def __init__(self, device, num_units, max_diffusion_step, num_nodes, 
-                filter_type="laplacian",nonlinearity='tanh'):
+# 使用matmul+bmm进行图卷积
+class GraphConvolution(nn.Module):
+    def __init__(self, device, num_units, max_diffusion_step, num_nodes, filter_type="laplacian", nonlinearity='tanh'):
         """
-        初始化 GraphConvolution 单元
-        :param device: 设备(CPU 或 GPU)
-        :param num_units: 每个节点在图卷积中的特征维度
-        :param max_diffusion_step: 最大扩散步数
-        :param num_nodes: 图中的节点数量
-        :param nonlinearity: 非线性激活函数('tanh' 或 'relu')
-        :param filter_type: 图卷积滤波器类型('laplacian' 或其他）
+        参数:
+        device: 设备（CPU或GPU）
+        num_units: 隐藏层单元数
+        max_diffusion_step: 最大扩散步数
+        num_nodes: 节点数
+        filter_type: 滤波器类型（默认为 'laplacian'）
+        nonlinearity: 非线性激活函数类型（默认为 'tanh'）
         """
-        super().__init__()
-        self._activation = torch.tanh if nonlinearity == 'tanh' else torch.relu
+        super(GraphConvolution, self).__init__()
         self.device = device
         self._num_nodes = num_nodes
         self._num_units = num_units
+        self.max_diffusion_step = max_diffusion_step
+        self.filter_type = filter_type
 
-        # 两层图卷积
-        self._gconv1 = nn.Linear(self._num_units, self._num_units)
-        self._gconv2 = nn.Linear(self._num_units, self._num_units)
+        # 动态选择激活函数
+        self._activation = torch.tanh if nonlinearity == 'tanh' else torch.relu
 
-        # self.modules表示遍历当前模块中的所有子模块(包括类中的所有层,两个linear线性层,以及激活函数等)
-        for m in self.modules():
-            # 判断当前模块是否是nn.Linear类型的全连接层
-            if isinstance(m, nn.Linear):
-                nn.init.xavier_normal_(m.weight.data)   # 使用xavier正态分布初始化全连接层的weight权重矩阵
-                m.bias.data.fill_(0.1)  # 全连接层的bias(偏置)项初始化为0。1
+        # 第一层图卷积权重
+        self.gc1_weight = nn.Parameter(torch.FloatTensor(num_nodes, num_units))
+        # 第二层图卷积权重
+        self.gc2_weight = nn.Parameter(torch.FloatTensor(num_units, num_units))
 
-    def _calculate_random_walk_matrix(self, adj_mx):
+        # 重置权重
+        self.reset_parameters()
+
+    def reset_parameters(self):
+        """初始化参数"""
+        nn.init.xavier_uniform_(self.gc1_weight)
+        nn.init.xavier_uniform_(self.gc2_weight)
+
+    def forward(self, inputs, hx, adj):
+        """
+        前向传播过程
+
+        参数:
+        inputs: 输入特征，形状为 [B, num_nodes * num_units]，B是批次大小，num_nodes是节点数，num_units是输入维度
+        hx: 隐藏状态，形状为 [B, num_nodes * num_units]
+        adj: 邻接矩阵，形状为 [B, num_nodes, num_nodes]
+
+        返回:
+        输出，形状为 [B, num_nodes * num_units]
+        """
+        B = inputs.shape[0]  # 获取批次大小
+        inputs = inputs.reshape(B,self._num_nodes,-1)
+
+        # 计算随机游走矩阵
+        random_walk_matrix = self.compute_random_walk_matrix(adj[0])  # [B, num_nodes, num_nodes]
+        random_walk_matrix = random_walk_matrix.unsqueeze(0).repeat(B,1,1)
+
+        # 重塑 inputs 和 hx 为 [B, num_nodes, num_units]
+        # inputs = inputs.view(B, self._num_nodes, self._num_units)
+        # hx = hx.view(B, self.num_nodes, self.num_units)
+
+        # 第一层图卷积
+        x1 = torch.matmul(inputs, self.gc1_weight)  # [B, num_nodes, num_units]
+        x1 = torch.bmm(random_walk_matrix, x1)  # 使用随机游走矩阵 [B, num_nodes, num_units]
+        x1 = self._activation(x1)
+
+        # 第二层图卷积
+        x2 = torch.matmul(x1, self.gc2_weight)  # [B, num_nodes, num_units]
+        x2 = torch.bmm(random_walk_matrix, x2)  # 使用随机游走矩阵 [B, num_nodes, num_units]
+        x2 = self._activation(x2)
+
+        # 输出形状转换为 [B, num_nodes * num_units]
+        return x2.view(B, -1)
+
+    # def compute_random_walk_matrix(self, adj):
+    #     """计算随机游走矩阵"""
+    #     D_inv = torch.diag_embed(torch.pow(adj.sum(2), -1))  # 计算度矩阵的逆
+    #     random_walk_matrix = torch.bmm(D_inv, adj)  # 随机游走矩阵 = D^-1 * A
+    #     return random_walk_matrix
+    def compute_random_walk_matrix(self, adj_mx):
         adj_mx = adj_mx + torch.eye(int(adj_mx.shape[0])).to(self.device)
         d = torch.sum(adj_mx, 1)
         d_inv = 1. / d
@@ -187,36 +233,6 @@ class GraphConvolution(torch.nn.Module):
         random_walk_mx = torch.mm(d_mat_inv, adj_mx)
         return random_walk_mx
 
-    def forward(self, inputs, hj,adj):
-        # inputs    [128, 51, 64]   [批次大小, 节点数量, 特征数量]
-        # logging.info(f"两层图卷积形状的输入inputs形状为{inputs.shape}")  # [128, 51, 64]
-        # logging.info(f"邻接矩阵adj形状为{adj.shape}")  # [128, 51, 51]
-
-        B = inputs.shape[0]
-        inputs = inputs.reshape(B, self._num_nodes, -1)  # [128, 51, 64]
-
-        # 计算随机游走矩阵
-        random_walk_mx = self._calculate_random_walk_matrix(adj[0])  # 只使用第一个批次的邻接矩阵
-        # 计算第一个批次的邻接矩阵对应的随机游走矩阵，并将其复制 B 次以适配批次大小
-        random_walk_mx = random_walk_mx.unsqueeze(0).repeat(B, 1, 1)  # [128, 51, 51]
-
-        # 使用线性层,偏置项b的存在是增加模型的拟合能力,并不会改变图卷积的本质,只是在每个节点特征上增加了平移量用于调整特征值
-        # 第一层图卷积
-        gconv_output1 = torch.bmm(random_walk_mx, inputs)  # [128, 51, 64]
-        gconv_output1 = self._gconv1(gconv_output1)  # [128, 51, 64]
-        if self._activation is not None:
-            gconv_output1 = self._activation(gconv_output1)
-
-        # 第二层图卷积
-        random_walk_mx2 = self._calculate_random_walk_matrix(adj[0])  # 重新计算
-        random_walk_mx2 = random_walk_mx2.unsqueeze(0).repeat(B, 1, 1)  # [128, 51, 51]
-
-        gconv_output2 = torch.bmm(random_walk_mx2, gconv_output1)  # [128, 51, 64]
-        gconv_output2 = self._gconv2(gconv_output2)  # [128, 51, 64]
-        if self._activation is not None:
-            gconv_output2 = self._activation(gconv_output2)
-
-        return gconv_output2.reshape(B, -1)  # [128, 3264]
 
 # 定义编码器模型
 """

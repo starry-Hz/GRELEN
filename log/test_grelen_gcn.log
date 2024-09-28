@@ -1,36 +1,151 @@
-2024-09-27 20:01:52,682 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
-2024-09-27 20:01:52,682 - root - INFO - test_loader的形状为7470
-2024-09-27 20:01:52,682 - root - INFO - test_target_tensor的形状为7470
-2024-09-27 20:01:52,693 - root - INFO - param file: experiments/swat_test/epoch_8.params
-2024-09-27 20:01:52,693 - root - INFO - Model loaded...
-2024-09-27 20:01:52,706 - root - INFO - 0 批次的数据类型: <class 'list'>, 长度: 2
-2024-09-27 20:01:54,112 - root - INFO - GRELEN_gcn邻接矩阵的形状为torch.Size([4, 1280, 51, 51])
-2024-09-27 20:01:55,048 - root - INFO - 1 批次的数据类型: <class 'list'>, 长度: 2
-2024-09-27 20:01:55,214 - root - INFO - GRELEN_gcn邻接矩阵的形状为torch.Size([4, 1280, 51, 51])
-2024-09-27 20:01:56,150 - root - INFO - 2 批次的数据类型: <class 'list'>, 长度: 2
-2024-09-27 20:01:56,313 - root - INFO - GRELEN_gcn邻接矩阵的形状为torch.Size([4, 1280, 51, 51])
-2024-09-27 20:01:57,254 - root - INFO - 3 批次的数据类型: <class 'list'>, 长度: 2
-2024-09-27 20:01:57,419 - root - INFO - GRELEN_gcn邻接矩阵的形状为torch.Size([4, 1280, 51, 51])
-2024-09-27 20:01:58,377 - root - INFO - 4 批次的数据类型: <class 'list'>, 长度: 2
-2024-09-27 20:01:58,568 - root - INFO - GRELEN_gcn邻接矩阵的形状为torch.Size([4, 1280, 51, 51])
-2024-09-27 20:01:59,535 - root - INFO - 5 批次的数据类型: <class 'list'>, 长度: 2
-2024-09-27 20:01:59,671 - root - INFO - GRELEN_gcn邻接矩阵的形状为torch.Size([4, 1070, 51, 51])
-2024-09-27 20:02:01,035 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
-2024-09-27 20:02:01,417 - root - INFO - Graph saved: experiments/swat_test/epoch_8.npy
-2024-09-27 20:02:01,417 - root - INFO - Evaluation...
-2024-09-27 20:02:01,425 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
-2024-09-27 20:02:01,448 - root - INFO - loss的形状为(7469,)
-2024-09-27 20:04:52,912 - root - INFO - 最高的阈值组合为(12, 194)
-2024-09-27 20:04:52,947 - root - INFO - F1 score: 0.8469055374592834
-2024-09-27 20:04:52,951 - root - INFO - Precision score: 0.8360128617363344
-2024-09-27 20:04:52,955 - root - INFO - Recall score: 0.858085808580858
-2024-09-27 20:04:52,973 - root - INFO - Confusion matrix: 
+2024-09-28 10:27:45,044 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-09-28 10:27:45,045 - root - INFO - test_loader的形状为7470
+2024-09-28 10:27:45,045 - root - INFO - test_target_tensor的形状为7470
+2024-09-28 10:27:45,058 - root - INFO - param file: experiments/swat_test/epoch_80.params
+2024-09-28 10:27:45,058 - root - INFO - Model loaded...
+2024-09-28 10:27:54,593 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-09-28 10:27:54,989 - root - INFO - Graph saved: experiments/swat_test/epoch_80.npy
+2024-09-28 10:27:54,989 - root - INFO - Evaluation...
+2024-09-28 10:27:54,997 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-09-28 10:27:55,738 - root - INFO - loss的形状为(7469,)
+2024-09-28 10:31:00,143 - root - INFO - 最高的阈值组合为(27, 38)
+2024-09-28 10:31:00,179 - root - INFO - F1 score: 0.8378048780487805
+2024-09-28 10:31:00,183 - root - INFO - Precision score: 0.7363344051446945
+2024-09-28 10:31:00,188 - root - INFO - Recall score: 0.9717114568599717
+2024-09-28 10:31:00,206 - root - INFO - Confusion matrix: 
               precision    recall  f1-score   support
 
-         0.0       0.98      0.98      0.98      6512
-         1.0       0.84      0.86      0.85       909
+         0.0       1.00      0.96      0.98      6714
+         1.0       0.74      0.97      0.84       707
 
     accuracy                           0.96      7421
-   macro avg       0.91      0.92      0.91      7421
-weighted avg       0.96      0.96      0.96      7421
+   macro avg       0.87      0.97      0.91      7421
+weighted avg       0.97      0.96      0.97      7421
+
+2024-09-28 10:51:48,616 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-09-28 10:51:48,616 - root - INFO - test_loader的形状为7470
+2024-09-28 10:51:48,617 - root - INFO - test_target_tensor的形状为7470
+2024-09-28 10:51:48,627 - root - INFO - param file: experiments/swat_test/epoch_92.params
+2024-09-28 10:51:48,627 - root - INFO - Model loaded...
+2024-09-28 10:51:56,897 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-09-28 10:51:57,300 - root - INFO - Graph saved: experiments/swat_test/epoch_92.npy
+2024-09-28 10:51:57,300 - root - INFO - Evaluation...
+2024-09-28 10:51:57,306 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-09-28 10:51:57,966 - root - INFO - loss的形状为(7469,)
+2024-09-28 10:55:02,886 - root - INFO - 最高的阈值组合为(8, 108)
+2024-09-28 10:55:02,922 - root - INFO - F1 score: 0.8450874020494273
+2024-09-28 10:55:02,927 - root - INFO - Precision score: 0.7513397642015005
+2024-09-28 10:55:02,931 - root - INFO - Recall score: 0.9655647382920111
+2024-09-28 10:55:02,949 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       1.00      0.97      0.98      6695
+         1.0       0.75      0.97      0.85       726
+
+    accuracy                           0.97      7421
+   macro avg       0.87      0.97      0.91      7421
+weighted avg       0.97      0.97      0.97      7421
+
+# 两层图卷积 迭代100次 GRELEN_gcn.py
+2024-09-28 15:09:30,298 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-09-28 15:09:30,298 - root - INFO - test_loader的形状为7470
+2024-09-28 15:09:30,298 - root - INFO - test_target_tensor的形状为7470
+2024-09-28 15:10:06,886 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-09-28 15:10:06,887 - root - INFO - test_loader的形状为7470
+2024-09-28 15:10:06,887 - root - INFO - test_target_tensor的形状为7470
+2024-09-28 15:10:06,900 - root - INFO - param file: experiments/swat_test/epoch_93.params
+2024-09-28 15:10:06,900 - root - INFO - Model loaded...
+2024-09-28 15:10:17,840 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-09-28 15:10:18,246 - root - INFO - Graph saved: experiments/swat_test/epoch_93.npy
+2024-09-28 15:10:18,246 - root - INFO - Evaluation...
+2024-09-28 15:10:18,253 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-09-28 15:10:19,883 - root - INFO - loss的形状为(7469,)
+2024-09-28 15:14:03,974 - root - INFO - 最高的阈值组合为(37, 125)
+2024-09-28 15:14:04,020 - root - INFO - F1 score: 0.8355058969584109
+2024-09-28 15:14:04,026 - root - INFO - Precision score: 0.7213290460878885
+2024-09-28 15:14:04,031 - root - INFO - Recall score: 0.9926253687315634
+2024-09-28 15:14:04,054 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       1.00      0.96      0.98      6743
+         1.0       0.72      0.99      0.84       678
+
+    accuracy                           0.96      7421
+   macro avg       0.86      0.98      0.91      7421
+weighted avg       0.97      0.96      0.97      7421
+
+# 一层线性层 迭代100次 GRELEN_gcn1.py
+2024-09-28 19:14:08,277 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-09-28 19:14:08,277 - root - INFO - test_loader的形状为7470
+2024-09-28 19:14:08,277 - root - INFO - test_target_tensor的形状为7470
+2024-09-28 19:14:08,289 - root - INFO - param file: experiments/swat_test/epoch_96.params
+2024-09-28 19:14:08,289 - root - INFO - Model loaded...
+2024-09-28 19:14:18,878 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-09-28 19:14:19,267 - root - INFO - Graph saved: experiments/swat_test/epoch_96.npy
+2024-09-28 19:14:19,267 - root - INFO - Evaluation...
+2024-09-28 19:14:19,274 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-09-28 19:14:20,949 - root - INFO - loss的形状为(7469,)
+2024-09-28 19:17:20,058 - root - INFO - 最高的阈值组合为(47, 107)
+2024-09-28 19:17:20,094 - root - INFO - F1 score: 0.8407407407407408
+2024-09-28 19:17:20,098 - root - INFO - Precision score: 0.729903536977492
+2024-09-28 19:17:20,102 - root - INFO - Recall score: 0.9912663755458515
+2024-09-28 19:17:20,120 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       1.00      0.96      0.98      6734
+         1.0       0.73      0.99      0.84       687
+
+    accuracy                           0.97      7421
+   macro avg       0.86      0.98      0.91      7421
+weighted avg       0.97      0.97      0.97      7421
+
+# 一层图卷积 迭代100次 GRELEN_gcn2.py   忘记加权重矩阵了
+2024-09-28 20:37:09,492 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-09-28 20:37:09,493 - root - INFO - test_loader的形状为7470
+2024-09-28 20:37:09,493 - root - INFO - test_target_tensor的形状为7470
+2024-09-28 20:37:09,504 - root - INFO - param file: experiments/swat_test/epoch_89.params
+2024-09-28 20:37:09,504 - root - INFO - Model loaded...
+2024-09-28 20:37:19,731 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-09-28 20:37:20,146 - root - INFO - Graph saved: experiments/swat_test/epoch_89.npy
+2024-09-28 20:37:20,146 - root - INFO - Evaluation...
+2024-09-28 20:37:20,153 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-09-28 20:37:20,279 - root - INFO - loss的形状为(7469,)
+2024-09-28 20:41:12,306 - root - INFO - 最高的阈值组合为(9, 123)
+2024-09-28 20:41:12,351 - root - INFO - F1 score: 0.8553240740740741
+2024-09-28 20:41:12,357 - root - INFO - Precision score: 0.7920685959271169
+2024-09-28 20:41:12,363 - root - INFO - Recall score: 0.929559748427673
+2024-09-28 20:41:12,385 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       0.99      0.97      0.98      6626
+         1.0       0.79      0.93      0.86       795
+
+    accuracy                           0.97      7421
+   macro avg       0.89      0.95      0.92      7421
+weighted avg       0.97      0.97      0.97      7421
+
+# 一层图卷积 迭代100次 GRELEN_gcn2.py  加权重矩阵了
+2024-09-28 21:42:14,411 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-09-28 21:42:14,412 - root - INFO - test_loader的形状为7470
+2024-09-28 21:42:14,412 - root - INFO - test_target_tensor的形状为7470
+2024-09-28 21:42:14,423 - root - INFO - param file: experiments/swat_test/epoch_91.params
+2024-09-28 21:42:14,424 - root - INFO - Model loaded...
+2024-09-28 21:42:24,742 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-09-28 21:42:25,166 - root - INFO - Graph saved: experiments/swat_test/epoch_91.npy
+2024-09-28 21:42:25,166 - root - INFO - Evaluation...
+2024-09-28 21:42:25,174 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-09-28 21:42:26,303 - root - INFO - loss的形状为(7469,)
+2024-09-28 21:46:51,863 - root - INFO - 最高的阈值组合为(12, 100)
+2024-09-28 21:46:51,908 - root - INFO - F1 score: 0.8312611012433393
+2024-09-28 21:46:51,913 - root - INFO - Precision score: 0.752411575562701
+2024-09-28 21:46:51,918 - root - INFO - Recall score: 0.9285714285714286
+2024-09-28 21:46:51,940 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       0.99      0.97      0.98      6665
+         1.0       0.75      0.93      0.83       756
+
+    accuracy                           0.96      7421
+   macro avg       0.87      0.95      0.90      7421
+weighted avg       0.97      0.96      0.96      7421
 

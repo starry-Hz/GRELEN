@@ -148,260 +148,8 @@ class Graph_learner(nn.Module):
         return probs # 返回注意力权重矩阵,每个头上,各节点之间的相关性矩阵[B,H,N,N]
         # probs表示节点之间的相关性,可以用于生成邻接矩阵
 
-# 定义一个带有图卷积操作的 GRU 单元（DCGRU 单元）***Decoder***
-"""
-Figure3中的Decoder部分,展示了如何通过系列重建模块将潜在向量Z转换回时间序列数据,并使用学习到的图结构重建数据
-从时空数据中提取特征,计算更新和重置门,并更新隐藏状态,通过图卷积实现时空依赖关系的捕捉和建模。
-"""
-class DCGRUCell_(torch.nn.Module):
-    def __init__(self, device, num_units, max_diffusion_step, num_nodes, nonlinearity='tanh',
-                 filter_type="laplacian", use_gc_for_ru=True):
-        """
-        初始化 DCGRU 单元
-        :param device: 设备(CPU 或 GPU)
-        :param num_units: 单元数
-        :param max_diffusion_step: 最大扩散步数
-        :param num_nodes: 节点数量
-        :param nonlinearity: 非线性激活函数('tanh' 或 'relu')
-        :param filter_type: 图卷积滤波器类型('laplacian' 或其他）
-        :param use_gc_for_ru: 是否使用图卷积来计算更新和重置门
-        """
-        super().__init__()  # 调用父类的初始化方法
-        self._activation = torch.tanh if nonlinearity == 'tanh' else torch.relu  # 根据 nonlinearity 选择激活函数
-        self.device = device  # 设置设备
-        self._num_nodes = num_nodes  # 设置节点数量
-        self._num_units = num_units  # 设置单元数量
-        self._max_diffusion_step = max_diffusion_step  # 设置最大扩散步数
-        self._supports = []  # 初始化支持的图卷积列表
-        self._use_gc_for_ru = use_gc_for_ru  # 设置是否使用图卷积计算更新和重置门
-
-        # 定义用于图卷积的线性层
-        # 输入是 self._num_units * 2 * (self._max_diffusion_step + 1),输出是 self._num_units * 2,因为同时计算了更新门和重置门
-        # _gconv_0和_gconv_1用于计算更新门和重置门,_gconv_c_0和_gconv_c_1用于计算候选隐藏状态
-        self._gconv_0 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units * 2)  # 定义第一个图卷积层
-        self._gconv_1 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units * 2)  # 定义第二个图卷积层
-        self._gconv_c_0 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units)  # 定义第三个图卷积层,用于计算新的隐藏状态
-        self._gconv_c_1 = nn.Linear(self._num_units * 2 * (self._max_diffusion_step + 1), self._num_units)  # 定义第四个图卷积层,用于计算新的隐藏状态
-        for m in self.modules():  # 遍历模型中的所有子模块
-            if isinstance(m, nn.Linear):  # 如果子模块是全连接层
-                nn.init.xavier_normal_(m.weight.data)  # 使用 Xavier 正态分布初始化权重
-                m.bias.data.fill_(0.1)  # 将偏置初始化为 0.1
-
-    def forward(self, inputs, hx, adj):
-        """
-        前向传播
-        :param inputs: 当前时间步的输入数据
-        :param hx: 上一个时间步的隐藏状态
-        :param adj: 当前图的邻接矩阵
-        :return: 更新后的隐藏状态
-        """
-        output_size = 2 * self._num_units  # 输出大小为单元数量的两倍
-        if self._use_gc_for_ru:
-            fn = self._gconv  # 如果使用图卷积计算更新和重置门,则使用图卷积函数
-        else:
-            fn = self._fc  # 否则使用全连接函数
-        value = torch.sigmoid(fn(inputs, adj, hx, output_size, bias_start=1.0))  # 计算更新和重置门的值,fn表示使用了图卷积或者全连接函数
-        # 图卷积操作用于替代标准 GRU 中的线性变换。fn()使用扩散卷积,考虑多阶邻接信息,value [B,N,2*Fhid]
-
-        value = torch.reshape(value, (-1, self._num_nodes, output_size))  # 重塑值的形状
-        # r：重置门,用于决定是否忘记之前的信息；u：更新门,用于控制信息从当前输入和前一隐藏状态传递的比例
-        # r,u对应3.6中的rt'和ut'
-        # 因为线性层的输出是按照特征维度顺序排列的，前半部分对应𝑟，后半部分对应𝑢,
-        # 最后一个维度[0:num_units-1]是重置门r,[num_units:2*num_units-1]对应更新门u的线性变换结果
-        r, u = torch.split(tensor=value, split_size_or_sections=self._num_units, dim=-1)  # 分割更新和重置门的值
-        r = torch.reshape(r, (-1, self._num_nodes * self._num_units))  # 重塑重置门的值 [B,N,Fhid]
-        u = torch.reshape(u, (-1, self._num_nodes * self._num_units))  # 重塑更新门的值 [B,N,Fhid]
-
-        # r * hx将重置门的输出和隐藏状态相乘,调整隐藏状态中的信息
-        # c：候选新的隐藏状态,通过图卷积_gconv_c计算得到,对应3.6公式中的ct'
-        c = self._gconv_c(inputs, adj, r * hx, self._num_units)  # 通过图卷积计算新的隐藏状态
-        if self._activation is not None:
-            c = self._activation(c)  # 应用激活函数
-
-        new_state = u * hx + (1.0 - u) * c  # 计算新的隐藏状态,对应3.6公式中的hgt
-        return new_state
-
-    @staticmethod
-    def _build_sparse_matrix(L):
-        """
-        构建稀疏矩阵
-        :param L: 输入矩阵
-        :return: 构建后的稀疏矩阵
-        """
-        L = L.tocoo()  # 将矩阵转换为 COOrdinate 格式
-        indices = np.column_stack((L.row, L.col))  # 获取矩阵的行列索引
-        indices = indices[np.lexsort((indices[:, 0], indices[:, 1]))]  # 按行列排序索引
-        L = torch.sparse_coo_tensor(indices.T, L.data, L.shape, device=device)  # 构建稀疏张量
-        return L
-
-    def _calculate_random_walk_matrix(self, adj_mx):
-        """
-        计算随机游走矩阵
-        :param adj_mx: 邻接矩阵
-        :return: 随机游走矩阵
-        """
-        adj_mx = adj_mx + torch.eye(int(adj_mx.shape[0])).to(self.device)  # 在邻接矩阵上加单位矩阵
-        d = torch.sum(adj_mx, 1)  # 计算每个节点的度
-        d_inv = 1. / d  # 计算度的倒数
-        d_inv = torch.where(torch.isinf(d_inv), torch.zeros(d_inv.shape).to(self.device), d_inv)  # 处理无穷大的情况
-        d_mat_inv = torch.diag(d_inv)  # 构建度的倒数对角矩阵
-        random_walk_mx = torch.mm(d_mat_inv, adj_mx)  # 计算随机游走矩阵
-        return random_walk_mx
-
-    def _calculate_random_walk0(self, adj_mx, B):
-        """
-        计算随机游走矩阵,适用于批量操作
-        在批次b的图中,从节点i随机游走到节点j的概率
-        :param adj_mx: 邻接矩阵
-        :param B: 批量大小
-        :return: 随机游走矩阵
-        """
-        # 创建一个单位矩阵，大小与邻接矩阵的维度相同。单位矩阵用于确保每个节点都有自环（即节点指向自身的边）
-        adj_mx = adj_mx + torch.eye(int(adj_mx.shape[1])).unsqueeze(0).repeat(B, 1, 1).to(self.device)  # 在邻接矩阵上加单位矩阵,并扩展为批量大小
-        d = torch.sum(adj_mx, 1)  # 计算每个节点的度
-        d_inv = 1. / d  # 计算度的倒数
-        d_inv = torch.where(torch.isinf(d_inv), torch.zeros(d_inv.shape).to(self.device), d_inv)  # 处理无穷大的情况
-        d_mat_inv = torch.diag_embed(d_inv)  # 构建度的倒数对角矩阵
-        random_walk_mx = torch.matmul(d_mat_inv, adj_mx)  # 计算随机游走矩阵
-        return random_walk_mx
-
-    @staticmethod
-    def _concat(x, x_):
-        """
-        连接两个张量
-        :param x: 张量 x
-        :param x_: 张量 x_
-        :return: 连接后的张量
-        """
-        x_ = x_.unsqueeze(0)  # 在第一个维度上增加一个维度
-        return torch.cat([x, x_], dim=0)  # 在第一个维度上连接两个张量
-
-    def _fc(self, inputs, state, output_size, bias_start=0.0):
-        """
-        全连接层操作
-        :param inputs: 输入数据
-        :param state: 隐藏状态
-        :param output_size: 输出大小
-        :param bias_start: 偏置的初始值
-        :return: 计算后的值
-        """
-        batch_size = inputs.shape[0]  # 获取批量大小
-        inputs = torch.reshape(inputs, (batch_size * self._num_nodes, -1))  # 重塑输入数据的形状
-        state = torch.reshape(state, (batch_size * self._num_nodes, -1))  # 重塑隐藏状态的形状
-        inputs_and_state = torch.cat([inputs, state], dim=-1)  # 连接输入数据和隐藏状态
-        input_size = inputs_and_state.shape[-1]  # 获取输入大小
-        weights = self._fc_params.get_weights((input_size, output_size))  # 获取全连接层的权重
-        value = torch.sigmoid(torch.matmul(inputs_and_state, weights))  # 计算全连接层的输出,并应用 sigmoid 函数
-        biases = self._fc_params.get_biases(output_size, bias_start)  # 获取全连接层的偏置
-        value += biases  # 加上偏置
-        return value
-
-    def _gconv(self, inputs, adj_mx, state, output_size, bias_start=0.0):
-        """
-        图卷积操作
-        :param inputs: 输入数据
-        :param adj_mx: 邻接矩阵
-        :param state: 隐藏状态
-        :param output_size: 输出大小
-        :param bias_start: 偏置的初始值
-        :return: 计算后的值
-        """
-        B = inputs.shape[0]  # 获取批量大小
-        adj_mx0 = self._calculate_random_walk0(adj_mx, B)  # 计算随机游走矩阵   D**-1*A 正向随机游走矩阵
-        adj_mx1 = self._calculate_random_walk0(adj_mx.permute(0, 2, 1), B)  # 计算转置后的随机游走矩阵  反向随机游走矩阵
-
-        batch_size = inputs.shape[0]  # 获取批量大小
-        inputs = torch.reshape(inputs, (batch_size, self._num_nodes, -1))  # 重塑输入数据的形状 [B,N.Fin]
-        state = torch.reshape(state, (batch_size, self._num_nodes, -1))  # 重塑隐藏状态的形状   [B,N,Fhid]
-        inputs_and_state = torch.cat([inputs, state], dim=2)  # 拼接输入数据和隐藏状态 X=[Xin,H]    [B,N,Fin+Fhid]
-        input_size = inputs_and_state.size(2)  # 获取输入大小
-
-        x = inputs_and_state  # [B, N, 2 * C]
-        x0_0 = torch.unsqueeze(x, 0)  # 在第一个维度上增加一个维度
-        x1_0 = torch.unsqueeze(x, 0)  # 在第一个维度上增加一个维度
-
-        if self._max_diffusion_step == 0:  # 如果最大扩散步数为0
-            pass  # 不进行扩散
-        else:
-            # 图卷积操作,对应3.6中的WQ*Ay
-            x0_1 = torch.matmul(adj_mx0, x0_0)  # 计算扩散步数为1的图卷积
-            x1_1 = torch.matmul(adj_mx1, x1_0)  # 计算转置后的扩散步数为1的图卷积
-            x0_0 = torch.cat([x0_0, x0_1], dim=0)  # 连接扩散步数为0和1的图卷积结果
-            x1_0 = torch.cat([x1_0, x1_1], dim=0)  # 连接转置后的扩散步数为0和1的图卷积结果
-
-            for k in range(2, self._max_diffusion_step + 1):  # 计算更大扩散步数的图卷积
-                x0_2 = torch.matmul(adj_mx0, x0_1)  # 计算扩散步数为k的图卷积
-                x1_2 = torch.matmul(adj_mx1, x1_1)  # 计算转置后的扩散步数为k的图卷积
-                x0_0 = torch.cat([x0_0, x0_1], dim=0)  # 连接扩散步数为0到k的图卷积结果
-                x1_0 = torch.cat([x1_0, x1_1], dim=0)  # 连接转置后的扩散步数为0到k的图卷积结果
-                x0_1 = x0_2  # 更新扩散步数为k的图卷积结果
-                x1_1 = x1_2  # 更新转置后的扩散步数为k的图卷积结果
-
-        num_matrices = self._max_diffusion_step + 1  # 确定图卷积矩阵的数量
-        x0_0 = x0_0.permute(1, 2, 3, 0)  # 调整图卷积结果的维度
-        x1_0 = x1_0.permute(1, 2, 3, 0)  # 调整转置后的图卷积结果的维度
-        x0_0 = torch.reshape(x0_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])  # 重塑图卷积结果的形状
-        x1_0 = torch.reshape(x1_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])  # 重塑转置后的图卷积结果的形状
-        x0_0 = self._gconv_0(x0_0)  # 计算图卷积的输出
-        x1_0 = self._gconv_1(x1_0)  # 计算转置后图卷积的输出
-
-        # x0_0 + x1_0 合并正反向的结果
-        return torch.reshape(x0_0 + x1_0, [batch_size, self._num_nodes * output_size])  # 返回图卷积的输出
-
-    def _gconv_c(self, inputs, adj_mx, state, output_size, bias_start=0.0):
-        """
-        图卷积操作,用于计算新的隐藏状态
-        与 _gconv 输出维度不一样, _gconv 输出维度为2*Fhid, _gconv_c 输出维度为Fhid
-        :param inputs: 输入数据
-        :param adj_mx: 邻接矩阵
-        :param state: 隐藏状态
-        :param output_size: 输出大小
-        :param bias_start: 偏置的初始值
-        :return: 计算后的值
-        """
-        B = inputs.shape[0]  # 获取批量大小
-        adj_mx0 = self._calculate_random_walk0(adj_mx, B)  # 计算随机游走矩阵
-        adj_mx1 = self._calculate_random_walk0(adj_mx.permute(0, 2, 1), B)  # 计算转置后的随机游走矩阵
-
-        batch_size = inputs.shape[0]  # 获取批量大小
-        inputs = torch.reshape(inputs, (batch_size, self._num_nodes, -1))  # 重塑输入数据的形状
-        state = torch.reshape(state, (batch_size, self._num_nodes, -1))  # 重塑隐藏状态的形状
-        inputs_and_state = torch.cat([inputs, state], dim=2)  # 连接输入数据和隐藏状态
-        input_size = inputs_and_state.size(2)  # 获取输入大小
-
-        x = inputs_and_state  # [B, N, 2 * C]
-        x0_0 = torch.unsqueeze(x, 0)  # 在第一个维度上增加一个维度
-        x1_0 = torch.unsqueeze(x, 0)  # 在第一个维度上增加一个维度
-
-        if self._max_diffusion_step == 0:  # 如果最大扩散步数为0
-            pass  # 不进行扩散
-        else:
-            x0_1 = torch.matmul(adj_mx0, x0_0)  # 计算扩散步数为1的图卷积
-            x1_1 = torch.matmul(adj_mx1, x1_0)  # 计算转置后的扩散步数为1的图卷积
-            x0_0 = torch.cat([x0_0, x0_1], dim=0)  # 连接扩散步数为0和1的图卷积结果
-            x1_0 = torch.cat([x1_0, x1_1], dim=0)  # 连接转置后的扩散步数为0和1的图卷积结果
-
-            for k in range(2, self._max_diffusion_step + 1):  # 计算更大扩散步数的图卷积
-                x0_2 = torch.matmul(adj_mx0, x0_1)  # 计算扩散步数为k的图卷积
-                x1_2 = torch.matmul(adj_mx1, x1_1)  # 计算转置后的扩散步数为k的图卷积
-                x0_0 = torch.cat([x0_0, x0_1], dim=0)  # 连接扩散步数为0到k的图卷积结果
-                x1_0 = torch.cat([x1_0, x1_1], dim=0)  # 连接转置后的扩散步数为0到k的图卷积结果
-                x0_1 = x0_2  # 更新扩散步数为k的图卷积结果
-                x1_1 = x1_2  # 更新转置后的扩散步数为k的图卷积结果
-
-        num_matrices = self._max_diffusion_step + 1  # 确定图卷积矩阵的数量
-        x0_0 = x0_0.permute(1, 2, 3, 0)  # 调整图卷积结果的维度
-        x1_0 = x1_0.permute(1, 2, 3, 0)  # 调整转置后的图卷积结果的维度
-        x0_0 = torch.reshape(x0_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])  # 重塑图卷积结果的形状
-        x1_0 = torch.reshape(x1_0, shape=[batch_size * self._num_nodes, input_size * num_matrices])  # 重塑转置后的图卷积结果的形状
-        x0_0 = self._gconv_c_0(x0_0)  # 计算图卷积的输出
-        x1_0 = self._gconv_c_1(x1_0)  # 计算转置后图卷积的输出
-
-        return torch.reshape(x0_0 + x1_0, [batch_size, self._num_nodes * output_size])  # 返回图卷积的输出
-
-
 # 线性层充当了图卷积（不行
-class GCNCell(torch.nn.Module):
+class GraphConvolution(torch.nn.Module):
     def __init__(self, device, num_units, max_diffusion_step, num_nodes, 
                 filter_type="laplacian",nonlinearity='tanh'):
         super().__init__()
@@ -427,8 +175,8 @@ class GCNCell(torch.nn.Module):
         return random_walk_mx
 
     def forward(self, inputs, hx,adj):
-        logging.info(f"输入inputs形状为{inputs.shape}")  # [128, 51, 64]
-        logging.info(f"邻接矩阵adj形状为{adj.shape}")  # [128, 51, 51]
+        # logging.info(f"输入inputs形状为{inputs.shape}")  # [128, 51, 64]
+        # logging.info(f"邻接矩阵adj形状为{adj.shape}")  # [128, 51, 51]
 
         # 输入重塑
         B = inputs.shape[0]
@@ -479,7 +227,7 @@ class EncoderModel(nn.Module):
         self.hidden_state_size = self.num_nodes * self.rnn_units  # 隐藏状态大小
         # 创建了num_rnn_layers个DCGRU单元,每层用于处理输入数据和邻接矩阵,并逐层递归更新隐藏状态
         self.dcgru_layers = nn.ModuleList(
-            [GCNCell(self.device, self.rnn_units, self.max_diffusion_step, self.num_nodes,
+            [GraphConvolution(self.device, self.rnn_units, self.max_diffusion_step, self.num_nodes,
                        filter_type=self.filter_type) for _ in range(self.num_rnn_layers)])  # 定义多个 DCGRU 单元
 
     def forward(self, inputs, adj, hidden_state=None):
@@ -639,8 +387,8 @@ class Grelen(nn.Module):
 
         # 将采样得到的边填充到邻接矩阵中,即学习到的图结构(节点之间的连接)填充到邻接矩阵中
         adj_list[mask] = edges.permute(2, 0, 1).flatten()
-        print(adj_list.shape)
-        logging.info(f"邻接矩阵的形状为{adj_list.shape}")
+        # print(adj_list.shape)
+        # logging.info(f"邻接矩阵的形状为{adj_list.shape}")
 
         # 初始化输出状态张量,用于存储编码结果
         state_for_output = torch.zeros(input_projected.shape).to(self.device)
