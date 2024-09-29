@@ -253,3 +253,1391 @@
 2024-09-28 11:49:35,763 - root - INFO - epoch: 98, kl loss: 0.00, nll loss: 0.11
 2024-09-28 11:49:39,251 - root - INFO - epoch: 99, validation loss: 0.11
 2024-09-28 11:49:57,108 - root - INFO - epoch: 99, kl loss: 0.00, nll loss: 0.11
+
+
+
+############################################## 迭代500次
+2024-09-28 21:51:22,668 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-09-28 21:51:22,668 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-09-28 21:51:22,669 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-09-28 21:51:22,698 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (dcgru_layers): ModuleList(
+        (0): GraphConvolution(
+          (_gconv1): Linear(in_features=64, out_features=64, bias=True)
+          (_gconv2): Linear(in_features=64, out_features=64, bias=True)
+        )
+      )
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+)
+2024-09-28 21:51:26,957 - root - INFO - epoch: 0, validation loss: 3.60
+2024-09-28 21:51:26,962 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
+2024-09-28 21:51:41,803 - root - INFO - epoch: 0, kl loss: 0.81, nll loss: 1.10
+2024-09-28 21:51:44,735 - root - INFO - epoch: 1, validation loss: 1.21
+2024-09-28 21:51:44,740 - root - INFO - save parameters to file: experiments/swat_test/epoch_1.params
+2024-09-28 21:52:04,756 - root - INFO - epoch: 1, kl loss: 0.75, nll loss: 0.54
+2024-09-28 21:52:08,328 - root - INFO - epoch: 2, validation loss: 1.09
+2024-09-28 21:52:08,334 - root - INFO - save parameters to file: experiments/swat_test/epoch_2.params
+2024-09-28 21:52:25,406 - root - INFO - epoch: 2, kl loss: 0.72, nll loss: 0.48
+2024-09-28 21:52:28,285 - root - INFO - epoch: 3, validation loss: 1.02
+2024-09-28 21:52:28,291 - root - INFO - save parameters to file: experiments/swat_test/epoch_3.params
+2024-09-28 21:52:44,611 - root - INFO - epoch: 3, kl loss: 0.75, nll loss: 0.41
+2024-09-28 21:52:48,194 - root - INFO - epoch: 4, validation loss: 0.98
+2024-09-28 21:52:48,200 - root - INFO - save parameters to file: experiments/swat_test/epoch_4.params
+2024-09-28 21:53:05,755 - root - INFO - epoch: 4, kl loss: 0.71, nll loss: 0.38
+2024-09-28 21:53:08,917 - root - INFO - epoch: 5, validation loss: 0.98
+2024-09-28 21:53:08,921 - root - INFO - save parameters to file: experiments/swat_test/epoch_5.params
+2024-09-28 21:53:26,858 - root - INFO - epoch: 5, kl loss: 0.65, nll loss: 0.36
+2024-09-28 21:53:29,954 - root - INFO - epoch: 6, validation loss: 0.96
+2024-09-28 21:53:29,959 - root - INFO - save parameters to file: experiments/swat_test/epoch_6.params
+2024-09-28 21:53:48,235 - root - INFO - epoch: 6, kl loss: 0.71, nll loss: 0.33
+2024-09-28 21:53:51,664 - root - INFO - epoch: 7, validation loss: 0.97
+2024-09-28 21:54:11,561 - root - INFO - epoch: 7, kl loss: 0.67, nll loss: 0.29
+2024-09-28 21:54:16,092 - root - INFO - epoch: 8, validation loss: 0.92
+2024-09-28 21:54:16,098 - root - INFO - save parameters to file: experiments/swat_test/epoch_8.params
+2024-09-28 21:54:36,078 - root - INFO - epoch: 8, kl loss: 0.65, nll loss: 0.31
+2024-09-28 21:54:39,762 - root - INFO - epoch: 9, validation loss: 0.84
+2024-09-28 21:54:39,766 - root - INFO - save parameters to file: experiments/swat_test/epoch_9.params
+2024-09-28 21:54:58,802 - root - INFO - epoch: 9, kl loss: 0.61, nll loss: 0.30
+2024-09-28 21:55:02,499 - root - INFO - epoch: 10, validation loss: 0.83
+2024-09-28 21:55:02,505 - root - INFO - save parameters to file: experiments/swat_test/epoch_10.params
+2024-09-28 21:55:20,443 - root - INFO - epoch: 10, kl loss: 0.59, nll loss: 0.33
+2024-09-28 21:55:23,861 - root - INFO - epoch: 11, validation loss: 0.94
+2024-09-28 21:55:41,925 - root - INFO - epoch: 11, kl loss: 0.58, nll loss: 0.31
+2024-09-28 21:55:45,639 - root - INFO - epoch: 12, validation loss: 0.81
+2024-09-28 21:55:45,645 - root - INFO - save parameters to file: experiments/swat_test/epoch_12.params
+2024-09-28 21:56:02,441 - root - INFO - epoch: 12, kl loss: 0.56, nll loss: 0.28
+2024-09-28 21:56:05,717 - root - INFO - epoch: 13, validation loss: 0.75
+2024-09-28 21:56:05,721 - root - INFO - save parameters to file: experiments/swat_test/epoch_13.params
+2024-09-28 21:56:25,882 - root - INFO - epoch: 13, kl loss: 0.55, nll loss: 0.28
+2024-09-28 21:56:30,146 - root - INFO - epoch: 14, validation loss: 0.78
+2024-09-28 21:56:49,140 - root - INFO - epoch: 14, kl loss: 0.57, nll loss: 0.31
+2024-09-28 21:56:52,265 - root - INFO - epoch: 15, validation loss: 0.79
+2024-09-28 21:57:10,936 - root - INFO - epoch: 15, kl loss: 0.54, nll loss: 0.31
+2024-09-28 21:57:14,622 - root - INFO - epoch: 16, validation loss: 0.91
+2024-09-28 21:57:33,132 - root - INFO - epoch: 16, kl loss: 0.49, nll loss: 0.32
+2024-09-28 21:57:36,411 - root - INFO - epoch: 17, validation loss: 0.72
+2024-09-28 21:57:36,417 - root - INFO - save parameters to file: experiments/swat_test/epoch_17.params
+2024-09-28 21:57:54,374 - root - INFO - epoch: 17, kl loss: 0.37, nll loss: 0.35
+2024-09-28 21:57:58,266 - root - INFO - epoch: 18, validation loss: 0.68
+2024-09-28 21:57:58,271 - root - INFO - save parameters to file: experiments/swat_test/epoch_18.params
+2024-09-28 21:58:16,068 - root - INFO - epoch: 18, kl loss: 0.42, nll loss: 0.31
+2024-09-28 21:58:20,169 - root - INFO - epoch: 19, validation loss: 0.65
+2024-09-28 21:58:20,179 - root - INFO - save parameters to file: experiments/swat_test/epoch_19.params
+2024-09-28 21:58:40,323 - root - INFO - epoch: 19, kl loss: 0.38, nll loss: 0.29
+2024-09-28 21:58:43,186 - root - INFO - epoch: 20, validation loss: 0.57
+2024-09-28 21:58:43,191 - root - INFO - save parameters to file: experiments/swat_test/epoch_20.params
+2024-09-28 21:59:01,388 - root - INFO - epoch: 20, kl loss: 0.36, nll loss: 0.29
+2024-09-28 21:59:04,608 - root - INFO - epoch: 21, validation loss: 0.57
+2024-09-28 21:59:04,613 - root - INFO - save parameters to file: experiments/swat_test/epoch_21.params
+2024-09-28 21:59:22,878 - root - INFO - epoch: 21, kl loss: 0.37, nll loss: 0.30
+2024-09-28 21:59:26,366 - root - INFO - epoch: 22, validation loss: 0.59
+2024-09-28 21:59:44,712 - root - INFO - epoch: 22, kl loss: 0.28, nll loss: 0.32
+2024-09-28 21:59:48,134 - root - INFO - epoch: 23, validation loss: 0.54
+2024-09-28 21:59:48,138 - root - INFO - save parameters to file: experiments/swat_test/epoch_23.params
+2024-09-28 22:00:05,869 - root - INFO - epoch: 23, kl loss: 0.30, nll loss: 0.26
+2024-09-28 22:00:08,877 - root - INFO - epoch: 24, validation loss: 0.55
+2024-09-28 22:00:27,563 - root - INFO - epoch: 24, kl loss: 0.28, nll loss: 0.25
+2024-09-28 22:00:31,596 - root - INFO - epoch: 25, validation loss: 0.55
+2024-09-28 22:00:49,626 - root - INFO - epoch: 25, kl loss: 0.22, nll loss: 0.28
+2024-09-28 22:00:55,270 - root - INFO - epoch: 26, validation loss: 0.45
+2024-09-28 22:00:55,286 - root - INFO - save parameters to file: experiments/swat_test/epoch_26.params
+2024-09-28 22:01:22,373 - root - INFO - epoch: 26, kl loss: 0.24, nll loss: 0.26
+2024-09-28 22:01:27,893 - root - INFO - epoch: 27, validation loss: 0.68
+2024-09-28 22:01:48,612 - root - INFO - epoch: 27, kl loss: 0.28, nll loss: 0.25
+2024-09-28 22:01:51,871 - root - INFO - epoch: 28, validation loss: 0.45
+2024-09-28 22:02:09,825 - root - INFO - epoch: 28, kl loss: 0.24, nll loss: 0.23
+2024-09-28 22:02:13,085 - root - INFO - epoch: 29, validation loss: 0.38
+2024-09-28 22:02:13,091 - root - INFO - save parameters to file: experiments/swat_test/epoch_29.params
+2024-09-28 22:02:30,561 - root - INFO - epoch: 29, kl loss: 0.20, nll loss: 0.21
+2024-09-28 22:02:34,178 - root - INFO - epoch: 30, validation loss: 0.37
+2024-09-28 22:02:34,183 - root - INFO - save parameters to file: experiments/swat_test/epoch_30.params
+2024-09-28 22:02:52,741 - root - INFO - epoch: 30, kl loss: 0.17, nll loss: 0.28
+2024-09-28 22:02:56,226 - root - INFO - epoch: 31, validation loss: 0.47
+2024-09-28 22:03:16,673 - root - INFO - epoch: 31, kl loss: 0.20, nll loss: 0.27
+2024-09-28 22:03:21,099 - root - INFO - epoch: 32, validation loss: 0.41
+2024-09-28 22:03:41,102 - root - INFO - epoch: 32, kl loss: 0.18, nll loss: 0.25
+2024-09-28 22:03:44,467 - root - INFO - epoch: 33, validation loss: 0.39
+2024-09-28 22:04:03,304 - root - INFO - epoch: 33, kl loss: 0.18, nll loss: 0.24
+2024-09-28 22:04:06,558 - root - INFO - epoch: 34, validation loss: 0.39
+2024-09-28 22:04:24,784 - root - INFO - epoch: 34, kl loss: 0.16, nll loss: 0.24
+2024-09-28 22:04:28,513 - root - INFO - epoch: 35, validation loss: 0.36
+2024-09-28 22:04:28,518 - root - INFO - save parameters to file: experiments/swat_test/epoch_35.params
+2024-09-28 22:04:47,213 - root - INFO - epoch: 35, kl loss: 0.14, nll loss: 0.24
+2024-09-28 22:04:50,663 - root - INFO - epoch: 36, validation loss: 0.36
+2024-09-28 22:04:50,669 - root - INFO - save parameters to file: experiments/swat_test/epoch_36.params
+2024-09-28 22:05:08,279 - root - INFO - epoch: 36, kl loss: 0.14, nll loss: 0.25
+2024-09-28 22:05:11,525 - root - INFO - epoch: 37, validation loss: 0.37
+2024-09-28 22:05:32,525 - root - INFO - epoch: 37, kl loss: 0.14, nll loss: 0.24
+2024-09-28 22:05:35,876 - root - INFO - epoch: 38, validation loss: 0.34
+2024-09-28 22:05:35,881 - root - INFO - save parameters to file: experiments/swat_test/epoch_38.params
+2024-09-28 22:05:53,964 - root - INFO - epoch: 38, kl loss: 0.14, nll loss: 0.24
+2024-09-28 22:05:57,625 - root - INFO - epoch: 39, validation loss: 0.37
+2024-09-28 22:06:16,108 - root - INFO - epoch: 39, kl loss: 0.12, nll loss: 0.22
+2024-09-28 22:06:19,676 - root - INFO - epoch: 40, validation loss: 0.35
+2024-09-28 22:06:37,658 - root - INFO - epoch: 40, kl loss: 0.12, nll loss: 0.23
+2024-09-28 22:06:41,044 - root - INFO - epoch: 41, validation loss: 0.33
+2024-09-28 22:06:41,048 - root - INFO - save parameters to file: experiments/swat_test/epoch_41.params
+2024-09-28 22:06:59,491 - root - INFO - epoch: 41, kl loss: 0.12, nll loss: 0.25
+2024-09-28 22:07:03,137 - root - INFO - epoch: 42, validation loss: 0.34
+2024-09-28 22:07:21,261 - root - INFO - epoch: 42, kl loss: 0.13, nll loss: 0.22
+2024-09-28 22:07:24,803 - root - INFO - epoch: 43, validation loss: 0.34
+2024-09-28 22:07:46,559 - root - INFO - epoch: 43, kl loss: 0.13, nll loss: 0.22
+2024-09-28 22:07:50,982 - root - INFO - epoch: 44, validation loss: 0.32
+2024-09-28 22:07:50,988 - root - INFO - save parameters to file: experiments/swat_test/epoch_44.params
+2024-09-28 22:08:09,518 - root - INFO - epoch: 44, kl loss: 0.15, nll loss: 0.23
+2024-09-28 22:08:12,982 - root - INFO - epoch: 45, validation loss: 0.35
+2024-09-28 22:08:31,219 - root - INFO - epoch: 45, kl loss: 0.15, nll loss: 0.22
+2024-09-28 22:08:34,692 - root - INFO - epoch: 46, validation loss: 0.34
+2024-09-28 22:08:52,551 - root - INFO - epoch: 46, kl loss: 0.15, nll loss: 0.22
+2024-09-28 22:08:55,625 - root - INFO - epoch: 47, validation loss: 0.35
+2024-09-28 22:09:13,692 - root - INFO - epoch: 47, kl loss: 0.13, nll loss: 0.23
+2024-09-28 22:09:17,109 - root - INFO - epoch: 48, validation loss: 0.33
+2024-09-28 22:09:35,472 - root - INFO - epoch: 48, kl loss: 0.15, nll loss: 0.22
+2024-09-28 22:09:39,142 - root - INFO - epoch: 49, validation loss: 0.35
+2024-09-28 22:09:59,360 - root - INFO - epoch: 49, kl loss: 0.14, nll loss: 0.22
+2024-09-28 22:10:03,848 - root - INFO - epoch: 50, validation loss: 0.32
+2024-09-28 22:10:03,853 - root - INFO - save parameters to file: experiments/swat_test/epoch_50.params
+2024-09-28 22:10:21,279 - root - INFO - epoch: 50, kl loss: 0.14, nll loss: 0.21
+2024-09-28 22:10:24,681 - root - INFO - epoch: 51, validation loss: 0.32
+2024-09-28 22:10:41,977 - root - INFO - epoch: 51, kl loss: 0.12, nll loss: 0.22
+2024-09-28 22:10:45,271 - root - INFO - epoch: 52, validation loss: 0.34
+2024-09-28 22:11:02,546 - root - INFO - epoch: 52, kl loss: 0.15, nll loss: 0.21
+2024-09-28 22:11:06,126 - root - INFO - epoch: 53, validation loss: 0.34
+2024-09-28 22:11:24,243 - root - INFO - epoch: 53, kl loss: 0.16, nll loss: 0.21
+2024-09-28 22:11:27,628 - root - INFO - epoch: 54, validation loss: 0.33
+2024-09-28 22:11:45,490 - root - INFO - epoch: 54, kl loss: 0.14, nll loss: 0.21
+2024-09-28 22:11:49,228 - root - INFO - epoch: 55, validation loss: 0.31
+2024-09-28 22:11:49,233 - root - INFO - save parameters to file: experiments/swat_test/epoch_55.params
+2024-09-28 22:12:08,036 - root - INFO - epoch: 55, kl loss: 0.14, nll loss: 0.22
+2024-09-28 22:12:12,228 - root - INFO - epoch: 56, validation loss: 0.33
+2024-09-28 22:12:33,536 - root - INFO - epoch: 56, kl loss: 0.12, nll loss: 0.22
+2024-09-28 22:12:37,101 - root - INFO - epoch: 57, validation loss: 0.32
+2024-09-28 22:12:55,775 - root - INFO - epoch: 57, kl loss: 0.12, nll loss: 0.23
+2024-09-28 22:12:59,154 - root - INFO - epoch: 58, validation loss: 0.36
+2024-09-28 22:13:16,517 - root - INFO - epoch: 58, kl loss: 0.12, nll loss: 0.22
+2024-09-28 22:13:20,259 - root - INFO - epoch: 59, validation loss: 0.33
+2024-09-28 22:13:37,377 - root - INFO - epoch: 59, kl loss: 0.10, nll loss: 0.22
+2024-09-28 22:13:40,777 - root - INFO - epoch: 60, validation loss: 0.31
+2024-09-28 22:13:40,782 - root - INFO - save parameters to file: experiments/swat_test/epoch_60.params
+2024-09-28 22:13:59,078 - root - INFO - epoch: 60, kl loss: 0.10, nll loss: 0.22
+2024-09-28 22:14:02,945 - root - INFO - epoch: 61, validation loss: 0.34
+2024-09-28 22:14:21,442 - root - INFO - epoch: 61, kl loss: 0.10, nll loss: 0.21
+2024-09-28 22:14:24,895 - root - INFO - epoch: 62, validation loss: 0.34
+2024-09-28 22:14:44,254 - root - INFO - epoch: 62, kl loss: 0.10, nll loss: 0.22
+2024-09-28 22:14:48,494 - root - INFO - epoch: 63, validation loss: 0.33
+2024-09-28 22:15:08,332 - root - INFO - epoch: 63, kl loss: 0.10, nll loss: 0.22
+2024-09-28 22:15:12,293 - root - INFO - epoch: 64, validation loss: 0.34
+2024-09-28 22:15:30,236 - root - INFO - epoch: 64, kl loss: 0.12, nll loss: 0.22
+2024-09-28 22:15:33,750 - root - INFO - epoch: 65, validation loss: 0.44
+2024-09-28 22:15:51,700 - root - INFO - epoch: 65, kl loss: 0.15, nll loss: 0.21
+2024-09-28 22:15:55,228 - root - INFO - epoch: 66, validation loss: 0.34
+2024-09-28 22:16:12,442 - root - INFO - epoch: 66, kl loss: 0.14, nll loss: 0.21
+2024-09-28 22:16:15,893 - root - INFO - epoch: 67, validation loss: 0.46
+2024-09-28 22:16:34,252 - root - INFO - epoch: 67, kl loss: 0.16, nll loss: 0.25
+2024-09-28 22:16:37,881 - root - INFO - epoch: 68, validation loss: 0.32
+2024-09-28 22:16:57,082 - root - INFO - epoch: 68, kl loss: 0.10, nll loss: 0.22
+2024-09-28 22:17:01,007 - root - INFO - epoch: 69, validation loss: 0.35
+2024-09-28 22:17:19,119 - root - INFO - epoch: 69, kl loss: 0.12, nll loss: 0.20
+2024-09-28 22:17:22,099 - root - INFO - epoch: 70, validation loss: 0.34
+2024-09-28 22:17:38,573 - root - INFO - epoch: 70, kl loss: 0.11, nll loss: 0.21
+2024-09-28 22:17:42,209 - root - INFO - epoch: 71, validation loss: 0.34
+2024-09-28 22:17:59,768 - root - INFO - epoch: 71, kl loss: 0.11, nll loss: 0.21
+2024-09-28 22:18:03,381 - root - INFO - epoch: 72, validation loss: 0.32
+2024-09-28 22:18:21,649 - root - INFO - epoch: 72, kl loss: 0.11, nll loss: 0.20
+2024-09-28 22:18:24,993 - root - INFO - epoch: 73, validation loss: 0.32
+2024-09-28 22:18:43,509 - root - INFO - epoch: 73, kl loss: 0.11, nll loss: 0.21
+2024-09-28 22:18:47,038 - root - INFO - epoch: 74, validation loss: 0.33
+2024-09-28 22:19:04,956 - root - INFO - epoch: 74, kl loss: 0.12, nll loss: 0.22
+2024-09-28 22:19:08,982 - root - INFO - epoch: 75, validation loss: 0.36
+2024-09-28 22:19:30,669 - root - INFO - epoch: 75, kl loss: 0.14, nll loss: 0.22
+2024-09-28 22:19:34,499 - root - INFO - epoch: 76, validation loss: 0.37
+2024-09-28 22:19:51,663 - root - INFO - epoch: 76, kl loss: 0.11, nll loss: 0.22
+2024-09-28 22:19:55,061 - root - INFO - epoch: 77, validation loss: 0.33
+2024-09-28 22:20:12,956 - root - INFO - epoch: 77, kl loss: 0.11, nll loss: 0.20
+2024-09-28 22:20:16,565 - root - INFO - epoch: 78, validation loss: 0.35
+2024-09-28 22:20:34,649 - root - INFO - epoch: 78, kl loss: 0.11, nll loss: 0.22
+2024-09-28 22:20:38,070 - root - INFO - epoch: 79, validation loss: 0.34
+2024-09-28 22:20:56,356 - root - INFO - epoch: 79, kl loss: 0.11, nll loss: 0.21
+2024-09-28 22:20:59,790 - root - INFO - epoch: 80, validation loss: 0.33
+2024-09-28 22:21:17,496 - root - INFO - epoch: 80, kl loss: 0.11, nll loss: 0.21
+2024-09-28 22:21:21,442 - root - INFO - epoch: 81, validation loss: 0.32
+2024-09-28 22:21:42,704 - root - INFO - epoch: 81, kl loss: 0.12, nll loss: 0.20
+2024-09-28 22:21:46,348 - root - INFO - epoch: 82, validation loss: 0.33
+2024-09-28 22:22:04,436 - root - INFO - epoch: 82, kl loss: 0.11, nll loss: 0.21
+2024-09-28 22:22:08,150 - root - INFO - epoch: 83, validation loss: 0.32
+2024-09-28 22:22:26,430 - root - INFO - epoch: 83, kl loss: 0.10, nll loss: 0.20
+2024-09-28 22:22:30,292 - root - INFO - epoch: 84, validation loss: 0.33
+2024-09-28 22:22:47,959 - root - INFO - epoch: 84, kl loss: 0.12, nll loss: 0.21
+2024-09-28 22:22:50,986 - root - INFO - epoch: 85, validation loss: 0.32
+2024-09-28 22:23:09,303 - root - INFO - epoch: 85, kl loss: 0.11, nll loss: 0.20
+2024-09-28 22:23:12,493 - root - INFO - epoch: 86, validation loss: 0.33
+2024-09-28 22:23:31,108 - root - INFO - epoch: 86, kl loss: 0.10, nll loss: 0.20
+2024-09-28 22:23:34,432 - root - INFO - epoch: 87, validation loss: 0.32
+2024-09-28 22:23:56,168 - root - INFO - epoch: 87, kl loss: 0.12, nll loss: 0.21
+2024-09-28 22:24:00,546 - root - INFO - epoch: 88, validation loss: 0.33
+2024-09-28 22:24:18,997 - root - INFO - epoch: 88, kl loss: 0.12, nll loss: 0.20
+2024-09-28 22:24:22,357 - root - INFO - epoch: 89, validation loss: 0.33
+2024-09-28 22:24:40,250 - root - INFO - epoch: 89, kl loss: 0.10, nll loss: 0.20
+2024-09-28 22:24:43,846 - root - INFO - epoch: 90, validation loss: 0.32
+2024-09-28 22:25:00,172 - root - INFO - epoch: 90, kl loss: 0.11, nll loss: 0.21
+2024-09-28 22:25:03,691 - root - INFO - epoch: 91, validation loss: 0.32
+2024-09-28 22:25:21,707 - root - INFO - epoch: 91, kl loss: 0.11, nll loss: 0.20
+2024-09-28 22:25:25,148 - root - INFO - epoch: 92, validation loss: 0.32
+2024-09-28 22:25:42,985 - root - INFO - epoch: 92, kl loss: 0.10, nll loss: 0.19
+2024-09-28 22:25:46,773 - root - INFO - epoch: 93, validation loss: 0.32
+2024-09-28 22:26:05,653 - root - INFO - epoch: 93, kl loss: 0.11, nll loss: 0.20
+2024-09-28 22:26:09,849 - root - INFO - epoch: 94, validation loss: 0.33
+2024-09-28 22:26:29,174 - root - INFO - epoch: 94, kl loss: 0.11, nll loss: 0.20
+2024-09-28 22:26:32,619 - root - INFO - epoch: 95, validation loss: 0.34
+2024-09-28 22:26:49,263 - root - INFO - epoch: 95, kl loss: 0.12, nll loss: 0.20
+2024-09-28 22:26:52,215 - root - INFO - epoch: 96, validation loss: 0.33
+2024-09-28 22:27:10,431 - root - INFO - epoch: 96, kl loss: 0.11, nll loss: 0.20
+2024-09-28 22:27:13,972 - root - INFO - epoch: 97, validation loss: 0.31
+2024-09-28 22:27:31,608 - root - INFO - epoch: 97, kl loss: 0.13, nll loss: 0.20
+2024-09-28 22:27:35,449 - root - INFO - epoch: 98, validation loss: 0.33
+2024-09-28 22:27:53,920 - root - INFO - epoch: 98, kl loss: 0.10, nll loss: 0.21
+2024-09-28 22:27:57,654 - root - INFO - epoch: 99, validation loss: 0.31
+2024-09-28 22:28:15,854 - root - INFO - epoch: 99, kl loss: 0.10, nll loss: 0.21
+2024-09-28 22:28:19,564 - root - INFO - epoch: 100, validation loss: 0.32
+2024-09-28 22:28:41,122 - root - INFO - epoch: 100, kl loss: 0.09, nll loss: 0.23
+2024-09-28 22:28:45,294 - root - INFO - epoch: 101, validation loss: 0.32
+2024-09-28 22:29:02,785 - root - INFO - epoch: 101, kl loss: 0.09, nll loss: 0.21
+2024-09-28 22:29:06,112 - root - INFO - epoch: 102, validation loss: 0.33
+2024-09-28 22:29:24,385 - root - INFO - epoch: 102, kl loss: 0.09, nll loss: 0.21
+2024-09-28 22:29:28,040 - root - INFO - epoch: 103, validation loss: 0.32
+2024-09-28 22:29:46,413 - root - INFO - epoch: 103, kl loss: 0.09, nll loss: 0.21
+2024-09-28 22:29:49,815 - root - INFO - epoch: 104, validation loss: 0.30
+2024-09-28 22:29:49,819 - root - INFO - save parameters to file: experiments/swat_test/epoch_104.params
+2024-09-28 22:30:07,656 - root - INFO - epoch: 104, kl loss: 0.09, nll loss: 0.20
+2024-09-28 22:30:11,437 - root - INFO - epoch: 105, validation loss: 0.30
+2024-09-28 22:30:29,040 - root - INFO - epoch: 105, kl loss: 0.09, nll loss: 0.21
+2024-09-28 22:30:32,728 - root - INFO - epoch: 106, validation loss: 0.31
+2024-09-28 22:30:51,853 - root - INFO - epoch: 106, kl loss: 0.10, nll loss: 0.20
+2024-09-28 22:30:55,864 - root - INFO - epoch: 107, validation loss: 0.31
+2024-09-28 22:31:14,348 - root - INFO - epoch: 107, kl loss: 0.10, nll loss: 0.20
+2024-09-28 22:31:17,489 - root - INFO - epoch: 108, validation loss: 0.31
+2024-09-28 22:31:34,348 - root - INFO - epoch: 108, kl loss: 0.09, nll loss: 0.19
+2024-09-28 22:31:37,602 - root - INFO - epoch: 109, validation loss: 0.31
+2024-09-28 22:31:54,932 - root - INFO - epoch: 109, kl loss: 0.08, nll loss: 0.21
+2024-09-28 22:31:57,810 - root - INFO - epoch: 110, validation loss: 0.32
+2024-09-28 22:32:14,605 - root - INFO - epoch: 110, kl loss: 0.09, nll loss: 0.21
+2024-09-28 22:32:18,344 - root - INFO - epoch: 111, validation loss: 0.30
+2024-09-28 22:32:18,349 - root - INFO - save parameters to file: experiments/swat_test/epoch_111.params
+2024-09-28 22:32:35,096 - root - INFO - epoch: 111, kl loss: 0.09, nll loss: 0.20
+2024-09-28 22:32:38,484 - root - INFO - epoch: 112, validation loss: 0.30
+2024-09-28 22:32:38,491 - root - INFO - save parameters to file: experiments/swat_test/epoch_112.params
+2024-09-28 22:32:55,224 - root - INFO - epoch: 112, kl loss: 0.10, nll loss: 0.22
+2024-09-28 22:32:58,538 - root - INFO - epoch: 113, validation loss: 0.30
+2024-09-28 22:33:20,311 - root - INFO - epoch: 113, kl loss: 0.11, nll loss: 0.19
+2024-09-28 22:33:23,961 - root - INFO - epoch: 114, validation loss: 0.31
+2024-09-28 22:33:40,335 - root - INFO - epoch: 114, kl loss: 0.09, nll loss: 0.21
+2024-09-28 22:33:44,194 - root - INFO - epoch: 115, validation loss: 0.31
+2024-09-28 22:34:02,298 - root - INFO - epoch: 115, kl loss: 0.11, nll loss: 0.19
+2024-09-28 22:34:06,057 - root - INFO - epoch: 116, validation loss: 0.31
+2024-09-28 22:34:24,493 - root - INFO - epoch: 116, kl loss: 0.10, nll loss: 0.20
+2024-09-28 22:34:27,836 - root - INFO - epoch: 117, validation loss: 0.31
+2024-09-28 22:34:46,301 - root - INFO - epoch: 117, kl loss: 0.12, nll loss: 0.23
+2024-09-28 22:34:49,821 - root - INFO - epoch: 118, validation loss: 0.32
+2024-09-28 22:35:07,601 - root - INFO - epoch: 118, kl loss: 0.11, nll loss: 0.20
+2024-09-28 22:35:10,611 - root - INFO - epoch: 119, validation loss: 0.32
+2024-09-28 22:35:31,945 - root - INFO - epoch: 119, kl loss: 0.09, nll loss: 0.20
+2024-09-28 22:35:36,584 - root - INFO - epoch: 120, validation loss: 0.31
+2024-09-28 22:35:54,867 - root - INFO - epoch: 120, kl loss: 0.10, nll loss: 0.20
+2024-09-28 22:35:58,839 - root - INFO - epoch: 121, validation loss: 0.31
+2024-09-28 22:36:17,068 - root - INFO - epoch: 121, kl loss: 0.11, nll loss: 0.21
+2024-09-28 22:36:20,684 - root - INFO - epoch: 122, validation loss: 0.31
+2024-09-28 22:36:37,752 - root - INFO - epoch: 122, kl loss: 0.11, nll loss: 0.20
+2024-09-28 22:36:41,819 - root - INFO - epoch: 123, validation loss: 0.32
+2024-09-28 22:37:00,158 - root - INFO - epoch: 123, kl loss: 0.09, nll loss: 0.20
+2024-09-28 22:37:03,293 - root - INFO - epoch: 124, validation loss: 0.31
+2024-09-28 22:37:21,522 - root - INFO - epoch: 124, kl loss: 0.09, nll loss: 0.20
+2024-09-28 22:37:25,047 - root - INFO - epoch: 125, validation loss: 0.31
+2024-09-28 22:37:43,420 - root - INFO - epoch: 125, kl loss: 0.10, nll loss: 0.22
+2024-09-28 22:37:47,461 - root - INFO - epoch: 126, validation loss: 0.31
+2024-09-28 22:38:08,277 - root - INFO - epoch: 126, kl loss: 0.09, nll loss: 0.20
+2024-09-28 22:38:10,861 - root - INFO - epoch: 127, validation loss: 0.30
+2024-09-28 22:38:10,866 - root - INFO - save parameters to file: experiments/swat_test/epoch_127.params
+2024-09-28 22:38:28,896 - root - INFO - epoch: 127, kl loss: 0.09, nll loss: 0.20
+2024-09-28 22:38:32,609 - root - INFO - epoch: 128, validation loss: 0.31
+2024-09-28 22:38:50,172 - root - INFO - epoch: 128, kl loss: 0.09, nll loss: 0.21
+2024-09-28 22:38:53,871 - root - INFO - epoch: 129, validation loss: 0.30
+2024-09-28 22:39:11,029 - root - INFO - epoch: 129, kl loss: 0.08, nll loss: 0.21
+2024-09-28 22:39:14,873 - root - INFO - epoch: 130, validation loss: 0.31
+2024-09-28 22:39:33,135 - root - INFO - epoch: 130, kl loss: 0.09, nll loss: 0.22
+2024-09-28 22:39:36,915 - root - INFO - epoch: 131, validation loss: 0.31
+2024-09-28 22:39:55,025 - root - INFO - epoch: 131, kl loss: 0.09, nll loss: 0.21
+2024-09-28 22:39:57,992 - root - INFO - epoch: 132, validation loss: 0.31
+2024-09-28 22:40:18,397 - root - INFO - epoch: 132, kl loss: 0.08, nll loss: 0.21
+2024-09-28 22:40:22,302 - root - INFO - epoch: 133, validation loss: 0.30
+2024-09-28 22:40:39,345 - root - INFO - epoch: 133, kl loss: 0.12, nll loss: 0.21
+2024-09-28 22:40:42,574 - root - INFO - epoch: 134, validation loss: 0.32
+2024-09-28 22:41:00,106 - root - INFO - epoch: 134, kl loss: 0.09, nll loss: 0.20
+2024-09-28 22:41:03,585 - root - INFO - epoch: 135, validation loss: 0.32
+2024-09-28 22:41:21,712 - root - INFO - epoch: 135, kl loss: 0.08, nll loss: 0.22
+2024-09-28 22:41:25,261 - root - INFO - epoch: 136, validation loss: 0.29
+2024-09-28 22:41:25,267 - root - INFO - save parameters to file: experiments/swat_test/epoch_136.params
+2024-09-28 22:41:43,819 - root - INFO - epoch: 136, kl loss: 0.08, nll loss: 0.23
+2024-09-28 22:41:47,233 - root - INFO - epoch: 137, validation loss: 0.30
+2024-09-28 22:42:05,279 - root - INFO - epoch: 137, kl loss: 0.08, nll loss: 0.21
+2024-09-28 22:42:08,641 - root - INFO - epoch: 138, validation loss: 0.30
+2024-09-28 22:42:27,279 - root - INFO - epoch: 138, kl loss: 0.07, nll loss: 0.22
+2024-09-28 22:42:31,439 - root - INFO - epoch: 139, validation loss: 0.30
+2024-09-28 22:42:52,571 - root - INFO - epoch: 139, kl loss: 0.07, nll loss: 0.21
+2024-09-28 22:42:56,078 - root - INFO - epoch: 140, validation loss: 0.31
+2024-09-28 22:43:13,184 - root - INFO - epoch: 140, kl loss: 0.07, nll loss: 0.22
+2024-09-28 22:43:16,821 - root - INFO - epoch: 141, validation loss: 0.30
+2024-09-28 22:43:34,808 - root - INFO - epoch: 141, kl loss: 0.07, nll loss: 0.23
+2024-09-28 22:43:38,642 - root - INFO - epoch: 142, validation loss: 0.30
+2024-09-28 22:43:56,234 - root - INFO - epoch: 142, kl loss: 0.06, nll loss: 0.21
+2024-09-28 22:43:59,279 - root - INFO - epoch: 143, validation loss: 0.29
+2024-09-28 22:43:59,284 - root - INFO - save parameters to file: experiments/swat_test/epoch_143.params
+2024-09-28 22:44:17,285 - root - INFO - epoch: 143, kl loss: 0.06, nll loss: 0.22
+2024-09-28 22:44:20,653 - root - INFO - epoch: 144, validation loss: 0.30
+2024-09-28 22:44:38,329 - root - INFO - epoch: 144, kl loss: 0.07, nll loss: 0.21
+2024-09-28 22:44:42,466 - root - INFO - epoch: 145, validation loss: 0.28
+2024-09-28 22:44:42,472 - root - INFO - save parameters to file: experiments/swat_test/epoch_145.params
+2024-09-28 22:45:03,858 - root - INFO - epoch: 145, kl loss: 0.07, nll loss: 0.20
+2024-09-28 22:45:07,251 - root - INFO - epoch: 146, validation loss: 0.26
+2024-09-28 22:45:07,259 - root - INFO - save parameters to file: experiments/swat_test/epoch_146.params
+2024-09-28 22:45:24,909 - root - INFO - epoch: 146, kl loss: 0.09, nll loss: 0.20
+2024-09-28 22:45:28,134 - root - INFO - epoch: 147, validation loss: 0.30
+2024-09-28 22:45:45,568 - root - INFO - epoch: 147, kl loss: 0.06, nll loss: 0.21
+2024-09-28 22:45:49,305 - root - INFO - epoch: 148, validation loss: 0.30
+2024-09-28 22:46:07,271 - root - INFO - epoch: 148, kl loss: 0.09, nll loss: 0.22
+2024-09-28 22:46:11,381 - root - INFO - epoch: 149, validation loss: 0.27
+2024-09-28 22:46:30,264 - root - INFO - epoch: 149, kl loss: 0.08, nll loss: 0.21
+2024-09-28 22:46:33,708 - root - INFO - epoch: 150, validation loss: 0.29
+2024-09-28 22:46:52,304 - root - INFO - epoch: 150, kl loss: 0.07, nll loss: 0.20
+2024-09-28 22:46:55,826 - root - INFO - epoch: 151, validation loss: 0.29
+2024-09-28 22:47:16,226 - root - INFO - epoch: 151, kl loss: 0.07, nll loss: 0.21
+2024-09-28 22:47:20,549 - root - INFO - epoch: 152, validation loss: 0.27
+2024-09-28 22:47:40,117 - root - INFO - epoch: 152, kl loss: 0.07, nll loss: 0.20
+2024-09-28 22:47:43,726 - root - INFO - epoch: 153, validation loss: 0.28
+2024-09-28 22:48:02,613 - root - INFO - epoch: 153, kl loss: 0.07, nll loss: 0.21
+2024-09-28 22:48:05,889 - root - INFO - epoch: 154, validation loss: 0.29
+2024-09-28 22:48:24,874 - root - INFO - epoch: 154, kl loss: 0.10, nll loss: 0.22
+2024-09-28 22:48:28,416 - root - INFO - epoch: 155, validation loss: 0.29
+2024-09-28 22:48:46,698 - root - INFO - epoch: 155, kl loss: 0.05, nll loss: 0.21
+2024-09-28 22:48:50,667 - root - INFO - epoch: 156, validation loss: 0.29
+2024-09-28 22:49:08,522 - root - INFO - epoch: 156, kl loss: 0.06, nll loss: 0.21
+2024-09-28 22:49:12,215 - root - INFO - epoch: 157, validation loss: 0.26
+2024-09-28 22:49:31,815 - root - INFO - epoch: 157, kl loss: 0.05, nll loss: 0.21
+2024-09-28 22:49:36,370 - root - INFO - epoch: 158, validation loss: 0.28
+2024-09-28 22:49:56,401 - root - INFO - epoch: 158, kl loss: 0.07, nll loss: 0.21
+2024-09-28 22:49:59,769 - root - INFO - epoch: 159, validation loss: 0.28
+2024-09-28 22:50:18,043 - root - INFO - epoch: 159, kl loss: 0.07, nll loss: 0.21
+2024-09-28 22:50:21,055 - root - INFO - epoch: 160, validation loss: 0.29
+2024-09-28 22:50:38,203 - root - INFO - epoch: 160, kl loss: 0.07, nll loss: 0.20
+2024-09-28 22:50:41,569 - root - INFO - epoch: 161, validation loss: 0.28
+2024-09-28 22:50:58,836 - root - INFO - epoch: 161, kl loss: 0.07, nll loss: 0.20
+2024-09-28 22:51:01,630 - root - INFO - epoch: 162, validation loss: 0.27
+2024-09-28 22:51:19,595 - root - INFO - epoch: 162, kl loss: 0.06, nll loss: 0.21
+2024-09-28 22:51:23,021 - root - INFO - epoch: 163, validation loss: 0.27
+2024-09-28 22:51:41,582 - root - INFO - epoch: 163, kl loss: 0.07, nll loss: 0.21
+2024-09-28 22:51:45,009 - root - INFO - epoch: 164, validation loss: 0.27
+2024-09-28 22:52:05,221 - root - INFO - epoch: 164, kl loss: 0.06, nll loss: 0.22
+2024-09-28 22:52:09,682 - root - INFO - epoch: 165, validation loss: 0.29
+2024-09-28 22:52:27,958 - root - INFO - epoch: 165, kl loss: 0.07, nll loss: 0.22
+2024-09-28 22:52:31,246 - root - INFO - epoch: 166, validation loss: 0.30
+2024-09-28 22:52:48,580 - root - INFO - epoch: 166, kl loss: 0.08, nll loss: 0.22
+2024-09-28 22:52:51,782 - root - INFO - epoch: 167, validation loss: 0.27
+2024-09-28 22:53:09,902 - root - INFO - epoch: 167, kl loss: 0.08, nll loss: 0.22
+2024-09-28 22:53:12,827 - root - INFO - epoch: 168, validation loss: 0.33
+2024-09-28 22:53:31,334 - root - INFO - epoch: 168, kl loss: 0.11, nll loss: 0.22
+2024-09-28 22:53:34,865 - root - INFO - epoch: 169, validation loss: 0.35
+2024-09-28 22:53:52,878 - root - INFO - epoch: 169, kl loss: 0.10, nll loss: 0.21
+2024-09-28 22:53:56,378 - root - INFO - epoch: 170, validation loss: 0.33
+2024-09-28 22:54:16,213 - root - INFO - epoch: 170, kl loss: 0.09, nll loss: 0.22
+2024-09-28 22:54:20,338 - root - INFO - epoch: 171, validation loss: 0.28
+2024-09-28 22:54:36,537 - root - INFO - epoch: 171, kl loss: 0.07, nll loss: 0.21
+2024-09-28 22:54:40,445 - root - INFO - epoch: 172, validation loss: 0.30
+2024-09-28 22:54:58,189 - root - INFO - epoch: 172, kl loss: 0.06, nll loss: 0.22
+2024-09-28 22:55:01,701 - root - INFO - epoch: 173, validation loss: 0.29
+2024-09-28 22:55:17,431 - root - INFO - epoch: 173, kl loss: 0.07, nll loss: 0.21
+2024-09-28 22:55:21,085 - root - INFO - epoch: 174, validation loss: 0.28
+2024-09-28 22:55:38,019 - root - INFO - epoch: 174, kl loss: 0.06, nll loss: 0.21
+2024-09-28 22:55:41,200 - root - INFO - epoch: 175, validation loss: 0.27
+2024-09-28 22:55:57,902 - root - INFO - epoch: 175, kl loss: 0.06, nll loss: 0.21
+2024-09-28 22:56:00,668 - root - INFO - epoch: 176, validation loss: 0.30
+2024-09-28 22:56:18,555 - root - INFO - epoch: 176, kl loss: 0.07, nll loss: 0.21
+2024-09-28 22:56:22,235 - root - INFO - epoch: 177, validation loss: 0.29
+2024-09-28 22:56:43,813 - root - INFO - epoch: 177, kl loss: 0.07, nll loss: 0.22
+2024-09-28 22:56:47,524 - root - INFO - epoch: 178, validation loss: 0.29
+2024-09-28 22:57:05,564 - root - INFO - epoch: 178, kl loss: 0.08, nll loss: 0.22
+2024-09-28 22:57:09,102 - root - INFO - epoch: 179, validation loss: 0.29
+2024-09-28 22:57:27,110 - root - INFO - epoch: 179, kl loss: 0.10, nll loss: 0.21
+2024-09-28 22:57:30,585 - root - INFO - epoch: 180, validation loss: 0.29
+2024-09-28 22:57:48,577 - root - INFO - epoch: 180, kl loss: 0.08, nll loss: 0.20
+2024-09-28 22:57:51,617 - root - INFO - epoch: 181, validation loss: 0.29
+2024-09-28 22:58:06,495 - root - INFO - epoch: 181, kl loss: 0.07, nll loss: 0.22
+2024-09-28 22:58:09,589 - root - INFO - epoch: 182, validation loss: 0.29
+2024-09-28 22:58:27,077 - root - INFO - epoch: 182, kl loss: 0.07, nll loss: 0.20
+2024-09-28 22:58:30,643 - root - INFO - epoch: 183, validation loss: 0.28
+2024-09-28 22:58:48,611 - root - INFO - epoch: 183, kl loss: 0.08, nll loss: 0.21
+2024-09-28 22:58:52,811 - root - INFO - epoch: 184, validation loss: 0.29
+2024-09-28 22:59:12,909 - root - INFO - epoch: 184, kl loss: 0.07, nll loss: 0.20
+2024-09-28 22:59:16,381 - root - INFO - epoch: 185, validation loss: 0.28
+2024-09-28 22:59:35,233 - root - INFO - epoch: 185, kl loss: 0.07, nll loss: 0.20
+2024-09-28 22:59:38,825 - root - INFO - epoch: 186, validation loss: 0.28
+2024-09-28 22:59:55,615 - root - INFO - epoch: 186, kl loss: 0.07, nll loss: 0.21
+2024-09-28 22:59:59,570 - root - INFO - epoch: 187, validation loss: 0.27
+2024-09-28 23:00:16,409 - root - INFO - epoch: 187, kl loss: 0.06, nll loss: 0.21
+2024-09-28 23:00:19,397 - root - INFO - epoch: 188, validation loss: 0.27
+2024-09-28 23:00:38,144 - root - INFO - epoch: 188, kl loss: 0.07, nll loss: 0.21
+2024-09-28 23:00:41,574 - root - INFO - epoch: 189, validation loss: 0.28
+2024-09-28 23:00:58,505 - root - INFO - epoch: 189, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:01:02,011 - root - INFO - epoch: 190, validation loss: 0.28
+2024-09-28 23:01:21,914 - root - INFO - epoch: 190, kl loss: 0.08, nll loss: 0.21
+2024-09-28 23:01:26,090 - root - INFO - epoch: 191, validation loss: 0.27
+2024-09-28 23:01:44,055 - root - INFO - epoch: 191, kl loss: 0.08, nll loss: 0.21
+2024-09-28 23:01:47,663 - root - INFO - epoch: 192, validation loss: 0.29
+2024-09-28 23:02:04,299 - root - INFO - epoch: 192, kl loss: 0.08, nll loss: 0.21
+2024-09-28 23:02:07,860 - root - INFO - epoch: 193, validation loss: 0.28
+2024-09-28 23:02:26,222 - root - INFO - epoch: 193, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:02:29,292 - root - INFO - epoch: 194, validation loss: 0.26
+2024-09-28 23:02:29,299 - root - INFO - save parameters to file: experiments/swat_test/epoch_194.params
+2024-09-28 23:02:46,695 - root - INFO - epoch: 194, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:02:49,454 - root - INFO - epoch: 195, validation loss: 0.28
+2024-09-28 23:03:07,464 - root - INFO - epoch: 195, kl loss: 0.08, nll loss: 0.20
+2024-09-28 23:03:10,942 - root - INFO - epoch: 196, validation loss: 0.27
+2024-09-28 23:03:29,468 - root - INFO - epoch: 196, kl loss: 0.12, nll loss: 0.22
+2024-09-28 23:03:33,657 - root - INFO - epoch: 197, validation loss: 0.29
+2024-09-28 23:03:52,480 - root - INFO - epoch: 197, kl loss: 0.09, nll loss: 0.21
+2024-09-28 23:03:56,789 - root - INFO - epoch: 198, validation loss: 0.27
+2024-09-28 23:04:13,226 - root - INFO - epoch: 198, kl loss: 0.09, nll loss: 0.21
+2024-09-28 23:04:14,911 - root - INFO - epoch: 199, validation loss: 0.29
+2024-09-28 23:04:26,743 - root - INFO - epoch: 199, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:04:28,531 - root - INFO - epoch: 200, validation loss: 0.29
+2024-09-28 23:04:38,306 - root - INFO - epoch: 200, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:04:39,864 - root - INFO - epoch: 201, validation loss: 0.28
+2024-09-28 23:04:50,720 - root - INFO - epoch: 201, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:04:53,755 - root - INFO - epoch: 202, validation loss: 0.27
+2024-09-28 23:05:05,160 - root - INFO - epoch: 202, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:05:07,121 - root - INFO - epoch: 203, validation loss: 0.26
+2024-09-28 23:05:18,915 - root - INFO - epoch: 203, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:05:20,957 - root - INFO - epoch: 204, validation loss: 0.28
+2024-09-28 23:05:33,330 - root - INFO - epoch: 204, kl loss: 0.11, nll loss: 0.21
+2024-09-28 23:05:35,111 - root - INFO - epoch: 205, validation loss: 0.28
+2024-09-28 23:05:45,133 - root - INFO - epoch: 205, kl loss: 0.08, nll loss: 0.21
+2024-09-28 23:05:46,688 - root - INFO - epoch: 206, validation loss: 0.27
+2024-09-28 23:05:59,041 - root - INFO - epoch: 206, kl loss: 0.07, nll loss: 0.21
+2024-09-28 23:06:00,583 - root - INFO - epoch: 207, validation loss: 0.26
+2024-09-28 23:06:12,053 - root - INFO - epoch: 207, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:06:14,399 - root - INFO - epoch: 208, validation loss: 0.28
+2024-09-28 23:06:25,448 - root - INFO - epoch: 208, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:06:27,333 - root - INFO - epoch: 209, validation loss: 0.26
+2024-09-28 23:06:38,403 - root - INFO - epoch: 209, kl loss: 0.06, nll loss: 0.20
+2024-09-28 23:06:40,030 - root - INFO - epoch: 210, validation loss: 0.29
+2024-09-28 23:06:52,993 - root - INFO - epoch: 210, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:06:55,416 - root - INFO - epoch: 211, validation loss: 0.29
+2024-09-28 23:07:06,046 - root - INFO - epoch: 211, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:07:08,472 - root - INFO - epoch: 212, validation loss: 0.26
+2024-09-28 23:07:08,478 - root - INFO - save parameters to file: experiments/swat_test/epoch_212.params
+2024-09-28 23:07:19,349 - root - INFO - epoch: 212, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:07:21,104 - root - INFO - epoch: 213, validation loss: 0.26
+2024-09-28 23:07:32,380 - root - INFO - epoch: 213, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:07:34,506 - root - INFO - epoch: 214, validation loss: 0.28
+2024-09-28 23:07:44,824 - root - INFO - epoch: 214, kl loss: 0.09, nll loss: 0.20
+2024-09-28 23:07:46,373 - root - INFO - epoch: 215, validation loss: 0.30
+2024-09-28 23:07:57,569 - root - INFO - epoch: 215, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:08:00,148 - root - INFO - epoch: 216, validation loss: 0.27
+2024-09-28 23:08:12,236 - root - INFO - epoch: 216, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:08:13,829 - root - INFO - epoch: 217, validation loss: 0.28
+2024-09-28 23:08:24,103 - root - INFO - epoch: 217, kl loss: 0.09, nll loss: 0.19
+2024-09-28 23:08:25,741 - root - INFO - epoch: 218, validation loss: 0.27
+2024-09-28 23:08:39,359 - root - INFO - epoch: 218, kl loss: 0.08, nll loss: 0.20
+2024-09-28 23:08:41,399 - root - INFO - epoch: 219, validation loss: 0.30
+2024-09-28 23:08:53,606 - root - INFO - epoch: 219, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:08:55,241 - root - INFO - epoch: 220, validation loss: 0.28
+2024-09-28 23:09:13,624 - root - INFO - epoch: 220, kl loss: 0.07, nll loss: 0.22
+2024-09-28 23:09:16,060 - root - INFO - epoch: 221, validation loss: 0.29
+2024-09-28 23:09:29,506 - root - INFO - epoch: 221, kl loss: 0.06, nll loss: 0.21
+2024-09-28 23:09:32,092 - root - INFO - epoch: 222, validation loss: 0.26
+2024-09-28 23:09:44,287 - root - INFO - epoch: 222, kl loss: 0.08, nll loss: 0.20
+2024-09-28 23:09:46,198 - root - INFO - epoch: 223, validation loss: 0.28
+2024-09-28 23:09:57,938 - root - INFO - epoch: 223, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:10:00,026 - root - INFO - epoch: 224, validation loss: 0.27
+2024-09-28 23:10:12,996 - root - INFO - epoch: 224, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:10:14,961 - root - INFO - epoch: 225, validation loss: 0.35
+2024-09-28 23:10:25,875 - root - INFO - epoch: 225, kl loss: 0.14, nll loss: 0.21
+2024-09-28 23:10:28,154 - root - INFO - epoch: 226, validation loss: 0.41
+2024-09-28 23:10:39,805 - root - INFO - epoch: 226, kl loss: 0.20, nll loss: 0.19
+2024-09-28 23:10:41,947 - root - INFO - epoch: 227, validation loss: 0.36
+2024-09-28 23:10:53,061 - root - INFO - epoch: 227, kl loss: 0.10, nll loss: 0.21
+2024-09-28 23:10:55,320 - root - INFO - epoch: 228, validation loss: 0.29
+2024-09-28 23:11:07,936 - root - INFO - epoch: 228, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:11:10,116 - root - INFO - epoch: 229, validation loss: 0.31
+2024-09-28 23:11:22,682 - root - INFO - epoch: 229, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:11:25,322 - root - INFO - epoch: 230, validation loss: 0.27
+2024-09-28 23:11:37,472 - root - INFO - epoch: 230, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:11:39,050 - root - INFO - epoch: 231, validation loss: 0.27
+2024-09-28 23:11:50,802 - root - INFO - epoch: 231, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:11:53,239 - root - INFO - epoch: 232, validation loss: 0.29
+2024-09-28 23:12:04,337 - root - INFO - epoch: 232, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:12:06,193 - root - INFO - epoch: 233, validation loss: 0.28
+2024-09-28 23:12:16,592 - root - INFO - epoch: 233, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:12:18,223 - root - INFO - epoch: 234, validation loss: 0.27
+2024-09-28 23:12:29,200 - root - INFO - epoch: 234, kl loss: 0.07, nll loss: 0.21
+2024-09-28 23:12:31,536 - root - INFO - epoch: 235, validation loss: 0.28
+2024-09-28 23:12:42,231 - root - INFO - epoch: 235, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:12:43,843 - root - INFO - epoch: 236, validation loss: 0.27
+2024-09-28 23:12:53,986 - root - INFO - epoch: 236, kl loss: 0.09, nll loss: 0.19
+2024-09-28 23:12:55,584 - root - INFO - epoch: 237, validation loss: 0.27
+2024-09-28 23:13:07,330 - root - INFO - epoch: 237, kl loss: 0.08, nll loss: 0.20
+2024-09-28 23:13:09,856 - root - INFO - epoch: 238, validation loss: 0.30
+2024-09-28 23:13:21,039 - root - INFO - epoch: 238, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:13:22,690 - root - INFO - epoch: 239, validation loss: 0.28
+2024-09-28 23:13:33,032 - root - INFO - epoch: 239, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:13:35,199 - root - INFO - epoch: 240, validation loss: 0.28
+2024-09-28 23:13:45,793 - root - INFO - epoch: 240, kl loss: 0.08, nll loss: 0.20
+2024-09-28 23:13:47,431 - root - INFO - epoch: 241, validation loss: 0.28
+2024-09-28 23:13:59,555 - root - INFO - epoch: 241, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:14:01,813 - root - INFO - epoch: 242, validation loss: 0.27
+2024-09-28 23:14:12,772 - root - INFO - epoch: 242, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:14:14,529 - root - INFO - epoch: 243, validation loss: 0.26
+2024-09-28 23:14:24,857 - root - INFO - epoch: 243, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:14:27,357 - root - INFO - epoch: 244, validation loss: 0.29
+2024-09-28 23:14:40,786 - root - INFO - epoch: 244, kl loss: 0.06, nll loss: 0.20
+2024-09-28 23:14:42,721 - root - INFO - epoch: 245, validation loss: 0.26
+2024-09-28 23:14:53,939 - root - INFO - epoch: 245, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:14:55,542 - root - INFO - epoch: 246, validation loss: 0.24
+2024-09-28 23:14:55,546 - root - INFO - save parameters to file: experiments/swat_test/epoch_246.params
+2024-09-28 23:15:07,311 - root - INFO - epoch: 246, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:15:09,706 - root - INFO - epoch: 247, validation loss: 0.27
+2024-09-28 23:15:20,280 - root - INFO - epoch: 247, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:15:22,335 - root - INFO - epoch: 248, validation loss: 0.24
+2024-09-28 23:15:32,803 - root - INFO - epoch: 248, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:15:34,894 - root - INFO - epoch: 249, validation loss: 0.25
+2024-09-28 23:15:51,452 - root - INFO - epoch: 249, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:15:55,978 - root - INFO - epoch: 250, validation loss: 0.26
+2024-09-28 23:16:10,564 - root - INFO - epoch: 250, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:16:15,129 - root - INFO - epoch: 251, validation loss: 0.29
+2024-09-28 23:16:36,331 - root - INFO - epoch: 251, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:16:38,157 - root - INFO - epoch: 252, validation loss: 0.27
+2024-09-28 23:16:48,339 - root - INFO - epoch: 252, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:16:50,961 - root - INFO - epoch: 253, validation loss: 0.30
+2024-09-28 23:17:02,729 - root - INFO - epoch: 253, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:17:04,364 - root - INFO - epoch: 254, validation loss: 0.28
+2024-09-28 23:17:15,827 - root - INFO - epoch: 254, kl loss: 0.11, nll loss: 0.20
+2024-09-28 23:17:17,745 - root - INFO - epoch: 255, validation loss: 0.25
+2024-09-28 23:17:28,154 - root - INFO - epoch: 255, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:17:29,728 - root - INFO - epoch: 256, validation loss: 0.26
+2024-09-28 23:17:39,428 - root - INFO - epoch: 256, kl loss: 0.06, nll loss: 0.20
+2024-09-28 23:17:41,048 - root - INFO - epoch: 257, validation loss: 0.26
+2024-09-28 23:17:52,290 - root - INFO - epoch: 257, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:17:54,655 - root - INFO - epoch: 258, validation loss: 0.25
+2024-09-28 23:18:05,301 - root - INFO - epoch: 258, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:18:06,883 - root - INFO - epoch: 259, validation loss: 0.27
+2024-09-28 23:18:17,156 - root - INFO - epoch: 259, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:18:19,577 - root - INFO - epoch: 260, validation loss: 0.28
+2024-09-28 23:18:30,648 - root - INFO - epoch: 260, kl loss: 0.09, nll loss: 0.19
+2024-09-28 23:18:32,713 - root - INFO - epoch: 261, validation loss: 0.27
+2024-09-28 23:18:43,934 - root - INFO - epoch: 261, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:18:45,794 - root - INFO - epoch: 262, validation loss: 0.28
+2024-09-28 23:18:57,196 - root - INFO - epoch: 262, kl loss: 0.08, nll loss: 0.18
+2024-09-28 23:18:59,390 - root - INFO - epoch: 263, validation loss: 0.26
+2024-09-28 23:19:10,409 - root - INFO - epoch: 263, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:19:12,005 - root - INFO - epoch: 264, validation loss: 0.27
+2024-09-28 23:19:21,928 - root - INFO - epoch: 264, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:19:23,519 - root - INFO - epoch: 265, validation loss: 0.26
+2024-09-28 23:19:35,096 - root - INFO - epoch: 265, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:19:36,836 - root - INFO - epoch: 266, validation loss: 0.26
+2024-09-28 23:19:47,768 - root - INFO - epoch: 266, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:19:49,380 - root - INFO - epoch: 267, validation loss: 0.27
+2024-09-28 23:19:59,183 - root - INFO - epoch: 267, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:20:00,770 - root - INFO - epoch: 268, validation loss: 0.25
+2024-09-28 23:20:12,765 - root - INFO - epoch: 268, kl loss: 0.06, nll loss: 0.20
+2024-09-28 23:20:14,603 - root - INFO - epoch: 269, validation loss: 0.26
+2024-09-28 23:20:25,022 - root - INFO - epoch: 269, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:20:26,618 - root - INFO - epoch: 270, validation loss: 0.25
+2024-09-28 23:20:37,945 - root - INFO - epoch: 270, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:20:39,804 - root - INFO - epoch: 271, validation loss: 0.25
+2024-09-28 23:20:51,691 - root - INFO - epoch: 271, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:20:54,267 - root - INFO - epoch: 272, validation loss: 0.26
+2024-09-28 23:21:06,220 - root - INFO - epoch: 272, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:21:08,448 - root - INFO - epoch: 273, validation loss: 0.28
+2024-09-28 23:21:21,193 - root - INFO - epoch: 273, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:21:22,776 - root - INFO - epoch: 274, validation loss: 0.25
+2024-09-28 23:21:34,225 - root - INFO - epoch: 274, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:21:36,878 - root - INFO - epoch: 275, validation loss: 0.27
+2024-09-28 23:21:47,770 - root - INFO - epoch: 275, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:21:49,384 - root - INFO - epoch: 276, validation loss: 0.26
+2024-09-28 23:21:59,637 - root - INFO - epoch: 276, kl loss: 0.07, nll loss: 0.21
+2024-09-28 23:22:01,697 - root - INFO - epoch: 277, validation loss: 0.27
+2024-09-28 23:22:14,591 - root - INFO - epoch: 277, kl loss: 0.09, nll loss: 0.19
+2024-09-28 23:22:16,498 - root - INFO - epoch: 278, validation loss: 0.27
+2024-09-28 23:22:26,903 - root - INFO - epoch: 278, kl loss: 0.07, nll loss: 0.22
+2024-09-28 23:22:28,518 - root - INFO - epoch: 279, validation loss: 0.26
+2024-09-28 23:22:38,659 - root - INFO - epoch: 279, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:22:40,275 - root - INFO - epoch: 280, validation loss: 0.29
+2024-09-28 23:22:52,241 - root - INFO - epoch: 280, kl loss: 0.12, nll loss: 0.20
+2024-09-28 23:22:54,639 - root - INFO - epoch: 281, validation loss: 0.34
+2024-09-28 23:23:05,799 - root - INFO - epoch: 281, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:23:07,679 - root - INFO - epoch: 282, validation loss: 0.25
+2024-09-28 23:23:17,843 - root - INFO - epoch: 282, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:23:20,048 - root - INFO - epoch: 283, validation loss: 0.25
+2024-09-28 23:23:31,584 - root - INFO - epoch: 283, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:23:33,188 - root - INFO - epoch: 284, validation loss: 0.27
+2024-09-28 23:23:43,487 - root - INFO - epoch: 284, kl loss: 0.06, nll loss: 0.20
+2024-09-28 23:23:45,078 - root - INFO - epoch: 285, validation loss: 0.26
+2024-09-28 23:23:55,140 - root - INFO - epoch: 285, kl loss: 0.05, nll loss: 0.19
+2024-09-28 23:23:57,552 - root - INFO - epoch: 286, validation loss: 0.25
+2024-09-28 23:24:09,168 - root - INFO - epoch: 286, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:24:11,485 - root - INFO - epoch: 287, validation loss: 0.26
+2024-09-28 23:24:22,333 - root - INFO - epoch: 287, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:24:24,412 - root - INFO - epoch: 288, validation loss: 0.25
+2024-09-28 23:24:36,940 - root - INFO - epoch: 288, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:24:38,936 - root - INFO - epoch: 289, validation loss: 0.26
+2024-09-28 23:24:49,103 - root - INFO - epoch: 289, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:24:51,512 - root - INFO - epoch: 290, validation loss: 0.24
+2024-09-28 23:24:51,516 - root - INFO - save parameters to file: experiments/swat_test/epoch_290.params
+2024-09-28 23:25:02,968 - root - INFO - epoch: 290, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:25:04,649 - root - INFO - epoch: 291, validation loss: 0.25
+2024-09-28 23:25:15,083 - root - INFO - epoch: 291, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:25:16,780 - root - INFO - epoch: 292, validation loss: 0.26
+2024-09-28 23:25:28,378 - root - INFO - epoch: 292, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:25:30,004 - root - INFO - epoch: 293, validation loss: 0.26
+2024-09-28 23:25:39,904 - root - INFO - epoch: 293, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:25:41,503 - root - INFO - epoch: 294, validation loss: 0.26
+2024-09-28 23:25:52,824 - root - INFO - epoch: 294, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:25:55,212 - root - INFO - epoch: 295, validation loss: 0.26
+2024-09-28 23:26:06,412 - root - INFO - epoch: 295, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:26:07,989 - root - INFO - epoch: 296, validation loss: 0.26
+2024-09-28 23:26:17,935 - root - INFO - epoch: 296, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:26:20,086 - root - INFO - epoch: 297, validation loss: 0.25
+2024-09-28 23:26:31,607 - root - INFO - epoch: 297, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:26:33,649 - root - INFO - epoch: 298, validation loss: 0.27
+2024-09-28 23:26:44,915 - root - INFO - epoch: 298, kl loss: 0.08, nll loss: 0.20
+2024-09-28 23:26:46,506 - root - INFO - epoch: 299, validation loss: 0.28
+2024-09-28 23:26:56,569 - root - INFO - epoch: 299, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:26:58,185 - root - INFO - epoch: 300, validation loss: 0.25
+2024-09-28 23:27:09,201 - root - INFO - epoch: 300, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:27:11,045 - root - INFO - epoch: 301, validation loss: 0.30
+2024-09-28 23:27:21,434 - root - INFO - epoch: 301, kl loss: 0.06, nll loss: 0.21
+2024-09-28 23:27:23,169 - root - INFO - epoch: 302, validation loss: 0.27
+2024-09-28 23:27:33,592 - root - INFO - epoch: 302, kl loss: 0.06, nll loss: 0.20
+2024-09-28 23:27:35,303 - root - INFO - epoch: 303, validation loss: 0.26
+2024-09-28 23:27:46,104 - root - INFO - epoch: 303, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:27:47,784 - root - INFO - epoch: 304, validation loss: 0.27
+2024-09-28 23:28:00,828 - root - INFO - epoch: 304, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:28:02,910 - root - INFO - epoch: 305, validation loss: 0.26
+2024-09-28 23:28:13,437 - root - INFO - epoch: 305, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:28:15,035 - root - INFO - epoch: 306, validation loss: 0.27
+2024-09-28 23:28:28,769 - root - INFO - epoch: 306, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:28:30,531 - root - INFO - epoch: 307, validation loss: 0.25
+2024-09-28 23:28:43,119 - root - INFO - epoch: 307, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:28:45,337 - root - INFO - epoch: 308, validation loss: 0.26
+2024-09-28 23:28:58,060 - root - INFO - epoch: 308, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:28:59,835 - root - INFO - epoch: 309, validation loss: 0.27
+2024-09-28 23:29:12,174 - root - INFO - epoch: 309, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:29:13,761 - root - INFO - epoch: 310, validation loss: 0.27
+2024-09-28 23:29:25,638 - root - INFO - epoch: 310, kl loss: 0.08, nll loss: 0.18
+2024-09-28 23:29:27,396 - root - INFO - epoch: 311, validation loss: 0.25
+2024-09-28 23:29:38,936 - root - INFO - epoch: 311, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:29:40,575 - root - INFO - epoch: 312, validation loss: 0.27
+2024-09-28 23:29:52,937 - root - INFO - epoch: 312, kl loss: 0.05, nll loss: 0.20
+2024-09-28 23:29:54,807 - root - INFO - epoch: 313, validation loss: 0.25
+2024-09-28 23:30:06,728 - root - INFO - epoch: 313, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:30:09,600 - root - INFO - epoch: 314, validation loss: 0.25
+2024-09-28 23:30:21,998 - root - INFO - epoch: 314, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:30:24,452 - root - INFO - epoch: 315, validation loss: 0.25
+2024-09-28 23:30:35,496 - root - INFO - epoch: 315, kl loss: 0.05, nll loss: 0.19
+2024-09-28 23:30:37,089 - root - INFO - epoch: 316, validation loss: 0.27
+2024-09-28 23:30:48,784 - root - INFO - epoch: 316, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:30:50,556 - root - INFO - epoch: 317, validation loss: 0.23
+2024-09-28 23:30:50,561 - root - INFO - save parameters to file: experiments/swat_test/epoch_317.params
+2024-09-28 23:31:00,922 - root - INFO - epoch: 317, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:31:02,517 - root - INFO - epoch: 318, validation loss: 0.25
+2024-09-28 23:31:12,840 - root - INFO - epoch: 318, kl loss: 0.06, nll loss: 0.20
+2024-09-28 23:31:14,425 - root - INFO - epoch: 319, validation loss: 0.28
+2024-09-28 23:31:24,510 - root - INFO - epoch: 319, kl loss: 0.08, nll loss: 0.18
+2024-09-28 23:31:26,189 - root - INFO - epoch: 320, validation loss: 0.26
+2024-09-28 23:31:37,932 - root - INFO - epoch: 320, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:31:39,969 - root - INFO - epoch: 321, validation loss: 0.23
+2024-09-28 23:31:50,713 - root - INFO - epoch: 321, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:31:52,302 - root - INFO - epoch: 322, validation loss: 0.25
+2024-09-28 23:32:03,843 - root - INFO - epoch: 322, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:32:06,584 - root - INFO - epoch: 323, validation loss: 0.24
+2024-09-28 23:32:18,006 - root - INFO - epoch: 323, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:32:19,827 - root - INFO - epoch: 324, validation loss: 0.24
+2024-09-28 23:32:29,808 - root - INFO - epoch: 324, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:32:31,443 - root - INFO - epoch: 325, validation loss: 0.27
+2024-09-28 23:32:41,796 - root - INFO - epoch: 325, kl loss: 0.09, nll loss: 0.23
+2024-09-28 23:32:44,213 - root - INFO - epoch: 326, validation loss: 0.28
+2024-09-28 23:32:55,905 - root - INFO - epoch: 326, kl loss: 0.11, nll loss: 0.20
+2024-09-28 23:32:57,488 - root - INFO - epoch: 327, validation loss: 0.26
+2024-09-28 23:33:09,363 - root - INFO - epoch: 327, kl loss: 0.09, nll loss: 0.19
+2024-09-28 23:33:11,466 - root - INFO - epoch: 328, validation loss: 0.26
+2024-09-28 23:33:23,619 - root - INFO - epoch: 328, kl loss: 0.06, nll loss: 0.20
+2024-09-28 23:33:25,399 - root - INFO - epoch: 329, validation loss: 0.26
+2024-09-28 23:33:37,171 - root - INFO - epoch: 329, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:33:39,279 - root - INFO - epoch: 330, validation loss: 0.27
+2024-09-28 23:33:50,688 - root - INFO - epoch: 330, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:33:52,414 - root - INFO - epoch: 331, validation loss: 0.27
+2024-09-28 23:34:02,977 - root - INFO - epoch: 331, kl loss: 0.08, nll loss: 0.18
+2024-09-28 23:34:04,568 - root - INFO - epoch: 332, validation loss: 0.26
+2024-09-28 23:34:14,607 - root - INFO - epoch: 332, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:34:16,140 - root - INFO - epoch: 333, validation loss: 0.24
+2024-09-28 23:34:27,103 - root - INFO - epoch: 333, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:34:29,158 - root - INFO - epoch: 334, validation loss: 0.25
+2024-09-28 23:34:39,456 - root - INFO - epoch: 334, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:34:41,049 - root - INFO - epoch: 335, validation loss: 0.25
+2024-09-28 23:34:51,181 - root - INFO - epoch: 335, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:34:52,815 - root - INFO - epoch: 336, validation loss: 0.24
+2024-09-28 23:35:02,832 - root - INFO - epoch: 336, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:35:04,426 - root - INFO - epoch: 337, validation loss: 0.26
+2024-09-28 23:35:14,524 - root - INFO - epoch: 337, kl loss: 0.05, nll loss: 0.18
+2024-09-28 23:35:16,139 - root - INFO - epoch: 338, validation loss: 0.23
+2024-09-28 23:35:28,829 - root - INFO - epoch: 338, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:35:30,280 - root - INFO - epoch: 339, validation loss: 0.26
+2024-09-28 23:35:41,403 - root - INFO - epoch: 339, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:35:42,992 - root - INFO - epoch: 340, validation loss: 0.26
+2024-09-28 23:35:54,393 - root - INFO - epoch: 340, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:35:56,461 - root - INFO - epoch: 341, validation loss: 0.25
+2024-09-28 23:36:06,846 - root - INFO - epoch: 341, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:36:08,971 - root - INFO - epoch: 342, validation loss: 0.25
+2024-09-28 23:36:21,108 - root - INFO - epoch: 342, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:36:23,807 - root - INFO - epoch: 343, validation loss: 0.27
+2024-09-28 23:36:34,863 - root - INFO - epoch: 343, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:36:36,518 - root - INFO - epoch: 344, validation loss: 0.26
+2024-09-28 23:36:49,518 - root - INFO - epoch: 344, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:36:51,600 - root - INFO - epoch: 345, validation loss: 0.25
+2024-09-28 23:37:02,414 - root - INFO - epoch: 345, kl loss: 0.07, nll loss: 0.17
+2024-09-28 23:37:04,007 - root - INFO - epoch: 346, validation loss: 0.29
+2024-09-28 23:37:15,224 - root - INFO - epoch: 346, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:37:16,858 - root - INFO - epoch: 347, validation loss: 0.23
+2024-09-28 23:37:16,862 - root - INFO - save parameters to file: experiments/swat_test/epoch_347.params
+2024-09-28 23:37:28,422 - root - INFO - epoch: 347, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:37:30,058 - root - INFO - epoch: 348, validation loss: 0.28
+2024-09-28 23:37:40,966 - root - INFO - epoch: 348, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:37:43,354 - root - INFO - epoch: 349, validation loss: 0.37
+2024-09-28 23:37:56,423 - root - INFO - epoch: 349, kl loss: 0.09, nll loss: 0.20
+2024-09-28 23:37:58,334 - root - INFO - epoch: 350, validation loss: 0.24
+2024-09-28 23:38:08,357 - root - INFO - epoch: 350, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:38:09,943 - root - INFO - epoch: 351, validation loss: 0.26
+2024-09-28 23:38:20,013 - root - INFO - epoch: 351, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:38:21,611 - root - INFO - epoch: 352, validation loss: 0.23
+2024-09-28 23:38:34,973 - root - INFO - epoch: 352, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:38:37,227 - root - INFO - epoch: 353, validation loss: 0.24
+2024-09-28 23:38:47,545 - root - INFO - epoch: 353, kl loss: 0.08, nll loss: 0.20
+2024-09-28 23:38:49,136 - root - INFO - epoch: 354, validation loss: 0.24
+2024-09-28 23:38:59,411 - root - INFO - epoch: 354, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:39:01,017 - root - INFO - epoch: 355, validation loss: 0.26
+2024-09-28 23:39:11,566 - root - INFO - epoch: 355, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:39:13,035 - root - INFO - epoch: 356, validation loss: 0.24
+2024-09-28 23:39:24,696 - root - INFO - epoch: 356, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:39:26,396 - root - INFO - epoch: 357, validation loss: 0.25
+2024-09-28 23:39:37,040 - root - INFO - epoch: 357, kl loss: 0.08, nll loss: 0.18
+2024-09-28 23:39:38,959 - root - INFO - epoch: 358, validation loss: 0.28
+2024-09-28 23:39:49,475 - root - INFO - epoch: 358, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:39:51,089 - root - INFO - epoch: 359, validation loss: 0.25
+2024-09-28 23:40:01,136 - root - INFO - epoch: 359, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:40:02,718 - root - INFO - epoch: 360, validation loss: 0.24
+2024-09-28 23:40:14,694 - root - INFO - epoch: 360, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:40:16,673 - root - INFO - epoch: 361, validation loss: 0.25
+2024-09-28 23:40:27,273 - root - INFO - epoch: 361, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:40:28,860 - root - INFO - epoch: 362, validation loss: 0.26
+2024-09-28 23:40:40,049 - root - INFO - epoch: 362, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:40:41,643 - root - INFO - epoch: 363, validation loss: 0.23
+2024-09-28 23:40:52,383 - root - INFO - epoch: 363, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:40:54,263 - root - INFO - epoch: 364, validation loss: 0.26
+2024-09-28 23:41:04,449 - root - INFO - epoch: 364, kl loss: 0.07, nll loss: 0.20
+2024-09-28 23:41:06,048 - root - INFO - epoch: 365, validation loss: 0.25
+2024-09-28 23:41:18,026 - root - INFO - epoch: 365, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:41:19,750 - root - INFO - epoch: 366, validation loss: 0.27
+2024-09-28 23:41:31,974 - root - INFO - epoch: 366, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:41:33,767 - root - INFO - epoch: 367, validation loss: 0.26
+2024-09-28 23:41:44,726 - root - INFO - epoch: 367, kl loss: 0.08, nll loss: 0.18
+2024-09-28 23:41:46,603 - root - INFO - epoch: 368, validation loss: 0.28
+2024-09-28 23:41:58,008 - root - INFO - epoch: 368, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:41:59,608 - root - INFO - epoch: 369, validation loss: 0.25
+2024-09-28 23:42:10,239 - root - INFO - epoch: 369, kl loss: 0.05, nll loss: 0.19
+2024-09-28 23:42:11,847 - root - INFO - epoch: 370, validation loss: 0.25
+2024-09-28 23:42:24,249 - root - INFO - epoch: 370, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:42:26,407 - root - INFO - epoch: 371, validation loss: 0.26
+2024-09-28 23:42:38,021 - root - INFO - epoch: 371, kl loss: 0.07, nll loss: 0.22
+2024-09-28 23:42:39,613 - root - INFO - epoch: 372, validation loss: 0.29
+2024-09-28 23:42:51,590 - root - INFO - epoch: 372, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:42:53,724 - root - INFO - epoch: 373, validation loss: 0.25
+2024-09-28 23:43:04,355 - root - INFO - epoch: 373, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:43:05,948 - root - INFO - epoch: 374, validation loss: 0.27
+2024-09-28 23:43:15,863 - root - INFO - epoch: 374, kl loss: 0.07, nll loss: 0.17
+2024-09-28 23:43:17,458 - root - INFO - epoch: 375, validation loss: 0.25
+2024-09-28 23:43:27,831 - root - INFO - epoch: 375, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:43:30,213 - root - INFO - epoch: 376, validation loss: 0.24
+2024-09-28 23:43:40,763 - root - INFO - epoch: 376, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:43:42,519 - root - INFO - epoch: 377, validation loss: 0.24
+2024-09-28 23:43:53,613 - root - INFO - epoch: 377, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:43:56,296 - root - INFO - epoch: 378, validation loss: 0.23
+2024-09-28 23:44:08,267 - root - INFO - epoch: 378, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:44:09,843 - root - INFO - epoch: 379, validation loss: 0.29
+2024-09-28 23:44:20,629 - root - INFO - epoch: 379, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:44:22,769 - root - INFO - epoch: 380, validation loss: 0.23
+2024-09-28 23:44:33,600 - root - INFO - epoch: 380, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:44:35,244 - root - INFO - epoch: 381, validation loss: 0.23
+2024-09-28 23:44:35,250 - root - INFO - save parameters to file: experiments/swat_test/epoch_381.params
+2024-09-28 23:44:45,256 - root - INFO - epoch: 381, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:44:47,492 - root - INFO - epoch: 382, validation loss: 0.24
+2024-09-28 23:44:58,660 - root - INFO - epoch: 382, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:45:00,508 - root - INFO - epoch: 383, validation loss: 0.24
+2024-09-28 23:45:10,908 - root - INFO - epoch: 383, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:45:12,497 - root - INFO - epoch: 384, validation loss: 0.26
+2024-09-28 23:45:23,196 - root - INFO - epoch: 384, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:45:24,901 - root - INFO - epoch: 385, validation loss: 0.23
+2024-09-28 23:45:35,506 - root - INFO - epoch: 385, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:45:37,602 - root - INFO - epoch: 386, validation loss: 0.22
+2024-09-28 23:45:37,607 - root - INFO - save parameters to file: experiments/swat_test/epoch_386.params
+2024-09-28 23:45:47,444 - root - INFO - epoch: 386, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:45:49,063 - root - INFO - epoch: 387, validation loss: 0.24
+2024-09-28 23:45:59,975 - root - INFO - epoch: 387, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:46:01,938 - root - INFO - epoch: 388, validation loss: 0.25
+2024-09-28 23:46:13,100 - root - INFO - epoch: 388, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:46:14,995 - root - INFO - epoch: 389, validation loss: 0.25
+2024-09-28 23:46:26,608 - root - INFO - epoch: 389, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:46:28,458 - root - INFO - epoch: 390, validation loss: 0.25
+2024-09-28 23:46:39,053 - root - INFO - epoch: 390, kl loss: 0.05, nll loss: 0.18
+2024-09-28 23:46:41,593 - root - INFO - epoch: 391, validation loss: 0.22
+2024-09-28 23:46:52,297 - root - INFO - epoch: 391, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:46:54,017 - root - INFO - epoch: 392, validation loss: 0.25
+2024-09-28 23:47:04,090 - root - INFO - epoch: 392, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:47:05,633 - root - INFO - epoch: 393, validation loss: 0.23
+2024-09-28 23:47:15,788 - root - INFO - epoch: 393, kl loss: 0.05, nll loss: 0.18
+2024-09-28 23:47:17,864 - root - INFO - epoch: 394, validation loss: 0.23
+2024-09-28 23:47:29,441 - root - INFO - epoch: 394, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:47:31,272 - root - INFO - epoch: 395, validation loss: 0.29
+2024-09-28 23:47:42,891 - root - INFO - epoch: 395, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:47:44,668 - root - INFO - epoch: 396, validation loss: 0.23
+2024-09-28 23:47:55,966 - root - INFO - epoch: 396, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:47:57,918 - root - INFO - epoch: 397, validation loss: 0.25
+2024-09-28 23:48:08,735 - root - INFO - epoch: 397, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:48:10,384 - root - INFO - epoch: 398, validation loss: 0.23
+2024-09-28 23:48:20,743 - root - INFO - epoch: 398, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:48:22,336 - root - INFO - epoch: 399, validation loss: 0.24
+2024-09-28 23:48:33,564 - root - INFO - epoch: 399, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:48:35,245 - root - INFO - epoch: 400, validation loss: 0.24
+2024-09-28 23:48:45,233 - root - INFO - epoch: 400, kl loss: 0.05, nll loss: 0.18
+2024-09-28 23:48:46,891 - root - INFO - epoch: 401, validation loss: 0.22
+2024-09-28 23:48:56,876 - root - INFO - epoch: 401, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:48:58,464 - root - INFO - epoch: 402, validation loss: 0.23
+2024-09-28 23:49:08,539 - root - INFO - epoch: 402, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:49:10,150 - root - INFO - epoch: 403, validation loss: 0.27
+2024-09-28 23:49:23,218 - root - INFO - epoch: 403, kl loss: 0.07, nll loss: 0.17
+2024-09-28 23:49:25,759 - root - INFO - epoch: 404, validation loss: 0.24
+2024-09-28 23:49:36,230 - root - INFO - epoch: 404, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:49:37,802 - root - INFO - epoch: 405, validation loss: 0.24
+2024-09-28 23:49:49,176 - root - INFO - epoch: 405, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:49:50,910 - root - INFO - epoch: 406, validation loss: 0.25
+2024-09-28 23:50:00,893 - root - INFO - epoch: 406, kl loss: 0.07, nll loss: 0.17
+2024-09-28 23:50:02,464 - root - INFO - epoch: 407, validation loss: 0.24
+2024-09-28 23:50:12,010 - root - INFO - epoch: 407, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:50:14,348 - root - INFO - epoch: 408, validation loss: 0.25
+2024-09-28 23:50:24,963 - root - INFO - epoch: 408, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:50:26,534 - root - INFO - epoch: 409, validation loss: 0.23
+2024-09-28 23:50:36,607 - root - INFO - epoch: 409, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:50:38,360 - root - INFO - epoch: 410, validation loss: 0.23
+2024-09-28 23:50:48,808 - root - INFO - epoch: 410, kl loss: 0.05, nll loss: 0.18
+2024-09-28 23:50:50,438 - root - INFO - epoch: 411, validation loss: 0.23
+2024-09-28 23:51:00,375 - root - INFO - epoch: 411, kl loss: 0.05, nll loss: 0.17
+2024-09-28 23:51:02,194 - root - INFO - epoch: 412, validation loss: 0.23
+2024-09-28 23:51:14,291 - root - INFO - epoch: 412, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:51:15,934 - root - INFO - epoch: 413, validation loss: 0.24
+2024-09-28 23:51:26,169 - root - INFO - epoch: 413, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:51:27,746 - root - INFO - epoch: 414, validation loss: 0.22
+2024-09-28 23:51:39,284 - root - INFO - epoch: 414, kl loss: 0.05, nll loss: 0.18
+2024-09-28 23:51:41,602 - root - INFO - epoch: 415, validation loss: 0.26
+2024-09-28 23:51:52,128 - root - INFO - epoch: 415, kl loss: 0.07, nll loss: 0.17
+2024-09-28 23:51:53,708 - root - INFO - epoch: 416, validation loss: 0.23
+2024-09-28 23:52:05,304 - root - INFO - epoch: 416, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:52:06,859 - root - INFO - epoch: 417, validation loss: 0.24
+2024-09-28 23:52:16,662 - root - INFO - epoch: 417, kl loss: 0.05, nll loss: 0.17
+2024-09-28 23:52:18,227 - root - INFO - epoch: 418, validation loss: 0.22
+2024-09-28 23:52:29,851 - root - INFO - epoch: 418, kl loss: 0.05, nll loss: 0.18
+2024-09-28 23:52:31,477 - root - INFO - epoch: 419, validation loss: 0.24
+2024-09-28 23:52:42,281 - root - INFO - epoch: 419, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:52:44,588 - root - INFO - epoch: 420, validation loss: 0.24
+2024-09-28 23:52:55,914 - root - INFO - epoch: 420, kl loss: 0.05, nll loss: 0.16
+2024-09-28 23:52:57,495 - root - INFO - epoch: 421, validation loss: 0.22
+2024-09-28 23:53:10,157 - root - INFO - epoch: 421, kl loss: 0.05, nll loss: 0.18
+2024-09-28 23:53:11,984 - root - INFO - epoch: 422, validation loss: 0.25
+2024-09-28 23:53:23,846 - root - INFO - epoch: 422, kl loss: 0.06, nll loss: 0.16
+2024-09-28 23:53:26,093 - root - INFO - epoch: 423, validation loss: 0.22
+2024-09-28 23:53:37,020 - root - INFO - epoch: 423, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:53:38,648 - root - INFO - epoch: 424, validation loss: 0.24
+2024-09-28 23:53:48,627 - root - INFO - epoch: 424, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:53:50,209 - root - INFO - epoch: 425, validation loss: 0.22
+2024-09-28 23:54:01,117 - root - INFO - epoch: 425, kl loss: 0.05, nll loss: 0.17
+2024-09-28 23:54:02,704 - root - INFO - epoch: 426, validation loss: 0.23
+2024-09-28 23:54:13,607 - root - INFO - epoch: 426, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:54:15,395 - root - INFO - epoch: 427, validation loss: 0.23
+2024-09-28 23:54:27,429 - root - INFO - epoch: 427, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:54:29,028 - root - INFO - epoch: 428, validation loss: 0.24
+2024-09-28 23:54:39,295 - root - INFO - epoch: 428, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:54:41,243 - root - INFO - epoch: 429, validation loss: 0.24
+2024-09-28 23:54:52,812 - root - INFO - epoch: 429, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:54:55,424 - root - INFO - epoch: 430, validation loss: 0.25
+2024-09-28 23:55:05,850 - root - INFO - epoch: 430, kl loss: 0.08, nll loss: 0.18
+2024-09-28 23:55:07,656 - root - INFO - epoch: 431, validation loss: 0.23
+2024-09-28 23:55:18,011 - root - INFO - epoch: 431, kl loss: 0.05, nll loss: 0.17
+2024-09-28 23:55:19,581 - root - INFO - epoch: 432, validation loss: 0.25
+2024-09-28 23:55:29,909 - root - INFO - epoch: 432, kl loss: 0.05, nll loss: 0.18
+2024-09-28 23:55:31,577 - root - INFO - epoch: 433, validation loss: 0.25
+2024-09-28 23:55:42,144 - root - INFO - epoch: 433, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:55:43,705 - root - INFO - epoch: 434, validation loss: 0.25
+2024-09-28 23:55:53,563 - root - INFO - epoch: 434, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:55:55,144 - root - INFO - epoch: 435, validation loss: 0.22
+2024-09-28 23:56:06,148 - root - INFO - epoch: 435, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:56:08,796 - root - INFO - epoch: 436, validation loss: 0.24
+2024-09-28 23:56:19,131 - root - INFO - epoch: 436, kl loss: 0.05, nll loss: 0.18
+2024-09-28 23:56:20,701 - root - INFO - epoch: 437, validation loss: 0.25
+2024-09-28 23:56:30,416 - root - INFO - epoch: 437, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:56:31,981 - root - INFO - epoch: 438, validation loss: 0.23
+2024-09-28 23:56:41,402 - root - INFO - epoch: 438, kl loss: 0.06, nll loss: 0.19
+2024-09-28 23:56:42,947 - root - INFO - epoch: 439, validation loss: 0.25
+2024-09-28 23:56:53,079 - root - INFO - epoch: 439, kl loss: 0.06, nll loss: 0.16
+2024-09-28 23:56:55,120 - root - INFO - epoch: 440, validation loss: 0.23
+2024-09-28 23:57:07,065 - root - INFO - epoch: 440, kl loss: 0.05, nll loss: 0.17
+2024-09-28 23:57:09,992 - root - INFO - epoch: 441, validation loss: 0.22
+2024-09-28 23:57:22,736 - root - INFO - epoch: 441, kl loss: 0.05, nll loss: 0.17
+2024-09-28 23:57:24,539 - root - INFO - epoch: 442, validation loss: 0.24
+2024-09-28 23:57:35,438 - root - INFO - epoch: 442, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:57:37,354 - root - INFO - epoch: 443, validation loss: 0.23
+2024-09-28 23:57:47,434 - root - INFO - epoch: 443, kl loss: 0.06, nll loss: 0.17
+2024-09-28 23:57:49,011 - root - INFO - epoch: 444, validation loss: 0.23
+2024-09-28 23:57:58,854 - root - INFO - epoch: 444, kl loss: 0.05, nll loss: 0.17
+2024-09-28 23:58:00,960 - root - INFO - epoch: 445, validation loss: 0.26
+2024-09-28 23:58:11,608 - root - INFO - epoch: 445, kl loss: 0.07, nll loss: 0.19
+2024-09-28 23:58:13,408 - root - INFO - epoch: 446, validation loss: 0.24
+2024-09-28 23:58:23,324 - root - INFO - epoch: 446, kl loss: 0.08, nll loss: 0.19
+2024-09-28 23:58:24,902 - root - INFO - epoch: 447, validation loss: 0.27
+2024-09-28 23:58:34,969 - root - INFO - epoch: 447, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:58:36,810 - root - INFO - epoch: 448, validation loss: 0.24
+2024-09-28 23:58:47,323 - root - INFO - epoch: 448, kl loss: 0.06, nll loss: 0.16
+2024-09-28 23:58:49,128 - root - INFO - epoch: 449, validation loss: 0.23
+2024-09-28 23:58:59,365 - root - INFO - epoch: 449, kl loss: 0.05, nll loss: 0.17
+2024-09-28 23:59:01,348 - root - INFO - epoch: 450, validation loss: 0.23
+2024-09-28 23:59:11,183 - root - INFO - epoch: 450, kl loss: 0.07, nll loss: 0.18
+2024-09-28 23:59:12,770 - root - INFO - epoch: 451, validation loss: 0.26
+2024-09-28 23:59:23,538 - root - INFO - epoch: 451, kl loss: 0.07, nll loss: 0.17
+2024-09-28 23:59:25,311 - root - INFO - epoch: 452, validation loss: 0.22
+2024-09-28 23:59:35,315 - root - INFO - epoch: 452, kl loss: 0.06, nll loss: 0.18
+2024-09-28 23:59:36,889 - root - INFO - epoch: 453, validation loss: 0.26
+2024-09-28 23:59:46,760 - root - INFO - epoch: 453, kl loss: 0.07, nll loss: 0.17
+2024-09-28 23:59:48,337 - root - INFO - epoch: 454, validation loss: 0.24
+2024-09-29 00:00:00,151 - root - INFO - epoch: 454, kl loss: 0.05, nll loss: 0.18
+2024-09-29 00:00:02,040 - root - INFO - epoch: 455, validation loss: 0.24
+2024-09-29 00:00:13,478 - root - INFO - epoch: 455, kl loss: 0.06, nll loss: 0.18
+2024-09-29 00:00:15,517 - root - INFO - epoch: 456, validation loss: 0.24
+2024-09-29 00:00:26,723 - root - INFO - epoch: 456, kl loss: 0.06, nll loss: 0.21
+2024-09-29 00:00:28,768 - root - INFO - epoch: 457, validation loss: 0.55
+2024-09-29 00:00:40,661 - root - INFO - epoch: 457, kl loss: 0.07, nll loss: 0.30
+2024-09-29 00:00:42,544 - root - INFO - epoch: 458, validation loss: 0.41
+2024-09-29 00:00:55,909 - root - INFO - epoch: 458, kl loss: 0.06, nll loss: 0.27
+2024-09-29 00:00:57,791 - root - INFO - epoch: 459, validation loss: 0.31
+2024-09-29 00:01:08,403 - root - INFO - epoch: 459, kl loss: 0.07, nll loss: 0.26
+2024-09-29 00:01:10,395 - root - INFO - epoch: 460, validation loss: 0.33
+2024-09-29 00:01:22,576 - root - INFO - epoch: 460, kl loss: 0.07, nll loss: 0.21
+2024-09-29 00:01:24,849 - root - INFO - epoch: 461, validation loss: 0.29
+2024-09-29 00:01:35,192 - root - INFO - epoch: 461, kl loss: 0.06, nll loss: 0.17
+2024-09-29 00:01:36,759 - root - INFO - epoch: 462, validation loss: 0.26
+2024-09-29 00:01:48,418 - root - INFO - epoch: 462, kl loss: 0.08, nll loss: 0.17
+2024-09-29 00:01:50,996 - root - INFO - epoch: 463, validation loss: 0.38
+2024-09-29 00:02:03,202 - root - INFO - epoch: 463, kl loss: 0.09, nll loss: 0.19
+2024-09-29 00:02:05,240 - root - INFO - epoch: 464, validation loss: 0.30
+2024-09-29 00:02:16,592 - root - INFO - epoch: 464, kl loss: 0.06, nll loss: 0.17
+2024-09-29 00:02:18,245 - root - INFO - epoch: 465, validation loss: 0.28
+2024-09-29 00:02:28,724 - root - INFO - epoch: 465, kl loss: 0.07, nll loss: 0.18
+2024-09-29 00:02:30,721 - root - INFO - epoch: 466, validation loss: 0.27
+2024-09-29 00:02:41,464 - root - INFO - epoch: 466, kl loss: 0.04, nll loss: 0.17
+2024-09-29 00:02:43,121 - root - INFO - epoch: 467, validation loss: 0.27
+2024-09-29 00:02:53,592 - root - INFO - epoch: 467, kl loss: 0.07, nll loss: 0.17
+2024-09-29 00:02:55,971 - root - INFO - epoch: 468, validation loss: 0.24
+2024-09-29 00:03:06,331 - root - INFO - epoch: 468, kl loss: 0.11, nll loss: 0.22
+2024-09-29 00:03:08,191 - root - INFO - epoch: 469, validation loss: 0.38
+2024-09-29 00:03:17,980 - root - INFO - epoch: 469, kl loss: 0.16, nll loss: 0.21
+2024-09-29 00:03:19,549 - root - INFO - epoch: 470, validation loss: 0.42
+2024-09-29 00:03:29,435 - root - INFO - epoch: 470, kl loss: 0.10, nll loss: 0.21
+2024-09-29 00:03:31,037 - root - INFO - epoch: 471, validation loss: 0.39
+2024-09-29 00:03:42,271 - root - INFO - epoch: 471, kl loss: 0.06, nll loss: 0.21
+2024-09-29 00:03:43,871 - root - INFO - epoch: 472, validation loss: 0.33
+2024-09-29 00:03:54,036 - root - INFO - epoch: 472, kl loss: 0.05, nll loss: 0.19
+2024-09-29 00:03:55,660 - root - INFO - epoch: 473, validation loss: 0.33
+2024-09-29 00:04:07,132 - root - INFO - epoch: 473, kl loss: 0.10, nll loss: 0.19
+2024-09-29 00:04:09,164 - root - INFO - epoch: 474, validation loss: 0.46
+2024-09-29 00:04:19,002 - root - INFO - epoch: 474, kl loss: 0.20, nll loss: 0.25
+2024-09-29 00:04:20,579 - root - INFO - epoch: 475, validation loss: 0.52
+2024-09-29 00:04:33,632 - root - INFO - epoch: 475, kl loss: 0.20, nll loss: 0.18
+2024-09-29 00:04:35,206 - root - INFO - epoch: 476, validation loss: 0.44
+2024-09-29 00:04:46,193 - root - INFO - epoch: 476, kl loss: 0.18, nll loss: 0.18
+2024-09-29 00:04:48,540 - root - INFO - epoch: 477, validation loss: 0.42
+2024-09-29 00:04:59,742 - root - INFO - epoch: 477, kl loss: 0.17, nll loss: 0.17
+2024-09-29 00:05:01,438 - root - INFO - epoch: 478, validation loss: 0.42
+2024-09-29 00:05:12,486 - root - INFO - epoch: 478, kl loss: 0.17, nll loss: 0.18
+2024-09-29 00:05:14,510 - root - INFO - epoch: 479, validation loss: 0.44
+2024-09-29 00:05:24,471 - root - INFO - epoch: 479, kl loss: 0.15, nll loss: 0.16
+2024-09-29 00:05:26,515 - root - INFO - epoch: 480, validation loss: 0.34
+2024-09-29 00:05:37,236 - root - INFO - epoch: 480, kl loss: 0.10, nll loss: 0.17
+2024-09-29 00:05:38,817 - root - INFO - epoch: 481, validation loss: 0.26
+2024-09-29 00:05:48,678 - root - INFO - epoch: 481, kl loss: 0.13, nll loss: 0.18
+2024-09-29 00:05:50,229 - root - INFO - epoch: 482, validation loss: 0.35
+2024-09-29 00:06:00,152 - root - INFO - epoch: 482, kl loss: 0.17, nll loss: 0.17
+2024-09-29 00:06:01,735 - root - INFO - epoch: 483, validation loss: 0.32
+2024-09-29 00:06:13,090 - root - INFO - epoch: 483, kl loss: 0.11, nll loss: 0.16
+2024-09-29 00:06:14,696 - root - INFO - epoch: 484, validation loss: 0.28
+2024-09-29 00:06:24,709 - root - INFO - epoch: 484, kl loss: 0.08, nll loss: 0.16
+2024-09-29 00:06:26,293 - root - INFO - epoch: 485, validation loss: 0.25
+2024-09-29 00:06:36,443 - root - INFO - epoch: 485, kl loss: 0.06, nll loss: 0.15
+2024-09-29 00:06:38,100 - root - INFO - epoch: 486, validation loss: 0.24
+2024-09-29 00:06:48,166 - root - INFO - epoch: 486, kl loss: 0.06, nll loss: 0.20
+2024-09-29 00:06:49,731 - root - INFO - epoch: 487, validation loss: 0.22
+2024-09-29 00:06:59,527 - root - INFO - epoch: 487, kl loss: 0.06, nll loss: 0.16
+2024-09-29 00:07:01,101 - root - INFO - epoch: 488, validation loss: 0.23
+2024-09-29 00:07:13,127 - root - INFO - epoch: 488, kl loss: 0.07, nll loss: 0.17
+2024-09-29 00:07:15,106 - root - INFO - epoch: 489, validation loss: 0.22
+2024-09-29 00:07:25,339 - root - INFO - epoch: 489, kl loss: 0.06, nll loss: 0.18
+2024-09-29 00:07:26,926 - root - INFO - epoch: 490, validation loss: 0.28
+2024-09-29 00:07:36,799 - root - INFO - epoch: 490, kl loss: 0.06, nll loss: 0.15
+2024-09-29 00:07:39,179 - root - INFO - epoch: 491, validation loss: 0.24
+2024-09-29 00:07:50,308 - root - INFO - epoch: 491, kl loss: 0.06, nll loss: 0.17
+2024-09-29 00:07:52,342 - root - INFO - epoch: 492, validation loss: 0.26
+2024-09-29 00:08:03,659 - root - INFO - epoch: 492, kl loss: 0.05, nll loss: 0.17
+2024-09-29 00:08:06,034 - root - INFO - epoch: 493, validation loss: 0.26
+2024-09-29 00:08:16,732 - root - INFO - epoch: 493, kl loss: 0.06, nll loss: 0.16
+2024-09-29 00:08:18,321 - root - INFO - epoch: 494, validation loss: 0.25
+2024-09-29 00:08:28,043 - root - INFO - epoch: 494, kl loss: 0.14, nll loss: 0.18
+2024-09-29 00:08:29,903 - root - INFO - epoch: 495, validation loss: 0.43
+2024-09-29 00:08:41,753 - root - INFO - epoch: 495, kl loss: 0.16, nll loss: 0.17
+2024-09-29 00:08:43,716 - root - INFO - epoch: 496, validation loss: 0.38
+2024-09-29 00:08:55,309 - root - INFO - epoch: 496, kl loss: 0.14, nll loss: 0.16
+2024-09-29 00:08:56,894 - root - INFO - epoch: 497, validation loss: 0.33
+2024-09-29 00:09:06,886 - root - INFO - epoch: 497, kl loss: 0.10, nll loss: 0.18
+2024-09-29 00:09:09,136 - root - INFO - epoch: 498, validation loss: 0.33
+2024-09-29 00:09:20,026 - root - INFO - epoch: 498, kl loss: 0.07, nll loss: 0.16
+2024-09-29 00:09:21,716 - root - INFO - epoch: 499, validation loss: 0.21
+2024-09-29 00:09:21,720 - root - INFO - save parameters to file: experiments/swat_test/epoch_499.params
+2024-09-29 00:09:32,465 - root - INFO - epoch: 499, kl loss: 0.07, nll loss: 0.16
+2024-09-29 08:52:56,394 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-09-29 08:52:56,394 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-09-29 08:52:56,396 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-09-29 08:52:56,409 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (dcgru_layers): ModuleList(
+        (0): GraphConvolution(
+          (_gconv1): Linear(in_features=64, out_features=64, bias=True)
+          (_gconv2): Linear(in_features=64, out_features=64, bias=True)
+        )
+      )
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+)
+2024-09-29 08:52:59,290 - root - INFO - epoch: 0, validation loss: 3.86
+2024-09-29 08:52:59,295 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
+2024-09-29 08:53:09,352 - root - INFO - epoch: 0, kl loss: 0.83, nll loss: 1.29
+2024-09-29 08:53:10,932 - root - INFO - epoch: 1, validation loss: 1.26
+2024-09-29 08:53:10,935 - root - INFO - save parameters to file: experiments/swat_test/epoch_1.params
+2024-09-29 08:53:21,538 - root - INFO - epoch: 1, kl loss: 0.78, nll loss: 0.49
+2024-09-29 08:53:23,087 - root - INFO - epoch: 2, validation loss: 1.19
+2024-09-29 08:53:23,091 - root - INFO - save parameters to file: experiments/swat_test/epoch_2.params
+2024-09-29 08:53:35,374 - root - INFO - epoch: 2, kl loss: 0.71, nll loss: 0.48
+2024-09-29 08:53:37,259 - root - INFO - epoch: 3, validation loss: 0.99
+2024-09-29 08:53:37,263 - root - INFO - save parameters to file: experiments/swat_test/epoch_3.params
+2024-09-29 08:53:48,418 - root - INFO - epoch: 3, kl loss: 0.65, nll loss: 0.48
+2024-09-29 08:53:50,164 - root - INFO - epoch: 4, validation loss: 0.96
+2024-09-29 08:53:50,169 - root - INFO - save parameters to file: experiments/swat_test/epoch_4.params
+2024-09-29 08:54:01,322 - root - INFO - epoch: 4, kl loss: 0.66, nll loss: 0.43
+2024-09-29 08:54:03,237 - root - INFO - epoch: 5, validation loss: 1.00
+2024-09-29 08:54:13,895 - root - INFO - epoch: 5, kl loss: 0.68, nll loss: 0.39
+2024-09-29 08:54:15,633 - root - INFO - epoch: 6, validation loss: 0.89
+2024-09-29 08:54:15,637 - root - INFO - save parameters to file: experiments/swat_test/epoch_6.params
+2024-09-29 08:54:25,681 - root - INFO - epoch: 6, kl loss: 0.62, nll loss: 0.37
+2024-09-29 08:54:27,876 - root - INFO - epoch: 7, validation loss: 0.95
+2024-09-29 08:54:39,459 - root - INFO - epoch: 7, kl loss: 0.63, nll loss: 0.37
+2024-09-29 08:54:41,000 - root - INFO - epoch: 8, validation loss: 0.96
+2024-09-29 08:54:52,107 - root - INFO - epoch: 8, kl loss: 0.66, nll loss: 0.35
+2024-09-29 08:54:53,680 - root - INFO - epoch: 9, validation loss: 0.93
+2024-09-29 08:55:04,402 - root - INFO - epoch: 9, kl loss: 0.60, nll loss: 0.29
+2024-09-29 08:56:34,431 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-09-29 08:56:34,433 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-09-29 08:56:34,434 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-09-29 08:56:34,452 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (dcgru_layers): ModuleList(
+        (0): GraphConvolution(
+          (_gconv1): Linear(in_features=64, out_features=64, bias=True)
+          (_gconv2): Linear(in_features=64, out_features=64, bias=True)
+        )
+      )
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+)
+2024-09-29 08:56:37,126 - root - INFO - epoch: 0, validation loss: 3.53
+2024-09-29 08:56:37,131 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
+2024-09-29 08:56:46,577 - root - INFO - epoch: 0, kl loss: 0.78, nll loss: 0.81
+2024-09-29 08:56:48,024 - root - INFO - epoch: 1, validation loss: 1.06
+2024-09-29 08:56:48,028 - root - INFO - save parameters to file: experiments/swat_test/epoch_1.params
+2024-09-29 08:56:57,586 - root - INFO - epoch: 1, kl loss: 0.75, nll loss: 0.43
+2024-09-29 08:56:59,022 - root - INFO - epoch: 2, validation loss: 0.99
+2024-09-29 08:56:59,026 - root - INFO - save parameters to file: experiments/swat_test/epoch_2.params
+2024-09-29 08:57:09,363 - root - INFO - epoch: 2, kl loss: 0.71, nll loss: 0.37
+2024-09-29 08:57:10,801 - root - INFO - epoch: 3, validation loss: 0.96
+2024-09-29 08:57:10,805 - root - INFO - save parameters to file: experiments/swat_test/epoch_3.params
+2024-09-29 08:57:20,247 - root - INFO - epoch: 3, kl loss: 0.67, nll loss: 0.33
+2024-09-29 08:57:21,671 - root - INFO - epoch: 4, validation loss: 0.88
+2024-09-29 08:57:21,674 - root - INFO - save parameters to file: experiments/swat_test/epoch_4.params
+2024-09-29 08:57:31,200 - root - INFO - epoch: 4, kl loss: 0.61, nll loss: 0.30
+2024-09-29 08:57:32,644 - root - INFO - epoch: 5, validation loss: 0.84
+2024-09-29 08:57:32,648 - root - INFO - save parameters to file: experiments/swat_test/epoch_5.params
+2024-09-29 08:57:42,078 - root - INFO - epoch: 5, kl loss: 0.60, nll loss: 0.27
+2024-09-29 08:57:43,526 - root - INFO - epoch: 6, validation loss: 0.83
+2024-09-29 08:57:43,529 - root - INFO - save parameters to file: experiments/swat_test/epoch_6.params
+2024-09-29 08:57:52,969 - root - INFO - epoch: 6, kl loss: 0.59, nll loss: 0.26
+2024-09-29 08:57:54,420 - root - INFO - epoch: 7, validation loss: 0.78
+2024-09-29 08:57:54,425 - root - INFO - save parameters to file: experiments/swat_test/epoch_7.params
+2024-09-29 08:58:03,929 - root - INFO - epoch: 7, kl loss: 0.58, nll loss: 0.24
+2024-09-29 08:58:05,377 - root - INFO - epoch: 8, validation loss: 0.78
+2024-09-29 08:58:05,382 - root - INFO - save parameters to file: experiments/swat_test/epoch_8.params
+2024-09-29 08:58:14,914 - root - INFO - epoch: 8, kl loss: 0.57, nll loss: 0.24
+2024-09-29 08:58:16,309 - root - INFO - epoch: 9, validation loss: 0.79
+2024-09-29 08:58:25,810 - root - INFO - epoch: 9, kl loss: 0.57, nll loss: 0.24
+2024-09-29 08:58:27,230 - root - INFO - epoch: 10, validation loss: 0.74
+2024-09-29 08:58:27,235 - root - INFO - save parameters to file: experiments/swat_test/epoch_10.params
+2024-09-29 08:58:36,800 - root - INFO - epoch: 10, kl loss: 0.56, nll loss: 0.27
+2024-09-29 08:58:38,177 - root - INFO - epoch: 11, validation loss: 0.75
+2024-09-29 08:58:47,666 - root - INFO - epoch: 11, kl loss: 0.55, nll loss: 0.24
+2024-09-29 08:58:49,078 - root - INFO - epoch: 12, validation loss: 0.77
+2024-09-29 08:58:58,574 - root - INFO - epoch: 12, kl loss: 0.52, nll loss: 0.25
+2024-09-29 08:58:59,984 - root - INFO - epoch: 13, validation loss: 0.82
+2024-09-29 08:59:09,583 - root - INFO - epoch: 13, kl loss: 0.51, nll loss: 0.26
+2024-09-29 08:59:10,985 - root - INFO - epoch: 14, validation loss: 0.75
+2024-09-29 08:59:20,833 - root - INFO - epoch: 14, kl loss: 0.49, nll loss: 0.23
+2024-09-29 08:59:22,237 - root - INFO - epoch: 15, validation loss: 0.71
+2024-09-29 08:59:22,242 - root - INFO - save parameters to file: experiments/swat_test/epoch_15.params
+2024-09-29 08:59:31,904 - root - INFO - epoch: 15, kl loss: 0.45, nll loss: 0.21
+2024-09-29 08:59:33,303 - root - INFO - epoch: 16, validation loss: 0.68
+2024-09-29 08:59:33,308 - root - INFO - save parameters to file: experiments/swat_test/epoch_16.params
+2024-09-29 08:59:42,976 - root - INFO - epoch: 16, kl loss: 0.43, nll loss: 0.23
+2024-09-29 08:59:44,387 - root - INFO - epoch: 17, validation loss: 0.63
+2024-09-29 08:59:44,392 - root - INFO - save parameters to file: experiments/swat_test/epoch_17.params
+2024-09-29 08:59:54,967 - root - INFO - epoch: 17, kl loss: 0.39, nll loss: 0.22
+2024-09-29 08:59:56,401 - root - INFO - epoch: 18, validation loss: 0.65
+2024-09-29 09:00:06,193 - root - INFO - epoch: 18, kl loss: 0.36, nll loss: 0.21
+2024-09-29 09:00:07,622 - root - INFO - epoch: 19, validation loss: 0.57
+2024-09-29 09:00:07,626 - root - INFO - save parameters to file: experiments/swat_test/epoch_19.params
+2024-09-29 09:00:18,315 - root - INFO - epoch: 19, kl loss: 0.30, nll loss: 0.22
+2024-09-29 09:00:19,747 - root - INFO - epoch: 20, validation loss: 0.49
+2024-09-29 09:00:19,751 - root - INFO - save parameters to file: experiments/swat_test/epoch_20.params
+2024-09-29 09:00:29,459 - root - INFO - epoch: 20, kl loss: 0.24, nll loss: 0.20
+2024-09-29 09:00:30,934 - root - INFO - epoch: 21, validation loss: 0.42
+2024-09-29 09:00:30,938 - root - INFO - save parameters to file: experiments/swat_test/epoch_21.params
+2024-09-29 09:00:41,660 - root - INFO - epoch: 21, kl loss: 0.12, nll loss: 0.16
+2024-09-29 09:00:43,114 - root - INFO - epoch: 22, validation loss: 0.24
+2024-09-29 09:00:43,118 - root - INFO - save parameters to file: experiments/swat_test/epoch_22.params
+2024-09-29 09:00:53,089 - root - INFO - epoch: 22, kl loss: 0.03, nll loss: 0.13
+2024-09-29 09:00:54,551 - root - INFO - epoch: 23, validation loss: 0.15
+2024-09-29 09:00:54,554 - root - INFO - save parameters to file: experiments/swat_test/epoch_23.params
+2024-09-29 09:01:05,152 - root - INFO - epoch: 23, kl loss: 0.01, nll loss: 0.12
+2024-09-29 09:01:06,680 - root - INFO - epoch: 24, validation loss: 0.14
+2024-09-29 09:01:06,684 - root - INFO - save parameters to file: experiments/swat_test/epoch_24.params
+2024-09-29 09:01:16,352 - root - INFO - epoch: 24, kl loss: 0.01, nll loss: 0.12
+2024-09-29 09:01:18,318 - root - INFO - epoch: 25, validation loss: 0.12
+2024-09-29 09:01:18,322 - root - INFO - save parameters to file: experiments/swat_test/epoch_25.params
+2024-09-29 09:01:28,917 - root - INFO - epoch: 25, kl loss: 0.01, nll loss: 0.11
+2024-09-29 09:01:30,354 - root - INFO - epoch: 26, validation loss: 0.12
+2024-09-29 09:01:42,251 - root - INFO - epoch: 26, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:01:43,802 - root - INFO - epoch: 27, validation loss: 0.12
+2024-09-29 09:01:43,806 - root - INFO - save parameters to file: experiments/swat_test/epoch_27.params
+2024-09-29 09:01:55,336 - root - INFO - epoch: 27, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:01:57,110 - root - INFO - epoch: 28, validation loss: 0.11
+2024-09-29 09:01:57,114 - root - INFO - save parameters to file: experiments/swat_test/epoch_28.params
+2024-09-29 09:02:08,881 - root - INFO - epoch: 28, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:02:10,330 - root - INFO - epoch: 29, validation loss: 0.11
+2024-09-29 09:02:10,334 - root - INFO - save parameters to file: experiments/swat_test/epoch_29.params
+2024-09-29 09:02:20,528 - root - INFO - epoch: 29, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:02:22,087 - root - INFO - epoch: 30, validation loss: 0.11
+2024-09-29 09:02:22,091 - root - INFO - save parameters to file: experiments/swat_test/epoch_30.params
+2024-09-29 09:02:32,892 - root - INFO - epoch: 30, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:02:34,524 - root - INFO - epoch: 31, validation loss: 0.11
+2024-09-29 09:02:34,529 - root - INFO - save parameters to file: experiments/swat_test/epoch_31.params
+2024-09-29 09:02:44,835 - root - INFO - epoch: 31, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:02:46,931 - root - INFO - epoch: 32, validation loss: 0.11
+2024-09-29 09:02:57,215 - root - INFO - epoch: 32, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:02:58,850 - root - INFO - epoch: 33, validation loss: 0.11
+2024-09-29 09:03:09,203 - root - INFO - epoch: 33, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:03:10,833 - root - INFO - epoch: 34, validation loss: 0.11
+2024-09-29 09:03:21,715 - root - INFO - epoch: 34, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:03:23,550 - root - INFO - epoch: 35, validation loss: 0.11
+2024-09-29 09:03:35,225 - root - INFO - epoch: 35, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:03:36,865 - root - INFO - epoch: 36, validation loss: 0.11
+2024-09-29 09:03:47,159 - root - INFO - epoch: 36, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:03:48,807 - root - INFO - epoch: 37, validation loss: 0.11
+2024-09-29 09:03:59,604 - root - INFO - epoch: 37, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:04:01,455 - root - INFO - epoch: 38, validation loss: 0.11
+2024-09-29 09:04:11,631 - root - INFO - epoch: 38, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:04:13,071 - root - INFO - epoch: 39, validation loss: 0.11
+2024-09-29 09:04:22,485 - root - INFO - epoch: 39, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:04:23,933 - root - INFO - epoch: 40, validation loss: 0.11
+2024-09-29 09:04:34,754 - root - INFO - epoch: 40, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:04:36,536 - root - INFO - epoch: 41, validation loss: 0.11
+2024-09-29 09:04:45,923 - root - INFO - epoch: 41, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:04:47,360 - root - INFO - epoch: 42, validation loss: 0.11
+2024-09-29 09:04:57,365 - root - INFO - epoch: 42, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:04:58,794 - root - INFO - epoch: 43, validation loss: 0.11
+2024-09-29 09:05:09,411 - root - INFO - epoch: 43, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:05:10,845 - root - INFO - epoch: 44, validation loss: 0.11
+2024-09-29 09:05:20,311 - root - INFO - epoch: 44, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:05:21,775 - root - INFO - epoch: 45, validation loss: 0.11
+2024-09-29 09:05:32,758 - root - INFO - epoch: 45, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:05:34,178 - root - INFO - epoch: 46, validation loss: 0.11
+2024-09-29 09:05:44,836 - root - INFO - epoch: 46, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:05:46,618 - root - INFO - epoch: 47, validation loss: 0.11
+2024-09-29 09:05:56,815 - root - INFO - epoch: 47, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:05:58,253 - root - INFO - epoch: 48, validation loss: 0.11
+2024-09-29 09:06:07,602 - root - INFO - epoch: 48, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:06:09,045 - root - INFO - epoch: 49, validation loss: 0.11
+2024-09-29 09:06:19,874 - root - INFO - epoch: 49, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:06:21,305 - root - INFO - epoch: 50, validation loss: 0.11
+2024-09-29 09:06:21,309 - root - INFO - save parameters to file: experiments/swat_test/epoch_50.params
+2024-09-29 09:06:30,611 - root - INFO - epoch: 50, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:06:32,031 - root - INFO - epoch: 51, validation loss: 0.11
+2024-09-29 09:06:42,073 - root - INFO - epoch: 51, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:06:43,496 - root - INFO - epoch: 52, validation loss: 0.11
+2024-09-29 09:06:54,364 - root - INFO - epoch: 52, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:06:55,992 - root - INFO - epoch: 53, validation loss: 0.11
+2024-09-29 09:07:06,549 - root - INFO - epoch: 53, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:07:07,960 - root - INFO - epoch: 54, validation loss: 0.12
+2024-09-29 09:07:18,256 - root - INFO - epoch: 54, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:07:20,384 - root - INFO - epoch: 55, validation loss: 0.11
+2024-09-29 09:07:31,351 - root - INFO - epoch: 55, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:07:33,061 - root - INFO - epoch: 56, validation loss: 0.11
+2024-09-29 09:07:33,065 - root - INFO - save parameters to file: experiments/swat_test/epoch_56.params
+2024-09-29 09:07:43,871 - root - INFO - epoch: 56, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:07:45,296 - root - INFO - epoch: 57, validation loss: 0.11
+2024-09-29 09:07:56,090 - root - INFO - epoch: 57, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:07:57,607 - root - INFO - epoch: 58, validation loss: 0.11
+2024-09-29 09:07:57,611 - root - INFO - save parameters to file: experiments/swat_test/epoch_58.params
+2024-09-29 09:08:08,009 - root - INFO - epoch: 58, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:08:09,451 - root - INFO - epoch: 59, validation loss: 0.11
+2024-09-29 09:08:20,808 - root - INFO - epoch: 59, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:08:22,413 - root - INFO - epoch: 60, validation loss: 0.11
+2024-09-29 09:08:32,874 - root - INFO - epoch: 60, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:08:34,785 - root - INFO - epoch: 61, validation loss: 0.11
+2024-09-29 09:08:46,157 - root - INFO - epoch: 61, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:08:47,569 - root - INFO - epoch: 62, validation loss: 0.11
+2024-09-29 09:08:47,574 - root - INFO - save parameters to file: experiments/swat_test/epoch_62.params
+2024-09-29 09:08:58,678 - root - INFO - epoch: 62, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:09:00,108 - root - INFO - epoch: 63, validation loss: 0.12
+2024-09-29 09:09:11,558 - root - INFO - epoch: 63, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:09:12,989 - root - INFO - epoch: 64, validation loss: 0.11
+2024-09-29 09:09:23,859 - root - INFO - epoch: 64, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:09:25,699 - root - INFO - epoch: 65, validation loss: 0.11
+2024-09-29 09:09:25,703 - root - INFO - save parameters to file: experiments/swat_test/epoch_65.params
+2024-09-29 09:09:36,275 - root - INFO - epoch: 65, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:09:37,714 - root - INFO - epoch: 66, validation loss: 0.11
+2024-09-29 09:09:47,562 - root - INFO - epoch: 66, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:09:49,310 - root - INFO - epoch: 67, validation loss: 0.11
+2024-09-29 09:09:59,280 - root - INFO - epoch: 67, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:10:00,721 - root - INFO - epoch: 68, validation loss: 0.11
+2024-09-29 09:10:10,044 - root - INFO - epoch: 68, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:10:11,492 - root - INFO - epoch: 69, validation loss: 0.11
+2024-09-29 09:10:22,122 - root - INFO - epoch: 69, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:10:23,574 - root - INFO - epoch: 70, validation loss: 0.11
+2024-09-29 09:10:32,985 - root - INFO - epoch: 70, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:10:34,433 - root - INFO - epoch: 71, validation loss: 0.11
+2024-09-29 09:10:45,256 - root - INFO - epoch: 71, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:10:46,681 - root - INFO - epoch: 72, validation loss: 0.11
+2024-09-29 09:10:56,236 - root - INFO - epoch: 72, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:10:57,657 - root - INFO - epoch: 73, validation loss: 0.11
+2024-09-29 09:11:07,797 - root - INFO - epoch: 73, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:11:10,212 - root - INFO - epoch: 74, validation loss: 0.11
+2024-09-29 09:11:19,834 - root - INFO - epoch: 74, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:11:21,260 - root - INFO - epoch: 75, validation loss: 0.11
+2024-09-29 09:11:30,750 - root - INFO - epoch: 75, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:11:32,680 - root - INFO - epoch: 76, validation loss: 0.11
+2024-09-29 09:11:43,459 - root - INFO - epoch: 76, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:11:44,888 - root - INFO - epoch: 77, validation loss: 0.11
+2024-09-29 09:11:54,267 - root - INFO - epoch: 77, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:11:55,696 - root - INFO - epoch: 78, validation loss: 0.11
+2024-09-29 09:12:05,537 - root - INFO - epoch: 78, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:12:06,970 - root - INFO - epoch: 79, validation loss: 0.11
+2024-09-29 09:12:17,737 - root - INFO - epoch: 79, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:12:19,652 - root - INFO - epoch: 80, validation loss: 0.11
+2024-09-29 09:12:30,750 - root - INFO - epoch: 80, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:12:32,304 - root - INFO - epoch: 81, validation loss: 0.11
+2024-09-29 09:12:42,803 - root - INFO - epoch: 81, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:12:44,555 - root - INFO - epoch: 82, validation loss: 0.11
+2024-09-29 09:12:54,634 - root - INFO - epoch: 82, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:12:56,113 - root - INFO - epoch: 83, validation loss: 0.11
+2024-09-29 09:13:06,677 - root - INFO - epoch: 83, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:13:08,121 - root - INFO - epoch: 84, validation loss: 0.11
+2024-09-29 09:13:18,946 - root - INFO - epoch: 84, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:13:20,528 - root - INFO - epoch: 85, validation loss: 0.11
+2024-09-29 09:13:29,966 - root - INFO - epoch: 85, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:13:31,919 - root - INFO - epoch: 86, validation loss: 0.11
+2024-09-29 09:13:42,406 - root - INFO - epoch: 86, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:13:43,842 - root - INFO - epoch: 87, validation loss: 0.11
+2024-09-29 09:13:54,060 - root - INFO - epoch: 87, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:13:55,482 - root - INFO - epoch: 88, validation loss: 0.11
+2024-09-29 09:13:55,486 - root - INFO - save parameters to file: experiments/swat_test/epoch_88.params
+2024-09-29 09:14:06,770 - root - INFO - epoch: 88, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:14:08,821 - root - INFO - epoch: 89, validation loss: 0.11
+2024-09-29 09:14:18,949 - root - INFO - epoch: 89, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:14:20,393 - root - INFO - epoch: 90, validation loss: 0.11
+2024-09-29 09:14:29,819 - root - INFO - epoch: 90, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:14:31,278 - root - INFO - epoch: 91, validation loss: 0.11
+2024-09-29 09:14:41,539 - root - INFO - epoch: 91, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:14:42,974 - root - INFO - epoch: 92, validation loss: 0.11
+2024-09-29 09:14:54,081 - root - INFO - epoch: 92, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:14:55,520 - root - INFO - epoch: 93, validation loss: 0.11
+2024-09-29 09:14:55,524 - root - INFO - save parameters to file: experiments/swat_test/epoch_93.params
+2024-09-29 09:15:06,568 - root - INFO - epoch: 93, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:15:08,012 - root - INFO - epoch: 94, validation loss: 0.11
+2024-09-29 09:15:19,583 - root - INFO - epoch: 94, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:15:21,214 - root - INFO - epoch: 95, validation loss: 0.11
+2024-09-29 09:15:21,219 - root - INFO - save parameters to file: experiments/swat_test/epoch_95.params
+2024-09-29 09:15:31,671 - root - INFO - epoch: 95, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:15:33,156 - root - INFO - epoch: 96, validation loss: 0.11
+2024-09-29 09:15:33,161 - root - INFO - save parameters to file: experiments/swat_test/epoch_96.params
+2024-09-29 09:15:43,767 - root - INFO - epoch: 96, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:15:45,304 - root - INFO - epoch: 97, validation loss: 0.11
+2024-09-29 09:15:56,096 - root - INFO - epoch: 97, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:15:57,518 - root - INFO - epoch: 98, validation loss: 0.11
+2024-09-29 09:16:08,565 - root - INFO - epoch: 98, kl loss: 0.00, nll loss: 0.11
+2024-09-29 09:16:10,209 - root - INFO - epoch: 99, validation loss: 0.11
+2024-09-29 09:16:21,415 - root - INFO - epoch: 99, kl loss: 0.00, nll loss: 0.11

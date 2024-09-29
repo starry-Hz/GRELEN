@@ -149,3 +149,52 @@ weighted avg       0.97      0.97      0.97      7421
    macro avg       0.87      0.95      0.90      7421
 weighted avg       0.97      0.96      0.96      7421
 
+2024-09-29 08:48:19,652 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-09-29 08:48:19,652 - root - INFO - test_loader的形状为7470
+2024-09-29 08:48:19,653 - root - INFO - test_target_tensor的形状为7470
+2024-09-29 08:48:19,665 - root - INFO - param file: experiments/swat_test/epoch_499.params
+2024-09-29 08:48:19,666 - root - INFO - Model loaded...
+2024-09-29 08:48:28,705 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-09-29 08:48:29,108 - root - INFO - Graph saved: experiments/swat_test/epoch_499.npy
+2024-09-29 08:48:29,108 - root - INFO - Evaluation...
+2024-09-29 08:48:29,115 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-09-29 08:48:29,144 - root - INFO - loss的形状为(7469,)
+2024-09-29 08:51:39,022 - root - INFO - 最高的阈值组合为(16, 152)
+2024-09-29 08:51:39,059 - root - INFO - F1 score: 0.8375149342891278
+2024-09-29 08:51:39,064 - root - INFO - Precision score: 0.7513397642015005
+2024-09-29 08:51:39,068 - root - INFO - Recall score: 0.9460188933873145
+2024-09-29 08:51:39,086 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       0.99      0.97      0.98      6680
+         1.0       0.75      0.95      0.84       741
+
+    accuracy                           0.96      7421
+   macro avg       0.87      0.96      0.91      7421
+weighted avg       0.97      0.96      0.97      7421
+
+# 两层图卷积 迭代100次 GRELEN_gcn.py
+2024-09-29 09:33:32,116 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-09-29 09:33:32,116 - root - INFO - test_loader的形状为7470
+2024-09-29 09:33:32,117 - root - INFO - test_target_tensor的形状为7470
+2024-09-29 09:33:32,128 - root - INFO - param file: experiments/swat_test/epoch_96.params
+2024-09-29 09:33:32,128 - root - INFO - Model loaded...
+2024-09-29 09:33:41,049 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-09-29 09:33:41,450 - root - INFO - Graph saved: experiments/swat_test/epoch_96.npy
+2024-09-29 09:33:41,450 - root - INFO - Evaluation...
+2024-09-29 09:33:41,456 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-09-29 09:33:42,197 - root - INFO - loss的形状为(7469,)
+2024-09-29 09:36:43,739 - root - INFO - 最高的阈值组合为(16, 75)
+2024-09-29 09:36:43,775 - root - INFO - F1 score: 0.8441558441558441
+2024-09-29 09:36:43,780 - root - INFO - Precision score: 0.7663451232583065
+2024-09-29 09:36:43,784 - root - INFO - Recall score: 0.9395532194480947
+2024-09-29 09:36:43,802 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       0.99      0.97      0.98      6660
+         1.0       0.77      0.94      0.84       761
+
+    accuracy                           0.96      7421
+   macro avg       0.88      0.95      0.91      7421
+weighted avg       0.97      0.96      0.97      7421
+
