@@ -7,7 +7,7 @@ from sklearn.metrics import classification_report, precision_score, recall_score
 from lib.utils import *  # 导入自定义工具函数
 
 #####################################################################修改模型
-from model.GRELEN_gcn2 import *  # 导入GRELEN_gcn模型
+from model.GRELEN_gcn import *  # 导入GRELEN_gcn模型
 
 # import logging
 # # 日志配置
