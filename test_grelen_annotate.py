@@ -92,12 +92,13 @@ if __name__ == '__main__':
             labels = labels[:, :, 0, 1:]
             # prob:模型学习到的节点之间的关系概率矩阵;output:模型的预测输出
             prob, output = net(encoder_inputs)
+            # print(output)
             # 将当前批次的prob拼接到prob_tensor中
             prob_tensor = torch.cat([prob_tensor, prob.cpu()], dim=0)
 
     # 将累积的概率张量prob_tensor从GPU移动到CPU,去除计算图,并转换为Numpy数据
     prob_result = prob_tensor.cpu().detach().numpy()
-    # 调整边的形状，得到测试图矩阵
+    # 调整边的形状，得到测试图矩阵，表示节点之间的关系矩阵
     mat_test = reshape_edges(prob_tensor, N).cpu()
 
     # 保存结果,将节点间的关系矩阵mat_test保存为.npy文件
@@ -116,7 +117,7 @@ if __name__ == '__main__':
     anomaly_start = anomaly_time[:, 0]  # 提取异常的起始时间
     anomaly_end = anomaly_time[:, 1]  # 提取异常的结束时间
 
-    # 计算移动平均并过滤
+    # 计算移动平均并过滤     # 计算每个节点的出度,对出度进行移动平均滤波,减少噪声
     # moving average filtering是一种信号滤波算法,用于减小信号中的噪声或去除高频成分,从而平滑信号
     total_out_degree_move_filtered = np.zeros((mat_test.shape[1] - w + 1, N))  # 初始化存储移动平均滤波后的结果,数组形状(时间步数,节点数)
     for fe in range(N):  # 遍历每个节点
@@ -124,6 +125,12 @@ if __name__ == '__main__':
         xx = moving_average(y, w)  # 计算 `y` 的移动平均,窗口大小为 `w`
         total_out_degree_move_filtered[:, fe] = y[w-1:] - xx  # 计算出度变化,将 `y` 减去移动平均值后存储
 
+    ############ 对于每个节点计算其在不同时间步上的出度变化,利用移动平均滤波后的结果减去原始的出度,得到出度的变化,对所有节点和时间步计算平均值,得到整体的loss
+    """
+    loss 反映了节点之间关系（出度）在时间步上的变化。
+    通过计算每个时间步上节点之间连通性的变化情况，并与平滑的移动平均值作差，得到每个时间步的“异常程度”。
+    这可以用于检测那些明显偏离正常连接模式的时间步，进而标记为异常。
+    """
     loss = np.mean(total_out_degree_move_filtered, 1)  # 计算每个时间步的平均损失
 
     # 将损失写入 TensorBoard
@@ -137,7 +144,7 @@ if __name__ == '__main__':
         for j in range(200):  # 遍历第二个阈值范围
             thr1 = 0.0005 * i  # 根据循环计算第一个阈值
             thr2 = -0.0005 * j  # 根据循环计算第二个阈值
-            # 调整预测的异常点并计算F1得分,将结果与地面真值比较
+            # 调整预测的异常点并计算F1得分,将结果与真实值比较
             anomaly, ground_truth = point_adjust_eval(anomaly_start, anomaly_end, config.downsampling_fre, loss, thr1, thr2)
             f1[i, j] = f1_score(anomaly, ground_truth)  # 计算并存储当前阈值组合下的F1得分
 
@@ -156,3 +163,10 @@ if __name__ == '__main__':
     logging.info(f"Precision score: {precision_score(anomaly, ground_truth)}")
     logging.info(f"Recall score: {recall_score(anomaly, ground_truth)}")
     logging.info(f"Confusion matrix: \n{classification_report(anomaly, ground_truth)}")
+    
+    """
+    test_grelen_annotate判断最终的异常
+    根据grelen模型输出节点之间的关系概率矩阵,然后拼接得到prob_tensor,调整边的形状生成节点之间的关系矩阵mat_test。
+    计算每个节点的出度,对出度进行移动平均滤波,然后对所有节点和时间步计算平均值,得到整体的loss,loss的每个元素代表每个时间步的损失值。
+    最后设定阈值thr1和thr2进行判断该时间步是否存在异常,大于thr1或小于thr2视作异常。
+    """

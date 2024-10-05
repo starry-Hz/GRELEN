@@ -185,6 +185,7 @@ def point_adjust_eval(anomaly_start, anomaly_end, down, loss, thr1, thr2):
     # logging.info(f"len数值{len_}") # len_长度为7421
     anomaly = np.zeros((len_))
     loss = loss[:len_]
+    # 根据输入的损失值,loss大于thr1或小于thr2,均标记为1,即异常
     anomaly[np.where(loss>thr1)] = 1
     anomaly[np.where(loss<thr2)] = 1
     ground_truth = np.zeros((len_))

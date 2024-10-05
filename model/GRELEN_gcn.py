@@ -201,7 +201,7 @@ class GraphConvolution(torch.nn.Module):
         random_walk_mx = random_walk_mx.unsqueeze(0).repeat(B, 1, 1)  # [128, 51, 51]
 
         # 使用线性层,偏置项b的存在是增加模型的拟合能力,并不会改变图卷积的本质,只是在每个节点特征上增加了平移量用于调整特征值
-        # 第一层图卷积
+        # 第一层图卷积,torch.bmm进行批次矩阵乘法
         gconv_output1 = torch.bmm(random_walk_mx, inputs)  # [128, 51, 64]
         gconv_output1 = self._gconv1(gconv_output1)  # [128, 51, 64]
         if self._activation is not None:
