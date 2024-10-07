@@ -10,6 +10,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
+# Ignore Python bytecode files and __pycache__ directories
+__pycache__/
+*.pyc
 
 # C extensions
 *.so
