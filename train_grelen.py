@@ -119,8 +119,8 @@ if __name__ == '__main__':
         logging.info('load weight from: ', params_filename)
 
     # train model
-    # for epoch in range(start_epoch, 300):
-    for epoch in range(start_epoch, 500):
+    for epoch in range(start_epoch, 300):
+    # for epoch in range(start_epoch, 500):
         params_filename = os.path.join(params_path, 'epoch_%s.params' % epoch)
         val_loss = val_epoch(net, val_loader, sw, epoch, config)
 

@@ -1,0 +1,1229 @@
+2024-10-07 20:35:36,625 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-07 20:35:36,626 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-07 20:35:36,650 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (dcgru_layers): ModuleList(
+        (0): DCGRUCell_(
+          (_gconv_0): Linear(in_features=384, out_features=128, bias=True)
+          (_gconv_1): Linear(in_features=384, out_features=128, bias=True)
+          (_gconv_c_0): Linear(in_features=384, out_features=64, bias=True)
+          (_gconv_c_1): Linear(in_features=384, out_features=64, bias=True)
+        )
+      )
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+)
+2024-10-07 20:35:41,605 - root - INFO - epoch: 0, validation loss: 8.81
+2024-10-07 20:35:41,615 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
+2024-10-07 20:36:05,153 - root - INFO - epoch: 0, kl loss: 0.80, nll loss: 1.00
+2024-10-07 20:36:08,601 - root - INFO - epoch: 1, validation loss: 0.82
+2024-10-07 20:36:08,609 - root - INFO - save parameters to file: experiments/swat_test/epoch_1.params
+2024-10-07 20:36:30,597 - root - INFO - epoch: 1, kl loss: 0.60, nll loss: 0.13
+2024-10-07 20:36:34,003 - root - INFO - epoch: 2, validation loss: 0.68
+2024-10-07 20:36:34,013 - root - INFO - save parameters to file: experiments/swat_test/epoch_2.params
+2024-10-07 20:36:57,418 - root - INFO - epoch: 2, kl loss: 0.55, nll loss: 0.11
+2024-10-07 20:37:00,656 - root - INFO - epoch: 3, validation loss: 0.66
+2024-10-07 20:37:00,663 - root - INFO - save parameters to file: experiments/swat_test/epoch_3.params
+2024-10-07 20:37:22,659 - root - INFO - epoch: 3, kl loss: 0.53, nll loss: 0.11
+2024-10-07 20:37:25,822 - root - INFO - epoch: 4, validation loss: 0.64
+2024-10-07 20:37:25,831 - root - INFO - save parameters to file: experiments/swat_test/epoch_4.params
+2024-10-07 20:37:47,329 - root - INFO - epoch: 4, kl loss: 0.51, nll loss: 0.11
+2024-10-07 20:37:50,544 - root - INFO - epoch: 5, validation loss: 0.60
+2024-10-07 20:37:50,551 - root - INFO - save parameters to file: experiments/swat_test/epoch_5.params
+2024-10-07 20:38:12,524 - root - INFO - epoch: 5, kl loss: 0.47, nll loss: 0.10
+2024-10-07 20:38:15,682 - root - INFO - epoch: 6, validation loss: 0.54
+2024-10-07 20:38:15,689 - root - INFO - save parameters to file: experiments/swat_test/epoch_6.params
+2024-10-07 20:38:37,070 - root - INFO - epoch: 6, kl loss: 0.38, nll loss: 0.11
+2024-10-07 20:38:40,347 - root - INFO - epoch: 7, validation loss: 0.39
+2024-10-07 20:38:40,354 - root - INFO - save parameters to file: experiments/swat_test/epoch_7.params
+2024-10-07 20:39:01,146 - root - INFO - epoch: 7, kl loss: 0.15, nll loss: 0.11
+2024-10-07 20:39:04,253 - root - INFO - epoch: 8, validation loss: 0.14
+2024-10-07 20:39:04,262 - root - INFO - save parameters to file: experiments/swat_test/epoch_8.params
+2024-10-07 20:39:26,026 - root - INFO - epoch: 8, kl loss: 0.03, nll loss: 0.11
+2024-10-07 20:39:29,496 - root - INFO - epoch: 9, validation loss: 0.13
+2024-10-07 20:39:29,503 - root - INFO - save parameters to file: experiments/swat_test/epoch_9.params
+2024-10-07 20:39:52,406 - root - INFO - epoch: 9, kl loss: 0.03, nll loss: 0.11
+2024-10-07 20:39:55,504 - root - INFO - epoch: 10, validation loss: 0.12
+2024-10-07 20:39:55,512 - root - INFO - save parameters to file: experiments/swat_test/epoch_10.params
+2024-10-07 20:40:16,127 - root - INFO - epoch: 10, kl loss: 0.02, nll loss: 0.10
+2024-10-07 20:40:19,248 - root - INFO - epoch: 11, validation loss: 0.12
+2024-10-07 20:40:19,256 - root - INFO - save parameters to file: experiments/swat_test/epoch_11.params
+2024-10-07 20:40:40,052 - root - INFO - epoch: 11, kl loss: 0.02, nll loss: 0.10
+2024-10-07 20:40:43,445 - root - INFO - epoch: 12, validation loss: 0.12
+2024-10-07 20:40:43,452 - root - INFO - save parameters to file: experiments/swat_test/epoch_12.params
+2024-10-07 20:41:04,568 - root - INFO - epoch: 12, kl loss: 0.02, nll loss: 0.10
+2024-10-07 20:41:07,845 - root - INFO - epoch: 13, validation loss: 0.11
+2024-10-07 20:41:07,852 - root - INFO - save parameters to file: experiments/swat_test/epoch_13.params
+2024-10-07 20:41:29,084 - root - INFO - epoch: 13, kl loss: 0.02, nll loss: 0.10
+2024-10-07 20:41:32,230 - root - INFO - epoch: 14, validation loss: 0.11
+2024-10-07 20:41:32,237 - root - INFO - save parameters to file: experiments/swat_test/epoch_14.params
+2024-10-07 20:41:54,266 - root - INFO - epoch: 14, kl loss: 0.02, nll loss: 0.09
+2024-10-07 20:41:58,068 - root - INFO - epoch: 15, validation loss: 0.10
+2024-10-07 20:41:58,078 - root - INFO - save parameters to file: experiments/swat_test/epoch_15.params
+2024-10-07 20:42:20,498 - root - INFO - epoch: 15, kl loss: 0.01, nll loss: 0.09
+2024-10-07 20:42:23,984 - root - INFO - epoch: 16, validation loss: 0.10
+2024-10-07 20:42:23,992 - root - INFO - save parameters to file: experiments/swat_test/epoch_16.params
+2024-10-07 20:42:46,029 - root - INFO - epoch: 16, kl loss: 0.01, nll loss: 0.09
+2024-10-07 20:42:49,178 - root - INFO - epoch: 17, validation loss: 0.10
+2024-10-07 20:42:49,185 - root - INFO - save parameters to file: experiments/swat_test/epoch_17.params
+2024-10-07 20:43:10,057 - root - INFO - epoch: 17, kl loss: 0.01, nll loss: 0.09
+2024-10-07 20:43:13,234 - root - INFO - epoch: 18, validation loss: 0.09
+2024-10-07 20:43:13,240 - root - INFO - save parameters to file: experiments/swat_test/epoch_18.params
+2024-10-07 20:43:34,467 - root - INFO - epoch: 18, kl loss: 0.00, nll loss: 0.09
+2024-10-07 20:43:37,670 - root - INFO - epoch: 19, validation loss: 0.09
+2024-10-07 20:43:37,678 - root - INFO - save parameters to file: experiments/swat_test/epoch_19.params
+2024-10-07 20:43:59,743 - root - INFO - epoch: 19, kl loss: 0.00, nll loss: 0.08
+2024-10-07 20:44:03,749 - root - INFO - epoch: 20, validation loss: 0.09
+2024-10-07 20:44:03,758 - root - INFO - save parameters to file: experiments/swat_test/epoch_20.params
+2024-10-07 20:44:26,179 - root - INFO - epoch: 20, kl loss: 0.00, nll loss: 0.08
+2024-10-07 20:44:29,381 - root - INFO - epoch: 21, validation loss: 0.09
+2024-10-07 20:44:29,388 - root - INFO - save parameters to file: experiments/swat_test/epoch_21.params
+2024-10-07 20:44:50,819 - root - INFO - epoch: 21, kl loss: 0.00, nll loss: 0.08
+2024-10-07 20:44:54,020 - root - INFO - epoch: 22, validation loss: 0.08
+2024-10-07 20:44:54,028 - root - INFO - save parameters to file: experiments/swat_test/epoch_22.params
+2024-10-07 20:45:16,028 - root - INFO - epoch: 22, kl loss: 0.00, nll loss: 0.08
+2024-10-07 20:45:19,309 - root - INFO - epoch: 23, validation loss: 0.08
+2024-10-07 20:45:19,318 - root - INFO - save parameters to file: experiments/swat_test/epoch_23.params
+2024-10-07 20:45:40,387 - root - INFO - epoch: 23, kl loss: 0.00, nll loss: 0.08
+2024-10-07 20:45:43,603 - root - INFO - epoch: 24, validation loss: 0.08
+2024-10-07 20:45:43,610 - root - INFO - save parameters to file: experiments/swat_test/epoch_24.params
+2024-10-07 20:46:05,410 - root - INFO - epoch: 24, kl loss: 0.00, nll loss: 0.08
+2024-10-07 20:46:08,541 - root - INFO - epoch: 25, validation loss: 0.08
+2024-10-07 20:46:08,549 - root - INFO - save parameters to file: experiments/swat_test/epoch_25.params
+2024-10-07 20:46:29,278 - root - INFO - epoch: 25, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:46:32,367 - root - INFO - epoch: 26, validation loss: 0.08
+2024-10-07 20:46:32,373 - root - INFO - save parameters to file: experiments/swat_test/epoch_26.params
+2024-10-07 20:46:52,769 - root - INFO - epoch: 26, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:46:56,222 - root - INFO - epoch: 27, validation loss: 0.08
+2024-10-07 20:46:56,230 - root - INFO - save parameters to file: experiments/swat_test/epoch_27.params
+2024-10-07 20:47:16,668 - root - INFO - epoch: 27, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:47:19,790 - root - INFO - epoch: 28, validation loss: 0.08
+2024-10-07 20:47:19,797 - root - INFO - save parameters to file: experiments/swat_test/epoch_28.params
+2024-10-07 20:47:40,161 - root - INFO - epoch: 28, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:47:43,292 - root - INFO - epoch: 29, validation loss: 0.07
+2024-10-07 20:47:43,299 - root - INFO - save parameters to file: experiments/swat_test/epoch_29.params
+2024-10-07 20:48:03,536 - root - INFO - epoch: 29, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:48:06,607 - root - INFO - epoch: 30, validation loss: 0.07
+2024-10-07 20:48:06,615 - root - INFO - save parameters to file: experiments/swat_test/epoch_30.params
+2024-10-07 20:48:27,157 - root - INFO - epoch: 30, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:48:30,312 - root - INFO - epoch: 31, validation loss: 0.07
+2024-10-07 20:48:30,319 - root - INFO - save parameters to file: experiments/swat_test/epoch_31.params
+2024-10-07 20:48:50,971 - root - INFO - epoch: 31, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:48:54,151 - root - INFO - epoch: 32, validation loss: 0.07
+2024-10-07 20:48:54,158 - root - INFO - save parameters to file: experiments/swat_test/epoch_32.params
+2024-10-07 20:49:15,101 - root - INFO - epoch: 32, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:49:18,279 - root - INFO - epoch: 33, validation loss: 0.07
+2024-10-07 20:49:18,286 - root - INFO - save parameters to file: experiments/swat_test/epoch_33.params
+2024-10-07 20:49:39,705 - root - INFO - epoch: 33, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:49:42,924 - root - INFO - epoch: 34, validation loss: 0.07
+2024-10-07 20:49:42,932 - root - INFO - save parameters to file: experiments/swat_test/epoch_34.params
+2024-10-07 20:50:04,133 - root - INFO - epoch: 34, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:50:07,684 - root - INFO - epoch: 35, validation loss: 0.07
+2024-10-07 20:50:07,693 - root - INFO - save parameters to file: experiments/swat_test/epoch_35.params
+2024-10-07 20:50:31,188 - root - INFO - epoch: 35, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:50:34,938 - root - INFO - epoch: 36, validation loss: 0.07
+2024-10-07 20:50:34,946 - root - INFO - save parameters to file: experiments/swat_test/epoch_36.params
+2024-10-07 20:50:58,506 - root - INFO - epoch: 36, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:51:02,187 - root - INFO - epoch: 37, validation loss: 0.07
+2024-10-07 20:51:26,085 - root - INFO - epoch: 37, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:51:29,814 - root - INFO - epoch: 38, validation loss: 0.07
+2024-10-07 20:51:29,822 - root - INFO - save parameters to file: experiments/swat_test/epoch_38.params
+2024-10-07 20:51:55,206 - root - INFO - epoch: 38, kl loss: 0.00, nll loss: 0.07
+2024-10-07 20:51:58,914 - root - INFO - epoch: 39, validation loss: 0.07
+2024-10-07 20:52:21,865 - root - INFO - epoch: 39, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:52:25,073 - root - INFO - epoch: 40, validation loss: 0.07
+2024-10-07 20:52:25,080 - root - INFO - save parameters to file: experiments/swat_test/epoch_40.params
+2024-10-07 20:52:46,031 - root - INFO - epoch: 40, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:52:49,240 - root - INFO - epoch: 41, validation loss: 0.07
+2024-10-07 20:53:10,561 - root - INFO - epoch: 41, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:53:13,906 - root - INFO - epoch: 42, validation loss: 0.07
+2024-10-07 20:53:36,257 - root - INFO - epoch: 42, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:53:39,500 - root - INFO - epoch: 43, validation loss: 0.07
+2024-10-07 20:53:39,508 - root - INFO - save parameters to file: experiments/swat_test/epoch_43.params
+2024-10-07 20:54:02,065 - root - INFO - epoch: 43, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:54:05,354 - root - INFO - epoch: 44, validation loss: 0.07
+2024-10-07 20:54:05,362 - root - INFO - save parameters to file: experiments/swat_test/epoch_44.params
+2024-10-07 20:54:26,494 - root - INFO - epoch: 44, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:54:29,785 - root - INFO - epoch: 45, validation loss: 0.07
+2024-10-07 20:54:29,792 - root - INFO - save parameters to file: experiments/swat_test/epoch_45.params
+2024-10-07 20:54:50,876 - root - INFO - epoch: 45, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:54:54,043 - root - INFO - epoch: 46, validation loss: 0.07
+2024-10-07 20:55:15,184 - root - INFO - epoch: 46, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:55:18,584 - root - INFO - epoch: 47, validation loss: 0.07
+2024-10-07 20:55:18,591 - root - INFO - save parameters to file: experiments/swat_test/epoch_47.params
+2024-10-07 20:55:40,362 - root - INFO - epoch: 47, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:55:43,578 - root - INFO - epoch: 48, validation loss: 0.07
+2024-10-07 20:55:43,585 - root - INFO - save parameters to file: experiments/swat_test/epoch_48.params
+2024-10-07 20:56:05,032 - root - INFO - epoch: 48, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:56:08,179 - root - INFO - epoch: 49, validation loss: 0.07
+2024-10-07 20:56:29,447 - root - INFO - epoch: 49, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:56:32,646 - root - INFO - epoch: 50, validation loss: 0.07
+2024-10-07 20:56:32,654 - root - INFO - save parameters to file: experiments/swat_test/epoch_50.params
+2024-10-07 20:56:55,709 - root - INFO - epoch: 50, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:56:58,899 - root - INFO - epoch: 51, validation loss: 0.07
+2024-10-07 20:57:20,230 - root - INFO - epoch: 51, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:57:23,708 - root - INFO - epoch: 52, validation loss: 0.07
+2024-10-07 20:57:23,716 - root - INFO - save parameters to file: experiments/swat_test/epoch_52.params
+2024-10-07 20:57:45,276 - root - INFO - epoch: 52, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:57:48,602 - root - INFO - epoch: 53, validation loss: 0.07
+2024-10-07 20:57:48,610 - root - INFO - save parameters to file: experiments/swat_test/epoch_53.params
+2024-10-07 20:58:10,508 - root - INFO - epoch: 53, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:58:14,125 - root - INFO - epoch: 54, validation loss: 0.07
+2024-10-07 20:58:14,133 - root - INFO - save parameters to file: experiments/swat_test/epoch_54.params
+2024-10-07 20:58:37,400 - root - INFO - epoch: 54, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:58:40,794 - root - INFO - epoch: 55, validation loss: 0.07
+2024-10-07 20:58:40,801 - root - INFO - save parameters to file: experiments/swat_test/epoch_55.params
+2024-10-07 20:59:02,380 - root - INFO - epoch: 55, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:59:05,781 - root - INFO - epoch: 56, validation loss: 0.07
+2024-10-07 20:59:05,789 - root - INFO - save parameters to file: experiments/swat_test/epoch_56.params
+2024-10-07 20:59:27,452 - root - INFO - epoch: 56, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:59:30,789 - root - INFO - epoch: 57, validation loss: 0.07
+2024-10-07 20:59:30,797 - root - INFO - save parameters to file: experiments/swat_test/epoch_57.params
+2024-10-07 20:59:54,703 - root - INFO - epoch: 57, kl loss: 0.00, nll loss: 0.06
+2024-10-07 20:59:58,643 - root - INFO - epoch: 58, validation loss: 0.07
+2024-10-07 20:59:58,652 - root - INFO - save parameters to file: experiments/swat_test/epoch_58.params
+2024-10-07 21:00:22,578 - root - INFO - epoch: 58, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:00:25,977 - root - INFO - epoch: 59, validation loss: 0.07
+2024-10-07 21:00:25,984 - root - INFO - save parameters to file: experiments/swat_test/epoch_59.params
+2024-10-07 21:00:49,096 - root - INFO - epoch: 59, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:00:52,454 - root - INFO - epoch: 60, validation loss: 0.07
+2024-10-07 21:00:52,462 - root - INFO - save parameters to file: experiments/swat_test/epoch_60.params
+2024-10-07 21:01:14,085 - root - INFO - epoch: 60, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:01:17,426 - root - INFO - epoch: 61, validation loss: 0.07
+2024-10-07 21:01:17,433 - root - INFO - save parameters to file: experiments/swat_test/epoch_61.params
+2024-10-07 21:01:38,858 - root - INFO - epoch: 61, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:01:42,331 - root - INFO - epoch: 62, validation loss: 0.07
+2024-10-07 21:02:04,362 - root - INFO - epoch: 62, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:02:07,711 - root - INFO - epoch: 63, validation loss: 0.06
+2024-10-07 21:02:07,719 - root - INFO - save parameters to file: experiments/swat_test/epoch_63.params
+2024-10-07 21:02:29,372 - root - INFO - epoch: 63, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:02:32,571 - root - INFO - epoch: 64, validation loss: 0.06
+2024-10-07 21:02:53,967 - root - INFO - epoch: 64, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:02:57,265 - root - INFO - epoch: 65, validation loss: 0.07
+2024-10-07 21:03:19,334 - root - INFO - epoch: 65, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:03:22,940 - root - INFO - epoch: 66, validation loss: 0.06
+2024-10-07 21:03:22,947 - root - INFO - save parameters to file: experiments/swat_test/epoch_66.params
+2024-10-07 21:03:44,359 - root - INFO - epoch: 66, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:03:47,674 - root - INFO - epoch: 67, validation loss: 0.06
+2024-10-07 21:03:47,682 - root - INFO - save parameters to file: experiments/swat_test/epoch_67.params
+2024-10-07 21:04:10,700 - root - INFO - epoch: 67, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:04:13,884 - root - INFO - epoch: 68, validation loss: 0.06
+2024-10-07 21:04:13,891 - root - INFO - save parameters to file: experiments/swat_test/epoch_68.params
+2024-10-07 21:04:34,831 - root - INFO - epoch: 68, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:04:37,995 - root - INFO - epoch: 69, validation loss: 0.06
+2024-10-07 21:04:38,002 - root - INFO - save parameters to file: experiments/swat_test/epoch_69.params
+2024-10-07 21:04:59,637 - root - INFO - epoch: 69, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:05:03,532 - root - INFO - epoch: 70, validation loss: 0.06
+2024-10-07 21:05:03,538 - root - INFO - save parameters to file: experiments/swat_test/epoch_70.params
+2024-10-07 21:05:27,606 - root - INFO - epoch: 70, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:05:30,874 - root - INFO - epoch: 71, validation loss: 0.06
+2024-10-07 21:05:30,882 - root - INFO - save parameters to file: experiments/swat_test/epoch_71.params
+2024-10-07 21:05:53,338 - root - INFO - epoch: 71, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:05:56,610 - root - INFO - epoch: 72, validation loss: 0.06
+2024-10-07 21:05:56,618 - root - INFO - save parameters to file: experiments/swat_test/epoch_72.params
+2024-10-07 21:06:17,833 - root - INFO - epoch: 72, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:06:21,172 - root - INFO - epoch: 73, validation loss: 0.06
+2024-10-07 21:06:21,179 - root - INFO - save parameters to file: experiments/swat_test/epoch_73.params
+2024-10-07 21:06:42,764 - root - INFO - epoch: 73, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:06:46,204 - root - INFO - epoch: 74, validation loss: 0.06
+2024-10-07 21:07:08,266 - root - INFO - epoch: 74, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:07:11,795 - root - INFO - epoch: 75, validation loss: 0.06
+2024-10-07 21:07:11,803 - root - INFO - save parameters to file: experiments/swat_test/epoch_75.params
+2024-10-07 21:07:33,437 - root - INFO - epoch: 75, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:07:36,950 - root - INFO - epoch: 76, validation loss: 0.06
+2024-10-07 21:07:58,465 - root - INFO - epoch: 76, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:08:01,663 - root - INFO - epoch: 77, validation loss: 0.06
+2024-10-07 21:08:01,670 - root - INFO - save parameters to file: experiments/swat_test/epoch_77.params
+2024-10-07 21:08:22,929 - root - INFO - epoch: 77, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:08:26,198 - root - INFO - epoch: 78, validation loss: 0.06
+2024-10-07 21:08:47,516 - root - INFO - epoch: 78, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:08:50,869 - root - INFO - epoch: 79, validation loss: 0.06
+2024-10-07 21:08:50,876 - root - INFO - save parameters to file: experiments/swat_test/epoch_79.params
+2024-10-07 21:09:12,118 - root - INFO - epoch: 79, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:09:15,537 - root - INFO - epoch: 80, validation loss: 0.06
+2024-10-07 21:09:37,533 - root - INFO - epoch: 80, kl loss: 0.00, nll loss: 0.06
+2024-10-07 21:09:41,079 - root - INFO - epoch: 81, validation loss: 0.06
+2024-10-07 21:09:41,086 - root - INFO - save parameters to file: experiments/swat_test/epoch_81.params
+2024-10-07 21:10:02,858 - root - INFO - epoch: 81, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:10:06,139 - root - INFO - epoch: 82, validation loss: 0.06
+2024-10-07 21:10:06,147 - root - INFO - save parameters to file: experiments/swat_test/epoch_82.params
+2024-10-07 21:10:27,076 - root - INFO - epoch: 82, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:10:30,263 - root - INFO - epoch: 83, validation loss: 0.06
+2024-10-07 21:10:30,272 - root - INFO - save parameters to file: experiments/swat_test/epoch_83.params
+2024-10-07 21:10:51,597 - root - INFO - epoch: 83, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:10:54,981 - root - INFO - epoch: 84, validation loss: 0.06
+2024-10-07 21:11:16,161 - root - INFO - epoch: 84, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:11:19,388 - root - INFO - epoch: 85, validation loss: 0.06
+2024-10-07 21:11:40,977 - root - INFO - epoch: 85, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:11:44,338 - root - INFO - epoch: 86, validation loss: 0.06
+2024-10-07 21:12:05,870 - root - INFO - epoch: 86, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:12:09,448 - root - INFO - epoch: 87, validation loss: 0.06
+2024-10-07 21:12:09,457 - root - INFO - save parameters to file: experiments/swat_test/epoch_87.params
+2024-10-07 21:12:32,647 - root - INFO - epoch: 87, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:12:36,284 - root - INFO - epoch: 88, validation loss: 0.06
+2024-10-07 21:12:36,292 - root - INFO - save parameters to file: experiments/swat_test/epoch_88.params
+2024-10-07 21:12:57,666 - root - INFO - epoch: 88, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:13:01,018 - root - INFO - epoch: 89, validation loss: 0.06
+2024-10-07 21:13:01,025 - root - INFO - save parameters to file: experiments/swat_test/epoch_89.params
+2024-10-07 21:13:23,226 - root - INFO - epoch: 89, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:13:26,643 - root - INFO - epoch: 90, validation loss: 0.06
+2024-10-07 21:13:47,875 - root - INFO - epoch: 90, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:13:51,203 - root - INFO - epoch: 91, validation loss: 0.06
+2024-10-07 21:13:51,211 - root - INFO - save parameters to file: experiments/swat_test/epoch_91.params
+2024-10-07 21:14:12,165 - root - INFO - epoch: 91, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:14:15,369 - root - INFO - epoch: 92, validation loss: 0.06
+2024-10-07 21:14:15,376 - root - INFO - save parameters to file: experiments/swat_test/epoch_92.params
+2024-10-07 21:14:36,401 - root - INFO - epoch: 92, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:14:39,540 - root - INFO - epoch: 93, validation loss: 0.06
+2024-10-07 21:15:00,619 - root - INFO - epoch: 93, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:15:04,220 - root - INFO - epoch: 94, validation loss: 0.06
+2024-10-07 21:15:04,227 - root - INFO - save parameters to file: experiments/swat_test/epoch_94.params
+2024-10-07 21:15:25,592 - root - INFO - epoch: 94, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:15:28,886 - root - INFO - epoch: 95, validation loss: 0.06
+2024-10-07 21:15:50,461 - root - INFO - epoch: 95, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:15:53,691 - root - INFO - epoch: 96, validation loss: 0.06
+2024-10-07 21:16:15,062 - root - INFO - epoch: 96, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:16:18,258 - root - INFO - epoch: 97, validation loss: 0.06
+2024-10-07 21:16:18,265 - root - INFO - save parameters to file: experiments/swat_test/epoch_97.params
+2024-10-07 21:16:39,414 - root - INFO - epoch: 97, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:16:42,693 - root - INFO - epoch: 98, validation loss: 0.06
+2024-10-07 21:16:42,701 - root - INFO - save parameters to file: experiments/swat_test/epoch_98.params
+2024-10-07 21:17:04,272 - root - INFO - epoch: 98, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:17:07,861 - root - INFO - epoch: 99, validation loss: 0.06
+2024-10-07 21:17:07,868 - root - INFO - save parameters to file: experiments/swat_test/epoch_99.params
+2024-10-07 21:17:29,743 - root - INFO - epoch: 99, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:17:32,997 - root - INFO - epoch: 100, validation loss: 0.06
+2024-10-07 21:17:33,004 - root - INFO - save parameters to file: experiments/swat_test/epoch_100.params
+2024-10-07 21:17:55,481 - root - INFO - epoch: 100, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:17:59,149 - root - INFO - epoch: 101, validation loss: 0.06
+2024-10-07 21:18:21,419 - root - INFO - epoch: 101, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:18:24,942 - root - INFO - epoch: 102, validation loss: 0.06
+2024-10-07 21:18:24,948 - root - INFO - save parameters to file: experiments/swat_test/epoch_102.params
+2024-10-07 21:18:47,720 - root - INFO - epoch: 102, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:18:51,141 - root - INFO - epoch: 103, validation loss: 0.06
+2024-10-07 21:18:51,148 - root - INFO - save parameters to file: experiments/swat_test/epoch_103.params
+2024-10-07 21:19:14,861 - root - INFO - epoch: 103, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:19:18,530 - root - INFO - epoch: 104, validation loss: 0.06
+2024-10-07 21:19:40,804 - root - INFO - epoch: 104, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:19:44,360 - root - INFO - epoch: 105, validation loss: 0.06
+2024-10-07 21:20:06,176 - root - INFO - epoch: 105, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:20:09,563 - root - INFO - epoch: 106, validation loss: 0.06
+2024-10-07 21:20:31,221 - root - INFO - epoch: 106, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:20:34,630 - root - INFO - epoch: 107, validation loss: 0.06
+2024-10-07 21:20:34,637 - root - INFO - save parameters to file: experiments/swat_test/epoch_107.params
+2024-10-07 21:20:55,741 - root - INFO - epoch: 107, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:20:58,997 - root - INFO - epoch: 108, validation loss: 0.06
+2024-10-07 21:20:59,004 - root - INFO - save parameters to file: experiments/swat_test/epoch_108.params
+2024-10-07 21:21:20,378 - root - INFO - epoch: 108, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:21:23,657 - root - INFO - epoch: 109, validation loss: 0.06
+2024-10-07 21:21:23,664 - root - INFO - save parameters to file: experiments/swat_test/epoch_109.params
+2024-10-07 21:21:45,457 - root - INFO - epoch: 109, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:21:48,753 - root - INFO - epoch: 110, validation loss: 0.06
+2024-10-07 21:21:48,760 - root - INFO - save parameters to file: experiments/swat_test/epoch_110.params
+2024-10-07 21:22:09,697 - root - INFO - epoch: 110, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:22:12,875 - root - INFO - epoch: 111, validation loss: 0.06
+2024-10-07 21:22:33,925 - root - INFO - epoch: 111, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:22:37,202 - root - INFO - epoch: 112, validation loss: 0.06
+2024-10-07 21:22:59,079 - root - INFO - epoch: 112, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:23:02,416 - root - INFO - epoch: 113, validation loss: 0.06
+2024-10-07 21:23:02,423 - root - INFO - save parameters to file: experiments/swat_test/epoch_113.params
+2024-10-07 21:23:24,917 - root - INFO - epoch: 113, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:23:28,650 - root - INFO - epoch: 114, validation loss: 0.06
+2024-10-07 21:23:51,056 - root - INFO - epoch: 114, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:23:54,195 - root - INFO - epoch: 115, validation loss: 0.06
+2024-10-07 21:23:54,202 - root - INFO - save parameters to file: experiments/swat_test/epoch_115.params
+2024-10-07 21:24:15,233 - root - INFO - epoch: 115, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:24:19,257 - root - INFO - epoch: 116, validation loss: 0.06
+2024-10-07 21:24:41,890 - root - INFO - epoch: 116, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:24:45,110 - root - INFO - epoch: 117, validation loss: 0.06
+2024-10-07 21:25:06,185 - root - INFO - epoch: 117, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:25:09,392 - root - INFO - epoch: 118, validation loss: 0.05
+2024-10-07 21:25:09,400 - root - INFO - save parameters to file: experiments/swat_test/epoch_118.params
+2024-10-07 21:25:31,274 - root - INFO - epoch: 118, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:25:34,931 - root - INFO - epoch: 119, validation loss: 0.05
+2024-10-07 21:25:34,940 - root - INFO - save parameters to file: experiments/swat_test/epoch_119.params
+2024-10-07 21:25:58,074 - root - INFO - epoch: 119, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:26:01,621 - root - INFO - epoch: 120, validation loss: 0.05
+2024-10-07 21:26:01,628 - root - INFO - save parameters to file: experiments/swat_test/epoch_120.params
+2024-10-07 21:26:22,414 - root - INFO - epoch: 120, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:26:25,660 - root - INFO - epoch: 121, validation loss: 0.05
+2024-10-07 21:26:25,667 - root - INFO - save parameters to file: experiments/swat_test/epoch_121.params
+2024-10-07 21:26:46,420 - root - INFO - epoch: 121, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:26:49,635 - root - INFO - epoch: 122, validation loss: 0.05
+2024-10-07 21:26:49,642 - root - INFO - save parameters to file: experiments/swat_test/epoch_122.params
+2024-10-07 21:27:11,316 - root - INFO - epoch: 122, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:27:14,767 - root - INFO - epoch: 123, validation loss: 0.05
+2024-10-07 21:27:14,774 - root - INFO - save parameters to file: experiments/swat_test/epoch_123.params
+2024-10-07 21:27:36,678 - root - INFO - epoch: 123, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:27:39,907 - root - INFO - epoch: 124, validation loss: 0.05
+2024-10-07 21:27:39,914 - root - INFO - save parameters to file: experiments/swat_test/epoch_124.params
+2024-10-07 21:28:00,758 - root - INFO - epoch: 124, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:28:03,976 - root - INFO - epoch: 125, validation loss: 0.05
+2024-10-07 21:28:25,110 - root - INFO - epoch: 125, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:28:28,338 - root - INFO - epoch: 126, validation loss: 0.05
+2024-10-07 21:28:28,345 - root - INFO - save parameters to file: experiments/swat_test/epoch_126.params
+2024-10-07 21:28:49,696 - root - INFO - epoch: 126, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:28:53,048 - root - INFO - epoch: 127, validation loss: 0.05
+2024-10-07 21:28:53,055 - root - INFO - save parameters to file: experiments/swat_test/epoch_127.params
+2024-10-07 21:29:13,778 - root - INFO - epoch: 127, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:29:16,965 - root - INFO - epoch: 128, validation loss: 0.05
+2024-10-07 21:29:37,780 - root - INFO - epoch: 128, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:29:41,101 - root - INFO - epoch: 129, validation loss: 0.05
+2024-10-07 21:30:02,609 - root - INFO - epoch: 129, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:30:05,925 - root - INFO - epoch: 130, validation loss: 0.05
+2024-10-07 21:30:05,933 - root - INFO - save parameters to file: experiments/swat_test/epoch_130.params
+2024-10-07 21:30:27,588 - root - INFO - epoch: 130, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:30:30,910 - root - INFO - epoch: 131, validation loss: 0.05
+2024-10-07 21:30:53,100 - root - INFO - epoch: 131, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:30:56,468 - root - INFO - epoch: 132, validation loss: 0.05
+2024-10-07 21:30:56,475 - root - INFO - save parameters to file: experiments/swat_test/epoch_132.params
+2024-10-07 21:31:17,765 - root - INFO - epoch: 132, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:31:21,217 - root - INFO - epoch: 133, validation loss: 0.05
+2024-10-07 21:31:21,224 - root - INFO - save parameters to file: experiments/swat_test/epoch_133.params
+2024-10-07 21:31:42,821 - root - INFO - epoch: 133, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:31:46,182 - root - INFO - epoch: 134, validation loss: 0.05
+2024-10-07 21:31:46,190 - root - INFO - save parameters to file: experiments/swat_test/epoch_134.params
+2024-10-07 21:32:07,543 - root - INFO - epoch: 134, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:32:10,836 - root - INFO - epoch: 135, validation loss: 0.05
+2024-10-07 21:32:31,870 - root - INFO - epoch: 135, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:32:35,342 - root - INFO - epoch: 136, validation loss: 0.05
+2024-10-07 21:32:35,349 - root - INFO - save parameters to file: experiments/swat_test/epoch_136.params
+2024-10-07 21:32:56,706 - root - INFO - epoch: 136, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:32:59,902 - root - INFO - epoch: 137, validation loss: 0.05
+2024-10-07 21:32:59,909 - root - INFO - save parameters to file: experiments/swat_test/epoch_137.params
+2024-10-07 21:33:22,499 - root - INFO - epoch: 137, kl loss: 0.00, nll loss: 0.05
+2024-10-07 21:33:25,593 - root - INFO - epoch: 138, validation loss: 0.05
+2024-10-07 21:33:25,600 - root - INFO - save parameters to file: experiments/swat_test/epoch_138.params
+2024-10-07 21:33:48,346 - root - INFO - epoch: 138, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:33:51,511 - root - INFO - epoch: 139, validation loss: 0.05
+2024-10-07 21:34:14,678 - root - INFO - epoch: 139, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:34:17,867 - root - INFO - epoch: 140, validation loss: 0.05
+2024-10-07 21:34:40,007 - root - INFO - epoch: 140, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:34:43,328 - root - INFO - epoch: 141, validation loss: 0.05
+2024-10-07 21:34:43,336 - root - INFO - save parameters to file: experiments/swat_test/epoch_141.params
+2024-10-07 21:35:04,039 - root - INFO - epoch: 141, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:35:07,212 - root - INFO - epoch: 142, validation loss: 0.05
+2024-10-07 21:35:28,151 - root - INFO - epoch: 142, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:35:31,302 - root - INFO - epoch: 143, validation loss: 0.05
+2024-10-07 21:35:31,309 - root - INFO - save parameters to file: experiments/swat_test/epoch_143.params
+2024-10-07 21:35:52,016 - root - INFO - epoch: 143, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:35:55,171 - root - INFO - epoch: 144, validation loss: 0.05
+2024-10-07 21:36:16,281 - root - INFO - epoch: 144, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:36:19,682 - root - INFO - epoch: 145, validation loss: 0.05
+2024-10-07 21:36:19,689 - root - INFO - save parameters to file: experiments/swat_test/epoch_145.params
+2024-10-07 21:36:40,863 - root - INFO - epoch: 145, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:36:44,082 - root - INFO - epoch: 146, validation loss: 0.05
+2024-10-07 21:37:05,091 - root - INFO - epoch: 146, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:37:08,371 - root - INFO - epoch: 147, validation loss: 0.05
+2024-10-07 21:37:29,749 - root - INFO - epoch: 147, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:37:32,999 - root - INFO - epoch: 148, validation loss: 0.05
+2024-10-07 21:37:33,006 - root - INFO - save parameters to file: experiments/swat_test/epoch_148.params
+2024-10-07 21:37:53,789 - root - INFO - epoch: 148, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:37:56,998 - root - INFO - epoch: 149, validation loss: 0.05
+2024-10-07 21:37:57,005 - root - INFO - save parameters to file: experiments/swat_test/epoch_149.params
+2024-10-07 21:38:18,792 - root - INFO - epoch: 149, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:38:22,150 - root - INFO - epoch: 150, validation loss: 0.05
+2024-10-07 21:38:22,158 - root - INFO - save parameters to file: experiments/swat_test/epoch_150.params
+2024-10-07 21:38:43,197 - root - INFO - epoch: 150, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:38:46,432 - root - INFO - epoch: 151, validation loss: 0.05
+2024-10-07 21:39:07,508 - root - INFO - epoch: 151, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:39:10,797 - root - INFO - epoch: 152, validation loss: 0.05
+2024-10-07 21:39:10,805 - root - INFO - save parameters to file: experiments/swat_test/epoch_152.params
+2024-10-07 21:39:32,031 - root - INFO - epoch: 152, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:39:35,321 - root - INFO - epoch: 153, validation loss: 0.05
+2024-10-07 21:39:56,582 - root - INFO - epoch: 153, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:39:59,822 - root - INFO - epoch: 154, validation loss: 0.05
+2024-10-07 21:39:59,829 - root - INFO - save parameters to file: experiments/swat_test/epoch_154.params
+2024-10-07 21:40:20,953 - root - INFO - epoch: 154, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:40:24,225 - root - INFO - epoch: 155, validation loss: 0.05
+2024-10-07 21:40:45,406 - root - INFO - epoch: 155, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:40:48,932 - root - INFO - epoch: 156, validation loss: 0.05
+2024-10-07 21:41:10,918 - root - INFO - epoch: 156, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:41:14,345 - root - INFO - epoch: 157, validation loss: 0.05
+2024-10-07 21:41:14,352 - root - INFO - save parameters to file: experiments/swat_test/epoch_157.params
+2024-10-07 21:41:36,059 - root - INFO - epoch: 157, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:41:39,264 - root - INFO - epoch: 158, validation loss: 0.05
+2024-10-07 21:41:39,271 - root - INFO - save parameters to file: experiments/swat_test/epoch_158.params
+2024-10-07 21:42:00,212 - root - INFO - epoch: 158, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:42:03,419 - root - INFO - epoch: 159, validation loss: 0.05
+2024-10-07 21:42:24,482 - root - INFO - epoch: 159, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:42:27,753 - root - INFO - epoch: 160, validation loss: 0.05
+2024-10-07 21:42:49,210 - root - INFO - epoch: 160, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:42:52,735 - root - INFO - epoch: 161, validation loss: 0.05
+2024-10-07 21:42:52,743 - root - INFO - save parameters to file: experiments/swat_test/epoch_161.params
+2024-10-07 21:43:14,323 - root - INFO - epoch: 161, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:43:17,688 - root - INFO - epoch: 162, validation loss: 0.05
+2024-10-07 21:43:17,695 - root - INFO - save parameters to file: experiments/swat_test/epoch_162.params
+2024-10-07 21:43:39,455 - root - INFO - epoch: 162, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:43:42,721 - root - INFO - epoch: 163, validation loss: 0.05
+2024-10-07 21:43:42,727 - root - INFO - save parameters to file: experiments/swat_test/epoch_163.params
+2024-10-07 21:44:04,142 - root - INFO - epoch: 163, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:44:07,572 - root - INFO - epoch: 164, validation loss: 0.05
+2024-10-07 21:44:07,580 - root - INFO - save parameters to file: experiments/swat_test/epoch_164.params
+2024-10-07 21:44:28,517 - root - INFO - epoch: 164, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:44:31,753 - root - INFO - epoch: 165, validation loss: 0.05
+2024-10-07 21:44:31,760 - root - INFO - save parameters to file: experiments/swat_test/epoch_165.params
+2024-10-07 21:44:52,928 - root - INFO - epoch: 165, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:44:56,661 - root - INFO - epoch: 166, validation loss: 0.05
+2024-10-07 21:44:56,669 - root - INFO - save parameters to file: experiments/swat_test/epoch_166.params
+2024-10-07 21:45:19,997 - root - INFO - epoch: 166, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:45:23,093 - root - INFO - epoch: 167, validation loss: 0.05
+2024-10-07 21:45:43,953 - root - INFO - epoch: 167, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:45:47,137 - root - INFO - epoch: 168, validation loss: 0.05
+2024-10-07 21:45:47,144 - root - INFO - save parameters to file: experiments/swat_test/epoch_168.params
+2024-10-07 21:46:08,196 - root - INFO - epoch: 168, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:46:11,511 - root - INFO - epoch: 169, validation loss: 0.05
+2024-10-07 21:46:32,564 - root - INFO - epoch: 169, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:46:35,802 - root - INFO - epoch: 170, validation loss: 0.05
+2024-10-07 21:46:35,809 - root - INFO - save parameters to file: experiments/swat_test/epoch_170.params
+2024-10-07 21:46:56,922 - root - INFO - epoch: 170, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:47:00,181 - root - INFO - epoch: 171, validation loss: 0.05
+2024-10-07 21:47:00,188 - root - INFO - save parameters to file: experiments/swat_test/epoch_171.params
+2024-10-07 21:47:21,121 - root - INFO - epoch: 171, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:47:24,504 - root - INFO - epoch: 172, validation loss: 0.05
+2024-10-07 21:47:45,696 - root - INFO - epoch: 172, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:47:49,026 - root - INFO - epoch: 173, validation loss: 0.05
+2024-10-07 21:48:11,306 - root - INFO - epoch: 173, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:48:14,856 - root - INFO - epoch: 174, validation loss: 0.05
+2024-10-07 21:48:14,863 - root - INFO - save parameters to file: experiments/swat_test/epoch_174.params
+2024-10-07 21:48:37,018 - root - INFO - epoch: 174, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:48:40,457 - root - INFO - epoch: 175, validation loss: 0.05
+2024-10-07 21:48:40,465 - root - INFO - save parameters to file: experiments/swat_test/epoch_175.params
+2024-10-07 21:49:01,281 - root - INFO - epoch: 175, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:49:04,546 - root - INFO - epoch: 176, validation loss: 0.04
+2024-10-07 21:49:04,553 - root - INFO - save parameters to file: experiments/swat_test/epoch_176.params
+2024-10-07 21:49:25,643 - root - INFO - epoch: 176, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:49:28,940 - root - INFO - epoch: 177, validation loss: 0.05
+2024-10-07 21:49:49,806 - root - INFO - epoch: 177, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:49:52,920 - root - INFO - epoch: 178, validation loss: 0.05
+2024-10-07 21:50:13,589 - root - INFO - epoch: 178, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:50:16,725 - root - INFO - epoch: 179, validation loss: 0.04
+2024-10-07 21:50:16,733 - root - INFO - save parameters to file: experiments/swat_test/epoch_179.params
+2024-10-07 21:50:37,719 - root - INFO - epoch: 179, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:50:40,840 - root - INFO - epoch: 180, validation loss: 0.04
+2024-10-07 21:50:40,847 - root - INFO - save parameters to file: experiments/swat_test/epoch_180.params
+2024-10-07 21:51:01,742 - root - INFO - epoch: 180, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:51:04,908 - root - INFO - epoch: 181, validation loss: 0.04
+2024-10-07 21:51:04,915 - root - INFO - save parameters to file: experiments/swat_test/epoch_181.params
+2024-10-07 21:51:25,832 - root - INFO - epoch: 181, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:51:29,019 - root - INFO - epoch: 182, validation loss: 0.04
+2024-10-07 21:51:50,144 - root - INFO - epoch: 182, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:51:53,395 - root - INFO - epoch: 183, validation loss: 0.04
+2024-10-07 21:51:53,402 - root - INFO - save parameters to file: experiments/swat_test/epoch_183.params
+2024-10-07 21:52:15,659 - root - INFO - epoch: 183, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:52:19,366 - root - INFO - epoch: 184, validation loss: 0.04
+2024-10-07 21:52:40,778 - root - INFO - epoch: 184, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:52:43,927 - root - INFO - epoch: 185, validation loss: 0.04
+2024-10-07 21:53:05,193 - root - INFO - epoch: 185, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:53:08,412 - root - INFO - epoch: 186, validation loss: 0.04
+2024-10-07 21:53:08,419 - root - INFO - save parameters to file: experiments/swat_test/epoch_186.params
+2024-10-07 21:53:29,502 - root - INFO - epoch: 186, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:53:32,752 - root - INFO - epoch: 187, validation loss: 0.04
+2024-10-07 21:53:54,742 - root - INFO - epoch: 187, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:53:57,972 - root - INFO - epoch: 188, validation loss: 0.04
+2024-10-07 21:54:19,228 - root - INFO - epoch: 188, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:54:22,466 - root - INFO - epoch: 189, validation loss: 0.04
+2024-10-07 21:54:22,473 - root - INFO - save parameters to file: experiments/swat_test/epoch_189.params
+2024-10-07 21:54:43,859 - root - INFO - epoch: 189, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:54:47,087 - root - INFO - epoch: 190, validation loss: 0.04
+2024-10-07 21:54:47,094 - root - INFO - save parameters to file: experiments/swat_test/epoch_190.params
+2024-10-07 21:55:08,249 - root - INFO - epoch: 190, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:55:11,515 - root - INFO - epoch: 191, validation loss: 0.04
+2024-10-07 21:55:33,219 - root - INFO - epoch: 191, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:55:36,448 - root - INFO - epoch: 192, validation loss: 0.04
+2024-10-07 21:55:57,540 - root - INFO - epoch: 192, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:56:00,701 - root - INFO - epoch: 193, validation loss: 0.04
+2024-10-07 21:56:00,708 - root - INFO - save parameters to file: experiments/swat_test/epoch_193.params
+2024-10-07 21:56:21,819 - root - INFO - epoch: 193, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:56:24,997 - root - INFO - epoch: 194, validation loss: 0.04
+2024-10-07 21:56:45,561 - root - INFO - epoch: 194, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:56:48,719 - root - INFO - epoch: 195, validation loss: 0.04
+2024-10-07 21:56:48,726 - root - INFO - save parameters to file: experiments/swat_test/epoch_195.params
+2024-10-07 21:57:09,618 - root - INFO - epoch: 195, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:57:12,927 - root - INFO - epoch: 196, validation loss: 0.04
+2024-10-07 21:57:33,875 - root - INFO - epoch: 196, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:57:37,364 - root - INFO - epoch: 197, validation loss: 0.04
+2024-10-07 21:57:58,758 - root - INFO - epoch: 197, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:58:01,927 - root - INFO - epoch: 198, validation loss: 0.04
+2024-10-07 21:58:22,844 - root - INFO - epoch: 198, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:58:26,817 - root - INFO - epoch: 199, validation loss: 0.04
+2024-10-07 21:58:50,640 - root - INFO - epoch: 199, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:58:54,465 - root - INFO - epoch: 200, validation loss: 0.04
+2024-10-07 21:58:54,473 - root - INFO - save parameters to file: experiments/swat_test/epoch_200.params
+2024-10-07 21:59:17,937 - root - INFO - epoch: 200, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:59:21,302 - root - INFO - epoch: 201, validation loss: 0.04
+2024-10-07 21:59:42,401 - root - INFO - epoch: 201, kl loss: 0.00, nll loss: 0.04
+2024-10-07 21:59:45,667 - root - INFO - epoch: 202, validation loss: 0.04
+2024-10-07 22:00:08,849 - root - INFO - epoch: 202, kl loss: 0.00, nll loss: 0.04
+2024-10-07 22:00:12,148 - root - INFO - epoch: 203, validation loss: 0.04
+2024-10-07 22:00:12,156 - root - INFO - save parameters to file: experiments/swat_test/epoch_203.params
+2024-10-07 22:00:34,113 - root - INFO - epoch: 203, kl loss: 0.00, nll loss: 0.04
+2024-10-07 22:00:37,532 - root - INFO - epoch: 204, validation loss: 0.04
+2024-10-07 22:00:37,539 - root - INFO - save parameters to file: experiments/swat_test/epoch_204.params
+2024-10-07 22:01:01,650 - root - INFO - epoch: 204, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:01:05,716 - root - INFO - epoch: 205, validation loss: 0.04
+2024-10-07 22:01:29,840 - root - INFO - epoch: 205, kl loss: 0.00, nll loss: 0.04
+2024-10-07 22:01:33,303 - root - INFO - epoch: 206, validation loss: 0.04
+2024-10-07 22:01:54,838 - root - INFO - epoch: 206, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:01:58,324 - root - INFO - epoch: 207, validation loss: 0.04
+2024-10-07 22:01:58,331 - root - INFO - save parameters to file: experiments/swat_test/epoch_207.params
+2024-10-07 22:02:19,772 - root - INFO - epoch: 207, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:02:23,182 - root - INFO - epoch: 208, validation loss: 0.04
+2024-10-07 22:02:23,189 - root - INFO - save parameters to file: experiments/swat_test/epoch_208.params
+2024-10-07 22:02:45,760 - root - INFO - epoch: 208, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:02:49,064 - root - INFO - epoch: 209, validation loss: 0.04
+2024-10-07 22:03:10,361 - root - INFO - epoch: 209, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:03:13,780 - root - INFO - epoch: 210, validation loss: 0.04
+2024-10-07 22:03:35,739 - root - INFO - epoch: 210, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:03:39,035 - root - INFO - epoch: 211, validation loss: 0.04
+2024-10-07 22:04:00,133 - root - INFO - epoch: 211, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:04:03,350 - root - INFO - epoch: 212, validation loss: 0.04
+2024-10-07 22:04:03,357 - root - INFO - save parameters to file: experiments/swat_test/epoch_212.params
+2024-10-07 22:04:24,464 - root - INFO - epoch: 212, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:04:27,961 - root - INFO - epoch: 213, validation loss: 0.04
+2024-10-07 22:04:49,542 - root - INFO - epoch: 213, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:04:53,031 - root - INFO - epoch: 214, validation loss: 0.04
+2024-10-07 22:04:53,038 - root - INFO - save parameters to file: experiments/swat_test/epoch_214.params
+2024-10-07 22:05:15,661 - root - INFO - epoch: 214, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:05:19,152 - root - INFO - epoch: 215, validation loss: 0.04
+2024-10-07 22:05:19,159 - root - INFO - save parameters to file: experiments/swat_test/epoch_215.params
+2024-10-07 22:05:40,380 - root - INFO - epoch: 215, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:05:43,935 - root - INFO - epoch: 216, validation loss: 0.04
+2024-10-07 22:06:05,354 - root - INFO - epoch: 216, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:06:08,730 - root - INFO - epoch: 217, validation loss: 0.04
+2024-10-07 22:06:30,017 - root - INFO - epoch: 217, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:06:33,466 - root - INFO - epoch: 218, validation loss: 0.04
+2024-10-07 22:06:33,473 - root - INFO - save parameters to file: experiments/swat_test/epoch_218.params
+2024-10-07 22:06:54,638 - root - INFO - epoch: 218, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:06:57,901 - root - INFO - epoch: 219, validation loss: 0.04
+2024-10-07 22:07:19,013 - root - INFO - epoch: 219, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:07:22,416 - root - INFO - epoch: 220, validation loss: 0.04
+2024-10-07 22:07:44,904 - root - INFO - epoch: 220, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:07:48,306 - root - INFO - epoch: 221, validation loss: 0.04
+2024-10-07 22:07:48,313 - root - INFO - save parameters to file: experiments/swat_test/epoch_221.params
+2024-10-07 22:08:10,216 - root - INFO - epoch: 221, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:08:13,517 - root - INFO - epoch: 222, validation loss: 0.04
+2024-10-07 22:08:34,880 - root - INFO - epoch: 222, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:08:38,226 - root - INFO - epoch: 223, validation loss: 0.04
+2024-10-07 22:08:59,635 - root - INFO - epoch: 223, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:09:02,945 - root - INFO - epoch: 224, validation loss: 0.04
+2024-10-07 22:09:25,029 - root - INFO - epoch: 224, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:09:28,245 - root - INFO - epoch: 225, validation loss: 0.04
+2024-10-07 22:09:51,852 - root - INFO - epoch: 225, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:09:55,093 - root - INFO - epoch: 226, validation loss: 0.04
+2024-10-07 22:09:55,100 - root - INFO - save parameters to file: experiments/swat_test/epoch_226.params
+2024-10-07 22:10:16,830 - root - INFO - epoch: 226, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:10:19,971 - root - INFO - epoch: 227, validation loss: 0.04
+2024-10-07 22:10:40,690 - root - INFO - epoch: 227, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:10:43,784 - root - INFO - epoch: 228, validation loss: 0.04
+2024-10-07 22:11:04,208 - root - INFO - epoch: 228, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:11:07,331 - root - INFO - epoch: 229, validation loss: 0.04
+2024-10-07 22:11:28,243 - root - INFO - epoch: 229, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:11:31,484 - root - INFO - epoch: 230, validation loss: 0.04
+2024-10-07 22:11:52,148 - root - INFO - epoch: 230, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:11:55,379 - root - INFO - epoch: 231, validation loss: 0.04
+2024-10-07 22:11:55,386 - root - INFO - save parameters to file: experiments/swat_test/epoch_231.params
+2024-10-07 22:12:16,121 - root - INFO - epoch: 231, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:12:19,413 - root - INFO - epoch: 232, validation loss: 0.04
+2024-10-07 22:12:19,420 - root - INFO - save parameters to file: experiments/swat_test/epoch_232.params
+2024-10-07 22:12:40,925 - root - INFO - epoch: 232, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:12:44,086 - root - INFO - epoch: 233, validation loss: 0.04
+2024-10-07 22:13:05,002 - root - INFO - epoch: 233, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:13:08,145 - root - INFO - epoch: 234, validation loss: 0.04
+2024-10-07 22:13:28,867 - root - INFO - epoch: 234, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:13:32,041 - root - INFO - epoch: 235, validation loss: 0.04
+2024-10-07 22:13:53,122 - root - INFO - epoch: 235, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:13:56,320 - root - INFO - epoch: 236, validation loss: 0.04
+2024-10-07 22:13:56,328 - root - INFO - save parameters to file: experiments/swat_test/epoch_236.params
+2024-10-07 22:14:17,153 - root - INFO - epoch: 236, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:14:20,305 - root - INFO - epoch: 237, validation loss: 0.04
+2024-10-07 22:14:41,646 - root - INFO - epoch: 237, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:14:45,020 - root - INFO - epoch: 238, validation loss: 0.04
+2024-10-07 22:14:45,027 - root - INFO - save parameters to file: experiments/swat_test/epoch_238.params
+2024-10-07 22:15:05,896 - root - INFO - epoch: 238, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:15:09,111 - root - INFO - epoch: 239, validation loss: 0.04
+2024-10-07 22:15:09,118 - root - INFO - save parameters to file: experiments/swat_test/epoch_239.params
+2024-10-07 22:15:30,064 - root - INFO - epoch: 239, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:15:33,307 - root - INFO - epoch: 240, validation loss: 0.04
+2024-10-07 22:15:55,769 - root - INFO - epoch: 240, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:15:59,276 - root - INFO - epoch: 241, validation loss: 0.04
+2024-10-07 22:15:59,283 - root - INFO - save parameters to file: experiments/swat_test/epoch_241.params
+2024-10-07 22:16:23,168 - root - INFO - epoch: 241, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:16:26,330 - root - INFO - epoch: 242, validation loss: 0.04
+2024-10-07 22:16:47,532 - root - INFO - epoch: 242, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:16:50,922 - root - INFO - epoch: 243, validation loss: 0.04
+2024-10-07 22:17:12,313 - root - INFO - epoch: 243, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:17:15,506 - root - INFO - epoch: 244, validation loss: 0.04
+2024-10-07 22:17:36,040 - root - INFO - epoch: 244, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:17:39,263 - root - INFO - epoch: 245, validation loss: 0.04
+2024-10-07 22:18:00,009 - root - INFO - epoch: 245, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:18:03,187 - root - INFO - epoch: 246, validation loss: 0.04
+2024-10-07 22:18:03,194 - root - INFO - save parameters to file: experiments/swat_test/epoch_246.params
+2024-10-07 22:18:23,819 - root - INFO - epoch: 246, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:18:27,016 - root - INFO - epoch: 247, validation loss: 0.04
+2024-10-07 22:18:48,160 - root - INFO - epoch: 247, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:18:51,709 - root - INFO - epoch: 248, validation loss: 0.04
+2024-10-07 22:19:13,889 - root - INFO - epoch: 248, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:19:17,269 - root - INFO - epoch: 249, validation loss: 0.04
+2024-10-07 22:19:38,670 - root - INFO - epoch: 249, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:19:41,889 - root - INFO - epoch: 250, validation loss: 0.04
+2024-10-07 22:20:03,246 - root - INFO - epoch: 250, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:20:06,791 - root - INFO - epoch: 251, validation loss: 0.04
+2024-10-07 22:20:06,798 - root - INFO - save parameters to file: experiments/swat_test/epoch_251.params
+2024-10-07 22:20:30,798 - root - INFO - epoch: 251, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:20:34,138 - root - INFO - epoch: 252, validation loss: 0.04
+2024-10-07 22:20:56,543 - root - INFO - epoch: 252, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:21:00,154 - root - INFO - epoch: 253, validation loss: 0.04
+2024-10-07 22:21:23,225 - root - INFO - epoch: 253, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:21:26,814 - root - INFO - epoch: 254, validation loss: 0.04
+2024-10-07 22:21:26,822 - root - INFO - save parameters to file: experiments/swat_test/epoch_254.params
+2024-10-07 22:21:48,833 - root - INFO - epoch: 254, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:21:52,084 - root - INFO - epoch: 255, validation loss: 0.04
+2024-10-07 22:22:13,274 - root - INFO - epoch: 255, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:22:16,512 - root - INFO - epoch: 256, validation loss: 0.04
+2024-10-07 22:22:38,192 - root - INFO - epoch: 256, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:22:41,556 - root - INFO - epoch: 257, validation loss: 0.04
+2024-10-07 22:23:02,537 - root - INFO - epoch: 257, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:23:05,853 - root - INFO - epoch: 258, validation loss: 0.04
+2024-10-07 22:23:05,861 - root - INFO - save parameters to file: experiments/swat_test/epoch_258.params
+2024-10-07 22:23:28,799 - root - INFO - epoch: 258, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:23:32,106 - root - INFO - epoch: 259, validation loss: 0.04
+2024-10-07 22:23:53,297 - root - INFO - epoch: 259, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:23:56,542 - root - INFO - epoch: 260, validation loss: 0.04
+2024-10-07 22:23:56,550 - root - INFO - save parameters to file: experiments/swat_test/epoch_260.params
+2024-10-07 22:24:17,782 - root - INFO - epoch: 260, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:24:20,917 - root - INFO - epoch: 261, validation loss: 0.04
+2024-10-07 22:24:20,925 - root - INFO - save parameters to file: experiments/swat_test/epoch_261.params
+2024-10-07 22:24:43,984 - root - INFO - epoch: 261, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:24:47,178 - root - INFO - epoch: 262, validation loss: 0.04
+2024-10-07 22:25:10,144 - root - INFO - epoch: 262, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:25:13,400 - root - INFO - epoch: 263, validation loss: 0.04
+2024-10-07 22:25:34,773 - root - INFO - epoch: 263, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:25:38,003 - root - INFO - epoch: 264, validation loss: 0.04
+2024-10-07 22:25:38,010 - root - INFO - save parameters to file: experiments/swat_test/epoch_264.params
+2024-10-07 22:25:59,044 - root - INFO - epoch: 264, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:26:02,627 - root - INFO - epoch: 265, validation loss: 0.04
+2024-10-07 22:26:24,258 - root - INFO - epoch: 265, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:26:27,688 - root - INFO - epoch: 266, validation loss: 0.04
+2024-10-07 22:26:48,629 - root - INFO - epoch: 266, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:26:52,102 - root - INFO - epoch: 267, validation loss: 0.04
+2024-10-07 22:27:14,218 - root - INFO - epoch: 267, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:27:17,519 - root - INFO - epoch: 268, validation loss: 0.04
+2024-10-07 22:27:39,016 - root - INFO - epoch: 268, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:27:42,325 - root - INFO - epoch: 269, validation loss: 0.04
+2024-10-07 22:28:06,071 - root - INFO - epoch: 269, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:28:09,517 - root - INFO - epoch: 270, validation loss: 0.04
+2024-10-07 22:28:33,317 - root - INFO - epoch: 270, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:28:36,812 - root - INFO - epoch: 271, validation loss: 0.04
+2024-10-07 22:28:58,151 - root - INFO - epoch: 271, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:29:01,480 - root - INFO - epoch: 272, validation loss: 0.04
+2024-10-07 22:29:01,488 - root - INFO - save parameters to file: experiments/swat_test/epoch_272.params
+2024-10-07 22:29:22,741 - root - INFO - epoch: 272, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:29:26,007 - root - INFO - epoch: 273, validation loss: 0.04
+2024-10-07 22:29:47,552 - root - INFO - epoch: 273, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:29:50,889 - root - INFO - epoch: 274, validation loss: 0.04
+2024-10-07 22:30:14,052 - root - INFO - epoch: 274, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:30:17,581 - root - INFO - epoch: 275, validation loss: 0.04
+2024-10-07 22:30:40,873 - root - INFO - epoch: 275, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:30:44,369 - root - INFO - epoch: 276, validation loss: 0.04
+2024-10-07 22:30:44,378 - root - INFO - save parameters to file: experiments/swat_test/epoch_276.params
+2024-10-07 22:31:05,098 - root - INFO - epoch: 276, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:31:08,236 - root - INFO - epoch: 277, validation loss: 0.04
+2024-10-07 22:31:29,031 - root - INFO - epoch: 277, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:31:32,220 - root - INFO - epoch: 278, validation loss: 0.03
+2024-10-07 22:31:32,227 - root - INFO - save parameters to file: experiments/swat_test/epoch_278.params
+2024-10-07 22:31:53,067 - root - INFO - epoch: 278, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:31:56,309 - root - INFO - epoch: 279, validation loss: 0.04
+2024-10-07 22:32:17,544 - root - INFO - epoch: 279, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:32:20,825 - root - INFO - epoch: 280, validation loss: 0.03
+2024-10-07 22:32:20,832 - root - INFO - save parameters to file: experiments/swat_test/epoch_280.params
+2024-10-07 22:32:42,057 - root - INFO - epoch: 280, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:32:45,311 - root - INFO - epoch: 281, validation loss: 0.04
+2024-10-07 22:33:06,401 - root - INFO - epoch: 281, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:33:09,703 - root - INFO - epoch: 282, validation loss: 0.04
+2024-10-07 22:33:31,147 - root - INFO - epoch: 282, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:33:34,528 - root - INFO - epoch: 283, validation loss: 0.04
+2024-10-07 22:33:56,672 - root - INFO - epoch: 283, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:33:59,890 - root - INFO - epoch: 284, validation loss: 0.04
+2024-10-07 22:34:21,909 - root - INFO - epoch: 284, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:34:25,230 - root - INFO - epoch: 285, validation loss: 0.03
+2024-10-07 22:34:25,237 - root - INFO - save parameters to file: experiments/swat_test/epoch_285.params
+2024-10-07 22:34:47,061 - root - INFO - epoch: 285, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:34:50,253 - root - INFO - epoch: 286, validation loss: 0.04
+2024-10-07 22:35:11,400 - root - INFO - epoch: 286, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:35:14,735 - root - INFO - epoch: 287, validation loss: 0.03
+2024-10-07 22:35:14,742 - root - INFO - save parameters to file: experiments/swat_test/epoch_287.params
+2024-10-07 22:35:35,788 - root - INFO - epoch: 287, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:35:38,977 - root - INFO - epoch: 288, validation loss: 0.03
+2024-10-07 22:36:00,052 - root - INFO - epoch: 288, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:36:03,296 - root - INFO - epoch: 289, validation loss: 0.03
+2024-10-07 22:36:24,924 - root - INFO - epoch: 289, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:36:28,242 - root - INFO - epoch: 290, validation loss: 0.03
+2024-10-07 22:36:49,828 - root - INFO - epoch: 290, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:36:53,460 - root - INFO - epoch: 291, validation loss: 0.04
+2024-10-07 22:37:15,621 - root - INFO - epoch: 291, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:37:19,238 - root - INFO - epoch: 292, validation loss: 0.03
+2024-10-07 22:37:19,245 - root - INFO - save parameters to file: experiments/swat_test/epoch_292.params
+2024-10-07 22:37:40,678 - root - INFO - epoch: 292, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:37:44,210 - root - INFO - epoch: 293, validation loss: 0.03
+2024-10-07 22:38:07,463 - root - INFO - epoch: 293, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:38:11,185 - root - INFO - epoch: 294, validation loss: 0.03
+2024-10-07 22:38:34,616 - root - INFO - epoch: 294, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:38:38,046 - root - INFO - epoch: 295, validation loss: 0.03
+2024-10-07 22:38:59,021 - root - INFO - epoch: 295, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:39:02,270 - root - INFO - epoch: 296, validation loss: 0.04
+2024-10-07 22:39:24,644 - root - INFO - epoch: 296, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:39:27,804 - root - INFO - epoch: 297, validation loss: 0.03
+2024-10-07 22:39:27,811 - root - INFO - save parameters to file: experiments/swat_test/epoch_297.params
+2024-10-07 22:39:48,826 - root - INFO - epoch: 297, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:39:52,205 - root - INFO - epoch: 298, validation loss: 0.04
+2024-10-07 22:40:13,437 - root - INFO - epoch: 298, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:40:16,773 - root - INFO - epoch: 299, validation loss: 0.03
+2024-10-07 22:40:38,339 - root - INFO - epoch: 299, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:40:41,598 - root - INFO - epoch: 300, validation loss: 0.03
+2024-10-07 22:41:02,509 - root - INFO - epoch: 300, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:41:05,778 - root - INFO - epoch: 301, validation loss: 0.03
+2024-10-07 22:41:05,785 - root - INFO - save parameters to file: experiments/swat_test/epoch_301.params
+2024-10-07 22:41:26,663 - root - INFO - epoch: 301, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:41:29,996 - root - INFO - epoch: 302, validation loss: 0.03
+2024-10-07 22:41:30,002 - root - INFO - save parameters to file: experiments/swat_test/epoch_302.params
+2024-10-07 22:41:52,791 - root - INFO - epoch: 302, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:41:56,108 - root - INFO - epoch: 303, validation loss: 0.03
+2024-10-07 22:42:17,440 - root - INFO - epoch: 303, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:42:21,013 - root - INFO - epoch: 304, validation loss: 0.03
+2024-10-07 22:42:42,906 - root - INFO - epoch: 304, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:42:46,111 - root - INFO - epoch: 305, validation loss: 0.03
+2024-10-07 22:43:06,755 - root - INFO - epoch: 305, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:43:09,880 - root - INFO - epoch: 306, validation loss: 0.03
+2024-10-07 22:43:31,135 - root - INFO - epoch: 306, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:43:34,251 - root - INFO - epoch: 307, validation loss: 0.03
+2024-10-07 22:43:55,211 - root - INFO - epoch: 307, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:43:58,383 - root - INFO - epoch: 308, validation loss: 0.03
+2024-10-07 22:43:58,391 - root - INFO - save parameters to file: experiments/swat_test/epoch_308.params
+2024-10-07 22:44:18,789 - root - INFO - epoch: 308, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:44:21,989 - root - INFO - epoch: 309, validation loss: 0.03
+2024-10-07 22:44:21,996 - root - INFO - save parameters to file: experiments/swat_test/epoch_309.params
+2024-10-07 22:44:43,501 - root - INFO - epoch: 309, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:44:47,111 - root - INFO - epoch: 310, validation loss: 0.03
+2024-10-07 22:45:08,433 - root - INFO - epoch: 310, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:45:11,652 - root - INFO - epoch: 311, validation loss: 0.03
+2024-10-07 22:45:33,054 - root - INFO - epoch: 311, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:45:36,336 - root - INFO - epoch: 312, validation loss: 0.03
+2024-10-07 22:45:57,252 - root - INFO - epoch: 312, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:46:00,552 - root - INFO - epoch: 313, validation loss: 0.03
+2024-10-07 22:46:00,559 - root - INFO - save parameters to file: experiments/swat_test/epoch_313.params
+2024-10-07 22:46:22,201 - root - INFO - epoch: 313, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:46:25,504 - root - INFO - epoch: 314, validation loss: 0.03
+2024-10-07 22:46:47,549 - root - INFO - epoch: 314, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:46:51,110 - root - INFO - epoch: 315, validation loss: 0.03
+2024-10-07 22:47:12,878 - root - INFO - epoch: 315, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:47:16,125 - root - INFO - epoch: 316, validation loss: 0.03
+2024-10-07 22:47:37,549 - root - INFO - epoch: 316, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:47:40,848 - root - INFO - epoch: 317, validation loss: 0.03
+2024-10-07 22:47:40,855 - root - INFO - save parameters to file: experiments/swat_test/epoch_317.params
+2024-10-07 22:48:02,368 - root - INFO - epoch: 317, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:48:05,781 - root - INFO - epoch: 318, validation loss: 0.03
+2024-10-07 22:48:27,845 - root - INFO - epoch: 318, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:48:31,145 - root - INFO - epoch: 319, validation loss: 0.03
+2024-10-07 22:48:31,153 - root - INFO - save parameters to file: experiments/swat_test/epoch_319.params
+2024-10-07 22:48:53,809 - root - INFO - epoch: 319, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:48:57,313 - root - INFO - epoch: 320, validation loss: 0.03
+2024-10-07 22:49:19,771 - root - INFO - epoch: 320, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:49:23,203 - root - INFO - epoch: 321, validation loss: 0.03
+2024-10-07 22:49:44,944 - root - INFO - epoch: 321, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:49:48,474 - root - INFO - epoch: 322, validation loss: 0.03
+2024-10-07 22:50:10,599 - root - INFO - epoch: 322, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:50:14,239 - root - INFO - epoch: 323, validation loss: 0.03
+2024-10-07 22:50:36,641 - root - INFO - epoch: 323, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:50:39,994 - root - INFO - epoch: 324, validation loss: 0.03
+2024-10-07 22:51:02,136 - root - INFO - epoch: 324, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:51:05,491 - root - INFO - epoch: 325, validation loss: 0.03
+2024-10-07 22:51:27,276 - root - INFO - epoch: 325, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:51:30,562 - root - INFO - epoch: 326, validation loss: 0.03
+2024-10-07 22:51:51,748 - root - INFO - epoch: 326, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:51:55,248 - root - INFO - epoch: 327, validation loss: 0.03
+2024-10-07 22:52:16,794 - root - INFO - epoch: 327, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:52:19,972 - root - INFO - epoch: 328, validation loss: 0.03
+2024-10-07 22:52:40,691 - root - INFO - epoch: 328, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:52:44,030 - root - INFO - epoch: 329, validation loss: 0.03
+2024-10-07 22:53:05,093 - root - INFO - epoch: 329, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:53:08,418 - root - INFO - epoch: 330, validation loss: 0.03
+2024-10-07 22:53:08,426 - root - INFO - save parameters to file: experiments/swat_test/epoch_330.params
+2024-10-07 22:53:30,321 - root - INFO - epoch: 330, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:53:33,611 - root - INFO - epoch: 331, validation loss: 0.03
+2024-10-07 22:53:54,703 - root - INFO - epoch: 331, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:53:58,026 - root - INFO - epoch: 332, validation loss: 0.03
+2024-10-07 22:54:19,192 - root - INFO - epoch: 332, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:54:22,511 - root - INFO - epoch: 333, validation loss: 0.03
+2024-10-07 22:54:22,519 - root - INFO - save parameters to file: experiments/swat_test/epoch_333.params
+2024-10-07 22:54:43,468 - root - INFO - epoch: 333, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:54:46,661 - root - INFO - epoch: 334, validation loss: 0.03
+2024-10-07 22:55:08,023 - root - INFO - epoch: 334, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:55:11,354 - root - INFO - epoch: 335, validation loss: 0.03
+2024-10-07 22:55:11,363 - root - INFO - save parameters to file: experiments/swat_test/epoch_335.params
+2024-10-07 22:55:33,082 - root - INFO - epoch: 335, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:55:36,420 - root - INFO - epoch: 336, validation loss: 0.03
+2024-10-07 22:55:57,788 - root - INFO - epoch: 336, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:56:00,951 - root - INFO - epoch: 337, validation loss: 0.03
+2024-10-07 22:56:21,897 - root - INFO - epoch: 337, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:56:25,176 - root - INFO - epoch: 338, validation loss: 0.03
+2024-10-07 22:56:46,189 - root - INFO - epoch: 338, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:56:49,604 - root - INFO - epoch: 339, validation loss: 0.03
+2024-10-07 22:57:12,329 - root - INFO - epoch: 339, kl loss: 0.00, nll loss: 0.03
+2024-10-07 22:57:15,660 - root - INFO - epoch: 340, validation loss: 0.03
+2024-10-07 22:57:15,667 - root - INFO - save parameters to file: experiments/swat_test/epoch_340.params
+2024-10-07 22:57:38,689 - root - INFO - epoch: 340, kl loss: 0.00, nll loss: 0.02
+2024-10-07 22:57:41,968 - root - INFO - epoch: 341, validation loss: 0.03
+2024-10-07 22:57:41,975 - root - INFO - save parameters to file: experiments/swat_test/epoch_341.params
+2024-10-07 22:58:06,075 - root - INFO - epoch: 341, kl loss: 0.00, nll loss: 0.02
+2024-10-07 22:58:09,354 - root - INFO - epoch: 342, validation loss: 0.03
+2024-10-07 22:58:09,361 - root - INFO - save parameters to file: experiments/swat_test/epoch_342.params
+2024-10-07 22:58:32,830 - root - INFO - epoch: 342, kl loss: 0.00, nll loss: 0.02
+2024-10-07 22:58:36,104 - root - INFO - epoch: 343, validation loss: 0.03
+2024-10-07 22:58:57,751 - root - INFO - epoch: 343, kl loss: 0.00, nll loss: 0.02
+2024-10-07 22:59:00,996 - root - INFO - epoch: 344, validation loss: 0.03
+2024-10-07 22:59:21,961 - root - INFO - epoch: 344, kl loss: 0.00, nll loss: 0.02
+2024-10-07 22:59:25,245 - root - INFO - epoch: 345, validation loss: 0.03
+2024-10-07 22:59:46,458 - root - INFO - epoch: 345, kl loss: 0.00, nll loss: 0.02
+2024-10-07 22:59:49,892 - root - INFO - epoch: 346, validation loss: 0.03
+2024-10-07 23:00:11,069 - root - INFO - epoch: 346, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:00:14,178 - root - INFO - epoch: 347, validation loss: 0.03
+2024-10-07 23:00:35,617 - root - INFO - epoch: 347, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:00:38,811 - root - INFO - epoch: 348, validation loss: 0.03
+2024-10-07 23:00:59,608 - root - INFO - epoch: 348, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:01:02,836 - root - INFO - epoch: 349, validation loss: 0.03
+2024-10-07 23:01:23,691 - root - INFO - epoch: 349, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:01:27,148 - root - INFO - epoch: 350, validation loss: 0.03
+2024-10-07 23:01:48,441 - root - INFO - epoch: 350, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:01:51,623 - root - INFO - epoch: 351, validation loss: 0.03
+2024-10-07 23:02:12,241 - root - INFO - epoch: 351, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:02:15,463 - root - INFO - epoch: 352, validation loss: 0.03
+2024-10-07 23:02:36,520 - root - INFO - epoch: 352, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:02:39,883 - root - INFO - epoch: 353, validation loss: 0.03
+2024-10-07 23:03:01,514 - root - INFO - epoch: 353, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:03:04,678 - root - INFO - epoch: 354, validation loss: 0.03
+2024-10-07 23:03:25,317 - root - INFO - epoch: 354, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:03:28,515 - root - INFO - epoch: 355, validation loss: 0.03
+2024-10-07 23:03:49,704 - root - INFO - epoch: 355, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:03:52,992 - root - INFO - epoch: 356, validation loss: 0.03
+2024-10-07 23:04:14,437 - root - INFO - epoch: 356, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:04:17,888 - root - INFO - epoch: 357, validation loss: 0.03
+2024-10-07 23:04:17,895 - root - INFO - save parameters to file: experiments/swat_test/epoch_357.params
+2024-10-07 23:04:39,538 - root - INFO - epoch: 357, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:04:43,000 - root - INFO - epoch: 358, validation loss: 0.03
+2024-10-07 23:05:05,302 - root - INFO - epoch: 358, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:05:09,113 - root - INFO - epoch: 359, validation loss: 0.03
+2024-10-07 23:05:09,120 - root - INFO - save parameters to file: experiments/swat_test/epoch_359.params
+2024-10-07 23:05:31,269 - root - INFO - epoch: 359, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:05:34,902 - root - INFO - epoch: 360, validation loss: 0.03
+2024-10-07 23:05:56,774 - root - INFO - epoch: 360, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:06:00,134 - root - INFO - epoch: 361, validation loss: 0.03
+2024-10-07 23:06:00,141 - root - INFO - save parameters to file: experiments/swat_test/epoch_361.params
+2024-10-07 23:06:21,909 - root - INFO - epoch: 361, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:06:25,463 - root - INFO - epoch: 362, validation loss: 0.03
+2024-10-07 23:06:47,277 - root - INFO - epoch: 362, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:06:50,536 - root - INFO - epoch: 363, validation loss: 0.03
+2024-10-07 23:06:50,543 - root - INFO - save parameters to file: experiments/swat_test/epoch_363.params
+2024-10-07 23:07:12,989 - root - INFO - epoch: 363, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:07:16,258 - root - INFO - epoch: 364, validation loss: 0.03
+2024-10-07 23:07:39,781 - root - INFO - epoch: 364, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:07:43,140 - root - INFO - epoch: 365, validation loss: 0.03
+2024-10-07 23:08:04,550 - root - INFO - epoch: 365, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:08:08,477 - root - INFO - epoch: 366, validation loss: 0.03
+2024-10-07 23:08:30,240 - root - INFO - epoch: 366, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:08:33,672 - root - INFO - epoch: 367, validation loss: 0.03
+2024-10-07 23:08:56,145 - root - INFO - epoch: 367, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:08:59,380 - root - INFO - epoch: 368, validation loss: 0.03
+2024-10-07 23:09:20,389 - root - INFO - epoch: 368, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:09:23,780 - root - INFO - epoch: 369, validation loss: 0.03
+2024-10-07 23:09:45,476 - root - INFO - epoch: 369, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:09:48,791 - root - INFO - epoch: 370, validation loss: 0.03
+2024-10-07 23:09:48,798 - root - INFO - save parameters to file: experiments/swat_test/epoch_370.params
+2024-10-07 23:10:09,695 - root - INFO - epoch: 370, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:10:12,901 - root - INFO - epoch: 371, validation loss: 0.03
+2024-10-07 23:10:34,340 - root - INFO - epoch: 371, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:10:37,826 - root - INFO - epoch: 372, validation loss: 0.03
+2024-10-07 23:10:59,722 - root - INFO - epoch: 372, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:11:02,889 - root - INFO - epoch: 373, validation loss: 0.03
+2024-10-07 23:11:24,238 - root - INFO - epoch: 373, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:11:27,948 - root - INFO - epoch: 374, validation loss: 0.03
+2024-10-07 23:11:50,562 - root - INFO - epoch: 374, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:11:54,130 - root - INFO - epoch: 375, validation loss: 0.03
+2024-10-07 23:11:54,137 - root - INFO - save parameters to file: experiments/swat_test/epoch_375.params
+2024-10-07 23:12:15,958 - root - INFO - epoch: 375, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:12:19,175 - root - INFO - epoch: 376, validation loss: 0.03
+2024-10-07 23:12:19,182 - root - INFO - save parameters to file: experiments/swat_test/epoch_376.params
+2024-10-07 23:12:42,142 - root - INFO - epoch: 376, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:12:45,936 - root - INFO - epoch: 377, validation loss: 0.03
+2024-10-07 23:13:08,748 - root - INFO - epoch: 377, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:13:12,063 - root - INFO - epoch: 378, validation loss: 0.03
+2024-10-07 23:13:33,274 - root - INFO - epoch: 378, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:13:36,819 - root - INFO - epoch: 379, validation loss: 0.03
+2024-10-07 23:13:57,998 - root - INFO - epoch: 379, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:14:01,345 - root - INFO - epoch: 380, validation loss: 0.03
+2024-10-07 23:14:23,270 - root - INFO - epoch: 380, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:14:26,518 - root - INFO - epoch: 381, validation loss: 0.03
+2024-10-07 23:14:47,457 - root - INFO - epoch: 381, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:14:50,648 - root - INFO - epoch: 382, validation loss: 0.03
+2024-10-07 23:14:50,655 - root - INFO - save parameters to file: experiments/swat_test/epoch_382.params
+2024-10-07 23:15:12,727 - root - INFO - epoch: 382, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:15:15,905 - root - INFO - epoch: 383, validation loss: 0.03
+2024-10-07 23:15:37,473 - root - INFO - epoch: 383, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:15:40,953 - root - INFO - epoch: 384, validation loss: 0.03
+2024-10-07 23:15:40,960 - root - INFO - save parameters to file: experiments/swat_test/epoch_384.params
+2024-10-07 23:16:02,433 - root - INFO - epoch: 384, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:16:05,776 - root - INFO - epoch: 385, validation loss: 0.03
+2024-10-07 23:16:27,335 - root - INFO - epoch: 385, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:16:30,515 - root - INFO - epoch: 386, validation loss: 0.03
+2024-10-07 23:16:30,522 - root - INFO - save parameters to file: experiments/swat_test/epoch_386.params
+2024-10-07 23:16:52,102 - root - INFO - epoch: 386, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:16:55,240 - root - INFO - epoch: 387, validation loss: 0.03
+2024-10-07 23:17:15,980 - root - INFO - epoch: 387, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:17:19,148 - root - INFO - epoch: 388, validation loss: 0.03
+2024-10-07 23:17:40,276 - root - INFO - epoch: 388, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:17:43,670 - root - INFO - epoch: 389, validation loss: 0.03
+2024-10-07 23:18:05,167 - root - INFO - epoch: 389, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:18:08,516 - root - INFO - epoch: 390, validation loss: 0.03
+2024-10-07 23:18:31,479 - root - INFO - epoch: 390, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:18:34,782 - root - INFO - epoch: 391, validation loss: 0.03
+2024-10-07 23:18:55,980 - root - INFO - epoch: 391, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:18:59,386 - root - INFO - epoch: 392, validation loss: 0.03
+2024-10-07 23:19:20,707 - root - INFO - epoch: 392, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:19:24,009 - root - INFO - epoch: 393, validation loss: 0.03
+2024-10-07 23:19:24,016 - root - INFO - save parameters to file: experiments/swat_test/epoch_393.params
+2024-10-07 23:19:44,972 - root - INFO - epoch: 393, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:19:48,165 - root - INFO - epoch: 394, validation loss: 0.03
+2024-10-07 23:20:09,047 - root - INFO - epoch: 394, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:20:12,267 - root - INFO - epoch: 395, validation loss: 0.03
+2024-10-07 23:20:33,568 - root - INFO - epoch: 395, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:20:36,913 - root - INFO - epoch: 396, validation loss: 0.03
+2024-10-07 23:20:57,728 - root - INFO - epoch: 396, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:21:00,901 - root - INFO - epoch: 397, validation loss: 0.03
+2024-10-07 23:21:21,740 - root - INFO - epoch: 397, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:21:25,142 - root - INFO - epoch: 398, validation loss: 0.03
+2024-10-07 23:21:46,130 - root - INFO - epoch: 398, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:21:49,612 - root - INFO - epoch: 399, validation loss: 0.03
+2024-10-07 23:22:12,088 - root - INFO - epoch: 399, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:22:15,399 - root - INFO - epoch: 400, validation loss: 0.03
+2024-10-07 23:22:38,987 - root - INFO - epoch: 400, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:22:42,237 - root - INFO - epoch: 401, validation loss: 0.03
+2024-10-07 23:23:03,906 - root - INFO - epoch: 401, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:23:07,178 - root - INFO - epoch: 402, validation loss: 0.03
+2024-10-07 23:23:30,730 - root - INFO - epoch: 402, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:23:34,018 - root - INFO - epoch: 403, validation loss: 0.03
+2024-10-07 23:23:55,534 - root - INFO - epoch: 403, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:23:59,034 - root - INFO - epoch: 404, validation loss: 0.03
+2024-10-07 23:23:59,041 - root - INFO - save parameters to file: experiments/swat_test/epoch_404.params
+2024-10-07 23:24:20,652 - root - INFO - epoch: 404, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:24:24,181 - root - INFO - epoch: 405, validation loss: 0.03
+2024-10-07 23:24:47,079 - root - INFO - epoch: 405, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:24:50,577 - root - INFO - epoch: 406, validation loss: 0.03
+2024-10-07 23:25:14,835 - root - INFO - epoch: 406, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:25:18,170 - root - INFO - epoch: 407, validation loss: 0.03
+2024-10-07 23:25:41,040 - root - INFO - epoch: 407, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:25:44,403 - root - INFO - epoch: 408, validation loss: 0.03
+2024-10-07 23:26:05,672 - root - INFO - epoch: 408, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:26:08,996 - root - INFO - epoch: 409, validation loss: 0.03
+2024-10-07 23:26:30,674 - root - INFO - epoch: 409, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:26:34,086 - root - INFO - epoch: 410, validation loss: 0.03
+2024-10-07 23:26:56,235 - root - INFO - epoch: 410, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:26:59,634 - root - INFO - epoch: 411, validation loss: 0.03
+2024-10-07 23:27:20,540 - root - INFO - epoch: 411, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:27:23,929 - root - INFO - epoch: 412, validation loss: 0.03
+2024-10-07 23:27:45,149 - root - INFO - epoch: 412, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:27:48,432 - root - INFO - epoch: 413, validation loss: 0.03
+2024-10-07 23:27:48,439 - root - INFO - save parameters to file: experiments/swat_test/epoch_413.params
+2024-10-07 23:28:09,381 - root - INFO - epoch: 413, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:28:12,573 - root - INFO - epoch: 414, validation loss: 0.03
+2024-10-07 23:28:33,533 - root - INFO - epoch: 414, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:28:37,060 - root - INFO - epoch: 415, validation loss: 0.03
+2024-10-07 23:28:58,605 - root - INFO - epoch: 415, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:29:01,750 - root - INFO - epoch: 416, validation loss: 0.03
+2024-10-07 23:29:22,704 - root - INFO - epoch: 416, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:29:25,858 - root - INFO - epoch: 417, validation loss: 0.03
+2024-10-07 23:29:47,202 - root - INFO - epoch: 417, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:29:50,636 - root - INFO - epoch: 418, validation loss: 0.03
+2024-10-07 23:30:11,722 - root - INFO - epoch: 418, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:30:14,854 - root - INFO - epoch: 419, validation loss: 0.03
+2024-10-07 23:30:35,672 - root - INFO - epoch: 419, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:30:39,021 - root - INFO - epoch: 420, validation loss: 0.03
+2024-10-07 23:31:00,217 - root - INFO - epoch: 420, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:31:03,468 - root - INFO - epoch: 421, validation loss: 0.03
+2024-10-07 23:31:26,366 - root - INFO - epoch: 421, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:31:29,532 - root - INFO - epoch: 422, validation loss: 0.03
+2024-10-07 23:31:52,414 - root - INFO - epoch: 422, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:31:55,650 - root - INFO - epoch: 423, validation loss: 0.03
+2024-10-07 23:31:55,657 - root - INFO - save parameters to file: experiments/swat_test/epoch_423.params
+2024-10-07 23:32:18,320 - root - INFO - epoch: 423, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:32:21,632 - root - INFO - epoch: 424, validation loss: 0.03
+2024-10-07 23:32:42,476 - root - INFO - epoch: 424, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:32:45,697 - root - INFO - epoch: 425, validation loss: 0.03
+2024-10-07 23:33:06,247 - root - INFO - epoch: 425, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:33:09,367 - root - INFO - epoch: 426, validation loss: 0.03
+2024-10-07 23:33:32,615 - root - INFO - epoch: 426, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:33:35,769 - root - INFO - epoch: 427, validation loss: 0.03
+2024-10-07 23:33:58,621 - root - INFO - epoch: 427, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:34:01,751 - root - INFO - epoch: 428, validation loss: 0.03
+2024-10-07 23:34:24,565 - root - INFO - epoch: 428, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:34:27,818 - root - INFO - epoch: 429, validation loss: 0.03
+2024-10-07 23:34:48,912 - root - INFO - epoch: 429, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:34:52,089 - root - INFO - epoch: 430, validation loss: 0.03
+2024-10-07 23:35:12,904 - root - INFO - epoch: 430, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:35:16,062 - root - INFO - epoch: 431, validation loss: 0.03
+2024-10-07 23:35:36,994 - root - INFO - epoch: 431, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:35:40,310 - root - INFO - epoch: 432, validation loss: 0.03
+2024-10-07 23:35:40,317 - root - INFO - save parameters to file: experiments/swat_test/epoch_432.params
+2024-10-07 23:36:01,010 - root - INFO - epoch: 432, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:36:04,146 - root - INFO - epoch: 433, validation loss: 0.03
+2024-10-07 23:36:25,044 - root - INFO - epoch: 433, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:36:28,238 - root - INFO - epoch: 434, validation loss: 0.03
+2024-10-07 23:36:28,245 - root - INFO - save parameters to file: experiments/swat_test/epoch_434.params
+2024-10-07 23:36:49,161 - root - INFO - epoch: 434, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:36:52,431 - root - INFO - epoch: 435, validation loss: 0.03
+2024-10-07 23:37:14,318 - root - INFO - epoch: 435, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:37:17,811 - root - INFO - epoch: 436, validation loss: 0.03
+2024-10-07 23:37:40,294 - root - INFO - epoch: 436, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:37:43,491 - root - INFO - epoch: 437, validation loss: 0.03
+2024-10-07 23:38:04,262 - root - INFO - epoch: 437, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:38:07,368 - root - INFO - epoch: 438, validation loss: 0.03
+2024-10-07 23:38:27,889 - root - INFO - epoch: 438, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:38:31,086 - root - INFO - epoch: 439, validation loss: 0.03
+2024-10-07 23:38:51,887 - root - INFO - epoch: 439, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:38:55,142 - root - INFO - epoch: 440, validation loss: 0.03
+2024-10-07 23:39:15,706 - root - INFO - epoch: 440, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:39:18,837 - root - INFO - epoch: 441, validation loss: 0.03
+2024-10-07 23:39:39,434 - root - INFO - epoch: 441, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:39:42,715 - root - INFO - epoch: 442, validation loss: 0.03
+2024-10-07 23:40:04,534 - root - INFO - epoch: 442, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:40:07,848 - root - INFO - epoch: 443, validation loss: 0.03
+2024-10-07 23:40:28,789 - root - INFO - epoch: 443, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:40:32,059 - root - INFO - epoch: 444, validation loss: 0.03
+2024-10-07 23:40:53,135 - root - INFO - epoch: 444, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:40:56,536 - root - INFO - epoch: 445, validation loss: 0.03
+2024-10-07 23:41:17,436 - root - INFO - epoch: 445, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:41:20,611 - root - INFO - epoch: 446, validation loss: 0.03
+2024-10-07 23:41:41,469 - root - INFO - epoch: 446, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:41:44,623 - root - INFO - epoch: 447, validation loss: 0.03
+2024-10-07 23:41:44,631 - root - INFO - save parameters to file: experiments/swat_test/epoch_447.params
+2024-10-07 23:42:05,187 - root - INFO - epoch: 447, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:42:08,329 - root - INFO - epoch: 448, validation loss: 0.03
+2024-10-07 23:42:29,127 - root - INFO - epoch: 448, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:42:32,324 - root - INFO - epoch: 449, validation loss: 0.03
+2024-10-07 23:42:53,133 - root - INFO - epoch: 449, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:42:56,384 - root - INFO - epoch: 450, validation loss: 0.03
+2024-10-07 23:42:56,392 - root - INFO - save parameters to file: experiments/swat_test/epoch_450.params
+2024-10-07 23:43:17,618 - root - INFO - epoch: 450, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:43:21,001 - root - INFO - epoch: 451, validation loss: 0.03
+2024-10-07 23:43:42,620 - root - INFO - epoch: 451, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:43:45,964 - root - INFO - epoch: 452, validation loss: 0.03
+2024-10-07 23:44:06,463 - root - INFO - epoch: 452, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:44:09,555 - root - INFO - epoch: 453, validation loss: 0.03
+2024-10-07 23:44:29,978 - root - INFO - epoch: 453, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:44:33,157 - root - INFO - epoch: 454, validation loss: 0.03
+2024-10-07 23:44:53,790 - root - INFO - epoch: 454, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:44:57,120 - root - INFO - epoch: 455, validation loss: 0.03
+2024-10-07 23:45:18,513 - root - INFO - epoch: 455, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:45:21,995 - root - INFO - epoch: 456, validation loss: 0.03
+2024-10-07 23:45:45,414 - root - INFO - epoch: 456, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:45:48,625 - root - INFO - epoch: 457, validation loss: 0.03
+2024-10-07 23:46:11,948 - root - INFO - epoch: 457, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:46:15,052 - root - INFO - epoch: 458, validation loss: 0.03
+2024-10-07 23:46:37,937 - root - INFO - epoch: 458, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:46:41,061 - root - INFO - epoch: 459, validation loss: 0.03
+2024-10-07 23:47:04,781 - root - INFO - epoch: 459, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:47:07,976 - root - INFO - epoch: 460, validation loss: 0.03
+2024-10-07 23:47:33,309 - root - INFO - epoch: 460, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:47:36,939 - root - INFO - epoch: 461, validation loss: 0.03
+2024-10-07 23:48:00,045 - root - INFO - epoch: 461, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:48:03,268 - root - INFO - epoch: 462, validation loss: 0.03
+2024-10-07 23:48:24,176 - root - INFO - epoch: 462, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:48:27,395 - root - INFO - epoch: 463, validation loss: 0.03
+2024-10-07 23:48:48,329 - root - INFO - epoch: 463, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:48:51,528 - root - INFO - epoch: 464, validation loss: 0.03
+2024-10-07 23:49:13,021 - root - INFO - epoch: 464, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:49:16,763 - root - INFO - epoch: 465, validation loss: 0.03
+2024-10-07 23:49:39,401 - root - INFO - epoch: 465, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:49:42,838 - root - INFO - epoch: 466, validation loss: 0.03
+2024-10-07 23:50:03,609 - root - INFO - epoch: 466, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:50:06,767 - root - INFO - epoch: 467, validation loss: 0.03
+2024-10-07 23:50:27,326 - root - INFO - epoch: 467, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:50:30,377 - root - INFO - epoch: 468, validation loss: 0.03
+2024-10-07 23:50:51,548 - root - INFO - epoch: 468, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:50:54,690 - root - INFO - epoch: 469, validation loss: 0.03
+2024-10-07 23:51:15,307 - root - INFO - epoch: 469, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:51:18,398 - root - INFO - epoch: 470, validation loss: 0.03
+2024-10-07 23:51:39,385 - root - INFO - epoch: 470, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:51:42,446 - root - INFO - epoch: 471, validation loss: 0.03
+2024-10-07 23:52:04,697 - root - INFO - epoch: 471, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:52:07,862 - root - INFO - epoch: 472, validation loss: 0.03
+2024-10-07 23:52:28,281 - root - INFO - epoch: 472, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:52:31,371 - root - INFO - epoch: 473, validation loss: 0.03
+2024-10-07 23:52:52,196 - root - INFO - epoch: 473, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:52:55,274 - root - INFO - epoch: 474, validation loss: 0.03
+2024-10-07 23:53:15,969 - root - INFO - epoch: 474, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:53:19,303 - root - INFO - epoch: 475, validation loss: 0.03
+2024-10-07 23:53:40,869 - root - INFO - epoch: 475, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:53:44,124 - root - INFO - epoch: 476, validation loss: 0.03
+2024-10-07 23:54:04,996 - root - INFO - epoch: 476, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:54:08,243 - root - INFO - epoch: 477, validation loss: 0.03
+2024-10-07 23:54:28,755 - root - INFO - epoch: 477, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:54:31,838 - root - INFO - epoch: 478, validation loss: 0.03
+2024-10-07 23:54:52,476 - root - INFO - epoch: 478, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:54:55,616 - root - INFO - epoch: 479, validation loss: 0.03
+2024-10-07 23:55:16,278 - root - INFO - epoch: 479, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:55:19,386 - root - INFO - epoch: 480, validation loss: 0.03
+2024-10-07 23:55:41,256 - root - INFO - epoch: 480, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:55:44,420 - root - INFO - epoch: 481, validation loss: 0.03
+2024-10-07 23:56:07,969 - root - INFO - epoch: 481, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:56:11,093 - root - INFO - epoch: 482, validation loss: 0.03
+2024-10-07 23:56:11,100 - root - INFO - save parameters to file: experiments/swat_test/epoch_482.params
+2024-10-07 23:56:31,593 - root - INFO - epoch: 482, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:56:34,740 - root - INFO - epoch: 483, validation loss: 0.03
+2024-10-07 23:56:58,022 - root - INFO - epoch: 483, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:57:01,237 - root - INFO - epoch: 484, validation loss: 0.03
+2024-10-07 23:57:24,119 - root - INFO - epoch: 484, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:57:27,262 - root - INFO - epoch: 485, validation loss: 0.03
+2024-10-07 23:57:50,036 - root - INFO - epoch: 485, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:57:53,124 - root - INFO - epoch: 486, validation loss: 0.03
+2024-10-07 23:58:14,163 - root - INFO - epoch: 486, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:58:17,331 - root - INFO - epoch: 487, validation loss: 0.03
+2024-10-07 23:58:39,092 - root - INFO - epoch: 487, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:58:42,631 - root - INFO - epoch: 488, validation loss: 0.03
+2024-10-07 23:59:04,668 - root - INFO - epoch: 488, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:59:08,071 - root - INFO - epoch: 489, validation loss: 0.03
+2024-10-07 23:59:29,734 - root - INFO - epoch: 489, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:59:33,125 - root - INFO - epoch: 490, validation loss: 0.03
+2024-10-07 23:59:55,058 - root - INFO - epoch: 490, kl loss: 0.00, nll loss: 0.02
+2024-10-07 23:59:58,461 - root - INFO - epoch: 491, validation loss: 0.03
+2024-10-08 00:00:19,567 - root - INFO - epoch: 491, kl loss: 0.00, nll loss: 0.02
+2024-10-08 00:00:22,753 - root - INFO - epoch: 492, validation loss: 0.03
+2024-10-08 00:00:22,760 - root - INFO - save parameters to file: experiments/swat_test/epoch_492.params
+2024-10-08 00:00:43,321 - root - INFO - epoch: 492, kl loss: 0.00, nll loss: 0.02
+2024-10-08 00:00:46,464 - root - INFO - epoch: 493, validation loss: 0.03
+2024-10-08 00:01:07,140 - root - INFO - epoch: 493, kl loss: 0.00, nll loss: 0.02
+2024-10-08 00:01:10,299 - root - INFO - epoch: 494, validation loss: 0.03
+2024-10-08 00:01:30,816 - root - INFO - epoch: 494, kl loss: 0.00, nll loss: 0.02
+2024-10-08 00:01:33,940 - root - INFO - epoch: 495, validation loss: 0.03
+2024-10-08 00:01:33,947 - root - INFO - save parameters to file: experiments/swat_test/epoch_495.params
+2024-10-08 00:01:55,543 - root - INFO - epoch: 495, kl loss: 0.00, nll loss: 0.02
+2024-10-08 00:01:58,721 - root - INFO - epoch: 496, validation loss: 0.03
+2024-10-08 00:01:58,728 - root - INFO - save parameters to file: experiments/swat_test/epoch_496.params
+2024-10-08 00:02:19,148 - root - INFO - epoch: 496, kl loss: 0.00, nll loss: 0.02
+2024-10-08 00:02:22,392 - root - INFO - epoch: 497, validation loss: 0.03
+2024-10-08 00:02:42,571 - root - INFO - epoch: 497, kl loss: 0.00, nll loss: 0.02
+2024-10-08 00:02:45,614 - root - INFO - epoch: 498, validation loss: 0.03
+2024-10-08 00:03:05,948 - root - INFO - epoch: 498, kl loss: 0.00, nll loss: 0.02
+2024-10-08 00:03:09,223 - root - INFO - epoch: 499, validation loss: 0.03
+2024-10-08 00:03:30,903 - root - INFO - epoch: 499, kl loss: 0.00, nll loss: 0.02
