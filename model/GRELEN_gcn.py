@@ -192,8 +192,8 @@ class GraphConvolution(torch.nn.Module):
         # logging.info(f"两层图卷积形状的输入inputs形状为{inputs.shape}")  # [128, 51, 64]
         # logging.info(f"邻接矩阵adj形状为{adj.shape}")  # [128, 51, 51]
 
-        B = inputs.shape[0]
-        inputs = inputs.reshape(B, self._num_nodes, -1)  # [128, 51, 64]
+        B = inputs.shape[0] # B表示批次大小
+        inputs = inputs.reshape(B, self._num_nodes, -1)  # [128, 51, 64],重塑调整形状,
 
         # 计算随机游走矩阵
         random_walk_mx = self._calculate_random_walk_matrix(adj[0])  # 只使用第一个批次的邻接矩阵
