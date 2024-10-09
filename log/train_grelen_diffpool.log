@@ -1,0 +1,496 @@
+2024-10-09 19:38:48,574 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-09 19:38:48,575 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-09 19:38:48,576 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-09 19:38:48,607 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+      (projection_layer): Linear(in_features=2, out_features=3264, bias=True)
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+)
+2024-10-09 19:39:15,874 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-09 19:39:15,875 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-09 19:39:15,877 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-09 19:39:15,907 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+      (projection_layer): Linear(in_features=2, out_features=3264, bias=True)
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+)
+2024-10-09 19:40:17,497 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-09 19:40:17,498 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-09 19:40:17,499 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-09 19:40:17,525 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+      (projection_layer): Linear(in_features=2, out_features=3264, bias=True)
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+)
+2024-10-09 19:40:23,069 - root - INFO - epoch: 0, validation loss: 5.09
+2024-10-09 19:40:23,079 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
+2024-10-09 19:40:54,825 - root - INFO - epoch: 0, kl loss: 0.65, nll loss: 2.25
+2024-10-09 19:40:54,825 - root - INFO - start epoch:0,elapsed time:37.29948854446411,total time:37.29948854446411
+2024-10-09 19:40:58,937 - root - INFO - epoch: 1, validation loss: 1.54
+2024-10-09 19:40:58,947 - root - INFO - save parameters to file: experiments/swat_test/epoch_1.params
+2024-10-09 19:41:30,843 - root - INFO - epoch: 1, kl loss: 0.55, nll loss: 0.77
+2024-10-09 19:41:30,843 - root - INFO - start epoch:0,elapsed time:36.01773643493652,total time:73.31722497940063
+2024-10-09 19:41:35,067 - root - INFO - epoch: 2, validation loss: 1.30
+2024-10-09 19:41:35,077 - root - INFO - save parameters to file: experiments/swat_test/epoch_2.params
+2024-10-09 19:42:07,422 - root - INFO - epoch: 2, kl loss: 0.51, nll loss: 0.62
+2024-10-09 19:42:07,423 - root - INFO - start epoch:0,elapsed time:36.57962346076965,total time:109.89684844017029
+2024-10-09 19:42:11,545 - root - INFO - epoch: 3, validation loss: 1.21
+2024-10-09 19:42:11,555 - root - INFO - save parameters to file: experiments/swat_test/epoch_3.params
+2024-10-09 19:42:43,356 - root - INFO - epoch: 3, kl loss: 0.38, nll loss: 0.52
+2024-10-09 19:42:43,357 - root - INFO - start epoch:0,elapsed time:35.93411302566528,total time:145.83096146583557
+2024-10-09 19:42:47,427 - root - INFO - epoch: 4, validation loss: 0.88
+2024-10-09 19:42:47,437 - root - INFO - save parameters to file: experiments/swat_test/epoch_4.params
+2024-10-09 19:43:18,867 - root - INFO - epoch: 4, kl loss: 0.18, nll loss: 0.49
+2024-10-09 19:43:18,867 - root - INFO - start epoch:0,elapsed time:35.51059126853943,total time:181.341552734375
+2024-10-09 19:43:22,920 - root - INFO - epoch: 5, validation loss: 0.69
+2024-10-09 19:43:22,930 - root - INFO - save parameters to file: experiments/swat_test/epoch_5.params
+2024-10-09 19:43:54,268 - root - INFO - epoch: 5, kl loss: 0.03, nll loss: 0.48
+2024-10-09 19:43:54,268 - root - INFO - start epoch:0,elapsed time:35.4008252620697,total time:216.7423779964447
+2024-10-09 19:43:58,376 - root - INFO - epoch: 6, validation loss: 0.63
+2024-10-09 19:43:58,386 - root - INFO - save parameters to file: experiments/swat_test/epoch_6.params
+2024-10-09 19:44:29,498 - root - INFO - epoch: 6, kl loss: 0.02, nll loss: 0.47
+2024-10-09 19:44:29,499 - root - INFO - start epoch:0,elapsed time:35.23005986213684,total time:251.97243785858154
+2024-10-09 19:44:33,524 - root - INFO - epoch: 7, validation loss: 0.61
+2024-10-09 19:44:33,534 - root - INFO - save parameters to file: experiments/swat_test/epoch_7.params
+2024-10-09 19:45:04,940 - root - INFO - epoch: 7, kl loss: 0.02, nll loss: 0.45
+2024-10-09 19:45:04,940 - root - INFO - start epoch:0,elapsed time:35.44133424758911,total time:287.41377210617065
+2024-10-09 19:45:09,037 - root - INFO - epoch: 8, validation loss: 0.61
+2024-10-09 19:45:09,047 - root - INFO - save parameters to file: experiments/swat_test/epoch_8.params
+2024-10-09 19:45:40,736 - root - INFO - epoch: 8, kl loss: 0.03, nll loss: 0.43
+2024-10-09 19:45:40,736 - root - INFO - start epoch:0,elapsed time:35.795796394348145,total time:323.2095685005188
+2024-10-09 19:45:44,819 - root - INFO - epoch: 9, validation loss: 0.58
+2024-10-09 19:45:44,829 - root - INFO - save parameters to file: experiments/swat_test/epoch_9.params
+2024-10-09 19:46:16,019 - root - INFO - epoch: 9, kl loss: 0.03, nll loss: 0.41
+2024-10-09 19:46:16,019 - root - INFO - start epoch:0,elapsed time:35.282835245132446,total time:358.49240374565125
+2024-10-09 19:46:20,109 - root - INFO - epoch: 10, validation loss: 0.65
+2024-10-09 19:46:51,661 - root - INFO - epoch: 10, kl loss: 0.05, nll loss: 0.40
+2024-10-09 19:46:51,662 - root - INFO - start epoch:0,elapsed time:35.64264702796936,total time:394.1350507736206
+2024-10-09 19:47:25,466 - root - INFO - epoch: 11, validation loss: 0.58
+2024-10-09 19:53:25,532 - root - INFO - epoch: 11, kl loss: 0.04, nll loss: 0.36
+2024-10-09 19:53:25,532 - root - INFO - start epoch:0,elapsed time:393.8708438873291,total time:788.0058946609497
+2024-10-09 19:54:26,544 - root - INFO - epoch: 12, validation loss: 0.57
+2024-10-09 19:54:26,554 - root - INFO - save parameters to file: experiments/swat_test/epoch_12.params
+2024-10-09 20:00:27,588 - root - INFO - epoch: 12, kl loss: 0.04, nll loss: 0.33
+2024-10-09 20:00:27,589 - root - INFO - start epoch:0,elapsed time:422.05605006217957,total time:1210.0619447231293
+2024-10-09 20:02:25,075 - root - INFO - epoch: 13, validation loss: 0.52
+2024-10-09 20:02:25,086 - root - INFO - save parameters to file: experiments/swat_test/epoch_13.params
+2024-10-09 20:04:10,165 - root - INFO - epoch: 13, kl loss: 0.04, nll loss: 0.29
+2024-10-09 20:04:10,165 - root - INFO - start epoch:0,elapsed time:222.57632541656494,total time:1432.6382701396942
+2024-10-09 20:04:14,223 - root - INFO - epoch: 14, validation loss: 0.61
+2024-10-09 20:04:45,823 - root - INFO - epoch: 14, kl loss: 0.04, nll loss: 0.26
+2024-10-09 20:04:45,823 - root - INFO - start epoch:0,elapsed time:35.65840435028076,total time:1468.296674489975
+2024-10-09 20:04:49,948 - root - INFO - epoch: 15, validation loss: 0.68
+2024-10-09 20:05:21,531 - root - INFO - epoch: 15, kl loss: 0.04, nll loss: 0.25
+2024-10-09 20:05:21,531 - root - INFO - start epoch:0,elapsed time:35.70777773857117,total time:1504.0044522285461
+2024-10-09 20:05:25,637 - root - INFO - epoch: 16, validation loss: 0.62
+2024-10-09 20:05:57,354 - root - INFO - epoch: 16, kl loss: 0.03, nll loss: 0.21
+2024-10-09 20:05:57,354 - root - INFO - start epoch:0,elapsed time:35.82247185707092,total time:1539.826924085617
+2024-10-09 20:06:01,420 - root - INFO - epoch: 17, validation loss: 0.62
+2024-10-09 20:07:25,770 - root - INFO - epoch: 17, kl loss: 0.03, nll loss: 0.21
+2024-10-09 20:07:25,771 - root - INFO - start epoch:0,elapsed time:88.41669154167175,total time:1628.2436156272888
+2024-10-09 20:08:26,739 - root - INFO - epoch: 18, validation loss: 0.62
+2024-10-09 20:11:21,992 - root - INFO - epoch: 18, kl loss: 0.03, nll loss: 0.20
+2024-10-09 20:11:21,993 - root - INFO - start epoch:0,elapsed time:236.22202491760254,total time:1864.4656405448914
+2024-10-09 20:11:26,060 - root - INFO - epoch: 19, validation loss: 0.63
+2024-10-09 20:11:57,281 - root - INFO - epoch: 19, kl loss: 0.02, nll loss: 0.20
+2024-10-09 20:11:57,281 - root - INFO - start epoch:0,elapsed time:35.287951946258545,total time:1899.75359249115
+2024-10-09 20:12:01,355 - root - INFO - epoch: 20, validation loss: 0.71
+2024-10-09 20:12:32,960 - root - INFO - epoch: 20, kl loss: 0.02, nll loss: 0.20
+2024-10-09 20:12:32,960 - root - INFO - start epoch:0,elapsed time:35.6792414188385,total time:1935.4328339099884
+2024-10-09 20:12:37,036 - root - INFO - epoch: 21, validation loss: 0.56
+2024-10-09 20:13:08,398 - root - INFO - epoch: 21, kl loss: 0.02, nll loss: 0.18
+2024-10-09 20:13:08,398 - root - INFO - start epoch:0,elapsed time:35.4380259513855,total time:1970.870859861374
+2024-10-09 20:13:12,459 - root - INFO - epoch: 22, validation loss: 0.53
+2024-10-09 20:13:43,912 - root - INFO - epoch: 22, kl loss: 0.02, nll loss: 0.19
+2024-10-09 20:13:43,912 - root - INFO - start epoch:0,elapsed time:35.51396036148071,total time:2006.3848202228546
+2024-10-09 20:13:48,065 - root - INFO - epoch: 23, validation loss: 0.54
+2024-10-09 20:14:19,838 - root - INFO - epoch: 23, kl loss: 0.02, nll loss: 0.18
+2024-10-09 20:14:19,838 - root - INFO - start epoch:0,elapsed time:35.925939083099365,total time:2042.310759305954
+2024-10-09 20:14:23,876 - root - INFO - epoch: 24, validation loss: 0.63
+2024-10-09 20:14:55,243 - root - INFO - epoch: 24, kl loss: 0.02, nll loss: 0.17
+2024-10-09 20:14:55,243 - root - INFO - start epoch:0,elapsed time:35.404818296432495,total time:2077.7155776023865
+2024-10-09 20:14:59,288 - root - INFO - epoch: 25, validation loss: 0.60
+2024-10-09 20:15:30,509 - root - INFO - epoch: 25, kl loss: 0.03, nll loss: 0.18
+2024-10-09 20:15:30,510 - root - INFO - start epoch:0,elapsed time:35.2663152217865,total time:2112.981892824173
+2024-10-09 20:15:34,501 - root - INFO - epoch: 26, validation loss: 0.61
+2024-10-09 20:16:05,728 - root - INFO - epoch: 26, kl loss: 0.02, nll loss: 0.18
+2024-10-09 20:16:05,729 - root - INFO - start epoch:0,elapsed time:35.2187819480896,total time:2148.2006747722626
+2024-10-09 20:16:09,736 - root - INFO - epoch: 27, validation loss: 0.57
+2024-10-09 20:16:40,598 - root - INFO - epoch: 27, kl loss: 0.02, nll loss: 0.16
+2024-10-09 20:16:40,598 - root - INFO - start epoch:0,elapsed time:34.86986303329468,total time:2183.0705378055573
+2024-10-09 20:16:44,594 - root - INFO - epoch: 28, validation loss: 0.54
+2024-10-09 20:17:19,684 - root - INFO - epoch: 28, kl loss: 0.01, nll loss: 0.16
+2024-10-09 20:17:19,684 - root - INFO - start epoch:0,elapsed time:39.085192918777466,total time:2222.1557307243347
+2024-10-09 20:17:23,715 - root - INFO - epoch: 29, validation loss: 0.62
+2024-10-09 20:17:55,228 - root - INFO - epoch: 29, kl loss: 0.02, nll loss: 0.16
+2024-10-09 20:17:55,229 - root - INFO - start epoch:0,elapsed time:35.544702768325806,total time:2257.7004334926605
+2024-10-09 20:17:59,392 - root - INFO - epoch: 30, validation loss: 0.55
+2024-10-09 20:18:31,279 - root - INFO - epoch: 30, kl loss: 0.01, nll loss: 0.15
+2024-10-09 20:18:31,280 - root - INFO - start epoch:0,elapsed time:36.05090665817261,total time:2293.751340150833
+2024-10-09 20:18:35,381 - root - INFO - epoch: 31, validation loss: 0.63
+2024-10-09 20:19:06,913 - root - INFO - epoch: 31, kl loss: 0.01, nll loss: 0.15
+2024-10-09 20:19:06,913 - root - INFO - start epoch:0,elapsed time:35.63374042510986,total time:2329.385080575943
+2024-10-09 20:19:11,007 - root - INFO - epoch: 32, validation loss: 0.57
+2024-10-09 20:19:42,569 - root - INFO - epoch: 32, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:19:42,570 - root - INFO - start epoch:0,elapsed time:35.65616297721863,total time:2365.0412435531616
+2024-10-09 20:20:25,842 - root - INFO - epoch: 33, validation loss: 0.56
+2024-10-09 20:24:56,053 - root - INFO - epoch: 33, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:24:56,053 - root - INFO - start epoch:0,elapsed time:313.4835925102234,total time:2678.524836063385
+2024-10-09 20:25:00,114 - root - INFO - epoch: 34, validation loss: 0.57
+2024-10-09 20:25:31,941 - root - INFO - epoch: 34, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:25:31,941 - root - INFO - start epoch:0,elapsed time:35.88745474815369,total time:2714.4122908115387
+2024-10-09 20:25:36,012 - root - INFO - epoch: 35, validation loss: 0.55
+2024-10-09 20:26:07,429 - root - INFO - epoch: 35, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:26:07,429 - root - INFO - start epoch:0,elapsed time:35.48800849914551,total time:2749.900299310684
+2024-10-09 20:26:11,507 - root - INFO - epoch: 36, validation loss: 0.56
+2024-10-09 20:26:42,905 - root - INFO - epoch: 36, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:26:42,905 - root - INFO - start epoch:0,elapsed time:35.475828886032104,total time:2785.3761281967163
+2024-10-09 20:26:47,009 - root - INFO - epoch: 37, validation loss: 0.55
+2024-10-09 20:27:18,501 - root - INFO - epoch: 37, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:27:18,502 - root - INFO - start epoch:0,elapsed time:35.59652924537659,total time:2820.972657442093
+2024-10-09 20:27:22,638 - root - INFO - epoch: 38, validation loss: 0.53
+2024-10-09 20:27:54,146 - root - INFO - epoch: 38, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:27:54,146 - root - INFO - start epoch:0,elapsed time:35.64425992965698,total time:2856.61691737175
+2024-10-09 20:27:58,267 - root - INFO - epoch: 39, validation loss: 0.55
+2024-10-09 20:28:29,465 - root - INFO - epoch: 39, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:28:29,465 - root - INFO - start epoch:0,elapsed time:35.319478034973145,total time:2891.936395406723
+2024-10-09 20:28:33,589 - root - INFO - epoch: 40, validation loss: 0.54
+2024-10-09 20:29:05,042 - root - INFO - epoch: 40, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:29:05,042 - root - INFO - start epoch:0,elapsed time:35.57685160636902,total time:2927.513247013092
+2024-10-09 20:29:09,167 - root - INFO - epoch: 41, validation loss: 0.55
+2024-10-09 20:29:40,553 - root - INFO - epoch: 41, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:29:40,553 - root - INFO - start epoch:0,elapsed time:35.51023769378662,total time:2963.0234847068787
+2024-10-09 20:29:44,673 - root - INFO - epoch: 42, validation loss: 0.54
+2024-10-09 20:30:16,084 - root - INFO - epoch: 42, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:30:16,084 - root - INFO - start epoch:0,elapsed time:35.53122568130493,total time:2998.5547103881836
+2024-10-09 20:30:20,196 - root - INFO - epoch: 43, validation loss: 0.53
+2024-10-09 20:30:51,818 - root - INFO - epoch: 43, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:30:51,818 - root - INFO - start epoch:0,elapsed time:35.73413586616516,total time:3034.2888462543488
+2024-10-09 20:30:55,898 - root - INFO - epoch: 44, validation loss: 0.55
+2024-10-09 20:31:27,615 - root - INFO - epoch: 44, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:31:27,616 - root - INFO - start epoch:0,elapsed time:35.79721283912659,total time:3070.0860590934753
+2024-10-09 20:31:31,682 - root - INFO - epoch: 45, validation loss: 0.53
+2024-10-09 20:32:02,997 - root - INFO - epoch: 45, kl loss: 0.01, nll loss: 0.14
+2024-10-09 20:32:02,997 - root - INFO - start epoch:0,elapsed time:35.38173747062683,total time:3105.467796564102
+2024-10-09 20:32:07,039 - root - INFO - epoch: 46, validation loss: 0.55
+2024-10-09 20:32:38,383 - root - INFO - epoch: 46, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:32:38,383 - root - INFO - start epoch:0,elapsed time:35.38544988632202,total time:3140.853246450424
+2024-10-09 20:32:42,496 - root - INFO - epoch: 47, validation loss: 0.55
+2024-10-09 20:33:13,745 - root - INFO - epoch: 47, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:33:13,745 - root - INFO - start epoch:0,elapsed time:35.36218285560608,total time:3176.2154293060303
+2024-10-09 20:33:17,774 - root - INFO - epoch: 48, validation loss: 0.54
+2024-10-09 20:33:48,884 - root - INFO - epoch: 48, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:33:48,884 - root - INFO - start epoch:0,elapsed time:35.13916230201721,total time:3211.3545916080475
+2024-10-09 20:33:52,926 - root - INFO - epoch: 49, validation loss: 0.54
+2024-10-09 20:34:24,232 - root - INFO - epoch: 49, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:34:24,233 - root - INFO - start epoch:0,elapsed time:35.348074197769165,total time:3246.7026658058167
+2024-10-09 20:34:28,291 - root - INFO - epoch: 50, validation loss: 0.55
+2024-10-09 20:34:59,251 - root - INFO - epoch: 50, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:34:59,251 - root - INFO - start epoch:0,elapsed time:35.01818227767944,total time:3281.720848083496
+2024-10-09 20:35:03,300 - root - INFO - epoch: 51, validation loss: 0.55
+2024-10-09 20:35:34,161 - root - INFO - epoch: 51, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:35:34,161 - root - INFO - start epoch:0,elapsed time:34.910059452056885,total time:3316.630907535553
+2024-10-09 20:35:38,203 - root - INFO - epoch: 52, validation loss: 0.53
+2024-10-09 20:36:09,462 - root - INFO - epoch: 52, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:36:09,462 - root - INFO - start epoch:0,elapsed time:35.30049753189087,total time:3351.931405067444
+2024-10-09 20:36:13,507 - root - INFO - epoch: 53, validation loss: 0.52
+2024-10-09 20:36:13,517 - root - INFO - save parameters to file: experiments/swat_test/epoch_53.params
+2024-10-09 20:36:44,743 - root - INFO - epoch: 53, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:36:44,744 - root - INFO - start epoch:0,elapsed time:35.28173589706421,total time:3387.213140964508
+2024-10-09 20:36:48,804 - root - INFO - epoch: 54, validation loss: 0.57
+2024-10-09 20:37:19,837 - root - INFO - epoch: 54, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:37:19,837 - root - INFO - start epoch:0,elapsed time:35.09365129470825,total time:3422.3067922592163
+2024-10-09 20:37:23,850 - root - INFO - epoch: 55, validation loss: 0.54
+2024-10-09 20:37:54,895 - root - INFO - epoch: 55, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:37:54,895 - root - INFO - start epoch:0,elapsed time:35.057700395584106,total time:3457.3644926548004
+2024-10-09 20:37:58,948 - root - INFO - epoch: 56, validation loss: 0.55
+2024-10-09 20:38:29,995 - root - INFO - epoch: 56, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:38:29,996 - root - INFO - start epoch:0,elapsed time:35.10026502609253,total time:3492.464757680893
+2024-10-09 20:40:25,334 - root - INFO - epoch: 57, validation loss: 0.56
+2024-10-09 20:46:25,440 - root - INFO - epoch: 57, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:46:25,440 - root - INFO - start epoch:0,elapsed time:475.44418692588806,total time:3967.908944606781
+2024-10-09 20:47:26,438 - root - INFO - epoch: 58, validation loss: 0.56
+2024-10-09 20:47:58,226 - root - INFO - epoch: 58, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:47:58,226 - root - INFO - start epoch:0,elapsed time:92.78631544113159,total time:4060.6952600479126
+2024-10-09 20:48:02,293 - root - INFO - epoch: 59, validation loss: 0.54
+2024-10-09 20:48:33,908 - root - INFO - epoch: 59, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:48:33,908 - root - INFO - start epoch:0,elapsed time:35.681506395339966,total time:4096.376766443253
+2024-10-09 20:48:37,960 - root - INFO - epoch: 60, validation loss: 0.52
+2024-10-09 20:50:30,787 - root - INFO - epoch: 60, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:50:30,787 - root - INFO - start epoch:0,elapsed time:116.87914705276489,total time:4213.2559134960175
+2024-10-09 20:50:34,869 - root - INFO - epoch: 61, validation loss: 0.56
+2024-10-09 20:51:06,511 - root - INFO - epoch: 61, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:51:06,511 - root - INFO - start epoch:0,elapsed time:35.72386407852173,total time:4248.979777574539
+2024-10-09 20:51:10,571 - root - INFO - epoch: 62, validation loss: 0.54
+2024-10-09 20:51:42,393 - root - INFO - epoch: 62, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:51:42,393 - root - INFO - start epoch:0,elapsed time:35.881916522979736,total time:4284.861694097519
+2024-10-09 20:51:46,581 - root - INFO - epoch: 63, validation loss: 0.55
+2024-10-09 20:52:17,830 - root - INFO - epoch: 63, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:52:17,830 - root - INFO - start epoch:0,elapsed time:35.43673276901245,total time:4320.298426866531
+2024-10-09 20:52:21,958 - root - INFO - epoch: 64, validation loss: 0.55
+2024-10-09 20:52:53,290 - root - INFO - epoch: 64, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:52:53,291 - root - INFO - start epoch:0,elapsed time:35.46074676513672,total time:4355.759173631668
+2024-10-09 20:52:57,358 - root - INFO - epoch: 65, validation loss: 0.56
+2024-10-09 20:53:28,641 - root - INFO - epoch: 65, kl loss: 0.01, nll loss: 0.13
+2024-10-09 20:53:28,641 - root - INFO - start epoch:0,elapsed time:35.35065007209778,total time:4391.109823703766
+2024-10-09 20:53:32,718 - root - INFO - epoch: 66, validation loss: 0.55
+2024-10-09 20:54:04,309 - root - INFO - epoch: 66, kl loss: 0.01, nll loss: 0.12
+2024-10-09 20:54:04,309 - root - INFO - start epoch:0,elapsed time:35.66775369644165,total time:4426.7775774002075
+2024-10-09 20:54:08,326 - root - INFO - epoch: 67, validation loss: 0.58
+2024-10-09 20:54:39,751 - root - INFO - epoch: 67, kl loss: 0.01, nll loss: 0.12
+2024-10-09 20:54:39,751 - root - INFO - start epoch:0,elapsed time:35.441763162612915,total time:4462.21934056282
+2024-10-09 20:54:43,730 - root - INFO - epoch: 68, validation loss: 0.53
+2024-10-09 20:55:14,463 - root - INFO - epoch: 68, kl loss: 0.01, nll loss: 0.12
+2024-10-09 20:55:14,463 - root - INFO - start epoch:0,elapsed time:34.71234440803528,total time:4496.931684970856
+2024-10-09 20:55:18,461 - root - INFO - epoch: 69, validation loss: 0.55
+2024-10-09 20:55:49,724 - root - INFO - epoch: 69, kl loss: 0.01, nll loss: 0.12
+2024-10-09 20:55:49,724 - root - INFO - start epoch:0,elapsed time:35.26049780845642,total time:4532.192182779312
+2024-10-09 20:55:53,704 - root - INFO - epoch: 70, validation loss: 0.56
+2024-10-09 20:56:24,797 - root - INFO - epoch: 70, kl loss: 0.01, nll loss: 0.12
+2024-10-09 20:56:24,797 - root - INFO - start epoch:0,elapsed time:35.07295608520508,total time:4567.265138864517
+2024-10-09 20:56:28,939 - root - INFO - epoch: 71, validation loss: 0.57
+2024-10-09 20:57:00,439 - root - INFO - epoch: 71, kl loss: 0.01, nll loss: 0.12
+2024-10-09 20:57:00,439 - root - INFO - start epoch:0,elapsed time:35.641868591308594,total time:4602.907007455826
+2024-10-09 20:57:04,576 - root - INFO - epoch: 72, validation loss: 0.56
+2024-10-09 20:57:37,265 - root - INFO - epoch: 72, kl loss: 0.01, nll loss: 0.12
+2024-10-09 20:57:37,265 - root - INFO - start epoch:0,elapsed time:36.8258638381958,total time:4639.732871294022
+2024-10-09 20:57:41,377 - root - INFO - epoch: 73, validation loss: 0.54
+2024-10-09 20:58:12,826 - root - INFO - epoch: 73, kl loss: 0.01, nll loss: 0.12
+2024-10-09 20:58:12,826 - root - INFO - start epoch:0,elapsed time:35.56089401245117,total time:4675.293765306473
+2024-10-09 20:58:16,843 - root - INFO - epoch: 74, validation loss: 0.56
+2024-10-09 20:58:47,993 - root - INFO - epoch: 74, kl loss: 0.01, nll loss: 0.12
+2024-10-09 20:58:47,993 - root - INFO - start epoch:0,elapsed time:35.16740083694458,total time:4710.461166143417
+2024-10-09 20:58:52,034 - root - INFO - epoch: 75, validation loss: 0.55
+2024-10-09 20:59:23,413 - root - INFO - epoch: 75, kl loss: 0.01, nll loss: 0.12
+2024-10-09 20:59:23,413 - root - INFO - start epoch:0,elapsed time:35.41924214363098,total time:4745.880408287048
+2024-10-09 20:59:27,423 - root - INFO - epoch: 76, validation loss: 0.53
+2024-10-09 20:59:58,601 - root - INFO - epoch: 76, kl loss: 0.01, nll loss: 0.12
+2024-10-09 20:59:58,601 - root - INFO - start epoch:0,elapsed time:35.188560485839844,total time:4781.068968772888
+2024-10-09 21:00:02,616 - root - INFO - epoch: 77, validation loss: 0.55
+2024-10-09 21:00:33,707 - root - INFO - epoch: 77, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:00:33,707 - root - INFO - start epoch:0,elapsed time:35.10567116737366,total time:4816.174639940262
+2024-10-09 21:00:37,707 - root - INFO - epoch: 78, validation loss: 0.58
+2024-10-09 21:01:08,972 - root - INFO - epoch: 78, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:01:08,972 - root - INFO - start epoch:0,elapsed time:35.26524019241333,total time:4851.439880132675
+2024-10-09 21:01:13,005 - root - INFO - epoch: 79, validation loss: 0.57
+2024-10-09 21:01:44,085 - root - INFO - epoch: 79, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:01:44,085 - root - INFO - start epoch:0,elapsed time:35.112390756607056,total time:4886.552270889282
+2024-10-09 21:01:48,112 - root - INFO - epoch: 80, validation loss: 0.56
+2024-10-09 21:02:19,129 - root - INFO - epoch: 80, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:02:19,129 - root - INFO - start epoch:0,elapsed time:35.043885946273804,total time:4921.596156835556
+2024-10-09 21:02:23,115 - root - INFO - epoch: 81, validation loss: 0.56
+2024-10-09 21:02:54,281 - root - INFO - epoch: 81, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:02:54,281 - root - INFO - start epoch:0,elapsed time:35.15229344367981,total time:4956.748450279236
+2024-10-09 21:02:58,327 - root - INFO - epoch: 82, validation loss: 0.57
+2024-10-09 21:03:29,428 - root - INFO - epoch: 82, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:03:29,428 - root - INFO - start epoch:0,elapsed time:35.14684772491455,total time:4991.89529800415
+2024-10-09 21:03:33,441 - root - INFO - epoch: 83, validation loss: 0.55
+2024-10-09 21:04:04,738 - root - INFO - epoch: 83, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:04:04,738 - root - INFO - start epoch:0,elapsed time:35.309706926345825,total time:5027.205004930496
+2024-10-09 21:04:08,753 - root - INFO - epoch: 84, validation loss: 0.58
+2024-10-09 21:04:40,289 - root - INFO - epoch: 84, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:04:40,289 - root - INFO - start epoch:0,elapsed time:35.550854444503784,total time:5062.755859375
+2024-10-09 21:04:44,319 - root - INFO - epoch: 85, validation loss: 0.54
+2024-10-09 21:05:15,146 - root - INFO - epoch: 85, kl loss: 0.01, nll loss: 0.11
+2024-10-09 21:05:15,146 - root - INFO - start epoch:0,elapsed time:34.857022285461426,total time:5097.612881660461
+2024-10-09 21:05:19,141 - root - INFO - epoch: 86, validation loss: 0.56
+2024-10-09 21:05:50,113 - root - INFO - epoch: 86, kl loss: 0.01, nll loss: 0.11
+2024-10-09 21:05:50,113 - root - INFO - start epoch:0,elapsed time:34.96705174446106,total time:5132.5799334049225
+2024-10-09 21:05:54,148 - root - INFO - epoch: 87, validation loss: 0.56
+2024-10-09 21:06:25,150 - root - INFO - epoch: 87, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:06:25,150 - root - INFO - start epoch:0,elapsed time:35.03667974472046,total time:5167.616613149643
+2024-10-09 21:06:29,177 - root - INFO - epoch: 88, validation loss: 0.57
+2024-10-09 21:07:00,384 - root - INFO - epoch: 88, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:07:00,384 - root - INFO - start epoch:0,elapsed time:35.233640909194946,total time:5202.850254058838
+2024-10-09 21:07:04,407 - root - INFO - epoch: 89, validation loss: 0.58
+2024-10-09 21:07:35,298 - root - INFO - epoch: 89, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:07:35,298 - root - INFO - start epoch:0,elapsed time:34.91367793083191,total time:5237.76393198967
+2024-10-09 21:07:39,316 - root - INFO - epoch: 90, validation loss: 0.57
+2024-10-09 21:08:10,030 - root - INFO - epoch: 90, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:08:10,030 - root - INFO - start epoch:0,elapsed time:34.73205256462097,total time:5272.495984554291
+2024-10-09 21:08:14,023 - root - INFO - epoch: 91, validation loss: 0.59
+2024-10-09 21:08:45,027 - root - INFO - epoch: 91, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:08:45,027 - root - INFO - start epoch:0,elapsed time:34.997509717941284,total time:5307.493494272232
+2024-10-09 21:08:49,067 - root - INFO - epoch: 92, validation loss: 0.56
+2024-10-09 21:09:20,313 - root - INFO - epoch: 92, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:09:20,313 - root - INFO - start epoch:0,elapsed time:35.285831451416016,total time:5342.779325723648
+2024-10-09 21:09:24,324 - root - INFO - epoch: 93, validation loss: 0.57
+2024-10-09 21:09:55,463 - root - INFO - epoch: 93, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:09:55,463 - root - INFO - start epoch:0,elapsed time:35.14943337440491,total time:5377.928759098053
+2024-10-09 21:09:59,464 - root - INFO - epoch: 94, validation loss: 0.59
+2024-10-09 21:10:30,770 - root - INFO - epoch: 94, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:10:30,770 - root - INFO - start epoch:0,elapsed time:35.30708622932434,total time:5413.235845327377
+2024-10-09 21:10:34,788 - root - INFO - epoch: 95, validation loss: 0.56
+2024-10-09 21:11:06,647 - root - INFO - epoch: 95, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:11:06,647 - root - INFO - start epoch:0,elapsed time:35.876917600631714,total time:5449.112762928009
+2024-10-09 21:11:10,741 - root - INFO - epoch: 96, validation loss: 0.58
+2024-10-09 21:11:42,041 - root - INFO - epoch: 96, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:11:42,041 - root - INFO - start epoch:0,elapsed time:35.39438486099243,total time:5484.5071477890015
+2024-10-09 21:11:46,137 - root - INFO - epoch: 97, validation loss: 0.58
+2024-10-09 21:12:18,089 - root - INFO - epoch: 97, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:12:18,090 - root - INFO - start epoch:0,elapsed time:36.047985792160034,total time:5520.5551335811615
+2024-10-09 21:12:22,185 - root - INFO - epoch: 98, validation loss: 0.54
+2024-10-09 21:12:53,510 - root - INFO - epoch: 98, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:12:53,510 - root - INFO - start epoch:0,elapsed time:35.42047071456909,total time:5555.975604295731
+2024-10-09 21:12:57,649 - root - INFO - epoch: 99, validation loss: 0.57
+2024-10-09 21:13:29,203 - root - INFO - epoch: 99, kl loss: 0.01, nll loss: 0.12
+2024-10-09 21:13:29,203 - root - INFO - start epoch:0,elapsed time:35.69309043884277,total time:5591.668694734573
