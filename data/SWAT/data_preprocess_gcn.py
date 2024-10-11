@@ -58,6 +58,8 @@ def swat_generate(xx, split, length, filename=None, max_=None, min_=None):
 
     xx1 = xx[:int(nrow * split), :]  # 按照划分比例获取训练集数据
     xx2 = xx[int(nrow * split):, :]  # 按照划分比例获取验证集数据
+    # print(f"xx1.shape:{xx1.shape}")  # (4224, 51)
+    # print(f"xx2.shape:{xx2.shape}")  # (1056, 51)
     
     # train_x存储训练集样本数据
     """
@@ -72,7 +74,7 @@ def swat_generate(xx, split, length, filename=None, max_=None, min_=None):
     valid_x = np.zeros((xx2.shape[0] - length + 1, length, ncol))  # 初始化验证集样本矩阵
     for i in range(valid_x.shape[0]):  # 生成验证集样本
         valid_x[i, ...] = xx2[i:i + length, :]
-    
+    # print(valid_x.shape)    # (1027, 30, 51)
     # np.expand_dims(np.transpose(train_x, (0, 2, 1)), 2)中
     # np.transpose是进行维度转置
     # np.expand_dims为每个样本添加一个额外的维度,确保数据结构复合深度学习模型的格式
@@ -96,6 +98,7 @@ def swat_generate(xx, split, length, filename=None, max_=None, min_=None):
             '_std': np.zeros((1, 1, 3, 1)),  # 初始化标准差（可以后续用于标准化）
         }
     }
+    # print(all_data['val']['x'].shape)   # (1027, 51, 1, 30)
     if filename is None:  # 如果没有提供文件名
         return max_, min_, all_data  # 返回最大值、最小值和生成的数据集
     # 存储为.npz格式的文件
@@ -179,6 +182,7 @@ if __name__ == '__main__':
     # 确保 downsampling、swat_generate 和 swat_generate_test 函数已定义或导入
     # 对正常数据集进行降采样处理，并丢弃前3000行数据
     train_x = downsampling(swat_normal_np, config.downsampling_fre)[3000:, :]
+    # print(train_x.shape)  (5280, 51)
 
     split = 0.8  # 训练集和验证集的划分比例，80%数据用于训练
     length = config.target_len  # 配置文件中指定的序列长度
