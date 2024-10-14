@@ -4,7 +4,7 @@ import torch.nn as nn
 import sys
 sys.path.append('..')
 from lib.utils import *
-from .encoders2 import SoftPoolingGcnEncoder
+from .encoders3 import SoftPoolingGcnEncoder
 
 
 class MLP(nn.Module):
@@ -75,13 +75,13 @@ class EncoderModel(nn.Module):
     def __init__(self, device, n_dim, n_hid, max_diffusion_step, num_nodes, num_rnn_layers, filter_type):
         """
         初始化编码器模型
-        :param device: 设备(CPU �? GPU)
+        :param device: 设备(CPU GPU)
         :param n_dim: 输入维度
-        :param n_hid: 隐藏层维�?,每个DCGRU的隐藏层单元数量Fhid
-        :param max_diffusion_step: 最大扩散步�?
+        :param n_hid: 隐藏层维数,每个DCGRU的隐藏层单元数量Fhid
+        :param max_diffusion_step: 最大扩散步数
         :param num_nodes: 节点数量
         :param num_rnn_layers: RNN 层数
-        :param filter_type: 滤波器类�?
+        :param filter_type: 滤波器类型
         """
         super(EncoderModel, self).__init__()
         self.device = device
@@ -96,7 +96,7 @@ class EncoderModel(nn.Module):
 
         # 使用SoftPoolingGcnEncoder
         self.gcn_layers = nn.ModuleList(
-            [SoftPoolingGcnEncoder(self.num_nodes, self.input_dim, self.hidden_dim, self.hidden_dim, 
+            [SoftPoolingGcnEncoder(self.device,self.num_nodes, self.input_dim, self.hidden_dim, self.hidden_dim, 
                                    label_dim=2, num_layers=3, assign_hidden_dim=self.hidden_dim)
              for _ in range(self.num_rnn_layers)])
 
@@ -153,7 +153,7 @@ class Grelen(nn.Module):
         self.linear_out.bias.data.fill_(0.1)
 
         # 添加 SoftPoolingGcnEncoder 用于产生 self.assign_tensor
-        self.soft_pooling_encoder = SoftPoolingGcnEncoder(num_nodes, GRU_n_dim, GRU_n_dim, GRU_n_dim, label_dim=2,
+        self.soft_pooling_encoder = SoftPoolingGcnEncoder(self.device,num_nodes, GRU_n_dim, GRU_n_dim, GRU_n_dim, label_dim=2,
                                                           num_layers=3, assign_hidden_dim=GRU_n_dim, dropout=do_prob)
 
     def _compute_sampling_threshold(self, batches_seen):
@@ -212,201 +212,90 @@ class Grelen(nn.Module):
 
         return prob, output, adj_mean
 
-    # def loss(self, pred, target, assign_matrices):
-    #     """
-    #     Loss function derived from SoftPoolingGcnEncoder.
-    #     :param pred: Predicted output
-    #     :param target: Ground truth labels
-    #     :param assign_matrices: Assignment matrices from the pooling layer
-    #     :return: Computed loss value
-    #     """
-    #     mse_loss = F.mse_loss(pred, target)
-    #     # Regularization term for assignment matrices to encourage sparsity
-    #     reg_loss = 0
-    #     for assign_matrix in assign_matrices:
-    #         reg_loss += torch.mean(torch.sum(assign_matrix ** 2, dim=1))
-    #     total_loss = mse_loss + 1e-4 * reg_loss
-    #     return total_loss
-
-    # # 损失函数
-    # def loss(self,pred,label,type="softmax",adj=None, batch_num_nodes=None, adj_hop=1,linkpred=True):
-    #     # SoftPoolingGcnEncoder 中产�? self.assign_tensor 的过�?
-    #     pred = pred.view(pred.size(0), -1, pred.size(-1))  # 调整 pred 的形状为 [B, N, F]，以匹配邻接矩阵
-
-    #     self.assign_tensor = self.soft_pooling_encoder.gcn_forward(pred, adj, self.soft_pooling_encoder.conv_first,
-    #                                                                self.soft_pooling_encoder.conv_block,
-    #                                                                self.soft_pooling_encoder.conv_last)
-        
-    #     eps = 1e-7
-    #     label = label.view(-1)  # 展平标签以匹配交叉熵损失的输入要求，但保持批次大小不�?
-    #     label = label.squeeze(-1)  # 移除多余的维度，调整�? [B]
-
-    #     # softmax + CE
-    #     if type == 'softmax':
-    #         # 交叉熵损失函�? (F.cross_entropy) 计算损失
-    #         loss1 =  F.cross_entropy(pred, label, reduction='mean')
-    #         # loss1 = F.cross_entropy(pred, label.argmax(dim=-1), reduction='mean')  # 使用交叉熵损失，标签取最大值索�?
-    #     elif type == 'margin':
-    #         # 多标签边缘损�? (margin)：用于多标签分类任务,鼓励正确类别的预测分数比其他类别高�?
-    #         batch_size = pred.size()[0]
-    #         label_onehot = torch.zeros(batch_size, self.label_dim).long().cuda()    # [batch_size, label_dim]
-    #         # long() 函数将张量元素转换为 torch.int64 类型
-    #         # 使用 scatter_ 方法�? label 中的类别信息转换为独热编�? (one-hot encoding)
-    #         label_onehot.scatter_(1, label.view(-1,1), 1)
-    #         loss2 =  torch.nn.MultiLabelMarginLoss()(pred, label_onehot)
-
-    #     eps = 1e-7  # 设置小的数值eps,用于计算链路预测损失�?,防止log函数中出现零值导致数值问�?
-    #     if linkpred:
-    #         print(adj.shape)
-    #         max_num_nodes = adj.size()[1]
-    #         # pred_adj0 : [batch_size, num_nodes, num_nodes],表示池化后的节点分配回原始节点时的关系矩�?,@表示矩阵乘法
-    #         pred_adj0 = self.assign_tensor @ torch.transpose(self.assign_tensor, 1, 2) 
-    #         tmp = pred_adj0
-    #         pred_adj = pred_adj0
-    #         for adj_pow in range(adj_hop-1):
-    #             tmp = tmp @ pred_adj0   # 表示多跳邻接关系的近�?,每次相乘表示多跳邻接关系的连接权�?
-    #             pred_adj = pred_adj + tmp   # 累加每次计算的多跳邻接矩�?,得到整体的预测邻接矩�?
-    #         # torch.min() 是逐元素比较函�?,它会�? pred_adj �? torch.ones(1) 的对应位置上取最小�?
-    #         pred_adj = torch.min(pred_adj, torch.ones(1, dtype=pred_adj.dtype).cuda())
-    #         #print('adj1', torch.sum(pred_adj0) / torch.numel(pred_adj0))
-    #         #print('adj2', torch.sum(pred_adj) / torch.numel(pred_adj))
-    #         #self.link_loss = F.nll_loss(torch.log(pred_adj), adj)
-
-    #         # 计算链路预测损失 self.link_loss
-    #         # 真实连接：对于连接存在的边（adj = 1�?,损失�? -adj * torch.log(pred_adj + eps)�?
-    #         # 非连接：对于不存在的边（adj = 0�?,损失�? -(1 - adj) * torch.log(1 - pred_adj + eps)
-    #         self.link_loss = -adj * torch.log(pred_adj+eps) - (1-adj) * torch.log(1-pred_adj+eps)
-
-    #         # 表示所有图的节点数量相�?,直接使用最大节点数计算邻接矩阵的总元素数�? num_entries
-    #         if batch_num_nodes is None:
-    #             num_entries = max_num_nodes * max_num_nodes * adj.size()[0] # 总的邻接关系数量
-    #             print('Warning: calculating link pred loss without masking')
-    #             logging.info('Warning: calculating link pred loss without masking')
-    #         else:
-    #             # 如果提供了每个图的节点数量batch_num_nodes,生成掩码,屏蔽掉多余的计算,减少无效节点对链路预测损失的影响
-    #             num_entries = np.sum(batch_num_nodes * batch_num_nodes)
-    #             embedding_mask = self.construct_mask(max_num_nodes, batch_num_nodes)
-    #             adj_mask = embedding_mask @ torch.transpose(embedding_mask, 1, 2)
-    #             self.link_loss[(1-adj_mask).bool()] = 0.0
-
-    #         self.link_loss = torch.sum(self.link_loss) / float(num_entries) # 对链路预测损失进行平�?,得到归一化的链路预测损失�?
-    #         #print('linkloss: ', self.link_loss)
-    #         # logging.info
-    #         return loss1 + self.link_loss    # 返回总损失值（预测损失 + 链路预测损失�?
-    #     return loss1 # 如果没有启用链路预测损失,则仅返回预测损失
+    # 计算预测值与真实标签之间的损失,用于模型的训练和优化
+    def loss(self, pred, label,adj, type='softmax'):
+        '''
+        pred : 预测值,形状为 [batch_size, label_dim],表示每个样本的预测输出
+        label : 真实标签,形状为 [batch_size],表示每个样本的真实类别
+        type : 损失类型,默认为 'softmax',可选为 'softmax' 或 'margin'
+        '''
+        # softmax + CE
+        if type == 'softmax':
+            # 交叉熵损失函数 (F.cross_entropy) 计算损失
+            return F.cross_entropy(pred, label, reduction='mean')
+        elif type == 'margin':
+            # 多标签边缘损失 (margin)：用于多标签分类任务,鼓励正确类别的预测分数比其他类别高。
+            batch_size = pred.size()[0]
+            label_onehot = torch.zeros(batch_size, self.label_dim).long().cuda()    # [batch_size, label_dim]
+            # long() 函数将张量元素转换为 torch.int64 类型
+            # 使用 scatter_ 方法将 label 中的类别信息转换为独热编码 (one-hot encoding)
+            label_onehot.scatter_(1, label.view(-1,1), 1)
+            return torch.nn.MultiLabelMarginLoss()(pred, label_onehot)
+            
+        #return F.binary_cross_entropy(F.sigmoid(pred[:,0]), label.float())
 
     # def loss(self, pred, label, type="softmax", adj=None, batch_num_nodes=None, adj_hop=1, linkpred=True):
-    #     # print(f"pred shape :{pred.shape},label.shape{label.shape}")   # pred shape :torch.Size([128, 51, 29]),label.shapetorch.Size([128, 51, 29])
-    #     pred = pred.view(pred.size(0), -1, pred.size(-1))  # 调整 pred 的形状为 [B, N, F]，以匹配邻接矩阵
-    #     # print("##############################################")
-    #     # print(f"pred shape :{pred.shape}")  # pred shape :torch.Size([128, 51, 29])
-    #     if pred.dim() == 4:
-    #         print(f"Skipping soft_pooling_encoder as pred is 4D: pred.shape={pred.shape}")
-    #     else:
-    #         self.assign_tensor = self.soft_pooling_encoder.gcn_forward(pred, adj, self.soft_pooling_encoder.conv_first,
-    #                                                                    self.soft_pooling_encoder.conv_block,
-    #                                                                    self.soft_pooling_encoder.conv_last)
+    #     # print(f"pred shape:{pred.shape},label shape:{label.shape}")   # pred shape:torch.Size([128, 51, 29]),label shape:torch.Size([128, 51, 29])
+    #     # print(f"adj shape:{adj.shape}") # adj shape:torch.Size([128, 51, 51])
         
-    #     eps = 1e-7
-    #     pred = pred.reshape(pred.size(0), -1) 
-    #     label = label.reshape(-1)
-        
-    #     # softmax + CE
+    #     # self.assign_tensor = self.soft_pooling_encoder.gcn_forward(
+    #     #     pred, adj, 
+    #     #     self.soft_pooling_encoder.conv_first,
+    #     #     self.soft_pooling_encoder.conv_block,
+    #     #     self.soft_pooling_encoder.conv_last
+    #     # )
+    #     # print("################################################################")
+    #     # print(f"Adjusted pred shape: {pred.shape}, label shape: {label.shape}")
+
     #     if type == 'softmax':
-    #         loss1 = F.cross_entropy(pred.view(-1, pred.size(-1)), label, reduction='mean')  # 计算交叉熵损�?
+    #         try:
+    #             loss1 = F.cross_entropy(pred, label, reduction='mean')
+    #         except ValueError as e:
+    #             print(f"Error in cross_entropy: {e}")
+    #             return None
     #     elif type == 'margin':
-    #         batch_size = pred.size()[0]
-    #         label_onehot = torch.zeros(batch_size, self.label_dim).long().cuda()
+    #         label_onehot = torch.zeros(batch_size * num_nodes, self.label_dim).long().cuda()
     #         label_onehot.scatter_(1, label.view(-1, 1), 1)
     #         loss1 = torch.nn.MultiLabelMarginLoss()(pred, label_onehot)
 
-    #     if linkpred:
-    #         max_num_nodes = adj.size()[1]
-    #         pred_adj0 = self.assign_tensor @ torch.transpose(self.assign_tensor, 1, 2)
-    #         tmp = pred_adj0
-    #         pred_adj = pred_adj0
-    #         for adj_pow in range(adj_hop - 1):
-    #             tmp = tmp @ pred_adj0
-    #             pred_adj = pred_adj + tmp
-    #         pred_adj = torch.min(pred_adj, torch.ones(1, dtype=pred_adj.dtype).cuda())
-    #         self.link_loss = -adj * torch.log(pred_adj + eps) - (1 - adj) * torch.log(1 - pred_adj + eps)
+    #     if torch.isnan(loss1):
+    #         print("Warning: NaN detected in primary loss computation!")
+    #         return None
 
-    #         if batch_num_nodes is None:
-    #             num_entries = max_num_nodes * max_num_nodes * adj.size()[0]
-    #             print('Warning: calculating link pred loss without masking')
-    #             logging.info('Warning: calculating link pred loss without masking')
-    #         else:
-    #             num_entries = np.sum(batch_num_nodes * batch_num_nodes)
-    #             embedding_mask = self.soft_pooling_encoder.construct_mask(max_num_nodes, batch_num_nodes)
-    #             adj_mask = embedding_mask @ torch.transpose(embedding_mask, 1, 2)
-    #             self.link_loss[(1 - adj_mask).bool()] = 0.0
-
-    #         self.link_loss = torch.sum(self.link_loss) / float(num_entries)
-    #         return loss1 + self.link_loss
-
-    #     return loss1
-    def loss(self, pred, label, type="softmax", adj=None, batch_num_nodes=None, adj_hop=1, linkpred=True):
-        print(f"pred shape:{pred.shape},label shape:{label.shape}")   # pred shape:torch.Size([128, 51, 29]),label shape:torch.Size([128, 51, 29])
-        # print(f"adj shape:{adj.shape}") # adj shape:torch.Size([128, 51, 51])
-        
-        self.assign_tensor = self.soft_pooling_encoder.gcn_forward(
-            pred, adj, 
-            self.soft_pooling_encoder.conv_first,
-            self.soft_pooling_encoder.conv_block,
-            self.soft_pooling_encoder.conv_last
-        )
-        print("################################################################")
-        print(f"Adjusted pred shape: {pred.shape}, label shape: {label.shape}")
-
-        if type == 'softmax':
-            try:
-                loss1 = F.cross_entropy(pred, label, reduction='mean')
-            except ValueError as e:
-                print(f"Error in cross_entropy: {e}")
-                return None
-        elif type == 'margin':
-            label_onehot = torch.zeros(batch_size * num_nodes, self.label_dim).long().cuda()
-            label_onehot.scatter_(1, label.view(-1, 1), 1)
-            loss1 = torch.nn.MultiLabelMarginLoss()(pred, label_onehot)
-
-        if torch.isnan(loss1):
-            print("Warning: NaN detected in primary loss computation!")
-            return None
-
-        eps = 1e-7
-        total_loss = loss1
+    #     eps = 1e-7
+    #     total_loss = loss1
 
 
-        if linkpred:
-            max_num_nodes = adj.size()[1]
-            pred_adj0 = self.assign_tensor @ torch.transpose(self.assign_tensor, 1, 2)
-            tmp = pred_adj0
-            pred_adj = pred_adj0
-            for adj_pow in range(adj_hop - 1):
-                tmp = tmp @ pred_adj0
-                pred_adj = pred_adj + tmp
-            pred_adj = torch.min(pred_adj, torch.ones(1, dtype=pred_adj.dtype).cuda())
-            self.link_loss = -adj * torch.log(pred_adj + eps) - (1 - adj) * torch.log(1 - pred_adj + eps)
-            batch_num_nodes = adj.size()[-1]
-            if batch_num_nodes is None:
-                num_entries = max_num_nodes * max_num_nodes * adj.size()[0]
-                print('Warning: calculating link pred loss without masking')
-                logging.info('Warning: calculating link pred loss without masking')
-            else:
-                num_entries = np.sum(batch_num_nodes * batch_num_nodes)
-                embedding_mask = self.soft_pooling_encoder.construct_mask(max_num_nodes, batch_num_nodes)
-                adj_mask = embedding_mask @ torch.transpose(embedding_mask, 1, 2)
-                self.link_loss[(1 - adj_mask).bool()] = 0.0
+    #     # if linkpred:
+    #     #     max_num_nodes = adj.size()[1]
+    #     #     pred_adj0 = self.assign_tensor @ torch.transpose(self.assign_tensor, 1, 2)
+    #     #     tmp = pred_adj0
+    #     #     pred_adj = pred_adj0
+    #     #     for adj_pow in range(adj_hop - 1):
+    #     #         tmp = tmp @ pred_adj0
+    #     #         pred_adj = pred_adj + tmp
+    #     #     pred_adj = torch.min(pred_adj, torch.ones(1, dtype=pred_adj.dtype).cuda())
+    #     #     self.link_loss = -adj * torch.log(pred_adj + eps) - (1 - adj) * torch.log(1 - pred_adj + eps)
+    #     #     batch_num_nodes = adj.size()[-1]
+    #     #     if batch_num_nodes is None:
+    #     #         num_entries = max_num_nodes * max_num_nodes * adj.size()[0]
+    #     #         print('Warning: calculating link pred loss without masking')
+    #     #         logging.info('Warning: calculating link pred loss without masking')
+    #     #     else:
+    #     #         num_entries = np.sum(batch_num_nodes * batch_num_nodes)
+    #     #         embedding_mask = self.soft_pooling_encoder.construct_mask(max_num_nodes, batch_num_nodes)
+    #     #         adj_mask = embedding_mask @ torch.transpose(embedding_mask, 1, 2)
+    #     #         self.link_loss[(1 - adj_mask).bool()] = 0.0
 
-            self.link_loss = torch.sum(self.link_loss) / float(num_entries)
-            total_loss += self.link_loss
+    #     #     self.link_loss = torch.sum(self.link_loss) / float(num_entries)
+    #     #     total_loss += self.link_loss
 
-        if torch.isnan(total_loss):
-            print("Warning: NaN detected in total loss computation!")
-            return None
+    #     if torch.isnan(total_loss):
+    #         print("Warning: NaN detected in total loss computation!")
+    #         return None
 
-        print(total_loss)
-        return total_loss
+    #     # print(total_loss)
+    #     return total_loss
     
 
         

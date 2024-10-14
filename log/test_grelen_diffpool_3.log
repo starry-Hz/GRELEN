@@ -1,0 +1,72 @@
+2024-10-14 21:05:38,892 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-10-14 21:05:38,893 - root - INFO - test_loader的形状为7470
+2024-10-14 21:05:38,894 - root - INFO - test_target_tensor的形状为7470
+2024-10-14 21:05:38,930 - root - INFO - param file: experiments/swat_test/epoch_13.params
+2024-10-14 21:05:38,931 - root - INFO - Model loaded...
+2024-10-14 21:05:49,259 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-10-14 21:05:49,643 - root - INFO - Graph saved: experiments/swat_test/epoch_13.npy
+2024-10-14 21:05:49,644 - root - INFO - Evaluation...
+2024-10-14 21:05:49,648 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-10-14 21:05:49,673 - root - INFO - loss的形状为(7469,)
+2024-10-14 21:08:40,248 - root - INFO - 最高的阈值组合为(48, 151)
+2024-10-14 21:08:40,282 - root - INFO - F1 score: 0.8374689826302729
+2024-10-14 21:08:40,286 - root - INFO - Precision score: 0.7234726688102894
+2024-10-14 21:08:40,290 - root - INFO - Recall score: 0.9941089837997055
+2024-10-14 21:08:40,308 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       1.00      0.96      0.98      6742
+         1.0       0.72      0.99      0.84       679
+
+    accuracy                           0.96      7421
+   macro avg       0.86      0.98      0.91      7421
+weighted avg       0.97      0.96      0.97      7421
+
+2024-10-14 21:18:16,074 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-10-14 21:18:16,074 - root - INFO - test_loader的形状为7470
+2024-10-14 21:18:16,075 - root - INFO - test_target_tensor的形状为7470
+2024-10-14 21:18:16,116 - root - INFO - param file: experiments/swat_test/epoch_0.params
+2024-10-14 21:18:16,116 - root - INFO - Model loaded...
+2024-10-14 21:18:26,235 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-10-14 21:18:26,615 - root - INFO - Graph saved: experiments/swat_test/epoch_0.npy
+2024-10-14 21:18:26,615 - root - INFO - Evaluation...
+2024-10-14 21:18:26,621 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-10-14 21:18:26,646 - root - INFO - loss的形状为(7469,)
+2024-10-14 21:21:13,733 - root - INFO - 最高的阈值组合为(87, 31)
+2024-10-14 21:21:13,767 - root - INFO - F1 score: 0.8259303721488596
+2024-10-14 21:21:13,771 - root - INFO - Precision score: 0.737406216505895
+2024-10-14 21:21:13,775 - root - INFO - Recall score: 0.9386084583901774
+2024-10-14 21:21:13,792 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       0.99      0.96      0.98      6688
+         1.0       0.74      0.94      0.83       733
+
+    accuracy                           0.96      7421
+   macro avg       0.87      0.95      0.90      7421
+weighted avg       0.97      0.96      0.96      7421
+
+2024-10-14 21:21:38,345 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-10-14 21:21:38,345 - root - INFO - test_loader的形状为7470
+2024-10-14 21:21:38,345 - root - INFO - test_target_tensor的形状为7470
+2024-10-14 21:21:38,380 - root - INFO - param file: experiments/swat_test/epoch_8.params
+2024-10-14 21:21:38,380 - root - INFO - Model loaded...
+2024-10-14 21:21:48,729 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-10-14 21:21:49,118 - root - INFO - Graph saved: experiments/swat_test/epoch_8.npy
+2024-10-14 21:21:49,118 - root - INFO - Evaluation...
+2024-10-14 21:21:49,124 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-10-14 21:21:49,147 - root - INFO - loss的形状为(7469,)
+2024-10-14 21:24:34,336 - root - INFO - 最高的阈值组合为(57, 176)
+2024-10-14 21:24:34,369 - root - INFO - F1 score: 0.82875
+2024-10-14 21:24:34,373 - root - INFO - Precision score: 0.7106109324758842
+2024-10-14 21:24:34,377 - root - INFO - Recall score: 0.9940029985007496
+2024-10-14 21:24:34,393 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       1.00      0.96      0.98      6754
+         1.0       0.71      0.99      0.83       667
+
+    accuracy                           0.96      7421
+   macro avg       0.85      0.98      0.90      7421
+weighted avg       0.97      0.96      0.97      7421
+

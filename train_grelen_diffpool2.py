@@ -56,17 +56,17 @@ def val_epoch(net, val_loader, sw, epoch, config):
             loss_nll = nll_gaussian(output, labels, variation).to(device)  # 计算负对数似然损失
             loss = loss_kl + loss_nll  # 总损失
             # tmp.append(loss.item())  # 保存损失
-            print(f"output:{output.shape}") # [128, 51, 29]
-            print(f"labels:{labels.shape}") # [128, 51, 29]
+            # print(f"output:{output.shape}") # [128, 51, 29]
+            # print(f"labels:{labels.shape}") # [128, 51, 29]
 
-            output_reshaped = output.view(-1, output.shape[-1])  # [128 * 51, 29]
+            # output_reshaped = output.view(-1, output.shape[-1])  # [128 * 51, 29]
 
             # label形状有问题 想办法变为[6528],搞清楚label的形状问题###################################
-            labels_reshaped = labels.view(-1, labels.shape[-1])  # [128 * 51, 29]
-            labels_reshaped = labels_reshaped.reshape(-1)
-            print(f"output_reshaped:{output_reshaped.shape},labels_reshaped[0] shape :{labels_reshaped.shape},labels_reshaped[0] shape:{labels_reshaped.shape}")
+            # labels_reshaped = labels.view(-1, labels.shape[-1])  # [128 * 51, 29]
+            # labels_reshaped = labels_reshaped.reshape(-1)
+            # print(f"output_reshaped:{output_reshaped.shape},labels_reshaped[0] shape :{labels_reshaped.shape},labels_reshaped[0] shape:{labels_reshaped.shape}")
 
-            loss_pool = net.loss(output_reshaped,labels_reshaped,adj=adj_out)
+            loss_pool = net.loss(output,labels,adj=adj_out).to(device)
             tmp.append(loss_pool.item())  # 保存损失
 
         # # 计算平均验证损失
@@ -213,17 +213,17 @@ if __name__ == '__main__':
             # nll_train.append(loss_nll)  # 记录负对数似然损失
             # kl_train.append(loss_kl)  # 记录KL散度损失
 
-            print("main_loss#############################################")
-            output_reshaped = output.view(-1, output.shape[-1])  # [128 * 51, 29]
-            labels_reshaped = labels.view(-1, labels.shape[-1])  # [128 * 51, 29]
+            # print("main_loss#############################################")
+            # output_reshaped = output.view(-1, output.shape[-1])  # [128 * 51, 29]
+            # labels_reshaped = labels.view(-1, labels.shape[-1])  # [128 * 51, 29]
 
-            loss_pool = net.loss(output_reshaped,labels_reshaped[0],adj=adj_out)
+            loss_pool = net.loss(output,labels,adj=adj_out).to(device)
             # loss_pool = net.loss(output,labels,adj=adj_out)
             loss_pool_train.append(loss_pool)
-            loss = loss_pool_train
+            loss = torch.stack(loss_pool_train).mean()  
             print(f"loss:{loss}")
             # 反向传播和优化
-            loss.to(device)
+            # loss.to(device)
             loss.backward()  # 反向传播
             optimizer.step()  # 优化一步
 

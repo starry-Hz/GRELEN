@@ -1,0 +1,711 @@
+2024-10-14 17:10:37,979 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-14 17:10:37,979 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-14 17:10:37,980 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-14 17:10:38,004 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+      (projection_layer): Linear(in_features=2, out_features=3264, bias=True)
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+  (soft_pooling_encoder): SoftPoolingGcnEncoder(
+    (conv_first): GraphConv()
+    (conv_block): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_last): GraphConv()
+    (act): ReLU()
+    (pred_model): Sequential(
+      (0): Linear(in_features=384, out_features=50, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=50, out_features=2, bias=True)
+    )
+    (conv_first_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_block_after_pool): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (conv_last_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_first_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_block_modules): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (assign_conv_last_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_pred_modules): ModuleList(
+      (0): Linear(in_features=140, out_features=12, bias=True)
+    )
+  )
+)
+2024-10-14 17:10:43,449 - root - INFO - epoch: 0, diffpool loss: 68.69
+2024-10-14 17:10:43,461 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
+2024-10-14 17:18:59,135 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-14 17:18:59,135 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-14 17:18:59,136 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-14 17:18:59,161 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+      (projection_layer): Linear(in_features=2, out_features=3264, bias=True)
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+  (soft_pooling_encoder): SoftPoolingGcnEncoder(
+    (conv_first): GraphConv()
+    (conv_block): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_last): GraphConv()
+    (act): ReLU()
+    (pred_model): Sequential(
+      (0): Linear(in_features=384, out_features=50, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=50, out_features=2, bias=True)
+    )
+    (conv_first_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_block_after_pool): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (conv_last_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_first_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_block_modules): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (assign_conv_last_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_pred_modules): ModuleList(
+      (0): Linear(in_features=140, out_features=12, bias=True)
+    )
+  )
+)
+2024-10-14 17:19:04,711 - root - INFO - epoch: 0, diffpool loss: 68.18
+2024-10-14 17:19:04,724 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
+2024-10-14 17:20:07,990 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-14 17:20:07,990 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-14 17:20:07,991 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-14 17:20:08,014 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+      (projection_layer): Linear(in_features=2, out_features=3264, bias=True)
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+  (soft_pooling_encoder): SoftPoolingGcnEncoder(
+    (conv_first): GraphConv()
+    (conv_block): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_last): GraphConv()
+    (act): ReLU()
+    (pred_model): Sequential(
+      (0): Linear(in_features=384, out_features=50, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=50, out_features=2, bias=True)
+    )
+    (conv_first_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_block_after_pool): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (conv_last_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_first_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_block_modules): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (assign_conv_last_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_pred_modules): ModuleList(
+      (0): Linear(in_features=140, out_features=12, bias=True)
+    )
+  )
+)
+2024-10-14 20:06:31,122 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-14 20:06:31,123 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-14 20:06:31,124 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-14 20:06:31,150 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+      (projection_layer): Linear(in_features=2, out_features=3264, bias=True)
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+  (soft_pooling_encoder): SoftPoolingGcnEncoder(
+    (conv_first): GraphConv()
+    (conv_block): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_last): GraphConv()
+    (act): ReLU()
+    (pred_model): Sequential(
+      (0): Linear(in_features=384, out_features=50, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=50, out_features=2, bias=True)
+    )
+    (conv_first_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_block_after_pool): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (conv_last_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_first_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_block_modules): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (assign_conv_last_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_pred_modules): ModuleList(
+      (0): Linear(in_features=140, out_features=12, bias=True)
+    )
+  )
+)
+2024-10-14 20:06:41,913 - root - INFO - epoch: 0, validation loss: 74.19
+2024-10-14 20:06:41,926 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
+2024-10-14 20:07:17,078 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-14 20:07:17,079 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-14 20:07:17,080 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-14 20:07:17,110 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+      (projection_layer): Linear(in_features=2, out_features=3264, bias=True)
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+  (soft_pooling_encoder): SoftPoolingGcnEncoder(
+    (conv_first): GraphConv()
+    (conv_block): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_last): GraphConv()
+    (act): ReLU()
+    (pred_model): Sequential(
+      (0): Linear(in_features=384, out_features=50, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=50, out_features=2, bias=True)
+    )
+    (conv_first_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_block_after_pool): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (conv_last_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_first_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_block_modules): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (assign_conv_last_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_pred_modules): ModuleList(
+      (0): Linear(in_features=140, out_features=12, bias=True)
+    )
+  )
+)
+2024-10-14 20:07:22,594 - root - INFO - epoch: 0, validation loss: 71.93
+2024-10-14 20:07:22,608 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
+2024-10-14 20:07:54,611 - root - INFO - epoch:0,kl loss:0.6619443893432617,nll loss:2.4208829402923584,diffpool loss:71.70161437988281
+2024-10-14 20:07:54,611 - root - INFO - epoch:0,elapsed time:37.500672578811646,total time:37.500672578811646
+2024-10-14 20:07:58,751 - root - INFO - epoch: 1, validation loss: 64.44
+2024-10-14 20:07:58,763 - root - INFO - save parameters to file: experiments/swat_test/epoch_1.params
+2024-10-14 20:08:31,013 - root - INFO - epoch:1,kl loss:0.5303754210472107,nll loss:1.4680882692337036,diffpool loss:67.84744262695312
+2024-10-14 20:08:31,014 - root - INFO - epoch:1,elapsed time:36.40218901634216,total time:73.90286159515381
+2024-10-14 20:08:35,140 - root - INFO - epoch: 2, validation loss: 63.43
+2024-10-14 20:08:35,154 - root - INFO - save parameters to file: experiments/swat_test/epoch_2.params
+2024-10-14 20:09:06,874 - root - INFO - epoch:2,kl loss:0.4862552285194397,nll loss:1.3491755723953247,diffpool loss:67.26284790039062
+2024-10-14 20:09:06,874 - root - INFO - epoch:2,elapsed time:35.8603994846344,total time:109.76326107978821
+2024-10-14 20:09:10,990 - root - INFO - epoch: 3, validation loss: 63.05
+2024-10-14 20:09:11,006 - root - INFO - save parameters to file: experiments/swat_test/epoch_3.params
+2024-10-14 20:09:42,614 - root - INFO - epoch:3,kl loss:0.4289957880973816,nll loss:1.2783082723617554,diffpool loss:66.89498901367188
+2024-10-14 20:09:42,615 - root - INFO - epoch:3,elapsed time:35.74020338058472,total time:145.50346446037292
+2024-10-14 20:09:46,686 - root - INFO - epoch: 4, validation loss: 62.87
+2024-10-14 20:09:46,698 - root - INFO - save parameters to file: experiments/swat_test/epoch_4.params
+2024-10-14 20:10:18,106 - root - INFO - epoch:4,kl loss:0.34231555461883545,nll loss:1.2520710229873657,diffpool loss:66.69205474853516
+2024-10-14 20:10:18,106 - root - INFO - epoch:4,elapsed time:35.491300106048584,total time:180.9947645664215
+2024-10-14 20:10:22,130 - root - INFO - epoch: 5, validation loss: 62.71
+2024-10-14 20:10:22,142 - root - INFO - save parameters to file: experiments/swat_test/epoch_5.params
+2024-10-14 20:10:53,617 - root - INFO - epoch:5,kl loss:0.18131214380264282,nll loss:1.2536871433258057,diffpool loss:66.47313690185547
+2024-10-14 20:10:53,617 - root - INFO - epoch:5,elapsed time:35.51122188568115,total time:216.50598645210266
+2024-10-14 20:10:57,652 - root - INFO - epoch: 6, validation loss: 62.54
+2024-10-14 20:10:57,665 - root - INFO - save parameters to file: experiments/swat_test/epoch_6.params
+2024-10-14 20:11:29,342 - root - INFO - epoch:6,kl loss:0.09280978888273239,nll loss:1.2362346649169922,diffpool loss:66.30292510986328
+2024-10-14 20:11:29,342 - root - INFO - epoch:6,elapsed time:35.724950313568115,total time:252.23093676567078
+2024-10-14 20:11:33,399 - root - INFO - epoch: 7, validation loss: 62.43
+2024-10-14 20:11:33,411 - root - INFO - save parameters to file: experiments/swat_test/epoch_7.params
+2024-10-14 20:12:05,062 - root - INFO - epoch:7,kl loss:0.1480628252029419,nll loss:1.222607970237732,diffpool loss:66.26515197753906
+2024-10-14 20:12:05,062 - root - INFO - epoch:7,elapsed time:35.71991801261902,total time:287.9508547782898
+2024-10-14 20:12:09,092 - root - INFO - epoch: 8, validation loss: 62.25
+2024-10-14 20:12:09,103 - root - INFO - save parameters to file: experiments/swat_test/epoch_8.params
+2024-10-14 20:12:40,705 - root - INFO - epoch:8,kl loss:0.15800538659095764,nll loss:1.1903446912765503,diffpool loss:66.1323471069336
+2024-10-14 20:12:40,705 - root - INFO - epoch:8,elapsed time:35.64310550689697,total time:323.59396028518677
+2024-10-14 20:12:44,741 - root - INFO - epoch: 9, validation loss: 62.09
+2024-10-14 20:12:44,753 - root - INFO - save parameters to file: experiments/swat_test/epoch_9.params
+2024-10-14 20:13:16,204 - root - INFO - epoch:9,kl loss:0.15924859046936035,nll loss:1.1695412397384644,diffpool loss:66.04336547851562
+2024-10-14 20:13:16,204 - root - INFO - epoch:9,elapsed time:35.49845361709595,total time:359.0924139022827
+2024-10-14 20:13:20,254 - root - INFO - epoch: 10, validation loss: 62.15
+2024-10-14 20:13:51,273 - root - INFO - epoch:10,kl loss:0.13943040370941162,nll loss:1.1552482843399048,diffpool loss:65.94873809814453
+2024-10-14 20:13:51,273 - root - INFO - epoch:10,elapsed time:35.06876516342163,total time:394.16117906570435
+2024-10-14 20:13:55,318 - root - INFO - epoch: 11, validation loss: 62.04
+2024-10-14 20:13:55,330 - root - INFO - save parameters to file: experiments/swat_test/epoch_11.params
+2024-10-14 20:14:26,948 - root - INFO - epoch:11,kl loss:0.11747194826602936,nll loss:1.1415046453475952,diffpool loss:65.85757446289062
+2024-10-14 20:14:26,948 - root - INFO - epoch:11,elapsed time:35.675305128097534,total time:429.8364841938019
+2024-10-14 20:14:30,950 - root - INFO - epoch: 12, validation loss: 61.82
+2024-10-14 20:14:30,961 - root - INFO - save parameters to file: experiments/swat_test/epoch_12.params
+2024-10-14 20:15:02,441 - root - INFO - epoch:12,kl loss:0.11229249089956284,nll loss:1.1240184307098389,diffpool loss:65.76841735839844
+2024-10-14 20:15:02,441 - root - INFO - epoch:12,elapsed time:35.49309277534485,total time:465.32957696914673
+2024-10-14 20:15:06,438 - root - INFO - epoch: 13, validation loss: 61.79
+2024-10-14 20:15:06,451 - root - INFO - save parameters to file: experiments/swat_test/epoch_13.params
+2024-10-14 20:15:37,518 - root - INFO - epoch:13,kl loss:0.12072917073965073,nll loss:1.1329975128173828,diffpool loss:65.74883270263672
+2024-10-14 20:15:37,518 - root - INFO - epoch:13,elapsed time:35.07665824890137,total time:500.4062352180481
+2024-10-14 20:15:41,520 - root - INFO - epoch: 14, validation loss: 61.98
+2024-10-14 20:16:12,736 - root - INFO - epoch:14,kl loss:0.12893059849739075,nll loss:1.1210676431655884,diffpool loss:65.68655395507812
+2024-10-14 20:16:12,736 - root - INFO - epoch:14,elapsed time:35.21802258491516,total time:535.6242578029633
+2024-10-14 20:16:16,784 - root - INFO - epoch: 15, validation loss: 61.99
+2024-10-14 20:16:47,868 - root - INFO - epoch:15,kl loss:0.12775380909442902,nll loss:1.1003491878509521,diffpool loss:65.6246337890625
+2024-10-14 20:16:47,869 - root - INFO - epoch:15,elapsed time:35.132383584976196,total time:570.7566413879395
+2024-10-14 20:16:51,904 - root - INFO - epoch: 16, validation loss: 61.92
+2024-10-14 20:17:22,935 - root - INFO - epoch:16,kl loss:0.25164148211479187,nll loss:1.1937241554260254,diffpool loss:66.15907287597656
+2024-10-14 20:17:22,935 - root - INFO - epoch:16,elapsed time:35.06592035293579,total time:605.8225617408752
+2024-10-14 20:17:26,955 - root - INFO - epoch: 17, validation loss: 61.98
+2024-10-14 20:17:58,701 - root - INFO - epoch:17,kl loss:0.21317516267299652,nll loss:1.1642955541610718,diffpool loss:66.0466079711914
+2024-10-14 20:17:58,702 - root - INFO - epoch:17,elapsed time:35.76685190200806,total time:641.5894136428833
+2024-10-14 20:18:02,718 - root - INFO - epoch: 18, validation loss: 62.78
+2024-10-14 20:18:34,041 - root - INFO - epoch:18,kl loss:0.3107072114944458,nll loss:1.1381503343582153,diffpool loss:65.99678039550781
+2024-10-14 20:18:34,042 - root - INFO - epoch:18,elapsed time:35.33987879753113,total time:676.9292924404144
+2024-10-14 20:18:38,171 - root - INFO - epoch: 19, validation loss: 62.04
+2024-10-14 20:19:09,678 - root - INFO - epoch:19,kl loss:0.2029588371515274,nll loss:1.0879091024398804,diffpool loss:65.6281509399414
+2024-10-14 20:19:09,678 - root - INFO - epoch:19,elapsed time:35.63651514053345,total time:712.5658075809479
+2024-10-14 20:19:13,736 - root - INFO - epoch: 20, validation loss: 61.86
+2024-10-14 21:11:51,841 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-14 21:11:51,841 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-14 21:11:51,842 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-14 21:11:51,866 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+      (projection_layer): Linear(in_features=2, out_features=3264, bias=True)
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+  (soft_pooling_encoder): SoftPoolingGcnEncoder(
+    (conv_first): GraphConv()
+    (conv_block): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_last): GraphConv()
+    (act): ReLU()
+    (pred_model): Sequential(
+      (0): Linear(in_features=384, out_features=50, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=50, out_features=2, bias=True)
+    )
+    (conv_first_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_block_after_pool): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (conv_last_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_first_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_block_modules): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (assign_conv_last_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_pred_modules): ModuleList(
+      (0): Linear(in_features=140, out_features=12, bias=True)
+    )
+  )
+)
+2024-10-14 21:11:57,430 - root - INFO - epoch: 0, validation loss: 73.21
+2024-10-14 21:11:57,442 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
+2024-10-14 21:12:33,307 - root - INFO - epoch:0,kl loss:0.6540628671646118,nll loss:2.7353034019470215,diffpool loss:72.36747741699219
+2024-10-14 21:12:33,307 - root - INFO - epoch:0,elapsed time:41.440221071243286,total time:41.440221071243286
+2024-10-14 21:12:37,384 - root - INFO - epoch: 1, validation loss: 64.58
+2024-10-14 21:12:37,397 - root - INFO - save parameters to file: experiments/swat_test/epoch_1.params
+2024-10-14 21:13:13,592 - root - INFO - epoch:1,kl loss:0.5388521552085876,nll loss:1.4926598072052002,diffpool loss:67.80391693115234
+2024-10-14 21:13:13,592 - root - INFO - epoch:1,elapsed time:40.28519105911255,total time:81.72541213035583
+2024-10-14 21:13:17,664 - root - INFO - epoch: 2, validation loss: 63.40
+2024-10-14 21:13:17,676 - root - INFO - save parameters to file: experiments/swat_test/epoch_2.params
+2024-10-14 21:13:54,034 - root - INFO - epoch:2,kl loss:0.5095705389976501,nll loss:1.3131204843521118,diffpool loss:67.0819091796875
+2024-10-14 21:13:54,035 - root - INFO - epoch:2,elapsed time:40.44250464439392,total time:122.16791677474976
+2024-10-14 21:13:58,101 - root - INFO - epoch: 3, validation loss: 63.03
+2024-10-14 21:13:58,113 - root - INFO - save parameters to file: experiments/swat_test/epoch_3.params
+2024-10-14 21:14:34,480 - root - INFO - epoch:3,kl loss:0.48516008257865906,nll loss:1.2644222974777222,diffpool loss:66.86307525634766
+2024-10-14 21:14:34,481 - root - INFO - epoch:3,elapsed time:40.44588255882263,total time:162.6137993335724
+2024-10-14 21:14:38,557 - root - INFO - epoch: 4, validation loss: 62.95
+2024-10-14 21:14:38,569 - root - INFO - save parameters to file: experiments/swat_test/epoch_4.params
+2024-10-14 21:15:14,732 - root - INFO - epoch:4,kl loss:0.4463186264038086,nll loss:1.251987338066101,diffpool loss:66.75548553466797
+2024-10-14 21:15:14,732 - root - INFO - epoch:4,elapsed time:40.25156927108765,total time:202.86536860466003
+2024-10-14 21:15:18,829 - root - INFO - epoch: 5, validation loss: 62.81
+2024-10-14 21:15:18,841 - root - INFO - save parameters to file: experiments/swat_test/epoch_5.params
+2024-10-14 21:15:54,874 - root - INFO - epoch:5,kl loss:0.36905306577682495,nll loss:1.2434477806091309,diffpool loss:66.63492584228516
+2024-10-14 21:15:54,874 - root - INFO - epoch:5,elapsed time:40.141762256622314,total time:243.00713086128235
+2024-10-14 21:15:58,942 - root - INFO - epoch: 6, validation loss: 62.72
+2024-10-14 21:15:58,953 - root - INFO - save parameters to file: experiments/swat_test/epoch_6.params
+2024-10-14 21:16:35,240 - root - INFO - epoch:6,kl loss:0.29253438115119934,nll loss:1.2239394187927246,diffpool loss:66.48861694335938
+2024-10-14 21:16:35,240 - root - INFO - epoch:6,elapsed time:40.365718364715576,total time:283.3728492259979
+2024-10-14 21:16:39,350 - root - INFO - epoch: 7, validation loss: 62.58
+2024-10-14 21:16:39,362 - root - INFO - save parameters to file: experiments/swat_test/epoch_7.params
+2024-10-14 21:17:15,732 - root - INFO - epoch:7,kl loss:0.24475137889385223,nll loss:1.2222580909729004,diffpool loss:66.380126953125
+2024-10-14 21:17:15,732 - root - INFO - epoch:7,elapsed time:40.491902589797974,total time:323.8647518157959
+2024-10-14 21:17:19,873 - root - INFO - epoch: 8, validation loss: 62.46
+2024-10-14 21:17:19,885 - root - INFO - save parameters to file: experiments/swat_test/epoch_8.params
+2024-10-14 21:17:56,265 - root - INFO - epoch:8,kl loss:0.2270488440990448,nll loss:1.2140536308288574,diffpool loss:66.36532592773438
+2024-10-14 21:17:56,265 - root - INFO - epoch:8,elapsed time:40.53284239768982,total time:364.3975942134857
+2024-10-14 21:18:00,325 - root - INFO - epoch: 9, validation loss: 62.50

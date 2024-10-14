@@ -77,7 +77,7 @@ def kl_categorical(preds, log_prior, num_atoms, eps=1e-16):
 
     preds: 预测分布
     log_prior: 先验分布的对数
-    num_atoms: 原子数量
+    num_atoms: 
     eps: 小常数，防止数值问题
     """
     kl_div = preds * (torch.log(preds + eps) - log_prior)  # 计算KL散度
