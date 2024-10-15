@@ -230,11 +230,14 @@ def point_adjust_eval(anomaly_start, anomaly_end, down, loss, thr1, thr2):
     anomaly[np.where(loss<thr2)] = 1  # 标记小于阈值2的点
     ground_truth = np.zeros((len_))  # 初始化真实值数组
     for i in range(len(anomaly_start)):
+        # 异常开始点"anomaly_start[i]" 到 异常结束点"anomaly_end[i]" 下采样后的区域标记为1,表示该区域是真正的异常区域
+        # anomaly_start[i]/down 和 anomaly_end[i]/down+1 将原始的时间序列索引缩小到下采样后的索引
         ground_truth[int(anomaly_start[i]/down) :int(anomaly_end[i]/down)+1] = 1  # 标记异常区域
+        # 如果该区域内有一个点被检测为异常，整个区域都被视为异常
         if np.sum(anomaly[int(anomaly_start[i]/down) :int(anomaly_end[i]/down)])>0:
             anomaly[int(anomaly_start[i]/down) :int(anomaly_end[i]/down)] = 1  # 调整异常区域
         anomaly[int(anomaly_start[i]/down)] = ground_truth[int(anomaly_start[i]/down)]  # 调整开始点
         anomaly[int(anomaly_end[i]/down)] = ground_truth[int(anomaly_end[i]/down)]  # 调整结束点
 
-    # anomaly调整后的异常检测结果;  ground_truth实际的异常标记
+    # anomaly表示预测的异常情况;  ground_truth表示实际的异常情况
     return anomaly, ground_truth  # 返回调整后的异常和真实值

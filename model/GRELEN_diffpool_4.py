@@ -355,11 +355,13 @@ class SoftPoolingGcnEncoder(GcnEncoderGraph):
                 out_all.append(out)
 
         output = torch.cat(out_all, dim=1) if self.concat else out
-        print(f"output shape:{output.shape}")   # output shape:torch.Size([1280, 384])
+        # print(f"SoftPoolingGcnEncoder output shape:{output.shape}")   # output shape:torch.Size([1280, 384])
         ypred = self.pred_model(output)
-        print(f"ypred:{ypred.shape}")   # ypred:torch.Size([1280, 2])
+        # print(f"ypred:{ypred.shape}")   # ypred:torch.Size([1280, 2])
         # print(ypred)
+
         return ypred
+        # return output
 
     def loss(self, pred, label, adj=None, batch_num_nodes=None, adj_hop=1):
         eps = 1e-7
@@ -419,7 +421,7 @@ class EncoderModel(nn.Module):
              for _ in range(self.num_rnn_layers)])
 
         # 添加一个线性层将输出调整到合适的形状
-        self.projection_layer = nn.Linear(2, self.num_nodes * self.rnn_units)
+        # self.projection_layer = nn.Linear(2, self.num_nodes * self.rnn_units)
 
 
     def forward(self, inputs, adj, hidden_state=None):
@@ -428,14 +430,15 @@ class EncoderModel(nn.Module):
             hidden_state = torch.zeros((self.num_rnn_layers, batch_size, self.hidden_state_size)).to(self.device)
         hidden_states = []
         output = inputs
-        print(f"output shape : {output.shape}") # output shape : torch.Size([1280, 51, 64])
+        # print(f"EncoderModel output shape : {output.shape}") # output shape : torch.Size([1280, 51, 64])
         for layer_num, gcn_layer in enumerate(self.gcn_layers):
             output = gcn_layer(output, adj, batch_num_nodes=None)
-            print(f"Layer {layer_num} - SoftPoolingGcnEncoder output shape: {output.shape}")
-            output = self.projection_layer(output)  # [batch_size, num_nodes * rnn_units]
-            output = output.view(batch_size, self.num_nodes, self.rnn_units)  # [batch_size, num_nodes, rnn_units]
+            # print(f"EncoderModel Layer {layer_num} - SoftPoolingGcnEncoder output shape: {output.shape}")
+            # output = self.projection_layer(output)  # [batch_size, num_nodes * rnn_units]
+            # output = output.view(batch_size, self.num_nodes, self.rnn_units)  # [batch_size, num_nodes, rnn_units]
             hidden_states.append(output)
-        print(f"output shape after SoftPoolingGcnEncoder : {output.shape}") # output shape after SoftPoolingGcnEncoder : torch.Size([1280, 51, 64])
+        # EncoderModel output shape : torch.Size([128, 2]),torch.stack(hidden_states):torch.Size([1, 128, 2])
+        # print(f"EncoderModel output shape : {output.shape},torch.stack(hidden_states):{torch.stack(hidden_states).shape}")
         return output, torch.stack(hidden_states)
 
 
@@ -466,9 +469,13 @@ class Grelen(nn.Module):
         self.encoder_model = nn.ModuleList(
             [EncoderModel(self.device, GRU_n_dim, GRU_n_dim, max_diffusion_step, num_nodes, num_rnn_layers, filter_type)
              for _ in range(self.head - 1)])
-        self.linear_out = nn.Linear(GRU_n_dim, 1)
+        # self.linear_out = nn.Linear(GRU_n_dim, 1)
+        self.linear_out = nn.Linear(2, 2)
         nn.init.xavier_normal_(self.linear_out.weight.data)
         self.linear_out.bias.data.fill_(0.1)
+
+        # Attention weights for combining multiple heads
+        self.attention_weights = nn.Parameter(torch.ones(self.head - 1), requires_grad=True)
 
         # 添加 SoftPoolingGcnEncoder 用于产生 self.assign_tensor
         self.soft_pooling_encoder = SoftPoolingGcnEncoder(self.device,num_nodes, GRU_n_dim, GRU_n_dim, GRU_n_dim, label_dim=2,
@@ -480,77 +487,81 @@ class Grelen(nn.Module):
 
     def encoder(self, inputs, adj, head):
         """
-        Encoder forward pass
+        Encoder forward pass with aggregation
         """
-
         encoder_hidden_state = None
-        encoder_hidden_state_tensor = torch.zeros(inputs.shape).to(self.device)
+        output = inputs
+
+        # 存储每个时间步的隐藏状态
+        hidden_states = []
+
         for t in range(self.len_sequence):
-            _, encoder_hidden_state = self.encoder_model[head](inputs[..., t], adj, encoder_hidden_state)
-            # 打印 encoder_hidden_state 的形??
-            # print(f"Step {t} - encoder_hidden_state shape: {encoder_hidden_state.shape}")
-            # print(f"inputs.size(0): {inputs.size(0)}, self.num_nodes: {self.num_nodes}, self.GRU_n_dim: {self.GRU_n_dim}")
-            # 尝试 reshape 之前确保形状是匹配的
-            encoder_hidden_state_tensor[..., t] = encoder_hidden_state[-1, ...].view(inputs.size(0), self.num_nodes, self.GRU_n_dim)
-        return encoder_hidden_state_tensor
+            ypred, encoder_hidden_state = self.encoder_model[head](output[..., t], adj, encoder_hidden_state)
+            hidden_states.append(ypred)
+
+        # 将所有时间步的隐藏状态拼接成 tensor
+        hidden_states = torch.stack(hidden_states, dim=0)
+
+        # 对时间维度进行聚合（这里用平均池化）
+        aggregated_state = torch.mean(hidden_states, dim=0)
+
+        return aggregated_state
 
     def forward(self, inputs):
-
         B = inputs.shape[0]
         input_projected = self.linear1(inputs.unsqueeze(-1))  # [B, N, T, GRU_n_dim]
         input_projected = input_projected.permute(0, 1, 3, 2)  # [B, N, GRU_n_dim, T]
         probs = self.graph_learner(inputs)  # [B, head, N, N]
-        mask_loc = torch.eye(self.num_nodes, dtype=bool).to(self.device)
-        probs_reshaped = probs.masked_select(~mask_loc).view(B, self.head, self.num_nodes * (self.num_nodes - 1)).to(self.device)
-        probs_reshaped = probs_reshaped.permute(0, 2, 1)
-        prob = F.softmax(probs_reshaped, -1)
-        edges = gumbel_softmax(torch.log(prob + 1e-5), tau=self.temperature, hard=True).to(self.device)
 
+        # 获得每个头的邻接矩阵
         adj_list = torch.ones(self.head, B, self.num_nodes, self.num_nodes).to(self.device)
-        mask = ~torch.eye(self.num_nodes, dtype=bool).unsqueeze(0).unsqueeze(0).to(self.device)
-        mask = mask.repeat(self.head, B, 1, 1).to(self.device)
-        adj_list[mask] = edges.permute(2, 0, 1).flatten()
 
-
-        adj_mean = torch.mean(adj_list, dim=0)
-
-        # print(f"adj_list:{adj_list.shape}")
-        # print(f"edges.permute(2, 0, 1):{edges.permute(2, 0, 1).shape}")
-        # print(f"adj_out:{adj_out.shape}")
-        state_for_output = torch.zeros(input_projected.shape).to(self.device)
-        state_for_output = (state_for_output.unsqueeze(0)).repeat(self.head - 1, 1, 1, 1, 1)
+        # 保存所有头的输出
+        state_for_output = []
 
         for head in range(self.head - 1):
-            state_for_output[head, ...] = self.encoder(input_projected, adj_list[head + 1, ...], head)
+            encoder_output = self.encoder(input_projected, adj_list[head + 1, ...], head)
+            state_for_output.append(encoder_output)
 
-        state_for_output2 = torch.mean(state_for_output, 0).permute(0, 1, 3, 2)
-        output = self.linear_out(state_for_output2).squeeze(-1)[..., -1 - self.target_T:-1]
+        # 将多个头的输出堆叠并加权求和
+        state_for_output = torch.stack(state_for_output, dim=0)  # [head-1, B, 2]
+        attention_weights = F.softmax(self.attention_weights, dim=0)  # 对注意力权重进行 softmax
+        state_for_output = torch.sum(attention_weights.view(-1, 1, 1) * state_for_output, dim=0)  # 加权求和
 
-        # assign_tensor = SoftPoolingGcnEncoder.assign_tensor_(input_projected,)
+        # 预测输出
+        output = self.linear_out(state_for_output)
+        # print(f"GRELEN output shape : {output.shape}")  # GRELEN output shape : torch.Size([128, 2])
+        # print(f"GRELEN output {output}")
 
-        return prob, output, adj_mean
+        return probs, output, torch.mean(adj_list, dim=0)
 
     # 计算预测值与真实标签之间的损失,用于模型的训练和优化
-    def loss(self, pred, label,adj, type='softmax'):
-        '''
-        pred : 预测值,形状为 [batch_size, label_dim],表示每个样本的预测输出
-        label : 真实标签,形状为 [batch_size],表示每个样本的真实类别
-        type : 损失类型,默认为 'softmax',可选为 'softmax' 或 'margin'
-        '''
-        # softmax + CE
-        if type == 'softmax':
-            # 交叉熵损失函数 (F.cross_entropy) 计算损失
-            return F.cross_entropy(pred, label, reduction='mean')
-        elif type == 'margin':
-            # 多标签边缘损失 (margin)：用于多标签分类任务,鼓励正确类别的预测分数比其他类别高。
-            batch_size = pred.size()[0]
-            label_onehot = torch.zeros(batch_size, self.label_dim).long().cuda()    # [batch_size, label_dim]
-            # long() 函数将张量元素转换为 torch.int64 类型
-            # 使用 scatter_ 方法将 label 中的类别信息转换为独热编码 (one-hot encoding)
-            label_onehot.scatter_(1, label.view(-1,1), 1)
-            return torch.nn.MultiLabelMarginLoss()(pred, label_onehot)
-            
-        #return F.binary_cross_entropy(F.sigmoid(pred[:,0]), label.float())
+    def loss(self, pred, label, adj=None, batch_num_nodes=None, adj_hop=1):
+        eps = 1e-7
+        loss = super(SoftPoolingGcnEncoder, self).loss(pred, label)
+        if self.linkpred:
+            max_num_nodes = adj.size()[1]
+            pred_adj0 = self.assign_tensor @ torch.transpose(self.assign_tensor, 1, 2)
+            tmp = pred_adj0
+            pred_adj = pred_adj0
+            for adj_pow in range(adj_hop - 1):
+                tmp = tmp @ pred_adj0
+                pred_adj = pred_adj + tmp
+            pred_adj = torch.min(pred_adj, torch.ones(1, dtype=pred_adj.dtype, device=self.device))
+            self.link_loss = -adj * torch.log(pred_adj + eps) - (1 - adj) * torch.log(1 - pred_adj + eps)
+            if batch_num_nodes is None:
+                num_entries = max_num_nodes * max_num_nodes * adj.size()[0]
+                print('Warning: calculating link pred loss without masking')
+                logging.info('Warning: calculating link pred loss without masking')
+            else:
+                num_entries = np.sum(batch_num_nodes * batch_num_nodes)
+                embedding_mask = self.construct_mask(max_num_nodes, batch_num_nodes)
+                adj_mask = embedding_mask @ torch.transpose(embedding_mask, 1, 2)
+                self.link_loss[(1 - adj_mask).bool()] = 0.0
+
+            self.link_loss = torch.sum(self.link_loss) / float(num_entries)
+            return loss + self.link_loss
+        return loss
 
     
 

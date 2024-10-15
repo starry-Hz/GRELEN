@@ -70,3 +70,85 @@ weighted avg       0.97      0.96      0.96      7421
    macro avg       0.85      0.98      0.90      7421
 weighted avg       0.97      0.96      0.97      7421
 
+2024-10-15 09:36:01,814 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-10-15 09:36:01,815 - root - INFO - test_loader的形状为7470
+2024-10-15 09:36:01,815 - root - INFO - test_target_tensor的形状为7470
+2024-10-15 09:36:01,849 - root - INFO - param file: experiments/swat_test/epoch_147.params
+2024-10-15 09:36:01,849 - root - INFO - Model loaded...
+2024-10-15 09:36:12,178 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-10-15 09:36:12,559 - root - INFO - Graph saved: experiments/swat_test/epoch_147.npy
+2024-10-15 09:36:12,559 - root - INFO - Evaluation...
+2024-10-15 09:36:12,564 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-10-15 09:36:12,591 - root - INFO - loss的形状为(7469,)
+2024-10-15 09:39:32,117 - root - INFO - 最高的阈值组合为(29, 59)
+2024-10-15 09:39:32,167 - root - INFO - F1 score: 0.8416763678696159
+2024-10-15 09:39:32,173 - root - INFO - Precision score: 0.77491961414791
+2024-10-15 09:39:32,179 - root - INFO - Recall score: 0.9210191082802548
+2024-10-15 09:39:32,205 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       0.99      0.97      0.98      6636
+         1.0       0.77      0.92      0.84       785
+
+    accuracy                           0.96      7421
+   macro avg       0.88      0.94      0.91      7421
+weighted avg       0.97      0.96      0.96      7421
+
+2024-10-15 16:39:43,093 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-10-15 16:39:43,095 - root - INFO - test_loader的形状为7470
+2024-10-15 16:39:43,095 - root - INFO - test_target_tensor的形状为7470
+2024-10-15 16:39:43,148 - root - INFO - param file: experiments/swat_test/epoch_147.params
+2024-10-15 16:39:43,148 - root - INFO - Model loaded...
+2024-10-15 16:39:53,733 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-10-15 16:39:54,160 - root - INFO - Graph saved: experiments/swat_test/epoch_147.npy
+2024-10-15 16:39:54,161 - root - INFO - Evaluation...
+2024-10-15 16:39:54,169 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-10-15 16:39:54,197 - root - INFO - loss的形状为(7469,)
+2024-10-15 16:42:59,661 - root - INFO - 最高的阈值组合为(29, 59)
+2024-10-15 16:42:59,697 - root - INFO - F1 score: 0.8416763678696159
+2024-10-15 16:42:59,701 - root - INFO - Precision score: 0.9210191082802548
+2024-10-15 16:42:59,706 - root - INFO - Recall score: 0.77491961414791
+2024-10-15 16:42:59,724 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       0.97      0.99      0.98      6488
+         1.0       0.92      0.77      0.84       933
+
+    accuracy                           0.96      7421
+   macro avg       0.94      0.88      0.91      7421
+weighted avg       0.96      0.96      0.96      7421
+
+2024-10-15 17:19:52,310 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-10-15 17:19:52,310 - root - INFO - test_loader的形状为7470
+2024-10-15 17:19:52,310 - root - INFO - test_target_tensor的形状为7470
+2024-10-15 17:19:52,348 - root - INFO - param file: experiments/swat_test/epoch_147.params
+2024-10-15 17:19:52,348 - root - INFO - Model loaded...
+2024-10-15 17:34:25,302 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-10-15 17:34:25,303 - root - INFO - test_loader的形状为7470
+2024-10-15 17:34:25,303 - root - INFO - test_target_tensor的形状为7470
+2024-10-15 17:34:25,338 - root - INFO - param file: experiments/swat_test/epoch_147.params
+2024-10-15 17:34:25,338 - root - INFO - Model loaded...
+2024-10-15 17:37:10,105 - root - INFO - 训练集文件data/SWAT/test_swat_gcn.npz
+2024-10-15 17:37:10,106 - root - INFO - test_loader的形状为7470
+2024-10-15 17:37:10,106 - root - INFO - test_target_tensor的形状为7470
+2024-10-15 17:37:10,150 - root - INFO - param file: experiments/swat_test/epoch_147.params
+2024-10-15 17:37:10,151 - root - INFO - Model loaded...
+2024-10-15 17:37:21,141 - root - INFO - mat_test的形状为torch.Size([4, 7470, 51, 51])
+2024-10-15 17:37:21,581 - root - INFO - Graph saved: experiments/swat_test/epoch_147.npy
+2024-10-15 17:37:21,581 - root - INFO - Evaluation...
+2024-10-15 17:37:21,592 - root - INFO - total_out_degree_move_filtered的形状为(7469, 51)
+2024-10-15 17:37:21,614 - root - INFO - loss的形状为(7469,)
+2024-10-15 17:40:35,324 - root - INFO - 最高的阈值组合为(29, 59)
+2024-10-15 17:40:35,365 - root - INFO - F1 score: 0.8416763678696159
+2024-10-15 17:40:35,370 - root - INFO - Precision score: 0.77491961414791
+2024-10-15 17:40:35,375 - root - INFO - Recall score: 0.9210191082802548
+2024-10-15 17:40:35,395 - root - INFO - Confusion matrix: 
+              precision    recall  f1-score   support
+
+         0.0       0.99      0.97      0.98      6636
+         1.0       0.77      0.92      0.84       785
+
+    accuracy                           0.96      7421
+   macro avg       0.88      0.94      0.91      7421
+weighted avg       0.97      0.96      0.96      7421
+

@@ -1,0 +1,198 @@
+2024-10-15 20:52:44,345 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-15 20:52:44,346 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-15 20:52:44,348 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-15 20:52:44,375 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+    )
+  )
+  (linear_out): Linear(in_features=2, out_features=2, bias=True)
+  (soft_pooling_encoder): SoftPoolingGcnEncoder(
+    (conv_first): GraphConv()
+    (conv_block): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_last): GraphConv()
+    (act): ReLU()
+    (pred_model): Sequential(
+      (0): Linear(in_features=384, out_features=50, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=50, out_features=2, bias=True)
+    )
+    (conv_first_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_block_after_pool): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (conv_last_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_first_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_block_modules): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (assign_conv_last_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_pred_modules): ModuleList(
+      (0): Linear(in_features=140, out_features=12, bias=True)
+    )
+  )
+)
+2024-10-15 20:53:37,601 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-15 20:53:37,602 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-15 20:53:37,603 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-15 20:53:37,627 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+    )
+  )
+  (linear_out): Linear(in_features=2, out_features=2, bias=True)
+  (soft_pooling_encoder): SoftPoolingGcnEncoder(
+    (conv_first): GraphConv()
+    (conv_block): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_last): GraphConv()
+    (act): ReLU()
+    (pred_model): Sequential(
+      (0): Linear(in_features=384, out_features=50, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=50, out_features=2, bias=True)
+    )
+    (conv_first_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_block_after_pool): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (conv_last_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_first_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_block_modules): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (assign_conv_last_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_pred_modules): ModuleList(
+      (0): Linear(in_features=140, out_features=12, bias=True)
+    )
+  )
+)
+2024-10-15 20:53:54,971 - root - INFO - epoch:0,elapsed time:17.343255519866943,total time:17.343255519866943
+2024-10-15 20:54:10,451 - root - INFO - epoch:1,elapsed time:15.479083776473999,total time:32.82233929634094

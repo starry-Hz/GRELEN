@@ -115,7 +115,7 @@ class DCGRUCell_(torch.nn.Module):
 
     def _calculate_random_walk0(self, adj_mx, B):  # adj_mx是tensor形式
         # print(f"随机游走中的adj形状{adj_mx.shape}")
-        logging.info(f"随机游走中的adj形状{adj_mx.shape}")  # [128, 51, 51]
+        # logging.info(f"随机游走中的adj形状{adj_mx.shape}")  # [128, 51, 51]
         adj_mx = adj_mx + torch.eye(int(adj_mx.shape[1])).unsqueeze(0).repeat(B, 1, 1).to(self.device)
         d = torch.sum(adj_mx, 1)
         d_inv = 1. / d
@@ -125,9 +125,9 @@ class DCGRUCell_(torch.nn.Module):
         return random_walk_mx
 
     def forward(self, inputs, hx, adj):
-        logging.info(f"DCGRUCell_类中的输入inputs形状为{inputs.shape}")  # [128, 51, 64]
-        logging.info(f"DCGRUCell_类中的hx矩阵的形状为{hx.shape}")   # [128, 3264]
-        logging.info(f"DCGRUCell_类中的adj矩阵的形状为{adj.shape}") # [128, 51, 51]
+        # logging.info(f"DCGRUCell_类中的输入inputs形状为{inputs.shape}")  # [128, 51, 64]
+        # logging.info(f"DCGRUCell_类中的hx矩阵的形状为{hx.shape}")   # [128, 3264]
+        # logging.info(f"DCGRUCell_类中的adj矩阵的形状为{adj.shape}") # [128, 51, 51]
         output_size = 2 * self._num_units
         if self._use_gc_for_ru:
             fn = self._gconv
@@ -145,6 +145,7 @@ class DCGRUCell_(torch.nn.Module):
             c = self._activation(c)
 
         new_state = u * hx + (1.0 - u) * c
+        print(f"DCGRUCell_类中的new_state形状为{new_state.shape}")  # torch.Size([1280, 3264])
         return new_state
 
     @staticmethod
@@ -309,6 +310,8 @@ class EncoderModel(nn.Module):
             hidden_states.append(next_hidden_state)
             output = next_hidden_state
 
+        # print(f"EncoderModel output shape : {output.shape},torch.stack(hidden_states):{torch.stack(hidden_states).shape}")
+        # EncoderModel output shape : torch.Size([1280, 3264]),torch.stack(hidden_states):torch.Size([1, 1280, 3264]
         return output, torch.stack(hidden_states)
 
 class Grelen(nn.Module):

@@ -82,7 +82,7 @@ if __name__ == '__main__':
     reconstructed_tensor = torch.zeros((0, N, target_T))    # 用于存储模型的重构输出（预测值）
     # 初始化张量用于存储测试结果,N*(N-1)表示图中所有节点对(去除自连接)的数量
     prob_tensor = torch.zeros((0, N * (N - 1), Graph_learner_head)) # 用于存储图学习器输出的概率（节点关系的概率矩阵）
-
+    # print(f"prob tensor shape:{prob_tensor.shape}") # prob tensor shape:torch.Size([0, 2550, 4])
     # 测试模型
     with torch.no_grad():   # 禁用梯度计算
         # 加载测试数据,每次加载一个批次,batch_index当前批次的索引,batch_data当前批次数据
@@ -92,7 +92,7 @@ if __name__ == '__main__':
             labels = labels[:, :, 0, 1:]
             # prob:模型学习到的节点之间的关系概率矩阵;output:模型的预测输出
             prob, output = net(encoder_inputs)
-            # print(output)
+            # print(f"prob shape:{prob.shape},output shape:{output.shape}")   # prob shape:torch.Size([1280, 2550, 4]),output shape:torch.Size([1280, 51, 29])
             # 将当前批次的prob拼接到prob_tensor中
             prob_tensor = torch.cat([prob_tensor, prob.cpu()], dim=0)
 
@@ -132,6 +132,7 @@ if __name__ == '__main__':
     这可以用于检测那些明显偏离正常连接模式的时间步，进而标记为异常。
     """
     loss = np.mean(total_out_degree_move_filtered, 1)  # 计算每个时间步的平均损失
+    # print(f"loss shape:{loss.size}")   # loss shape:(7469,)
 
     # 将损失写入 TensorBoard
     for i, l in enumerate(loss):
@@ -152,12 +153,15 @@ if __name__ == '__main__':
     logging.info(f"最高的阈值组合为{pos}")
     # 使用找到的最佳阈值组合,重新评估异常检测效果,应用点调整策略
     anomaly, ground_truth = point_adjust_eval(anomaly_start, anomaly_end, config.downsampling_fre, loss, pos[0] * 0.0005, -pos[1] * 0.0005)
+    # print(f"ground_truth异常标签数量{np.sum(ground_truth==1)},正常标签数量{np.sum(ground_truth==0)}")
+    # print(f"anomaly异常标签数量{np.sum(anomaly==1)},正常标签数量{np.sum(anomaly==0)}")
 
     # 输出并记录评估结果
     print('F1 score: ', f1_score(anomaly, ground_truth))
     print('Precision score: ', precision_score(anomaly, ground_truth))
     print('Recall score: ', recall_score(anomaly, ground_truth))
     print('Confusion matrix: ', classification_report(anomaly, ground_truth))
+    # print(f"classification_report后异常标签数量{np.sum(ground_truth==1)},正常标签数量{np.sum(ground_truth==0)}")
 
     logging.info(f"F1 score: {f1_score(anomaly, ground_truth)}")
     logging.info(f"Precision score: {precision_score(anomaly, ground_truth)}")

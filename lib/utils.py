@@ -195,8 +195,9 @@ def point_adjust_eval(anomaly_start, anomaly_end, down, loss, thr1, thr2):
             anomaly[int(anomaly_start[i]/down) :int(anomaly_end[i]/down)] = 1
         anomaly[int(anomaly_start[i]/down) ] = ground_truth[int(anomaly_start[i]/down) ]
         anomaly[int(anomaly_end[i]/down)] = ground_truth[int(anomaly_end[i]/down)]
-
+    # print(f"异常标签数量{np.sum(ground_truth==1)},正常标签数量{np.sum(ground_truth==0)}")   # 异常标签数量933,正常标签数量6488
     return anomaly, ground_truth
+    # return ground_truth,anomaly
 
 
 

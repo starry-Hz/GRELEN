@@ -50,8 +50,12 @@ def val_epoch(net, val_loader, sw, epoch, config):
 
             # 前向传播,获取预测输出
             prob, output = net(encoder_inputs)
+            # print(f"prob shape:{prob.shape},outout shape:{output.shape},labels shape:{labels.shape}")   
+            # prob shape:torch.Size([128, 2550, 4]),outout shape:torch.Size([128, 51, 29]),labels shape:torch.Size([128, 51, 29])
 
             # 计算KL散度损失和负对数似然损失
+            # print(torch.mean(prob, 1).shape)    # torch.Size([128, 4])
+            # print(f"log prior:{log_prior}")     # log prior:tensor([[[-0.0943, -3.5066, -3.5066, -3.5066]]], device='cuda:0')
             loss_kl = kl_categorical(torch.mean(prob, 1), log_prior, 1).to(device)  # 计算KL散度
             loss_nll = nll_gaussian(output, labels, variation).to(device)  # 计算负对数似然损失
             loss = loss_kl + loss_nll  # 总损失

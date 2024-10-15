@@ -709,3 +709,1128 @@
 2024-10-14 21:17:56,265 - root - INFO - epoch:8,kl loss:0.2270488440990448,nll loss:1.2140536308288574,diffpool loss:66.36532592773438
 2024-10-14 21:17:56,265 - root - INFO - epoch:8,elapsed time:40.53284239768982,total time:364.3975942134857
 2024-10-14 21:18:00,325 - root - INFO - epoch: 9, validation loss: 62.50
+
+# train_grelen_diffpool3.py 调用 GRELEN_diffpool_3.py 迭代300次
+2024-10-14 23:09:33,894 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-14 23:09:33,895 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-14 23:09:33,896 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-14 23:09:33,923 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+      (projection_layer): Linear(in_features=2, out_features=3264, bias=True)
+    )
+  )
+  (linear_out): Linear(in_features=64, out_features=1, bias=True)
+  (soft_pooling_encoder): SoftPoolingGcnEncoder(
+    (conv_first): GraphConv()
+    (conv_block): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_last): GraphConv()
+    (act): ReLU()
+    (pred_model): Sequential(
+      (0): Linear(in_features=384, out_features=50, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=50, out_features=2, bias=True)
+    )
+    (conv_first_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_block_after_pool): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (conv_last_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_first_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_block_modules): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (assign_conv_last_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_pred_modules): ModuleList(
+      (0): Linear(in_features=140, out_features=12, bias=True)
+    )
+  )
+)
+2024-10-14 23:09:39,457 - root - INFO - epoch: 0, validation loss: 72.73
+2024-10-14 23:09:39,470 - root - INFO - save parameters to file: experiments/swat_test/epoch_0.params
+2024-10-14 23:10:12,861 - root - INFO - epoch:0,kl loss:0.6777212023735046,nll loss:2.2573347091674805,diffpool loss:71.052978515625
+2024-10-14 23:10:12,862 - root - INFO - epoch:0,elapsed time:38.93803358078003,total time:38.93803358078003
+2024-10-14 23:10:17,075 - root - INFO - epoch: 1, validation loss: 64.16
+2024-10-14 23:10:17,087 - root - INFO - save parameters to file: experiments/swat_test/epoch_1.params
+2024-10-14 23:10:49,694 - root - INFO - epoch:1,kl loss:0.5428740978240967,nll loss:1.4444416761398315,diffpool loss:67.59103393554688
+2024-10-14 23:10:49,694 - root - INFO - epoch:1,elapsed time:36.83260917663574,total time:75.77064275741577
+2024-10-14 23:10:53,751 - root - INFO - epoch: 2, validation loss: 63.15
+2024-10-14 23:10:53,764 - root - INFO - save parameters to file: experiments/swat_test/epoch_2.params
+2024-10-14 23:11:25,780 - root - INFO - epoch:2,kl loss:0.43240705132484436,nll loss:1.3100881576538086,diffpool loss:67.08535766601562
+2024-10-14 23:11:25,780 - root - INFO - epoch:2,elapsed time:36.08604836463928,total time:111.85669112205505
+2024-10-14 23:11:29,824 - root - INFO - epoch: 3, validation loss: 62.79
+2024-10-14 23:11:29,836 - root - INFO - save parameters to file: experiments/swat_test/epoch_3.params
+2024-10-14 23:12:01,804 - root - INFO - epoch:3,kl loss:0.2952176034450531,nll loss:1.2743356227874756,diffpool loss:66.75785064697266
+2024-10-14 23:12:01,804 - root - INFO - epoch:3,elapsed time:36.02344536781311,total time:147.88013648986816
+2024-10-14 23:12:05,859 - root - INFO - epoch: 4, validation loss: 62.70
+2024-10-14 23:12:05,871 - root - INFO - save parameters to file: experiments/swat_test/epoch_4.params
+2024-10-14 23:12:37,524 - root - INFO - epoch:4,kl loss:0.2383597195148468,nll loss:1.2539398670196533,diffpool loss:66.59647369384766
+2024-10-14 23:12:37,524 - root - INFO - epoch:4,elapsed time:35.72048282623291,total time:183.60061931610107
+2024-10-14 23:12:41,572 - root - INFO - epoch: 5, validation loss: 62.60
+2024-10-14 23:12:41,584 - root - INFO - save parameters to file: experiments/swat_test/epoch_5.params
+2024-10-14 23:13:13,160 - root - INFO - epoch:5,kl loss:0.1989000141620636,nll loss:1.239802598953247,diffpool loss:66.50076293945312
+2024-10-14 23:13:13,161 - root - INFO - epoch:5,elapsed time:35.63614869117737,total time:219.23676800727844
+2024-10-14 23:13:17,231 - root - INFO - epoch: 6, validation loss: 62.45
+2024-10-14 23:13:17,244 - root - INFO - save parameters to file: experiments/swat_test/epoch_6.params
+2024-10-14 23:13:48,808 - root - INFO - epoch:6,kl loss:0.20939786732196808,nll loss:1.2266539335250854,diffpool loss:66.3978500366211
+2024-10-14 23:13:48,808 - root - INFO - epoch:6,elapsed time:35.64716291427612,total time:254.88393092155457
+2024-10-14 23:13:52,849 - root - INFO - epoch: 7, validation loss: 62.50
+2024-10-14 23:14:24,220 - root - INFO - epoch:7,kl loss:0.22633235156536102,nll loss:1.1941218376159668,diffpool loss:66.2419204711914
+2024-10-14 23:14:24,220 - root - INFO - epoch:7,elapsed time:35.41215491294861,total time:290.2960858345032
+2024-10-14 23:14:28,261 - root - INFO - epoch: 8, validation loss: 62.86
+2024-10-14 23:14:59,947 - root - INFO - epoch:8,kl loss:0.326843798160553,nll loss:1.1923601627349854,diffpool loss:66.2947998046875
+2024-10-14 23:14:59,947 - root - INFO - epoch:8,elapsed time:35.72699809074402,total time:326.0230839252472
+2024-10-14 23:15:03,976 - root - INFO - epoch: 9, validation loss: 62.49
+2024-10-14 23:15:35,221 - root - INFO - epoch:9,kl loss:0.28482457995414734,nll loss:1.1387794017791748,diffpool loss:65.98722839355469
+2024-10-14 23:15:35,221 - root - INFO - epoch:9,elapsed time:35.273815393447876,total time:361.29689931869507
+2024-10-14 23:15:39,249 - root - INFO - epoch: 10, validation loss: 62.21
+2024-10-14 23:15:39,260 - root - INFO - save parameters to file: experiments/swat_test/epoch_10.params
+2024-10-14 23:16:10,282 - root - INFO - epoch:10,kl loss:0.27125272154808044,nll loss:1.1104615926742554,diffpool loss:65.8319320678711
+2024-10-14 23:16:10,282 - root - INFO - epoch:10,elapsed time:35.06096649169922,total time:396.3578658103943
+2024-10-14 23:16:14,268 - root - INFO - epoch: 11, validation loss: 62.27
+2024-10-14 23:16:45,543 - root - INFO - epoch:11,kl loss:0.2584993839263916,nll loss:1.100239634513855,diffpool loss:65.74079895019531
+2024-10-14 23:16:45,543 - root - INFO - epoch:11,elapsed time:35.26084280014038,total time:431.61870861053467
+2024-10-14 23:16:49,534 - root - INFO - epoch: 12, validation loss: 62.36
+2024-10-14 23:17:20,329 - root - INFO - epoch:12,kl loss:0.25175896286964417,nll loss:1.088125228881836,diffpool loss:65.6256103515625
+2024-10-14 23:17:20,329 - root - INFO - epoch:12,elapsed time:34.785858392715454,total time:466.4045670032501
+2024-10-14 23:17:24,227 - root - INFO - epoch: 13, validation loss: 62.55
+2024-10-14 23:17:54,881 - root - INFO - epoch:13,kl loss:0.2474370151758194,nll loss:1.0835844278335571,diffpool loss:65.60124969482422
+2024-10-14 23:17:54,882 - root - INFO - epoch:13,elapsed time:34.5524046421051,total time:500.9569716453552
+2024-10-14 23:17:58,795 - root - INFO - epoch: 14, validation loss: 62.34
+2024-10-14 23:18:30,002 - root - INFO - epoch:14,kl loss:0.23596562445163727,nll loss:1.0688596963882446,diffpool loss:65.52819061279297
+2024-10-14 23:18:30,002 - root - INFO - epoch:14,elapsed time:35.120174407958984,total time:536.0771460533142
+2024-10-14 23:18:33,921 - root - INFO - epoch: 15, validation loss: 62.51
+2024-10-14 23:19:04,465 - root - INFO - epoch:15,kl loss:0.2554561495780945,nll loss:1.0770422220230103,diffpool loss:65.53221893310547
+2024-10-14 23:19:04,465 - root - INFO - epoch:15,elapsed time:34.463066816329956,total time:570.5402128696442
+2024-10-14 23:19:08,430 - root - INFO - epoch: 16, validation loss: 62.40
+2024-10-14 23:19:39,651 - root - INFO - epoch:16,kl loss:0.23549354076385498,nll loss:1.0637766122817993,diffpool loss:65.46855926513672
+2024-10-14 23:19:39,651 - root - INFO - epoch:16,elapsed time:35.18571591377258,total time:605.7259287834167
+2024-10-14 23:19:43,682 - root - INFO - epoch: 17, validation loss: 62.40
+2024-10-14 23:20:15,157 - root - INFO - epoch:17,kl loss:0.2304745763540268,nll loss:1.0599571466445923,diffpool loss:65.41151428222656
+2024-10-14 23:20:15,158 - root - INFO - epoch:17,elapsed time:35.50673055648804,total time:641.2326593399048
+2024-10-14 23:20:19,220 - root - INFO - epoch: 18, validation loss: 62.40
+2024-10-14 23:20:49,959 - root - INFO - epoch:18,kl loss:0.23472516238689423,nll loss:1.0596346855163574,diffpool loss:65.40336608886719
+2024-10-14 23:20:49,959 - root - INFO - epoch:18,elapsed time:34.80151629447937,total time:676.0341756343842
+2024-10-14 23:20:53,886 - root - INFO - epoch: 19, validation loss: 62.23
+2024-10-14 23:21:24,820 - root - INFO - epoch:19,kl loss:0.2343723028898239,nll loss:1.0545132160186768,diffpool loss:65.37947082519531
+2024-10-14 23:21:24,820 - root - INFO - epoch:19,elapsed time:34.86050486564636,total time:710.8946805000305
+2024-10-14 23:21:28,778 - root - INFO - epoch: 20, validation loss: 62.15
+2024-10-14 23:21:28,789 - root - INFO - save parameters to file: experiments/swat_test/epoch_20.params
+2024-10-14 23:21:59,469 - root - INFO - epoch:20,kl loss:0.23289869725704193,nll loss:1.051882028579712,diffpool loss:65.36915588378906
+2024-10-14 23:21:59,469 - root - INFO - epoch:20,elapsed time:34.649534463882446,total time:745.544214963913
+2024-10-14 23:22:03,497 - root - INFO - epoch: 21, validation loss: 62.27
+2024-10-14 23:22:34,439 - root - INFO - epoch:21,kl loss:0.23634716868400574,nll loss:1.0540016889572144,diffpool loss:65.37093353271484
+2024-10-14 23:22:34,439 - root - INFO - epoch:21,elapsed time:34.969863176345825,total time:780.5140781402588
+2024-10-14 23:22:38,376 - root - INFO - epoch: 22, validation loss: 62.06
+2024-10-14 23:22:38,388 - root - INFO - save parameters to file: experiments/swat_test/epoch_22.params
+2024-10-14 23:23:09,273 - root - INFO - epoch:22,kl loss:0.22862985730171204,nll loss:1.0503569841384888,diffpool loss:65.32035064697266
+2024-10-14 23:23:09,273 - root - INFO - epoch:22,elapsed time:34.83383345603943,total time:815.3479115962982
+2024-10-14 23:23:13,229 - root - INFO - epoch: 23, validation loss: 61.99
+2024-10-14 23:23:13,239 - root - INFO - save parameters to file: experiments/swat_test/epoch_23.params
+2024-10-14 23:23:44,292 - root - INFO - epoch:23,kl loss:0.22113072872161865,nll loss:1.0367217063903809,diffpool loss:65.29638671875
+2024-10-14 23:23:44,292 - root - INFO - epoch:23,elapsed time:35.019028186798096,total time:850.3669397830963
+2024-10-14 23:23:48,271 - root - INFO - epoch: 24, validation loss: 61.96
+2024-10-14 23:23:48,281 - root - INFO - save parameters to file: experiments/swat_test/epoch_24.params
+2024-10-14 23:24:19,541 - root - INFO - epoch:24,kl loss:0.23400871455669403,nll loss:1.053351640701294,diffpool loss:65.33720397949219
+2024-10-14 23:24:19,541 - root - INFO - epoch:24,elapsed time:35.24902033805847,total time:885.6159601211548
+2024-10-14 23:24:23,537 - root - INFO - epoch: 25, validation loss: 61.92
+2024-10-14 23:24:23,548 - root - INFO - save parameters to file: experiments/swat_test/epoch_25.params
+2024-10-14 23:24:54,987 - root - INFO - epoch:25,kl loss:0.23133909702301025,nll loss:1.045789122581482,diffpool loss:65.29161071777344
+2024-10-14 23:24:54,987 - root - INFO - epoch:25,elapsed time:35.44562840461731,total time:921.0615885257721
+2024-10-14 23:24:58,926 - root - INFO - epoch: 26, validation loss: 62.09
+2024-10-14 23:25:30,416 - root - INFO - epoch:26,kl loss:0.21504049003124237,nll loss:1.0439510345458984,diffpool loss:65.25847625732422
+2024-10-14 23:25:30,416 - root - INFO - epoch:26,elapsed time:35.42877459526062,total time:956.4903631210327
+2024-10-14 23:25:34,455 - root - INFO - epoch: 27, validation loss: 61.89
+2024-10-14 23:25:34,469 - root - INFO - save parameters to file: experiments/swat_test/epoch_27.params
+2024-10-14 23:26:05,763 - root - INFO - epoch:27,kl loss:0.2025029957294464,nll loss:1.0342167615890503,diffpool loss:65.23196411132812
+2024-10-14 23:26:05,763 - root - INFO - epoch:27,elapsed time:35.34658861160278,total time:991.8369517326355
+2024-10-14 23:26:09,804 - root - INFO - epoch: 28, validation loss: 61.93
+2024-10-14 23:26:41,526 - root - INFO - epoch:28,kl loss:0.19907067716121674,nll loss:1.0323208570480347,diffpool loss:65.18612670898438
+2024-10-14 23:26:41,526 - root - INFO - epoch:28,elapsed time:35.76299428939819,total time:1027.5999460220337
+2024-10-14 23:26:45,554 - root - INFO - epoch: 29, validation loss: 61.68
+2024-10-14 23:26:45,565 - root - INFO - save parameters to file: experiments/swat_test/epoch_29.params
+2024-10-14 23:27:16,673 - root - INFO - epoch:29,kl loss:0.21113568544387817,nll loss:1.0300812721252441,diffpool loss:65.2110595703125
+2024-10-14 23:27:16,673 - root - INFO - epoch:29,elapsed time:35.14725160598755,total time:1062.7471976280212
+2024-10-14 23:27:20,681 - root - INFO - epoch: 30, validation loss: 61.81
+2024-10-14 23:27:51,718 - root - INFO - epoch:30,kl loss:0.20374014973640442,nll loss:1.0312285423278809,diffpool loss:65.16496276855469
+2024-10-14 23:27:51,719 - root - INFO - epoch:30,elapsed time:35.04542779922485,total time:1097.792625427246
+2024-10-14 23:27:55,734 - root - INFO - epoch: 31, validation loss: 61.72
+2024-10-14 23:28:27,311 - root - INFO - epoch:31,kl loss:0.1901252567768097,nll loss:1.0162065029144287,diffpool loss:65.1224365234375
+2024-10-14 23:28:27,311 - root - INFO - epoch:31,elapsed time:35.59237575531006,total time:1133.3850011825562
+2024-10-14 23:28:31,322 - root - INFO - epoch: 32, validation loss: 61.70
+2024-10-14 23:29:02,366 - root - INFO - epoch:32,kl loss:0.1763765811920166,nll loss:1.022739291191101,diffpool loss:65.11381530761719
+2024-10-14 23:29:02,366 - root - INFO - epoch:32,elapsed time:35.05501079559326,total time:1168.4400119781494
+2024-10-14 23:29:06,377 - root - INFO - epoch: 33, validation loss: 61.65
+2024-10-14 23:29:06,388 - root - INFO - save parameters to file: experiments/swat_test/epoch_33.params
+2024-10-14 23:29:37,208 - root - INFO - epoch:33,kl loss:0.17880535125732422,nll loss:1.0163028240203857,diffpool loss:65.09406280517578
+2024-10-14 23:29:37,209 - root - INFO - epoch:33,elapsed time:34.842334270477295,total time:1203.2823462486267
+2024-10-14 23:29:41,203 - root - INFO - epoch: 34, validation loss: 61.62
+2024-10-14 23:29:41,215 - root - INFO - save parameters to file: experiments/swat_test/epoch_34.params
+2024-10-14 23:30:12,433 - root - INFO - epoch:34,kl loss:0.17955973744392395,nll loss:1.0143496990203857,diffpool loss:65.08201599121094
+2024-10-14 23:30:12,434 - root - INFO - epoch:34,elapsed time:35.22477746009827,total time:1238.507123708725
+2024-10-14 23:30:16,417 - root - INFO - epoch: 35, validation loss: 61.58
+2024-10-14 23:30:16,429 - root - INFO - save parameters to file: experiments/swat_test/epoch_35.params
+2024-10-14 23:30:47,300 - root - INFO - epoch:35,kl loss:0.17781151831150055,nll loss:1.0166243314743042,diffpool loss:65.07756805419922
+2024-10-14 23:30:47,300 - root - INFO - epoch:35,elapsed time:34.8664288520813,total time:1273.3735525608063
+2024-10-14 23:30:51,343 - root - INFO - epoch: 36, validation loss: 61.59
+2024-10-14 23:31:22,162 - root - INFO - epoch:36,kl loss:0.17647193372249603,nll loss:1.0154398679733276,diffpool loss:65.08246612548828
+2024-10-14 23:31:22,162 - root - INFO - epoch:36,elapsed time:34.86162996292114,total time:1308.2351825237274
+2024-10-14 23:31:26,156 - root - INFO - epoch: 37, validation loss: 61.71
+2024-10-14 23:31:57,273 - root - INFO - epoch:37,kl loss:0.17810334265232086,nll loss:1.0169461965560913,diffpool loss:65.07442474365234
+2024-10-14 23:31:57,274 - root - INFO - epoch:37,elapsed time:35.11169791221619,total time:1343.3468804359436
+2024-10-14 23:32:01,284 - root - INFO - epoch: 38, validation loss: 61.56
+2024-10-14 23:32:01,295 - root - INFO - save parameters to file: experiments/swat_test/epoch_38.params
+2024-10-14 23:32:32,468 - root - INFO - epoch:38,kl loss:0.17556944489479065,nll loss:1.0147833824157715,diffpool loss:65.0748519897461
+2024-10-14 23:32:32,469 - root - INFO - epoch:38,elapsed time:35.19494700431824,total time:1378.5418274402618
+2024-10-14 23:32:36,466 - root - INFO - epoch: 39, validation loss: 61.62
+2024-10-14 23:33:07,511 - root - INFO - epoch:39,kl loss:0.18222759664058685,nll loss:1.0165650844573975,diffpool loss:65.08583068847656
+2024-10-14 23:33:07,512 - root - INFO - epoch:39,elapsed time:35.04293346405029,total time:1413.5847609043121
+2024-10-14 23:33:11,509 - root - INFO - epoch: 40, validation loss: 61.69
+2024-10-14 23:33:42,314 - root - INFO - epoch:40,kl loss:0.18107180297374725,nll loss:1.0156935453414917,diffpool loss:65.0743179321289
+2024-10-14 23:33:42,314 - root - INFO - epoch:40,elapsed time:34.8022894859314,total time:1448.3870503902435
+2024-10-14 23:33:46,352 - root - INFO - epoch: 41, validation loss: 61.50
+2024-10-14 23:33:46,364 - root - INFO - save parameters to file: experiments/swat_test/epoch_41.params
+2024-10-14 23:34:17,839 - root - INFO - epoch:41,kl loss:0.17790213227272034,nll loss:1.0120234489440918,diffpool loss:65.07018280029297
+2024-10-14 23:34:17,840 - root - INFO - epoch:41,elapsed time:35.52540731430054,total time:1483.912457704544
+2024-10-14 23:34:21,878 - root - INFO - epoch: 42, validation loss: 61.57
+2024-10-14 23:34:53,084 - root - INFO - epoch:42,kl loss:0.17602139711380005,nll loss:1.0140244960784912,diffpool loss:65.06156921386719
+2024-10-14 23:34:53,084 - root - INFO - epoch:42,elapsed time:35.244484663009644,total time:1519.1569423675537
+2024-10-14 23:34:57,103 - root - INFO - epoch: 43, validation loss: 61.53
+2024-10-14 23:35:28,275 - root - INFO - epoch:43,kl loss:0.17593206465244293,nll loss:1.0122475624084473,diffpool loss:65.06311798095703
+2024-10-14 23:35:28,275 - root - INFO - epoch:43,elapsed time:35.19116020202637,total time:1554.34810256958
+2024-10-14 23:35:32,292 - root - INFO - epoch: 44, validation loss: 61.54
+2024-10-14 23:36:03,785 - root - INFO - epoch:44,kl loss:0.17487606406211853,nll loss:1.0141408443450928,diffpool loss:65.06764221191406
+2024-10-14 23:36:03,786 - root - INFO - epoch:44,elapsed time:35.51012110710144,total time:1589.8582236766815
+2024-10-14 23:36:07,796 - root - INFO - epoch: 45, validation loss: 61.67
+2024-10-14 23:36:39,288 - root - INFO - epoch:45,kl loss:0.17653000354766846,nll loss:1.0133135318756104,diffpool loss:65.06288146972656
+2024-10-14 23:36:39,288 - root - INFO - epoch:45,elapsed time:35.50269961357117,total time:1625.3609232902527
+2024-10-14 23:36:43,390 - root - INFO - epoch: 46, validation loss: 61.50
+2024-10-14 23:36:43,402 - root - INFO - save parameters to file: experiments/swat_test/epoch_46.params
+2024-10-14 23:37:14,946 - root - INFO - epoch:46,kl loss:0.1748649924993515,nll loss:1.0155766010284424,diffpool loss:65.05738067626953
+2024-10-14 23:37:14,946 - root - INFO - epoch:46,elapsed time:35.65779495239258,total time:1661.0187182426453
+2024-10-14 23:37:18,990 - root - INFO - epoch: 47, validation loss: 61.61
+2024-10-14 23:37:50,072 - root - INFO - epoch:47,kl loss:0.1752859205007553,nll loss:1.0128360986709595,diffpool loss:65.06135559082031
+2024-10-14 23:37:50,072 - root - INFO - epoch:47,elapsed time:35.12615966796875,total time:1696.144877910614
+2024-10-14 23:37:54,090 - root - INFO - epoch: 48, validation loss: 61.57
+2024-10-14 23:38:25,446 - root - INFO - epoch:48,kl loss:0.1762496381998062,nll loss:1.0128463506698608,diffpool loss:65.0696029663086
+2024-10-14 23:38:25,446 - root - INFO - epoch:48,elapsed time:35.373318910598755,total time:1731.5181968212128
+2024-10-14 23:38:29,470 - root - INFO - epoch: 49, validation loss: 61.49
+2024-10-14 23:38:29,481 - root - INFO - save parameters to file: experiments/swat_test/epoch_49.params
+2024-10-14 23:39:00,871 - root - INFO - epoch:49,kl loss:0.1888713836669922,nll loss:1.019968867301941,diffpool loss:65.10767364501953
+2024-10-14 23:39:00,871 - root - INFO - epoch:49,elapsed time:35.425413846969604,total time:1766.9436106681824
+2024-10-14 23:39:04,890 - root - INFO - epoch: 50, validation loss: 61.72
+2024-10-14 23:39:36,408 - root - INFO - epoch:50,kl loss:0.18733607232570648,nll loss:1.0165598392486572,diffpool loss:65.10013580322266
+2024-10-14 23:39:36,408 - root - INFO - epoch:50,elapsed time:35.53687143325806,total time:1802.4804821014404
+2024-10-14 23:39:40,411 - root - INFO - epoch: 51, validation loss: 61.70
+2024-10-14 23:40:11,723 - root - INFO - epoch:51,kl loss:0.17973139882087708,nll loss:1.0130364894866943,diffpool loss:65.0613784790039
+2024-10-14 23:40:11,724 - root - INFO - epoch:51,elapsed time:35.31519675254822,total time:1837.7956788539886
+2024-10-14 23:40:15,715 - root - INFO - epoch: 52, validation loss: 61.60
+2024-10-14 23:40:47,136 - root - INFO - epoch:52,kl loss:0.17881134152412415,nll loss:1.0114338397979736,diffpool loss:65.05892181396484
+2024-10-14 23:40:47,137 - root - INFO - epoch:52,elapsed time:35.412827491760254,total time:1873.208506345749
+2024-10-14 23:40:51,099 - root - INFO - epoch: 53, validation loss: 61.59
+2024-10-14 23:41:21,843 - root - INFO - epoch:53,kl loss:0.18410350382328033,nll loss:1.0175656080245972,diffpool loss:65.08927917480469
+2024-10-14 23:41:21,843 - root - INFO - epoch:53,elapsed time:34.70635533332825,total time:1907.9148616790771
+2024-10-14 23:41:25,785 - root - INFO - epoch: 54, validation loss: 61.69
+2024-10-14 23:41:56,802 - root - INFO - epoch:54,kl loss:0.19116325676441193,nll loss:1.0157055854797363,diffpool loss:65.07719421386719
+2024-10-14 23:41:56,802 - root - INFO - epoch:54,elapsed time:34.95899796485901,total time:1942.8738596439362
+2024-10-14 23:42:00,772 - root - INFO - epoch: 55, validation loss: 61.62
+2024-10-14 23:42:31,917 - root - INFO - epoch:55,kl loss:0.17942018806934357,nll loss:1.010981559753418,diffpool loss:65.05550384521484
+2024-10-14 23:42:31,917 - root - INFO - epoch:55,elapsed time:35.1150541305542,total time:1977.9889137744904
+2024-10-14 23:42:35,846 - root - INFO - epoch: 56, validation loss: 61.50
+2024-10-14 23:43:06,921 - root - INFO - epoch:56,kl loss:0.17149674892425537,nll loss:1.0099513530731201,diffpool loss:65.03718566894531
+2024-10-14 23:43:06,921 - root - INFO - epoch:56,elapsed time:35.00403571128845,total time:2012.9929494857788
+2024-10-14 23:43:10,883 - root - INFO - epoch: 57, validation loss: 61.65
+2024-10-14 23:43:41,701 - root - INFO - epoch:57,kl loss:0.17055517435073853,nll loss:1.0109835863113403,diffpool loss:65.03540802001953
+2024-10-14 23:43:41,701 - root - INFO - epoch:57,elapsed time:34.77986478805542,total time:2047.7728142738342
+2024-10-14 23:43:45,681 - root - INFO - epoch: 58, validation loss: 61.54
+2024-10-14 23:44:16,918 - root - INFO - epoch:58,kl loss:0.17033901810646057,nll loss:1.0097330808639526,diffpool loss:65.05021667480469
+2024-10-14 23:44:16,918 - root - INFO - epoch:58,elapsed time:35.21681022644043,total time:2082.9896245002747
+2024-10-14 23:44:20,896 - root - INFO - epoch: 59, validation loss: 61.63
+2024-10-14 23:44:52,337 - root - INFO - epoch:59,kl loss:0.17867903411388397,nll loss:1.0139209032058716,diffpool loss:65.0608139038086
+2024-10-14 23:44:52,338 - root - INFO - epoch:59,elapsed time:35.41935634613037,total time:2118.408980846405
+2024-10-14 23:44:56,327 - root - INFO - epoch: 60, validation loss: 61.66
+2024-10-14 23:45:27,206 - root - INFO - epoch:60,kl loss:0.17432308197021484,nll loss:1.0131767988204956,diffpool loss:65.0458984375
+2024-10-14 23:45:27,206 - root - INFO - epoch:60,elapsed time:34.86800003051758,total time:2153.2769808769226
+2024-10-14 23:45:31,181 - root - INFO - epoch: 61, validation loss: 61.53
+2024-10-14 23:46:02,506 - root - INFO - epoch:61,kl loss:0.1691456139087677,nll loss:1.011616826057434,diffpool loss:65.03225708007812
+2024-10-14 23:46:02,506 - root - INFO - epoch:61,elapsed time:35.300532579422,total time:2188.5775134563446
+2024-10-14 23:46:06,528 - root - INFO - epoch: 62, validation loss: 61.60
+2024-10-14 23:46:38,042 - root - INFO - epoch:62,kl loss:0.16020242869853973,nll loss:1.0131745338439941,diffpool loss:65.0369644165039
+2024-10-14 23:46:38,042 - root - INFO - epoch:62,elapsed time:35.53532910346985,total time:2224.1128425598145
+2024-10-14 23:46:42,022 - root - INFO - epoch: 63, validation loss: 61.53
+2024-10-14 23:47:12,973 - root - INFO - epoch:63,kl loss:0.16468600928783417,nll loss:1.0206801891326904,diffpool loss:65.09779357910156
+2024-10-14 23:47:12,974 - root - INFO - epoch:63,elapsed time:34.93182849884033,total time:2259.044671058655
+2024-10-14 23:47:16,982 - root - INFO - epoch: 64, validation loss: 61.86
+2024-10-14 23:47:48,479 - root - INFO - epoch:64,kl loss:0.1896926760673523,nll loss:1.0184156894683838,diffpool loss:65.10517120361328
+2024-10-14 23:47:48,479 - root - INFO - epoch:64,elapsed time:35.50574445724487,total time:2294.5504155158997
+2024-10-14 23:47:52,425 - root - INFO - epoch: 65, validation loss: 61.69
+2024-10-14 23:48:23,349 - root - INFO - epoch:65,kl loss:0.18299126625061035,nll loss:1.0119317770004272,diffpool loss:65.04713439941406
+2024-10-14 23:48:23,349 - root - INFO - epoch:65,elapsed time:34.8699414730072,total time:2329.420356988907
+2024-10-14 23:48:27,294 - root - INFO - epoch: 66, validation loss: 61.68
+2024-10-14 23:48:57,920 - root - INFO - epoch:66,kl loss:0.17549021542072296,nll loss:1.0126967430114746,diffpool loss:65.0551986694336
+2024-10-14 23:48:57,920 - root - INFO - epoch:66,elapsed time:34.57081127166748,total time:2363.9911682605743
+2024-10-14 23:49:01,920 - root - INFO - epoch: 67, validation loss: 61.52
+2024-10-14 23:49:33,253 - root - INFO - epoch:67,kl loss:0.17182894051074982,nll loss:1.010768175125122,diffpool loss:65.03353881835938
+2024-10-14 23:49:33,253 - root - INFO - epoch:67,elapsed time:35.3330180644989,total time:2399.3241863250732
+2024-10-14 23:49:37,250 - root - INFO - epoch: 68, validation loss: 61.52
+2024-10-14 23:50:08,390 - root - INFO - epoch:68,kl loss:0.16308178007602692,nll loss:1.0112985372543335,diffpool loss:65.0057373046875
+2024-10-14 23:50:08,390 - root - INFO - epoch:68,elapsed time:35.136433362960815,total time:2434.460619688034
+2024-10-14 23:50:12,340 - root - INFO - epoch: 69, validation loss: 61.56
+2024-10-14 23:50:43,249 - root - INFO - epoch:69,kl loss:0.15728436410427094,nll loss:1.0095303058624268,diffpool loss:65.01921081542969
+2024-10-14 23:50:43,249 - root - INFO - epoch:69,elapsed time:34.859318256378174,total time:2469.3199379444122
+2024-10-14 23:50:47,200 - root - INFO - epoch: 70, validation loss: 61.51
+2024-10-14 23:51:18,253 - root - INFO - epoch:70,kl loss:0.16472771763801575,nll loss:1.012346625328064,diffpool loss:65.03317260742188
+2024-10-14 23:51:18,253 - root - INFO - epoch:70,elapsed time:35.00376510620117,total time:2504.3237030506134
+2024-10-14 23:51:22,227 - root - INFO - epoch: 71, validation loss: 61.50
+2024-10-14 23:51:53,328 - root - INFO - epoch:71,kl loss:0.1921377032995224,nll loss:1.0251328945159912,diffpool loss:65.15339660644531
+2024-10-14 23:51:53,328 - root - INFO - epoch:71,elapsed time:35.075146436691284,total time:2539.3988494873047
+2024-10-14 23:51:57,282 - root - INFO - epoch: 72, validation loss: 61.69
+2024-10-14 23:52:28,146 - root - INFO - epoch:72,kl loss:0.19060952961444855,nll loss:1.0141637325286865,diffpool loss:65.05036163330078
+2024-10-14 23:52:28,146 - root - INFO - epoch:72,elapsed time:34.81753373146057,total time:2574.2163832187653
+2024-10-14 23:52:32,113 - root - INFO - epoch: 73, validation loss: 61.78
+2024-10-14 23:53:03,809 - root - INFO - epoch:73,kl loss:0.1769052892923355,nll loss:1.0132675170898438,diffpool loss:65.03482818603516
+2024-10-14 23:53:03,809 - root - INFO - epoch:73,elapsed time:35.662673234939575,total time:2609.879056453705
+2024-10-14 23:53:07,817 - root - INFO - epoch: 74, validation loss: 61.66
+2024-10-14 23:53:38,977 - root - INFO - epoch:74,kl loss:0.17250193655490875,nll loss:1.0103038549423218,diffpool loss:65.01685333251953
+2024-10-14 23:53:38,977 - root - INFO - epoch:74,elapsed time:35.168402433395386,total time:2645.0474588871
+2024-10-14 23:53:42,924 - root - INFO - epoch: 75, validation loss: 61.51
+2024-10-14 23:54:14,013 - root - INFO - epoch:75,kl loss:0.163934126496315,nll loss:1.0089247226715088,diffpool loss:65.00746154785156
+2024-10-14 23:54:14,013 - root - INFO - epoch:75,elapsed time:35.035929918289185,total time:2680.0833888053894
+2024-10-14 23:54:17,929 - root - INFO - epoch: 76, validation loss: 61.44
+2024-10-14 23:54:17,940 - root - INFO - save parameters to file: experiments/swat_test/epoch_76.params
+2024-10-14 23:54:48,957 - root - INFO - epoch:76,kl loss:0.16268274188041687,nll loss:1.0100854635238647,diffpool loss:65.02693176269531
+2024-10-14 23:54:48,957 - root - INFO - epoch:76,elapsed time:34.943336486816406,total time:2715.026725292206
+2024-10-14 23:54:52,904 - root - INFO - epoch: 77, validation loss: 61.58
+2024-10-14 23:55:24,126 - root - INFO - epoch:77,kl loss:0.1681683212518692,nll loss:1.0147161483764648,diffpool loss:65.01526641845703
+2024-10-14 23:55:24,126 - root - INFO - epoch:77,elapsed time:35.168888330459595,total time:2750.1956136226654
+2024-10-14 23:55:28,129 - root - INFO - epoch: 78, validation loss: 61.59
+2024-10-14 23:55:59,221 - root - INFO - epoch:78,kl loss:0.16177582740783691,nll loss:1.0077154636383057,diffpool loss:65.00713348388672
+2024-10-14 23:55:59,222 - root - INFO - epoch:78,elapsed time:35.09566831588745,total time:2785.291281938553
+2024-10-14 23:56:03,212 - root - INFO - epoch: 79, validation loss: 61.51
+2024-10-14 23:56:34,279 - root - INFO - epoch:79,kl loss:0.15549755096435547,nll loss:1.0098824501037598,diffpool loss:64.99173736572266
+2024-10-14 23:56:34,280 - root - INFO - epoch:79,elapsed time:35.057929277420044,total time:2820.349211215973
+2024-10-14 23:56:38,252 - root - INFO - epoch: 80, validation loss: 61.57
+2024-10-14 23:57:09,430 - root - INFO - epoch:80,kl loss:0.14766038954257965,nll loss:1.0060522556304932,diffpool loss:64.97366333007812
+2024-10-14 23:57:09,430 - root - INFO - epoch:80,elapsed time:35.15046763420105,total time:2855.499678850174
+2024-10-14 23:57:13,410 - root - INFO - epoch: 81, validation loss: 61.54
+2024-10-14 23:57:44,579 - root - INFO - epoch:81,kl loss:0.14962463080883026,nll loss:1.0112863779067993,diffpool loss:64.98721313476562
+2024-10-14 23:57:44,579 - root - INFO - epoch:81,elapsed time:35.1486759185791,total time:2890.648354768753
+2024-10-14 23:57:48,520 - root - INFO - epoch: 82, validation loss: 61.65
+2024-10-14 23:58:19,282 - root - INFO - epoch:82,kl loss:0.15387611091136932,nll loss:1.0162007808685303,diffpool loss:65.04326629638672
+2024-10-14 23:58:19,282 - root - INFO - epoch:82,elapsed time:34.70345067977905,total time:2925.351805448532
+2024-10-14 23:58:23,197 - root - INFO - epoch: 83, validation loss: 61.90
+2024-10-14 23:58:53,981 - root - INFO - epoch:83,kl loss:0.1717972606420517,nll loss:1.0250685214996338,diffpool loss:65.11184692382812
+2024-10-14 23:58:53,981 - root - INFO - epoch:83,elapsed time:34.69846296310425,total time:2960.0502684116364
+2024-10-14 23:58:57,914 - root - INFO - epoch: 84, validation loss: 61.56
+2024-10-14 23:59:28,703 - root - INFO - epoch:84,kl loss:0.16435740888118744,nll loss:1.0208417177200317,diffpool loss:65.06739807128906
+2024-10-14 23:59:28,703 - root - INFO - epoch:84,elapsed time:34.72207808494568,total time:2994.772346496582
+2024-10-14 23:59:32,617 - root - INFO - epoch: 85, validation loss: 61.66
+2024-10-15 00:00:03,242 - root - INFO - epoch:85,kl loss:0.15536494553089142,nll loss:1.0181410312652588,diffpool loss:65.03954315185547
+2024-10-15 00:00:03,242 - root - INFO - epoch:85,elapsed time:34.53921294212341,total time:3029.3115594387054
+2024-10-15 00:00:07,221 - root - INFO - epoch: 86, validation loss: 61.63
+2024-10-15 00:00:38,031 - root - INFO - epoch:86,kl loss:0.14955447614192963,nll loss:1.0172953605651855,diffpool loss:65.02179718017578
+2024-10-15 00:00:38,032 - root - INFO - epoch:86,elapsed time:34.7890784740448,total time:3064.1006379127502
+2024-10-15 00:00:41,946 - root - INFO - epoch: 87, validation loss: 61.63
+2024-10-15 00:01:12,792 - root - INFO - epoch:87,kl loss:0.14800287783145905,nll loss:1.0283591747283936,diffpool loss:65.10536193847656
+2024-10-15 00:01:12,792 - root - INFO - epoch:87,elapsed time:34.760767221450806,total time:3098.861405134201
+2024-10-15 00:01:16,721 - root - INFO - epoch: 88, validation loss: 61.90
+2024-10-15 00:01:47,382 - root - INFO - epoch:88,kl loss:0.166962668299675,nll loss:1.0244805812835693,diffpool loss:65.09024810791016
+2024-10-15 00:01:47,382 - root - INFO - epoch:88,elapsed time:34.58946990966797,total time:3133.450875043869
+2024-10-15 00:01:51,313 - root - INFO - epoch: 89, validation loss: 61.65
+2024-10-15 00:02:22,385 - root - INFO - epoch:89,kl loss:0.1571384072303772,nll loss:1.0146881341934204,diffpool loss:65.02653503417969
+2024-10-15 00:02:22,385 - root - INFO - epoch:89,elapsed time:35.00266909599304,total time:3168.453544139862
+2024-10-15 00:02:26,410 - root - INFO - epoch: 90, validation loss: 61.73
+2024-10-15 00:02:57,551 - root - INFO - epoch:90,kl loss:0.15399755537509918,nll loss:1.019680142402649,diffpool loss:65.02201080322266
+2024-10-15 00:02:57,551 - root - INFO - epoch:90,elapsed time:35.16624402999878,total time:3203.619788169861
+2024-10-15 00:03:01,519 - root - INFO - epoch: 91, validation loss: 61.43
+2024-10-15 00:03:01,530 - root - INFO - save parameters to file: experiments/swat_test/epoch_91.params
+2024-10-15 00:03:32,446 - root - INFO - epoch:91,kl loss:0.1472664624452591,nll loss:1.0139241218566895,diffpool loss:64.99987030029297
+2024-10-15 00:03:32,446 - root - INFO - epoch:91,elapsed time:34.89488482475281,total time:3238.5146729946136
+2024-10-15 00:03:36,429 - root - INFO - epoch: 92, validation loss: 61.56
+2024-10-15 00:04:07,809 - root - INFO - epoch:92,kl loss:0.14130689203739166,nll loss:1.0150529146194458,diffpool loss:64.9950180053711
+2024-10-15 00:04:07,810 - root - INFO - epoch:92,elapsed time:35.36340308189392,total time:3273.8780760765076
+2024-10-15 00:04:11,808 - root - INFO - epoch: 93, validation loss: 61.58
+2024-10-15 00:04:43,005 - root - INFO - epoch:93,kl loss:0.13813021779060364,nll loss:1.012367844581604,diffpool loss:64.98562622070312
+2024-10-15 00:04:43,005 - root - INFO - epoch:93,elapsed time:35.19520092010498,total time:3309.0732769966125
+2024-10-15 00:04:47,029 - root - INFO - epoch: 94, validation loss: 61.54
+2024-10-15 00:05:18,371 - root - INFO - epoch:94,kl loss:0.13404573500156403,nll loss:1.0154470205307007,diffpool loss:64.99256896972656
+2024-10-15 00:05:18,371 - root - INFO - epoch:94,elapsed time:35.36579942703247,total time:3344.439076423645
+2024-10-15 00:05:22,469 - root - INFO - epoch: 95, validation loss: 61.51
+2024-10-15 00:05:53,697 - root - INFO - epoch:95,kl loss:0.13029485940933228,nll loss:1.013033151626587,diffpool loss:64.98056030273438
+2024-10-15 00:05:53,697 - root - INFO - epoch:95,elapsed time:35.32642197608948,total time:3379.7654983997345
+2024-10-15 00:05:57,648 - root - INFO - epoch: 96, validation loss: 61.50
+2024-10-15 00:06:28,770 - root - INFO - epoch:96,kl loss:0.13387836515903473,nll loss:1.0138061046600342,diffpool loss:65.01683044433594
+2024-10-15 00:06:28,770 - root - INFO - epoch:96,elapsed time:35.07264590263367,total time:3414.838144302368
+2024-10-15 00:06:32,750 - root - INFO - epoch: 97, validation loss: 61.64
+2024-10-15 00:07:03,854 - root - INFO - epoch:97,kl loss:0.13525821268558502,nll loss:1.0153573751449585,diffpool loss:64.9874267578125
+2024-10-15 00:07:03,854 - root - INFO - epoch:97,elapsed time:35.083820104599,total time:3449.921964406967
+2024-10-15 00:07:07,837 - root - INFO - epoch: 98, validation loss: 61.55
+2024-10-15 00:07:38,505 - root - INFO - epoch:98,kl loss:0.12932923436164856,nll loss:1.0117664337158203,diffpool loss:64.97178649902344
+2024-10-15 00:07:38,506 - root - INFO - epoch:98,elapsed time:34.65176463127136,total time:3484.5737290382385
+2024-10-15 00:07:42,488 - root - INFO - epoch: 99, validation loss: 61.60
+2024-10-15 00:08:13,686 - root - INFO - epoch:99,kl loss:0.12835310399532318,nll loss:1.0110810995101929,diffpool loss:64.96492004394531
+2024-10-15 00:08:13,686 - root - INFO - epoch:99,elapsed time:35.1806058883667,total time:3519.754334926605
+2024-10-15 00:08:17,651 - root - INFO - epoch: 100, validation loss: 61.45
+2024-10-15 00:08:49,150 - root - INFO - epoch:100,kl loss:0.12351258844137192,nll loss:1.0141090154647827,diffpool loss:64.96842193603516
+2024-10-15 00:08:49,151 - root - INFO - epoch:100,elapsed time:35.46418023109436,total time:3555.2185151576996
+2024-10-15 00:08:53,117 - root - INFO - epoch: 101, validation loss: 61.53
+2024-10-15 00:09:24,052 - root - INFO - epoch:101,kl loss:0.12304911762475967,nll loss:1.0122853517532349,diffpool loss:64.9626235961914
+2024-10-15 00:09:24,052 - root - INFO - epoch:101,elapsed time:34.901655435562134,total time:3590.1201705932617
+2024-10-15 00:09:28,010 - root - INFO - epoch: 102, validation loss: 61.56
+2024-10-15 00:09:59,012 - root - INFO - epoch:102,kl loss:0.12093959003686905,nll loss:1.0063519477844238,diffpool loss:64.9593505859375
+2024-10-15 00:09:59,012 - root - INFO - epoch:102,elapsed time:34.95945072174072,total time:3625.0796213150024
+2024-10-15 00:10:02,985 - root - INFO - epoch: 103, validation loss: 61.56
+2024-10-15 00:10:33,755 - root - INFO - epoch:103,kl loss:0.12022612243890762,nll loss:1.0126136541366577,diffpool loss:64.96244812011719
+2024-10-15 00:10:33,755 - root - INFO - epoch:103,elapsed time:34.743119955062866,total time:3659.8227412700653
+2024-10-15 00:10:37,704 - root - INFO - epoch: 104, validation loss: 61.59
+2024-10-15 00:11:08,442 - root - INFO - epoch:104,kl loss:0.12034528702497482,nll loss:1.0130219459533691,diffpool loss:64.9595718383789
+2024-10-15 00:11:08,443 - root - INFO - epoch:104,elapsed time:34.687387228012085,total time:3694.5101284980774
+2024-10-15 00:11:12,407 - root - INFO - epoch: 105, validation loss: 61.53
+2024-10-15 00:11:43,921 - root - INFO - epoch:105,kl loss:0.1202259436249733,nll loss:1.0100106000900269,diffpool loss:64.9596939086914
+2024-10-15 00:11:43,921 - root - INFO - epoch:105,elapsed time:35.47873258590698,total time:3729.9888610839844
+2024-10-15 00:11:47,889 - root - INFO - epoch: 106, validation loss: 61.54
+2024-10-15 00:12:19,079 - root - INFO - epoch:106,kl loss:0.12291451543569565,nll loss:1.0096728801727295,diffpool loss:64.97425079345703
+2024-10-15 00:12:19,079 - root - INFO - epoch:106,elapsed time:35.15733551979065,total time:3765.146196603775
+2024-10-15 00:12:23,042 - root - INFO - epoch: 107, validation loss: 61.58
+2024-10-15 00:12:53,943 - root - INFO - epoch:107,kl loss:0.12173128128051758,nll loss:1.0142172574996948,diffpool loss:64.97319030761719
+2024-10-15 00:12:53,944 - root - INFO - epoch:107,elapsed time:34.864707946777344,total time:3800.0109045505524
+2024-10-15 00:12:57,923 - root - INFO - epoch: 108, validation loss: 61.63
+2024-10-15 00:13:29,021 - root - INFO - epoch:108,kl loss:0.12245753407478333,nll loss:1.0077000856399536,diffpool loss:64.96944427490234
+2024-10-15 00:13:29,021 - root - INFO - epoch:108,elapsed time:35.07735514640808,total time:3835.0882596969604
+2024-10-15 00:13:32,970 - root - INFO - epoch: 109, validation loss: 61.63
+2024-10-15 00:14:03,722 - root - INFO - epoch:109,kl loss:0.1222827211022377,nll loss:1.0129092931747437,diffpool loss:64.96034240722656
+2024-10-15 00:14:03,722 - root - INFO - epoch:109,elapsed time:34.701287508010864,total time:3869.7895472049713
+2024-10-15 00:14:07,693 - root - INFO - epoch: 110, validation loss: 61.56
+2024-10-15 00:14:38,841 - root - INFO - epoch:110,kl loss:0.12333209812641144,nll loss:1.0098556280136108,diffpool loss:64.96842193603516
+2024-10-15 00:14:38,841 - root - INFO - epoch:110,elapsed time:35.11824369430542,total time:3904.9077908992767
+2024-10-15 00:14:42,805 - root - INFO - epoch: 111, validation loss: 61.49
+2024-10-15 00:15:13,514 - root - INFO - epoch:111,kl loss:0.12290842086076736,nll loss:1.009851098060608,diffpool loss:64.96749114990234
+2024-10-15 00:15:13,514 - root - INFO - epoch:111,elapsed time:34.67321062088013,total time:3939.581001520157
+2024-10-15 00:15:17,482 - root - INFO - epoch: 112, validation loss: 61.56
+2024-10-15 00:15:48,820 - root - INFO - epoch:112,kl loss:0.12027288228273392,nll loss:1.009205937385559,diffpool loss:64.96029663085938
+2024-10-15 00:15:48,821 - root - INFO - epoch:112,elapsed time:35.306700706481934,total time:3974.887702226639
+2024-10-15 00:15:52,774 - root - INFO - epoch: 113, validation loss: 61.46
+2024-10-15 00:16:23,950 - root - INFO - epoch:113,kl loss:0.12274748086929321,nll loss:1.011618733406067,diffpool loss:64.96510314941406
+2024-10-15 00:16:23,951 - root - INFO - epoch:113,elapsed time:35.1296911239624,total time:4010.017393350601
+2024-10-15 00:16:27,938 - root - INFO - epoch: 114, validation loss: 61.58
+2024-10-15 00:16:58,510 - root - INFO - epoch:114,kl loss:0.12034715712070465,nll loss:1.010908842086792,diffpool loss:64.956787109375
+2024-10-15 00:16:58,510 - root - INFO - epoch:114,elapsed time:34.55977153778076,total time:4044.577164888382
+2024-10-15 00:17:02,448 - root - INFO - epoch: 115, validation loss: 61.59
+2024-10-15 00:17:33,252 - root - INFO - epoch:115,kl loss:0.12154609709978104,nll loss:1.0088486671447754,diffpool loss:64.97073364257812
+2024-10-15 00:17:33,252 - root - INFO - epoch:115,elapsed time:34.741551876068115,total time:4079.31871676445
+2024-10-15 00:17:37,202 - root - INFO - epoch: 116, validation loss: 61.50
+2024-10-15 00:18:07,988 - root - INFO - epoch:116,kl loss:0.1207202598452568,nll loss:1.0103188753128052,diffpool loss:64.95372009277344
+2024-10-15 00:18:07,988 - root - INFO - epoch:116,elapsed time:34.73570966720581,total time:4114.054426431656
+2024-10-15 00:18:11,962 - root - INFO - epoch: 117, validation loss: 61.51
+2024-10-15 00:18:42,593 - root - INFO - epoch:117,kl loss:0.12003247439861298,nll loss:1.0103765726089478,diffpool loss:64.96541595458984
+2024-10-15 00:18:42,594 - root - INFO - epoch:117,elapsed time:34.60561418533325,total time:4148.660040616989
+2024-10-15 00:18:46,554 - root - INFO - epoch: 118, validation loss: 61.57
+2024-10-15 00:19:17,408 - root - INFO - epoch:118,kl loss:0.12070100754499435,nll loss:1.0086086988449097,diffpool loss:64.952880859375
+2024-10-15 00:19:17,408 - root - INFO - epoch:118,elapsed time:34.8147406578064,total time:4183.4747812747955
+2024-10-15 00:19:21,365 - root - INFO - epoch: 119, validation loss: 61.56
+2024-10-15 00:19:52,131 - root - INFO - epoch:119,kl loss:0.12047982960939407,nll loss:1.0134998559951782,diffpool loss:64.97063446044922
+2024-10-15 00:19:52,131 - root - INFO - epoch:119,elapsed time:34.722920179367065,total time:4218.197701454163
+2024-10-15 00:19:56,069 - root - INFO - epoch: 120, validation loss: 61.50
+2024-10-15 00:20:26,812 - root - INFO - epoch:120,kl loss:0.12857890129089355,nll loss:1.0149201154708862,diffpool loss:65.01449584960938
+2024-10-15 00:20:26,812 - root - INFO - epoch:120,elapsed time:34.68090295791626,total time:4252.878604412079
+2024-10-15 00:20:30,799 - root - INFO - epoch: 121, validation loss: 61.56
+2024-10-15 00:21:01,558 - root - INFO - epoch:121,kl loss:0.12006747722625732,nll loss:1.008561372756958,diffpool loss:64.9584732055664
+2024-10-15 00:21:01,558 - root - INFO - epoch:121,elapsed time:34.745322465896606,total time:4287.6239268779755
+2024-10-15 00:21:05,581 - root - INFO - epoch: 122, validation loss: 61.58
+2024-10-15 00:21:36,666 - root - INFO - epoch:122,kl loss:0.11968358606100082,nll loss:1.009402871131897,diffpool loss:64.96075439453125
+2024-10-15 00:21:36,666 - root - INFO - epoch:122,elapsed time:35.10783767700195,total time:4322.731764554977
+2024-10-15 00:21:40,662 - root - INFO - epoch: 123, validation loss: 61.61
+2024-10-15 00:22:11,825 - root - INFO - epoch:123,kl loss:0.12205905467271805,nll loss:1.0139659643173218,diffpool loss:64.95890045166016
+2024-10-15 00:22:11,826 - root - INFO - epoch:123,elapsed time:35.15980911254883,total time:4357.891573667526
+2024-10-15 00:22:15,826 - root - INFO - epoch: 124, validation loss: 61.51
+2024-10-15 00:22:46,570 - root - INFO - epoch:124,kl loss:0.12104924023151398,nll loss:1.0071126222610474,diffpool loss:64.9485092163086
+2024-10-15 00:22:46,570 - root - INFO - epoch:124,elapsed time:34.743990659713745,total time:4392.63556432724
+2024-10-15 00:22:50,552 - root - INFO - epoch: 125, validation loss: 61.44
+2024-10-15 00:23:22,030 - root - INFO - epoch:125,kl loss:0.12311704456806183,nll loss:1.0100679397583008,diffpool loss:64.95263671875
+2024-10-15 00:23:22,030 - root - INFO - epoch:125,elapsed time:35.45993494987488,total time:4428.095499277115
+2024-10-15 00:23:26,077 - root - INFO - epoch: 126, validation loss: 61.49
+2024-10-15 00:23:57,246 - root - INFO - epoch:126,kl loss:0.1207917258143425,nll loss:1.0077013969421387,diffpool loss:64.95722198486328
+2024-10-15 00:23:57,247 - root - INFO - epoch:126,elapsed time:35.21680688858032,total time:4463.312306165695
+2024-10-15 00:24:01,308 - root - INFO - epoch: 127, validation loss: 61.57
+2024-10-15 00:24:32,441 - root - INFO - epoch:127,kl loss:0.11947810649871826,nll loss:1.0138823986053467,diffpool loss:64.97321319580078
+2024-10-15 00:24:32,442 - root - INFO - epoch:127,elapsed time:35.19489097595215,total time:4498.507197141647
+2024-10-15 00:24:36,556 - root - INFO - epoch: 128, validation loss: 61.61
+2024-10-15 00:25:07,776 - root - INFO - epoch:128,kl loss:0.13267697393894196,nll loss:1.0145472288131714,diffpool loss:64.98594665527344
+2024-10-15 00:25:07,776 - root - INFO - epoch:128,elapsed time:35.33411955833435,total time:4533.841316699982
+2024-10-15 00:25:11,816 - root - INFO - epoch: 129, validation loss: 61.46
+2024-10-15 00:25:43,012 - root - INFO - epoch:129,kl loss:0.12267192453145981,nll loss:1.0075422525405884,diffpool loss:64.94879913330078
+2024-10-15 00:25:43,012 - root - INFO - epoch:129,elapsed time:35.236077547073364,total time:4569.077394247055
+2024-10-15 00:25:47,062 - root - INFO - epoch: 130, validation loss: 61.41
+2024-10-15 00:25:47,073 - root - INFO - save parameters to file: experiments/swat_test/epoch_130.params
+2024-10-15 00:26:18,565 - root - INFO - epoch:130,kl loss:0.12433429062366486,nll loss:1.005869746208191,diffpool loss:64.95457458496094
+2024-10-15 00:26:18,565 - root - INFO - epoch:130,elapsed time:35.55286526679993,total time:4604.630259513855
+2024-10-15 00:26:22,625 - root - INFO - epoch: 131, validation loss: 61.55
+2024-10-15 00:26:53,991 - root - INFO - epoch:131,kl loss:0.11892489343881607,nll loss:1.0102741718292236,diffpool loss:64.95381927490234
+2024-10-15 00:26:53,991 - root - INFO - epoch:131,elapsed time:35.42603635787964,total time:4640.056295871735
+2024-10-15 00:26:58,010 - root - INFO - epoch: 132, validation loss: 61.47
+2024-10-15 00:27:29,332 - root - INFO - epoch:132,kl loss:0.11620080471038818,nll loss:1.005828857421875,diffpool loss:64.94075012207031
+2024-10-15 00:27:29,332 - root - INFO - epoch:132,elapsed time:35.341360330581665,total time:4675.397656202316
+2024-10-15 00:27:33,388 - root - INFO - epoch: 133, validation loss: 61.54
+2024-10-15 00:28:04,629 - root - INFO - epoch:133,kl loss:0.11678659915924072,nll loss:1.005972146987915,diffpool loss:64.94371795654297
+2024-10-15 00:28:04,629 - root - INFO - epoch:133,elapsed time:35.29659342765808,total time:4710.694249629974
+2024-10-15 00:28:08,652 - root - INFO - epoch: 134, validation loss: 61.62
+2024-10-15 00:28:39,694 - root - INFO - epoch:134,kl loss:0.1165119931101799,nll loss:1.0049325227737427,diffpool loss:64.929443359375
+2024-10-15 00:28:39,694 - root - INFO - epoch:134,elapsed time:35.0650839805603,total time:4745.759333610535
+2024-10-15 00:28:43,724 - root - INFO - epoch: 135, validation loss: 61.51
+2024-10-15 00:29:15,116 - root - INFO - epoch:135,kl loss:0.11686940491199493,nll loss:1.0087265968322754,diffpool loss:64.93476104736328
+2024-10-15 00:29:15,116 - root - INFO - epoch:135,elapsed time:35.42197322845459,total time:4781.181306838989
+2024-10-15 00:29:19,180 - root - INFO - epoch: 136, validation loss: 61.57
+2024-10-15 00:29:50,470 - root - INFO - epoch:136,kl loss:0.1157422885298729,nll loss:1.0052725076675415,diffpool loss:64.94287872314453
+2024-10-15 00:29:50,470 - root - INFO - epoch:136,elapsed time:35.353310346603394,total time:4816.534617185593
+2024-10-15 00:29:54,518 - root - INFO - epoch: 137, validation loss: 61.45
+2024-10-15 00:30:25,985 - root - INFO - epoch:137,kl loss:0.11928236484527588,nll loss:1.0068808794021606,diffpool loss:64.9442138671875
+2024-10-15 00:30:25,985 - root - INFO - epoch:137,elapsed time:35.51495718955994,total time:4852.049574375153
+2024-10-15 00:30:29,997 - root - INFO - epoch: 138, validation loss: 61.46
+2024-10-15 00:31:01,325 - root - INFO - epoch:138,kl loss:0.12393591552972794,nll loss:1.0086737871170044,diffpool loss:64.94841766357422
+2024-10-15 00:31:01,326 - root - INFO - epoch:138,elapsed time:35.34049677848816,total time:4887.390071153641
+2024-10-15 00:31:05,372 - root - INFO - epoch: 139, validation loss: 61.51
+2024-10-15 00:31:36,656 - root - INFO - epoch:139,kl loss:0.1199115440249443,nll loss:1.0079607963562012,diffpool loss:64.92922973632812
+2024-10-15 00:31:36,656 - root - INFO - epoch:139,elapsed time:35.3302526473999,total time:4922.720323801041
+2024-10-15 00:31:40,669 - root - INFO - epoch: 140, validation loss: 61.50
+2024-10-15 00:32:11,810 - root - INFO - epoch:140,kl loss:0.1168890967965126,nll loss:1.0046987533569336,diffpool loss:64.93616485595703
+2024-10-15 00:32:11,810 - root - INFO - epoch:140,elapsed time:35.15410137176514,total time:4957.874425172806
+2024-10-15 00:32:15,819 - root - INFO - epoch: 141, validation loss: 61.54
+2024-10-15 00:32:47,022 - root - INFO - epoch:141,kl loss:0.1163259968161583,nll loss:1.0077884197235107,diffpool loss:64.94422912597656
+2024-10-15 00:32:47,022 - root - INFO - epoch:141,elapsed time:35.21194934844971,total time:4993.0863745212555
+2024-10-15 00:32:51,011 - root - INFO - epoch: 142, validation loss: 61.58
+2024-10-15 00:33:21,906 - root - INFO - epoch:142,kl loss:0.11722061783075333,nll loss:1.0077308416366577,diffpool loss:64.93821716308594
+2024-10-15 00:33:21,906 - root - INFO - epoch:142,elapsed time:34.88367819786072,total time:5027.970052719116
+2024-10-15 00:33:25,893 - root - INFO - epoch: 143, validation loss: 61.47
+2024-10-15 00:33:56,836 - root - INFO - epoch:143,kl loss:0.1156904324889183,nll loss:1.0068153142929077,diffpool loss:64.92930603027344
+2024-10-15 00:33:56,836 - root - INFO - epoch:143,elapsed time:34.93021035194397,total time:5062.90026307106
+2024-10-15 00:34:00,958 - root - INFO - epoch: 144, validation loss: 61.50
+2024-10-15 00:34:32,385 - root - INFO - epoch:144,kl loss:0.11244235187768936,nll loss:1.0055654048919678,diffpool loss:64.91686248779297
+2024-10-15 00:34:32,386 - root - INFO - epoch:144,elapsed time:35.54928469657898,total time:5098.449547767639
+2024-10-15 00:34:36,396 - root - INFO - epoch: 145, validation loss: 61.46
+2024-10-15 00:35:07,460 - root - INFO - epoch:145,kl loss:0.11319488286972046,nll loss:1.004033088684082,diffpool loss:64.9267349243164
+2024-10-15 00:35:07,460 - root - INFO - epoch:145,elapsed time:35.074140548706055,total time:5133.523688316345
+2024-10-15 00:35:11,532 - root - INFO - epoch: 146, validation loss: 61.56
+2024-10-15 00:35:42,955 - root - INFO - epoch:146,kl loss:0.11432630568742752,nll loss:1.0072591304779053,diffpool loss:64.93643951416016
+2024-10-15 00:35:42,955 - root - INFO - epoch:146,elapsed time:35.49498629570007,total time:5169.018674612045
+2024-10-15 00:35:46,940 - root - INFO - epoch: 147, validation loss: 61.37
+2024-10-15 00:35:46,952 - root - INFO - save parameters to file: experiments/swat_test/epoch_147.params
+2024-10-15 00:36:17,839 - root - INFO - epoch:147,kl loss:0.11162808537483215,nll loss:1.0054454803466797,diffpool loss:64.92793273925781
+2024-10-15 00:36:17,839 - root - INFO - epoch:147,elapsed time:34.8844211101532,total time:5203.9030957221985
+2024-10-15 00:36:21,845 - root - INFO - epoch: 148, validation loss: 61.43
+2024-10-15 00:36:53,047 - root - INFO - epoch:148,kl loss:0.11427542567253113,nll loss:1.0077779293060303,diffpool loss:64.937255859375
+2024-10-15 00:36:53,048 - root - INFO - epoch:148,elapsed time:35.20820617675781,total time:5239.111301898956
+2024-10-15 00:36:57,035 - root - INFO - epoch: 149, validation loss: 61.54
+2024-10-15 00:37:27,975 - root - INFO - epoch:149,kl loss:0.11749695986509323,nll loss:1.0064836740493774,diffpool loss:64.93836975097656
+2024-10-15 00:37:27,975 - root - INFO - epoch:149,elapsed time:34.92765998840332,total time:5274.03896188736
+2024-10-15 00:37:31,965 - root - INFO - epoch: 150, validation loss: 61.58
+2024-10-15 00:38:03,381 - root - INFO - epoch:150,kl loss:0.12226647883653641,nll loss:1.005723476409912,diffpool loss:64.95355224609375
+2024-10-15 00:38:03,381 - root - INFO - epoch:150,elapsed time:35.406007051467896,total time:5309.4449689388275
+2024-10-15 00:38:07,393 - root - INFO - epoch: 151, validation loss: 61.59
+2024-10-15 00:38:38,767 - root - INFO - epoch:151,kl loss:0.11976489424705505,nll loss:1.0060930252075195,diffpool loss:64.93363189697266
+2024-10-15 00:38:38,767 - root - INFO - epoch:151,elapsed time:35.38526487350464,total time:5344.830233812332
+2024-10-15 00:38:42,823 - root - INFO - epoch: 152, validation loss: 61.54
+2024-10-15 00:39:14,217 - root - INFO - epoch:152,kl loss:0.11476176977157593,nll loss:1.006367802619934,diffpool loss:64.92568969726562
+2024-10-15 00:39:14,218 - root - INFO - epoch:152,elapsed time:35.45079302787781,total time:5380.28102684021
+2024-10-15 00:39:18,199 - root - INFO - epoch: 153, validation loss: 61.50
+2024-10-15 00:39:49,166 - root - INFO - epoch:153,kl loss:0.11382241547107697,nll loss:1.0047359466552734,diffpool loss:64.92108154296875
+2024-10-15 00:39:49,166 - root - INFO - epoch:153,elapsed time:34.948490858078,total time:5415.229517698288
+2024-10-15 00:39:53,137 - root - INFO - epoch: 154, validation loss: 61.45
+2024-10-15 00:40:24,176 - root - INFO - epoch:154,kl loss:0.11500449478626251,nll loss:1.0054446458816528,diffpool loss:64.94112396240234
+2024-10-15 00:40:24,176 - root - INFO - epoch:154,elapsed time:35.009506702423096,total time:5450.239024400711
+2024-10-15 00:40:28,168 - root - INFO - epoch: 155, validation loss: 61.72
+2024-10-15 00:40:59,051 - root - INFO - epoch:155,kl loss:0.11890214681625366,nll loss:1.0065635442733765,diffpool loss:64.94654846191406
+2024-10-15 00:40:59,051 - root - INFO - epoch:155,elapsed time:34.87540364265442,total time:5485.1144280433655
+2024-10-15 00:41:03,004 - root - INFO - epoch: 156, validation loss: 61.53
+2024-10-15 00:41:33,948 - root - INFO - epoch:156,kl loss:0.11286389827728271,nll loss:1.0057944059371948,diffpool loss:64.91294860839844
+2024-10-15 00:41:33,948 - root - INFO - epoch:156,elapsed time:34.896761655807495,total time:5520.011189699173
+2024-10-15 00:41:37,920 - root - INFO - epoch: 157, validation loss: 61.50
+2024-10-15 00:42:08,592 - root - INFO - epoch:157,kl loss:0.11457337439060211,nll loss:1.005280613899231,diffpool loss:64.91666412353516
+2024-10-15 00:42:08,593 - root - INFO - epoch:157,elapsed time:34.644691467285156,total time:5554.655881166458
+2024-10-15 00:42:12,548 - root - INFO - epoch: 158, validation loss: 61.43
+2024-10-15 00:42:43,329 - root - INFO - epoch:158,kl loss:0.12071061134338379,nll loss:1.002303123474121,diffpool loss:64.93486785888672
+2024-10-15 00:42:43,330 - root - INFO - epoch:158,elapsed time:34.73658871650696,total time:5589.392469882965
+2024-10-15 00:42:47,291 - root - INFO - epoch: 159, validation loss: 61.40
+2024-10-15 00:43:18,399 - root - INFO - epoch:159,kl loss:0.11640118807554245,nll loss:1.0061596632003784,diffpool loss:64.92918395996094
+2024-10-15 00:43:18,400 - root - INFO - epoch:159,elapsed time:35.06988596916199,total time:5624.462355852127
+2024-10-15 00:43:22,357 - root - INFO - epoch: 160, validation loss: 61.41
+2024-10-15 00:43:53,297 - root - INFO - epoch:160,kl loss:0.11966697126626968,nll loss:1.0086957216262817,diffpool loss:64.94342041015625
+2024-10-15 00:43:53,297 - root - INFO - epoch:160,elapsed time:34.89727783203125,total time:5659.359633684158
+2024-10-15 00:43:57,303 - root - INFO - epoch: 161, validation loss: 61.44
+2024-10-15 00:44:28,570 - root - INFO - epoch:161,kl loss:0.11563422530889511,nll loss:1.0044617652893066,diffpool loss:64.93020629882812
+2024-10-15 00:44:28,570 - root - INFO - epoch:161,elapsed time:35.27294874191284,total time:5694.632582426071
+2024-10-15 00:44:32,533 - root - INFO - epoch: 162, validation loss: 61.56
+2024-10-15 00:45:03,434 - root - INFO - epoch:162,kl loss:0.11869890242815018,nll loss:1.0051296949386597,diffpool loss:64.93173217773438
+2024-10-15 00:45:03,434 - root - INFO - epoch:162,elapsed time:34.86372685432434,total time:5729.4963092803955
+2024-10-15 00:45:07,421 - root - INFO - epoch: 163, validation loss: 61.57
+2024-10-15 00:45:38,416 - root - INFO - epoch:163,kl loss:0.1231168806552887,nll loss:1.0048874616622925,diffpool loss:64.93928527832031
+2024-10-15 00:45:38,416 - root - INFO - epoch:163,elapsed time:34.982484340667725,total time:5764.478793621063
+2024-10-15 00:45:42,410 - root - INFO - epoch: 164, validation loss: 61.53
+2024-10-15 00:46:13,117 - root - INFO - epoch:164,kl loss:0.11765536665916443,nll loss:1.00775146484375,diffpool loss:64.92290496826172
+2024-10-15 00:46:13,117 - root - INFO - epoch:164,elapsed time:34.7007839679718,total time:5799.179577589035
+2024-10-15 00:46:17,081 - root - INFO - epoch: 165, validation loss: 61.49
+2024-10-15 00:46:48,139 - root - INFO - epoch:165,kl loss:0.11500703543424606,nll loss:1.0018749237060547,diffpool loss:64.9093017578125
+2024-10-15 00:46:48,139 - root - INFO - epoch:165,elapsed time:35.022032737731934,total time:5834.201610326767
+2024-10-15 00:46:52,124 - root - INFO - epoch: 166, validation loss: 61.47
+2024-10-15 00:47:23,412 - root - INFO - epoch:166,kl loss:0.1115005612373352,nll loss:1.004412055015564,diffpool loss:64.9107666015625
+2024-10-15 00:47:23,412 - root - INFO - epoch:166,elapsed time:35.27221989631653,total time:5869.4738302230835
+2024-10-15 00:47:27,401 - root - INFO - epoch: 167, validation loss: 61.45
+2024-10-15 00:47:58,054 - root - INFO - epoch:167,kl loss:0.10969985276460648,nll loss:1.0055508613586426,diffpool loss:64.90699005126953
+2024-10-15 00:47:58,054 - root - INFO - epoch:167,elapsed time:34.64191293716431,total time:5904.115743160248
+2024-10-15 00:48:01,978 - root - INFO - epoch: 168, validation loss: 61.49
+2024-10-15 00:48:32,778 - root - INFO - epoch:168,kl loss:0.11252240091562271,nll loss:1.0028718709945679,diffpool loss:64.92279815673828
+2024-10-15 00:48:32,778 - root - INFO - epoch:168,elapsed time:34.72400093078613,total time:5938.839744091034
+2024-10-15 00:48:36,730 - root - INFO - epoch: 169, validation loss: 61.52
+2024-10-15 00:49:07,320 - root - INFO - epoch:169,kl loss:0.11305515468120575,nll loss:1.0044660568237305,diffpool loss:64.91238403320312
+2024-10-15 00:49:07,320 - root - INFO - epoch:169,elapsed time:34.54200506210327,total time:5973.381749153137
+2024-10-15 00:49:11,261 - root - INFO - epoch: 170, validation loss: 61.52
+2024-10-15 00:49:42,290 - root - INFO - epoch:170,kl loss:0.11942583322525024,nll loss:1.0016789436340332,diffpool loss:64.92703247070312
+2024-10-15 00:49:42,290 - root - INFO - epoch:170,elapsed time:34.970458984375,total time:6008.352208137512
+2024-10-15 00:49:46,255 - root - INFO - epoch: 171, validation loss: 61.60
+2024-10-15 00:50:17,152 - root - INFO - epoch:171,kl loss:0.11448962986469269,nll loss:1.0096007585525513,diffpool loss:64.91777801513672
+2024-10-15 00:50:17,152 - root - INFO - epoch:171,elapsed time:34.86169147491455,total time:6043.213899612427
+2024-10-15 00:50:21,141 - root - INFO - epoch: 172, validation loss: 61.46
+2024-10-15 00:50:52,432 - root - INFO - epoch:172,kl loss:0.11490622907876968,nll loss:1.003164291381836,diffpool loss:64.9285888671875
+2024-10-15 00:50:52,432 - root - INFO - epoch:172,elapsed time:35.27947473526001,total time:6078.493374347687
+2024-10-15 00:50:56,373 - root - INFO - epoch: 173, validation loss: 61.40
+2024-10-15 00:51:27,089 - root - INFO - epoch:173,kl loss:0.11130081117153168,nll loss:1.003443956375122,diffpool loss:64.89665222167969
+2024-10-15 00:51:27,089 - root - INFO - epoch:173,elapsed time:34.657129526138306,total time:6113.150503873825
+2024-10-15 00:51:31,046 - root - INFO - epoch: 174, validation loss: 61.56
+2024-10-15 00:52:01,595 - root - INFO - epoch:174,kl loss:0.10937829315662384,nll loss:1.0010409355163574,diffpool loss:64.90827941894531
+2024-10-15 00:52:01,595 - root - INFO - epoch:174,elapsed time:34.50584864616394,total time:6147.656352519989
+2024-10-15 00:52:05,602 - root - INFO - epoch: 175, validation loss: 61.39
+2024-10-15 00:52:36,564 - root - INFO - epoch:175,kl loss:0.11285599321126938,nll loss:1.0024679899215698,diffpool loss:64.92304229736328
+2024-10-15 00:52:36,565 - root - INFO - epoch:175,elapsed time:34.96977663040161,total time:6182.626129150391
+2024-10-15 00:52:40,537 - root - INFO - epoch: 176, validation loss: 61.50
+2024-10-15 00:53:11,392 - root - INFO - epoch:176,kl loss:0.11136321723461151,nll loss:1.0052070617675781,diffpool loss:64.91133117675781
+2024-10-15 00:53:11,392 - root - INFO - epoch:176,elapsed time:34.82696461677551,total time:6217.453093767166
+2024-10-15 00:53:15,341 - root - INFO - epoch: 177, validation loss: 61.57
+2024-10-15 00:53:45,945 - root - INFO - epoch:177,kl loss:0.110373854637146,nll loss:1.000601887702942,diffpool loss:64.9006576538086
+2024-10-15 00:53:45,946 - root - INFO - epoch:177,elapsed time:34.55362343788147,total time:6252.006717205048
+2024-10-15 00:53:49,864 - root - INFO - epoch: 178, validation loss: 61.55
+2024-10-15 00:54:20,616 - root - INFO - epoch:178,kl loss:0.11159902811050415,nll loss:1.0023771524429321,diffpool loss:64.90644836425781
+2024-10-15 00:54:20,616 - root - INFO - epoch:178,elapsed time:34.670541524887085,total time:6286.677258729935
+2024-10-15 00:54:24,576 - root - INFO - epoch: 179, validation loss: 61.54
+2024-10-15 00:54:55,397 - root - INFO - epoch:179,kl loss:0.1145036369562149,nll loss:1.001781702041626,diffpool loss:64.91596221923828
+2024-10-15 00:54:55,397 - root - INFO - epoch:179,elapsed time:34.780893325805664,total time:6321.45815205574
+2024-10-15 00:54:59,376 - root - INFO - epoch: 180, validation loss: 61.54
+2024-10-15 00:55:30,309 - root - INFO - epoch:180,kl loss:0.11354242265224457,nll loss:1.0044423341751099,diffpool loss:64.90222930908203
+2024-10-15 00:55:30,310 - root - INFO - epoch:180,elapsed time:34.91237425804138,total time:6356.370526313782
+2024-10-15 00:55:34,279 - root - INFO - epoch: 181, validation loss: 61.42
+2024-10-15 00:56:05,282 - root - INFO - epoch:181,kl loss:0.10918480902910233,nll loss:1.0013757944107056,diffpool loss:64.90202331542969
+2024-10-15 00:56:05,283 - root - INFO - epoch:181,elapsed time:34.97294569015503,total time:6391.343472003937
+2024-10-15 00:56:09,275 - root - INFO - epoch: 182, validation loss: 61.45
+2024-10-15 00:56:39,945 - root - INFO - epoch:182,kl loss:0.11430919170379639,nll loss:1.0002796649932861,diffpool loss:64.9020767211914
+2024-10-15 00:56:39,945 - root - INFO - epoch:182,elapsed time:34.66269063949585,total time:6426.006162643433
+2024-10-15 00:56:43,895 - root - INFO - epoch: 183, validation loss: 61.61
+2024-10-15 00:57:14,634 - root - INFO - epoch:183,kl loss:0.1117132380604744,nll loss:1.0009629726409912,diffpool loss:64.89005279541016
+2024-10-15 00:57:14,635 - root - INFO - epoch:183,elapsed time:34.68907332420349,total time:6460.695235967636
+2024-10-15 00:57:18,594 - root - INFO - epoch: 184, validation loss: 61.48
+2024-10-15 00:57:49,329 - root - INFO - epoch:184,kl loss:0.10941730439662933,nll loss:1.0021957159042358,diffpool loss:64.90345001220703
+2024-10-15 00:57:49,330 - root - INFO - epoch:184,elapsed time:34.69500803947449,total time:6495.390244007111
+2024-10-15 00:57:53,291 - root - INFO - epoch: 185, validation loss: 61.58
+2024-10-15 00:58:23,661 - root - INFO - epoch:185,kl loss:0.1092088371515274,nll loss:1.0023865699768066,diffpool loss:64.9000244140625
+2024-10-15 00:58:23,661 - root - INFO - epoch:185,elapsed time:34.33140683174133,total time:6529.721650838852
+2024-10-15 00:58:27,593 - root - INFO - epoch: 186, validation loss: 61.53
+2024-10-15 00:58:58,442 - root - INFO - epoch:186,kl loss:0.11082450300455093,nll loss:1.0012996196746826,diffpool loss:64.89924621582031
+2024-10-15 00:58:58,442 - root - INFO - epoch:186,elapsed time:34.78116178512573,total time:6564.502812623978
+2024-10-15 00:59:02,379 - root - INFO - epoch: 187, validation loss: 61.54
+2024-10-15 00:59:33,057 - root - INFO - epoch:187,kl loss:0.10819970816373825,nll loss:1.002151370048523,diffpool loss:64.90558624267578
+2024-10-15 00:59:33,057 - root - INFO - epoch:187,elapsed time:34.61466193199158,total time:6599.117474555969
+2024-10-15 00:59:36,981 - root - INFO - epoch: 188, validation loss: 61.43
+2024-10-15 01:00:07,505 - root - INFO - epoch:188,kl loss:0.11061112582683563,nll loss:1.0028895139694214,diffpool loss:64.90995788574219
+2024-10-15 01:00:07,506 - root - INFO - epoch:188,elapsed time:34.44817662239075,total time:6633.56565117836
+2024-10-15 01:00:11,480 - root - INFO - epoch: 189, validation loss: 61.58
+2024-10-15 01:00:42,272 - root - INFO - epoch:189,kl loss:0.11348045617341995,nll loss:1.005366563796997,diffpool loss:64.9029312133789
+2024-10-15 01:00:42,272 - root - INFO - epoch:189,elapsed time:34.76624655723572,total time:6668.331897735596
+2024-10-15 01:00:46,221 - root - INFO - epoch: 190, validation loss: 61.49
+2024-10-15 01:01:16,939 - root - INFO - epoch:190,kl loss:0.10948490351438522,nll loss:0.997904896736145,diffpool loss:64.89666748046875
+2024-10-15 01:01:16,940 - root - INFO - epoch:190,elapsed time:34.66759014129639,total time:6702.999487876892
+2024-10-15 01:01:20,896 - root - INFO - epoch: 191, validation loss: 61.40
+2024-10-15 01:01:51,510 - root - INFO - epoch:191,kl loss:0.1064474806189537,nll loss:1.006456732749939,diffpool loss:64.89682006835938
+2024-10-15 01:01:51,510 - root - INFO - epoch:191,elapsed time:34.570648193359375,total time:6737.5701360702515
+2024-10-15 01:01:55,468 - root - INFO - epoch: 192, validation loss: 61.56
+2024-10-15 01:02:26,140 - root - INFO - epoch:192,kl loss:0.10620982199907303,nll loss:0.9970148205757141,diffpool loss:64.89098358154297
+2024-10-15 01:02:26,141 - root - INFO - epoch:192,elapsed time:34.63017988204956,total time:6772.200315952301
+2024-10-15 01:02:30,095 - root - INFO - epoch: 193, validation loss: 61.51
+2024-10-15 01:03:00,888 - root - INFO - epoch:193,kl loss:0.10655438154935837,nll loss:0.9996053576469421,diffpool loss:64.89445495605469
+2024-10-15 01:03:00,888 - root - INFO - epoch:193,elapsed time:34.74773716926575,total time:6806.948053121567
+2024-10-15 01:03:04,922 - root - INFO - epoch: 194, validation loss: 61.50
+2024-10-15 01:03:35,540 - root - INFO - epoch:194,kl loss:0.1028420478105545,nll loss:1.001151204109192,diffpool loss:64.8764419555664
+2024-10-15 01:03:35,540 - root - INFO - epoch:194,elapsed time:34.65147924423218,total time:6841.599532365799
+2024-10-15 01:03:39,470 - root - INFO - epoch: 195, validation loss: 61.50
+2024-10-15 01:04:10,255 - root - INFO - epoch:195,kl loss:0.1041763424873352,nll loss:0.9980149865150452,diffpool loss:64.88220977783203
+2024-10-15 01:04:10,255 - root - INFO - epoch:195,elapsed time:34.715006589889526,total time:6876.3145389556885
+2024-10-15 01:04:14,195 - root - INFO - epoch: 196, validation loss: 61.38
+2024-10-15 01:04:44,764 - root - INFO - epoch:196,kl loss:0.11049863696098328,nll loss:1.0011045932769775,diffpool loss:64.88945007324219
+2024-10-15 01:04:44,764 - root - INFO - epoch:196,elapsed time:34.509016275405884,total time:6910.823555231094
+2024-10-15 01:04:48,715 - root - INFO - epoch: 197, validation loss: 61.67
+2024-10-15 01:05:19,721 - root - INFO - epoch:197,kl loss:0.11289378255605698,nll loss:1.000993251800537,diffpool loss:64.89579772949219
+2024-10-15 01:05:19,721 - root - INFO - epoch:197,elapsed time:34.95669198036194,total time:6945.780247211456
+2024-10-15 01:05:23,653 - root - INFO - epoch: 198, validation loss: 61.60
+2024-10-15 01:05:53,924 - root - INFO - epoch:198,kl loss:0.1113361269235611,nll loss:0.9993628263473511,diffpool loss:64.90835571289062
+2024-10-15 01:05:53,924 - root - INFO - epoch:198,elapsed time:34.202659606933594,total time:6979.98290681839
+2024-10-15 01:05:57,864 - root - INFO - epoch: 199, validation loss: 61.58
+2024-10-15 01:06:28,497 - root - INFO - epoch:199,kl loss:0.10765263438224792,nll loss:1.0032709836959839,diffpool loss:64.89204406738281
+2024-10-15 01:06:28,497 - root - INFO - epoch:199,elapsed time:34.57299065589905,total time:7014.555897474289
+2024-10-15 01:06:32,430 - root - INFO - epoch: 200, validation loss: 61.57
+2024-10-15 01:07:03,324 - root - INFO - epoch:200,kl loss:0.10563338547945023,nll loss:1.0026246309280396,diffpool loss:64.88299560546875
+2024-10-15 01:07:03,324 - root - INFO - epoch:200,elapsed time:34.82716393470764,total time:7049.383061408997
+2024-10-15 01:07:07,264 - root - INFO - epoch: 201, validation loss: 61.48
+2024-10-15 01:07:37,999 - root - INFO - epoch:201,kl loss:0.1047838106751442,nll loss:0.9999331831932068,diffpool loss:64.89248657226562
+2024-10-15 01:07:37,999 - root - INFO - epoch:201,elapsed time:34.67510008811951,total time:7084.058161497116
+2024-10-15 01:07:41,966 - root - INFO - epoch: 202, validation loss: 61.50
+2024-10-15 01:08:13,001 - root - INFO - epoch:202,kl loss:0.10326340049505234,nll loss:0.9988195300102234,diffpool loss:64.86819458007812
+2024-10-15 01:08:13,001 - root - INFO - epoch:202,elapsed time:35.00180768966675,total time:7119.059969186783
+2024-10-15 01:08:16,939 - root - INFO - epoch: 203, validation loss: 61.49
+2024-10-15 01:08:47,597 - root - INFO - epoch:203,kl loss:0.10359140485525131,nll loss:1.0006390810012817,diffpool loss:64.87884521484375
+2024-10-15 01:08:47,598 - root - INFO - epoch:203,elapsed time:34.5962016582489,total time:7153.656170845032
+2024-10-15 01:08:51,539 - root - INFO - epoch: 204, validation loss: 61.45
+2024-10-15 01:09:22,099 - root - INFO - epoch:204,kl loss:0.10488513857126236,nll loss:1.0012420415878296,diffpool loss:64.88866424560547
+2024-10-15 01:09:22,099 - root - INFO - epoch:204,elapsed time:34.501022815704346,total time:7188.157193660736
+2024-10-15 01:09:26,045 - root - INFO - epoch: 205, validation loss: 61.73
+2024-10-15 01:09:56,474 - root - INFO - epoch:205,kl loss:0.10860196501016617,nll loss:0.9996078014373779,diffpool loss:64.8781967163086
+2024-10-15 01:09:56,474 - root - INFO - epoch:205,elapsed time:34.37561631202698,total time:7222.532809972763
+2024-10-15 01:10:00,441 - root - INFO - epoch: 206, validation loss: 61.70
+2024-10-15 01:10:31,283 - root - INFO - epoch:206,kl loss:0.10778340697288513,nll loss:0.99708092212677,diffpool loss:64.8756103515625
+2024-10-15 01:10:31,283 - root - INFO - epoch:206,elapsed time:34.80839204788208,total time:7257.341202020645
+2024-10-15 01:10:35,304 - root - INFO - epoch: 207, validation loss: 61.40
+2024-10-15 01:11:06,043 - root - INFO - epoch:207,kl loss:0.10927733033895493,nll loss:0.9995759725570679,diffpool loss:64.88034057617188
+2024-10-15 01:11:06,043 - root - INFO - epoch:207,elapsed time:34.75981855392456,total time:7292.10102057457
+2024-10-15 01:11:09,994 - root - INFO - epoch: 208, validation loss: 61.54
+2024-10-15 01:11:40,533 - root - INFO - epoch:208,kl loss:0.10942211002111435,nll loss:0.9999337792396545,diffpool loss:64.88839721679688
+2024-10-15 01:11:40,534 - root - INFO - epoch:208,elapsed time:34.49087691307068,total time:7326.59189748764
+2024-10-15 01:11:44,523 - root - INFO - epoch: 209, validation loss: 61.58
+2024-10-15 01:12:15,341 - root - INFO - epoch:209,kl loss:0.10920429229736328,nll loss:0.9998934268951416,diffpool loss:64.88907623291016
+2024-10-15 01:12:15,341 - root - INFO - epoch:209,elapsed time:34.807208776474,total time:7361.399106264114
+2024-10-15 01:12:19,324 - root - INFO - epoch: 210, validation loss: 61.67
+2024-10-15 01:12:50,325 - root - INFO - epoch:210,kl loss:0.10478200018405914,nll loss:0.9990659952163696,diffpool loss:64.89218139648438
+2024-10-15 01:12:50,325 - root - INFO - epoch:210,elapsed time:34.983808279037476,total time:7396.382914543152
+2024-10-15 01:12:54,320 - root - INFO - epoch: 211, validation loss: 61.54
+2024-10-15 01:13:25,206 - root - INFO - epoch:211,kl loss:0.10514496266841888,nll loss:0.9993565678596497,diffpool loss:64.87657928466797
+2024-10-15 01:13:25,206 - root - INFO - epoch:211,elapsed time:34.88134527206421,total time:7431.264259815216
+2024-10-15 01:13:29,204 - root - INFO - epoch: 212, validation loss: 61.48
+2024-10-15 01:13:59,860 - root - INFO - epoch:212,kl loss:0.10602103918790817,nll loss:0.9977387189865112,diffpool loss:64.87535858154297
+2024-10-15 01:13:59,860 - root - INFO - epoch:212,elapsed time:34.65369248390198,total time:7465.917952299118
+2024-10-15 01:14:03,868 - root - INFO - epoch: 213, validation loss: 61.63
+2024-10-15 01:14:35,287 - root - INFO - epoch:213,kl loss:0.11052167415618896,nll loss:1.0021255016326904,diffpool loss:64.88961791992188
+2024-10-15 01:14:35,287 - root - INFO - epoch:213,elapsed time:35.4267897605896,total time:7501.344742059708
+2024-10-15 01:14:39,318 - root - INFO - epoch: 214, validation loss: 61.71
+2024-10-15 01:15:10,465 - root - INFO - epoch:214,kl loss:0.11261804401874542,nll loss:1.0001531839370728,diffpool loss:64.88167572021484
+2024-10-15 01:15:10,466 - root - INFO - epoch:214,elapsed time:35.178362131118774,total time:7536.523104190826
+2024-10-15 01:15:14,449 - root - INFO - epoch: 215, validation loss: 61.51
+2024-10-15 01:15:45,073 - root - INFO - epoch:215,kl loss:0.11307909339666367,nll loss:0.9981389045715332,diffpool loss:64.89307403564453
+2024-10-15 01:15:45,073 - root - INFO - epoch:215,elapsed time:34.60779857635498,total time:7571.130902767181
+2024-10-15 01:15:49,058 - root - INFO - epoch: 216, validation loss: 61.67
+2024-10-15 01:16:19,874 - root - INFO - epoch:216,kl loss:0.11240667849779129,nll loss:0.9970110058784485,diffpool loss:64.87294006347656
+2024-10-15 01:16:19,874 - root - INFO - epoch:216,elapsed time:34.800681352615356,total time:7605.931584119797
+2024-10-15 01:16:24,036 - root - INFO - epoch: 217, validation loss: 61.58
+2024-10-15 01:16:55,100 - root - INFO - epoch:217,kl loss:0.10743407160043716,nll loss:0.9989141821861267,diffpool loss:64.86653900146484
+2024-10-15 01:16:55,100 - root - INFO - epoch:217,elapsed time:35.2260262966156,total time:7641.157610416412
+2024-10-15 01:16:59,128 - root - INFO - epoch: 218, validation loss: 61.48
+2024-10-15 01:17:30,365 - root - INFO - epoch:218,kl loss:0.10692742466926575,nll loss:0.9975591897964478,diffpool loss:64.87386322021484
+2024-10-15 01:17:30,365 - root - INFO - epoch:218,elapsed time:35.26488947868347,total time:7676.422499895096
+2024-10-15 01:17:34,340 - root - INFO - epoch: 219, validation loss: 61.56
+2024-10-15 01:18:05,162 - root - INFO - epoch:219,kl loss:0.1078537330031395,nll loss:1.0015850067138672,diffpool loss:64.86830139160156
+2024-10-15 01:18:05,162 - root - INFO - epoch:219,elapsed time:34.79706144332886,total time:7711.219561338425
+2024-10-15 01:18:09,175 - root - INFO - epoch: 220, validation loss: 61.59
+2024-10-15 01:18:40,350 - root - INFO - epoch:220,kl loss:0.10842639207839966,nll loss:0.9982863664627075,diffpool loss:64.87531280517578
+2024-10-15 01:18:40,350 - root - INFO - epoch:220,elapsed time:35.18744492530823,total time:7746.407006263733
+2024-10-15 01:18:44,339 - root - INFO - epoch: 221, validation loss: 61.58
+2024-10-15 01:19:15,060 - root - INFO - epoch:221,kl loss:0.10606185346841812,nll loss:0.9953028559684753,diffpool loss:64.87667846679688
+2024-10-15 01:19:15,060 - root - INFO - epoch:221,elapsed time:34.71006441116333,total time:7781.117070674896
+2024-10-15 01:19:19,026 - root - INFO - epoch: 222, validation loss: 61.59
+2024-10-15 01:19:49,857 - root - INFO - epoch:222,kl loss:0.10520479083061218,nll loss:1.0021041631698608,diffpool loss:64.8743667602539
+2024-10-15 01:19:49,857 - root - INFO - epoch:222,elapsed time:34.797001361846924,total time:7815.914072036743
+2024-10-15 01:19:53,876 - root - INFO - epoch: 223, validation loss: 61.51
+2024-10-15 01:20:24,749 - root - INFO - epoch:223,kl loss:0.1069716364145279,nll loss:0.9995675683021545,diffpool loss:64.87854766845703
+2024-10-15 01:20:24,749 - root - INFO - epoch:223,elapsed time:34.891950368881226,total time:7850.806022405624
+2024-10-15 01:20:28,697 - root - INFO - epoch: 224, validation loss: 61.57
+2024-10-15 01:20:59,857 - root - INFO - epoch:224,kl loss:0.10705932229757309,nll loss:0.9979104995727539,diffpool loss:64.87810516357422
+2024-10-15 01:20:59,858 - root - INFO - epoch:224,elapsed time:35.108110666275024,total time:7885.914133071899
+2024-10-15 01:21:03,984 - root - INFO - epoch: 225, validation loss: 61.80
+2024-10-15 01:21:35,033 - root - INFO - epoch:225,kl loss:0.10463669896125793,nll loss:0.9968937039375305,diffpool loss:64.8816909790039
+2024-10-15 01:21:35,034 - root - INFO - epoch:225,elapsed time:35.17612409591675,total time:7921.090257167816
+2024-10-15 01:21:39,056 - root - INFO - epoch: 226, validation loss: 61.74
+2024-10-15 01:22:10,232 - root - INFO - epoch:226,kl loss:0.1032954752445221,nll loss:0.9981475472450256,diffpool loss:64.87161254882812
+2024-10-15 01:22:10,232 - root - INFO - epoch:226,elapsed time:35.198219537734985,total time:7956.288476705551
+2024-10-15 01:22:14,286 - root - INFO - epoch: 227, validation loss: 61.66
+2024-10-15 01:22:45,124 - root - INFO - epoch:227,kl loss:0.10506576299667358,nll loss:0.9989243745803833,diffpool loss:64.87494659423828
+2024-10-15 01:22:45,125 - root - INFO - epoch:227,elapsed time:34.892486810684204,total time:7991.180963516235
+2024-10-15 01:22:49,137 - root - INFO - epoch: 228, validation loss: 61.69
+2024-10-15 01:23:20,514 - root - INFO - epoch:228,kl loss:0.10640577971935272,nll loss:0.9972513318061829,diffpool loss:64.86180114746094
+2024-10-15 01:23:20,514 - root - INFO - epoch:228,elapsed time:35.38909649848938,total time:8026.570060014725
+2024-10-15 01:23:24,543 - root - INFO - epoch: 229, validation loss: 61.53
+2024-10-15 01:23:55,404 - root - INFO - epoch:229,kl loss:0.10319237411022186,nll loss:0.9995941519737244,diffpool loss:64.87574005126953
+2024-10-15 01:23:55,404 - root - INFO - epoch:229,elapsed time:34.89020824432373,total time:8061.4602682590485
+2024-10-15 01:23:59,420 - root - INFO - epoch: 230, validation loss: 61.47
+2024-10-15 01:24:30,536 - root - INFO - epoch:230,kl loss:0.10763321071863174,nll loss:0.9983869791030884,diffpool loss:64.86665344238281
+2024-10-15 01:24:30,536 - root - INFO - epoch:230,elapsed time:35.131906270980835,total time:8096.592174530029
+2024-10-15 01:24:34,578 - root - INFO - epoch: 231, validation loss: 61.43
+2024-10-15 01:25:05,850 - root - INFO - epoch:231,kl loss:0.10455258190631866,nll loss:0.995285153388977,diffpool loss:64.8675537109375
+2024-10-15 01:25:05,850 - root - INFO - epoch:231,elapsed time:35.313777446746826,total time:8131.905951976776
+2024-10-15 01:25:09,871 - root - INFO - epoch: 232, validation loss: 61.51
+2024-10-15 01:25:40,871 - root - INFO - epoch:232,kl loss:0.10641374439001083,nll loss:0.9991645812988281,diffpool loss:64.86571502685547
+2024-10-15 01:25:40,871 - root - INFO - epoch:232,elapsed time:35.02078294754028,total time:8166.926734924316
+2024-10-15 01:25:45,066 - root - INFO - epoch: 233, validation loss: 61.61
+2024-10-15 01:26:17,121 - root - INFO - epoch:233,kl loss:0.10393030196428299,nll loss:0.99710613489151,diffpool loss:64.86166381835938
+2024-10-15 01:26:17,121 - root - INFO - epoch:233,elapsed time:36.25021243095398,total time:8203.17694735527
+2024-10-15 01:26:21,232 - root - INFO - epoch: 234, validation loss: 61.56
+2024-10-15 01:26:53,139 - root - INFO - epoch:234,kl loss:0.1022602915763855,nll loss:0.9970318078994751,diffpool loss:64.87034606933594
+2024-10-15 01:26:53,140 - root - INFO - epoch:234,elapsed time:36.01842474937439,total time:8239.195372104645
+2024-10-15 01:26:57,254 - root - INFO - epoch: 235, validation loss: 61.65
+2024-10-15 01:27:29,062 - root - INFO - epoch:235,kl loss:0.10284927487373352,nll loss:1.000369906425476,diffpool loss:64.87567138671875
+2024-10-15 01:27:29,062 - root - INFO - epoch:235,elapsed time:35.92225503921509,total time:8275.11762714386
+2024-10-15 01:27:33,145 - root - INFO - epoch: 236, validation loss: 61.65
+2024-10-15 01:28:04,306 - root - INFO - epoch:236,kl loss:0.10739733278751373,nll loss:0.9948893189430237,diffpool loss:64.87994384765625
+2024-10-15 01:28:04,306 - root - INFO - epoch:236,elapsed time:35.24380826950073,total time:8310.36143541336
+2024-10-15 01:28:08,403 - root - INFO - epoch: 237, validation loss: 61.56
+2024-10-15 01:28:39,754 - root - INFO - epoch:237,kl loss:0.10868673026561737,nll loss:1.0016136169433594,diffpool loss:64.8754653930664
+2024-10-15 01:28:39,754 - root - INFO - epoch:237,elapsed time:35.448203802108765,total time:8345.80963921547
+2024-10-15 01:28:43,818 - root - INFO - epoch: 238, validation loss: 61.69
+2024-10-15 01:29:15,550 - root - INFO - epoch:238,kl loss:0.10567300021648407,nll loss:0.997258186340332,diffpool loss:64.85929870605469
+2024-10-15 01:29:15,550 - root - INFO - epoch:238,elapsed time:35.79542803764343,total time:8381.605067253113
+2024-10-15 01:29:19,686 - root - INFO - epoch: 239, validation loss: 61.63
+2024-10-15 01:29:51,192 - root - INFO - epoch:239,kl loss:0.10654404014348984,nll loss:0.9970390796661377,diffpool loss:64.87435150146484
+2024-10-15 01:29:51,192 - root - INFO - epoch:239,elapsed time:35.642415285110474,total time:8417.247482538223
+2024-10-15 01:29:55,244 - root - INFO - epoch: 240, validation loss: 61.65
+2024-10-15 01:30:26,419 - root - INFO - epoch:240,kl loss:0.10706008225679398,nll loss:0.9986376762390137,diffpool loss:64.87779235839844
+2024-10-15 01:30:26,419 - root - INFO - epoch:240,elapsed time:35.226587533950806,total time:8452.474070072174
+2024-10-15 01:30:30,478 - root - INFO - epoch: 241, validation loss: 61.53
+2024-10-15 01:31:01,669 - root - INFO - epoch:241,kl loss:0.1077357605099678,nll loss:0.9963963627815247,diffpool loss:64.87466430664062
+2024-10-15 01:31:01,669 - root - INFO - epoch:241,elapsed time:35.250123262405396,total time:8487.72419333458
+2024-10-15 01:31:05,732 - root - INFO - epoch: 242, validation loss: 61.52
+2024-10-15 01:31:36,865 - root - INFO - epoch:242,kl loss:0.10429973900318146,nll loss:0.9982314705848694,diffpool loss:64.87040710449219
+2024-10-15 01:31:36,865 - root - INFO - epoch:242,elapsed time:35.19594740867615,total time:8522.920140743256
+2024-10-15 01:31:40,898 - root - INFO - epoch: 243, validation loss: 61.49
+2024-10-15 01:32:12,022 - root - INFO - epoch:243,kl loss:0.10417912155389786,nll loss:1.0000180006027222,diffpool loss:64.88756561279297
+2024-10-15 01:32:12,022 - root - INFO - epoch:243,elapsed time:35.15698480606079,total time:8558.077125549316
+2024-10-15 01:32:16,117 - root - INFO - epoch: 244, validation loss: 61.53
+2024-10-15 01:32:47,896 - root - INFO - epoch:244,kl loss:0.10393878817558289,nll loss:0.9959818720817566,diffpool loss:64.87297821044922
+2024-10-15 01:32:47,896 - root - INFO - epoch:244,elapsed time:35.873377323150635,total time:8593.950502872467
+2024-10-15 01:32:52,000 - root - INFO - epoch: 245, validation loss: 61.63
+2024-10-15 01:33:23,647 - root - INFO - epoch:245,kl loss:0.10201986134052277,nll loss:0.9979355335235596,diffpool loss:64.86624145507812
+2024-10-15 01:33:23,647 - root - INFO - epoch:245,elapsed time:35.750815868377686,total time:8629.701318740845
+2024-10-15 01:33:27,817 - root - INFO - epoch: 246, validation loss: 61.66
+2024-10-15 01:33:58,979 - root - INFO - epoch:246,kl loss:0.10428059101104736,nll loss:0.9980753064155579,diffpool loss:64.86672973632812
+2024-10-15 01:33:58,979 - root - INFO - epoch:246,elapsed time:35.33261489868164,total time:8665.033933639526
+2024-10-15 01:34:02,998 - root - INFO - epoch: 247, validation loss: 61.75
+2024-10-15 01:34:34,174 - root - INFO - epoch:247,kl loss:0.10356076061725616,nll loss:0.9993788003921509,diffpool loss:64.8593521118164
+2024-10-15 01:34:34,174 - root - INFO - epoch:247,elapsed time:35.19433522224426,total time:8700.22826886177
+2024-10-15 01:34:38,327 - root - INFO - epoch: 248, validation loss: 61.67
+2024-10-15 01:35:09,448 - root - INFO - epoch:248,kl loss:0.10309430956840515,nll loss:0.9958752989768982,diffpool loss:64.85365295410156
+2024-10-15 01:35:09,448 - root - INFO - epoch:248,elapsed time:35.27442526817322,total time:8735.502694129944
+2024-10-15 01:35:13,524 - root - INFO - epoch: 249, validation loss: 61.58
+2024-10-15 01:35:44,672 - root - INFO - epoch:249,kl loss:0.10598627477884293,nll loss:1.001832365989685,diffpool loss:64.8957290649414
+2024-10-15 01:35:44,672 - root - INFO - epoch:249,elapsed time:35.223846435546875,total time:8770.72654056549
+2024-10-15 01:35:48,701 - root - INFO - epoch: 250, validation loss: 61.66
+2024-10-15 01:36:19,992 - root - INFO - epoch:250,kl loss:0.10844283550977707,nll loss:0.9993022680282593,diffpool loss:64.86775207519531
+2024-10-15 01:36:19,993 - root - INFO - epoch:250,elapsed time:35.32023525238037,total time:8806.046775817871
+2024-10-15 01:36:24,046 - root - INFO - epoch: 251, validation loss: 61.59
+2024-10-15 01:36:55,442 - root - INFO - epoch:251,kl loss:0.10408392548561096,nll loss:0.9951488375663757,diffpool loss:64.8531494140625
+2024-10-15 01:36:55,442 - root - INFO - epoch:251,elapsed time:35.44956564903259,total time:8841.496341466904
+2024-10-15 01:36:59,488 - root - INFO - epoch: 252, validation loss: 61.58
+2024-10-15 01:37:30,743 - root - INFO - epoch:252,kl loss:0.10467572510242462,nll loss:0.9971372485160828,diffpool loss:64.860595703125
+2024-10-15 01:37:30,743 - root - INFO - epoch:252,elapsed time:35.300955057144165,total time:8876.797296524048
+2024-10-15 01:37:34,799 - root - INFO - epoch: 253, validation loss: 61.76
+2024-10-15 01:38:06,028 - root - INFO - epoch:253,kl loss:0.10612963885068893,nll loss:0.9975130558013916,diffpool loss:64.86892700195312
+2024-10-15 01:38:06,028 - root - INFO - epoch:253,elapsed time:35.284538984298706,total time:8912.081835508347
+2024-10-15 01:38:10,142 - root - INFO - epoch: 254, validation loss: 61.70
+2024-10-15 01:38:41,438 - root - INFO - epoch:254,kl loss:0.10426508635282516,nll loss:0.9967252612113953,diffpool loss:64.85601806640625
+2024-10-15 01:38:41,438 - root - INFO - epoch:254,elapsed time:35.410271406173706,total time:8947.49210691452
+2024-10-15 01:38:45,495 - root - INFO - epoch: 255, validation loss: 61.45
+2024-10-15 01:39:17,083 - root - INFO - epoch:255,kl loss:0.10342197120189667,nll loss:0.9964389204978943,diffpool loss:64.85416412353516
+2024-10-15 01:39:17,083 - root - INFO - epoch:255,elapsed time:35.64497518539429,total time:8983.137082099915
+2024-10-15 01:39:21,120 - root - INFO - epoch: 256, validation loss: 61.54
+2024-10-15 01:39:51,860 - root - INFO - epoch:256,kl loss:0.10125036537647247,nll loss:0.9954032897949219,diffpool loss:64.8567123413086
+2024-10-15 01:39:51,861 - root - INFO - epoch:256,elapsed time:34.7774498462677,total time:9017.914531946182
+2024-10-15 01:39:55,893 - root - INFO - epoch: 257, validation loss: 61.70
+2024-10-15 01:40:27,190 - root - INFO - epoch:257,kl loss:0.10101624578237534,nll loss:0.9984331727027893,diffpool loss:64.8531494140625
+2024-10-15 01:40:27,190 - root - INFO - epoch:257,elapsed time:35.32936882972717,total time:9053.24390077591
+2024-10-15 01:40:31,271 - root - INFO - epoch: 258, validation loss: 61.79
+2024-10-15 01:41:02,859 - root - INFO - epoch:258,kl loss:0.10559658706188202,nll loss:0.9986833333969116,diffpool loss:64.8664779663086
+2024-10-15 01:41:02,860 - root - INFO - epoch:258,elapsed time:35.66929364204407,total time:9088.913194417953
+2024-10-15 01:41:06,979 - root - INFO - epoch: 259, validation loss: 61.64
+2024-10-15 01:41:37,950 - root - INFO - epoch:259,kl loss:0.10832324624061584,nll loss:0.9925360083580017,diffpool loss:64.85245513916016
+2024-10-15 01:41:37,951 - root - INFO - epoch:259,elapsed time:35.09097361564636,total time:9124.0041680336
+2024-10-15 01:41:42,112 - root - INFO - epoch: 260, validation loss: 61.63
+2024-10-15 01:42:13,276 - root - INFO - epoch:260,kl loss:0.10277057439088821,nll loss:0.9980751872062683,diffpool loss:64.8446044921875
+2024-10-15 01:42:13,276 - root - INFO - epoch:260,elapsed time:35.32500886917114,total time:9159.329176902771
+2024-10-15 01:42:17,314 - root - INFO - epoch: 261, validation loss: 61.69
+2024-10-15 01:42:48,481 - root - INFO - epoch:261,kl loss:0.09938006848096848,nll loss:0.994094967842102,diffpool loss:64.85008239746094
+2024-10-15 01:42:48,481 - root - INFO - epoch:261,elapsed time:35.20521807670593,total time:9194.534394979477
+2024-10-15 01:42:52,607 - root - INFO - epoch: 262, validation loss: 61.64
+2024-10-15 01:43:24,205 - root - INFO - epoch:262,kl loss:0.09495551884174347,nll loss:0.9966961145401001,diffpool loss:64.84822082519531
+2024-10-15 01:43:24,205 - root - INFO - epoch:262,elapsed time:35.7240891456604,total time:9230.258484125137
+2024-10-15 01:43:28,243 - root - INFO - epoch: 263, validation loss: 61.70
+2024-10-15 01:43:59,356 - root - INFO - epoch:263,kl loss:0.09983165562152863,nll loss:0.9981414079666138,diffpool loss:64.86296081542969
+2024-10-15 01:43:59,357 - root - INFO - epoch:263,elapsed time:35.15128016471863,total time:9265.409764289856
+2024-10-15 01:44:03,409 - root - INFO - epoch: 264, validation loss: 61.73
+2024-10-15 01:44:34,456 - root - INFO - epoch:264,kl loss:0.09970748424530029,nll loss:0.9939971566200256,diffpool loss:64.85149383544922
+2024-10-15 01:44:34,456 - root - INFO - epoch:264,elapsed time:35.099573612213135,total time:9300.50933790207
+2024-10-15 01:44:38,500 - root - INFO - epoch: 265, validation loss: 61.67
+2024-10-15 01:45:09,794 - root - INFO - epoch:265,kl loss:0.10088246315717697,nll loss:0.9957749247550964,diffpool loss:64.87271118164062
+2024-10-15 01:45:09,794 - root - INFO - epoch:265,elapsed time:35.3376579284668,total time:9335.846995830536
+2024-10-15 01:45:13,843 - root - INFO - epoch: 266, validation loss: 61.55
+2024-10-15 01:45:44,867 - root - INFO - epoch:266,kl loss:0.11138744652271271,nll loss:1.002275824546814,diffpool loss:64.88275909423828
+2024-10-15 01:45:44,867 - root - INFO - epoch:266,elapsed time:35.07315540313721,total time:9370.920151233673
+2024-10-15 01:45:48,920 - root - INFO - epoch: 267, validation loss: 62.09
+2024-10-15 01:46:20,318 - root - INFO - epoch:267,kl loss:0.1082569807767868,nll loss:0.9954221248626709,diffpool loss:64.86852264404297
+2024-10-15 01:46:20,318 - root - INFO - epoch:267,elapsed time:35.45082759857178,total time:9406.370978832245
+2024-10-15 01:46:24,406 - root - INFO - epoch: 268, validation loss: 61.69
+2024-10-15 01:46:55,564 - root - INFO - epoch:268,kl loss:0.10545768588781357,nll loss:0.9981555342674255,diffpool loss:64.8575439453125
+2024-10-15 01:46:55,564 - root - INFO - epoch:268,elapsed time:35.24549674987793,total time:9441.616475582123
+2024-10-15 01:46:59,608 - root - INFO - epoch: 269, validation loss: 61.63
+2024-10-15 01:47:30,824 - root - INFO - epoch:269,kl loss:0.10127182304859161,nll loss:0.993352472782135,diffpool loss:64.84236907958984
+2024-10-15 01:47:30,824 - root - INFO - epoch:269,elapsed time:35.26004981994629,total time:9476.87652540207
+2024-10-15 01:47:34,886 - root - INFO - epoch: 270, validation loss: 61.66
+2024-10-15 01:48:05,976 - root - INFO - epoch:270,kl loss:0.09711230546236038,nll loss:0.9967703223228455,diffpool loss:64.8481216430664
+2024-10-15 01:48:05,976 - root - INFO - epoch:270,elapsed time:35.15215873718262,total time:9512.028684139252
+2024-10-15 01:48:10,029 - root - INFO - epoch: 271, validation loss: 61.83
+2024-10-15 01:48:41,073 - root - INFO - epoch:271,kl loss:0.09946524351835251,nll loss:0.9967126846313477,diffpool loss:64.8550796508789
+2024-10-15 01:48:41,073 - root - INFO - epoch:271,elapsed time:35.09718132019043,total time:9547.125865459442
+2024-10-15 01:48:45,116 - root - INFO - epoch: 272, validation loss: 61.77
+2024-10-15 01:49:16,184 - root - INFO - epoch:272,kl loss:0.1140797957777977,nll loss:0.998664140701294,diffpool loss:64.89092254638672
+2024-10-15 01:49:16,184 - root - INFO - epoch:272,elapsed time:35.11075258255005,total time:9582.236618041992
+2024-10-15 01:49:20,196 - root - INFO - epoch: 273, validation loss: 61.68
+2024-10-15 01:49:51,219 - root - INFO - epoch:273,kl loss:0.11031906306743622,nll loss:0.9990453124046326,diffpool loss:64.86042785644531
+2024-10-15 01:49:51,219 - root - INFO - epoch:273,elapsed time:35.03437256813049,total time:9617.270990610123
+2024-10-15 01:49:55,246 - root - INFO - epoch: 274, validation loss: 61.79
+2024-10-15 01:50:26,191 - root - INFO - epoch:274,kl loss:0.10398648679256439,nll loss:0.9950852990150452,diffpool loss:64.84780883789062
+2024-10-15 01:50:26,191 - root - INFO - epoch:274,elapsed time:34.97214365005493,total time:9652.243134260178
+2024-10-15 01:50:30,221 - root - INFO - epoch: 275, validation loss: 61.67
+2024-10-15 01:51:01,247 - root - INFO - epoch:275,kl loss:0.10287272930145264,nll loss:0.997553825378418,diffpool loss:64.85912322998047
+2024-10-15 01:51:01,247 - root - INFO - epoch:275,elapsed time:35.055976152420044,total time:9687.299110412598
+2024-10-15 01:51:05,276 - root - INFO - epoch: 276, validation loss: 61.69
+2024-10-15 01:51:36,249 - root - INFO - epoch:276,kl loss:0.09999993443489075,nll loss:0.9961910843849182,diffpool loss:64.8458251953125
+2024-10-15 01:51:36,249 - root - INFO - epoch:276,elapsed time:35.001635789871216,total time:9722.300746202469
+2024-10-15 01:51:40,305 - root - INFO - epoch: 277, validation loss: 61.72
+2024-10-15 01:52:11,250 - root - INFO - epoch:277,kl loss:0.09873691201210022,nll loss:0.9955191016197205,diffpool loss:64.84740447998047
+2024-10-15 01:52:11,250 - root - INFO - epoch:277,elapsed time:35.00143766403198,total time:9757.3021838665
+2024-10-15 01:52:15,287 - root - INFO - epoch: 278, validation loss: 61.69
+2024-10-15 01:52:46,600 - root - INFO - epoch:278,kl loss:0.09611576795578003,nll loss:0.995219349861145,diffpool loss:64.84296417236328
+2024-10-15 01:52:46,600 - root - INFO - epoch:278,elapsed time:35.34969401359558,total time:9792.651877880096
+2024-10-15 01:52:50,640 - root - INFO - epoch: 279, validation loss: 61.64
+2024-10-15 01:53:21,902 - root - INFO - epoch:279,kl loss:0.09601592272520065,nll loss:0.9944349527359009,diffpool loss:64.84750366210938
+2024-10-15 01:53:21,902 - root - INFO - epoch:279,elapsed time:35.30175065994263,total time:9827.953628540039
+2024-10-15 01:53:25,969 - root - INFO - epoch: 280, validation loss: 61.58
+2024-10-15 01:53:56,980 - root - INFO - epoch:280,kl loss:0.09677991271018982,nll loss:0.9966409802436829,diffpool loss:64.84357452392578
+2024-10-15 01:53:56,980 - root - INFO - epoch:280,elapsed time:35.0777907371521,total time:9863.031419277191
+2024-10-15 01:54:01,037 - root - INFO - epoch: 281, validation loss: 61.88
+2024-10-15 01:54:32,629 - root - INFO - epoch:281,kl loss:0.09495653212070465,nll loss:0.993964672088623,diffpool loss:64.8424072265625
+2024-10-15 01:54:32,629 - root - INFO - epoch:281,elapsed time:35.64901804924011,total time:9898.680437326431
+2024-10-15 01:54:36,682 - root - INFO - epoch: 282, validation loss: 61.64
+2024-10-15 01:55:07,813 - root - INFO - epoch:282,kl loss:0.09608153253793716,nll loss:0.9972400069236755,diffpool loss:64.83476257324219
+2024-10-15 01:55:07,814 - root - INFO - epoch:282,elapsed time:35.184471130371094,total time:9933.864908456802
+2024-10-15 01:55:12,156 - root - INFO - epoch: 283, validation loss: 61.74
+2024-10-15 01:55:43,873 - root - INFO - epoch:283,kl loss:0.1013619676232338,nll loss:0.9996675252914429,diffpool loss:64.8667221069336
+2024-10-15 01:55:43,874 - root - INFO - epoch:283,elapsed time:36.059927225112915,total time:9969.924835681915
+2024-10-15 01:55:47,961 - root - INFO - epoch: 284, validation loss: 61.66
+2024-10-15 01:56:19,170 - root - INFO - epoch:284,kl loss:0.10480572283267975,nll loss:0.9948757290840149,diffpool loss:64.86428833007812
+2024-10-15 01:56:19,170 - root - INFO - epoch:284,elapsed time:35.29676175117493,total time:10005.22159743309
+2024-10-15 01:56:23,216 - root - INFO - epoch: 285, validation loss: 61.82
+2024-10-15 01:56:54,678 - root - INFO - epoch:285,kl loss:0.10774119943380356,nll loss:0.9985215067863464,diffpool loss:64.88452911376953
+2024-10-15 01:56:54,678 - root - INFO - epoch:285,elapsed time:35.50795125961304,total time:10040.729548692703
+2024-10-15 01:56:58,730 - root - INFO - epoch: 286, validation loss: 61.66
+2024-10-15 01:57:30,024 - root - INFO - epoch:286,kl loss:0.10313323885202408,nll loss:0.9987107515335083,diffpool loss:64.85869598388672
+2024-10-15 01:57:30,024 - root - INFO - epoch:286,elapsed time:35.345903635025024,total time:10076.075452327728
+2024-10-15 01:57:34,106 - root - INFO - epoch: 287, validation loss: 61.55
+2024-10-15 01:58:04,896 - root - INFO - epoch:287,kl loss:0.10301057994365692,nll loss:0.9948735237121582,diffpool loss:64.85286712646484
+2024-10-15 01:58:04,897 - root - INFO - epoch:287,elapsed time:34.87214922904968,total time:10110.947601556778
+2024-10-15 01:58:08,928 - root - INFO - epoch: 288, validation loss: 61.67
+2024-10-15 01:58:40,426 - root - INFO - epoch:288,kl loss:0.10105357319116592,nll loss:0.9932866096496582,diffpool loss:64.84166717529297
+2024-10-15 01:58:40,427 - root - INFO - epoch:288,elapsed time:35.52994179725647,total time:10146.477543354034
+2024-10-15 01:58:44,454 - root - INFO - epoch: 289, validation loss: 61.63
+2024-10-15 01:59:15,519 - root - INFO - epoch:289,kl loss:0.09810221940279007,nll loss:0.9972713589668274,diffpool loss:64.8433609008789
+2024-10-15 01:59:15,519 - root - INFO - epoch:289,elapsed time:35.092644691467285,total time:10181.570188045502
+2024-10-15 01:59:19,599 - root - INFO - epoch: 290, validation loss: 61.63
+2024-10-15 01:59:50,475 - root - INFO - epoch:290,kl loss:0.0977533683180809,nll loss:0.9953962564468384,diffpool loss:64.84091186523438
+2024-10-15 01:59:50,475 - root - INFO - epoch:290,elapsed time:34.95544958114624,total time:10216.525637626648
+2024-10-15 01:59:54,740 - root - INFO - epoch: 291, validation loss: 61.75
+2024-10-15 02:00:25,915 - root - INFO - epoch:291,kl loss:0.1006418764591217,nll loss:0.9957326054573059,diffpool loss:64.85604095458984
+2024-10-15 02:00:25,915 - root - INFO - epoch:291,elapsed time:35.439650774002075,total time:10251.96528840065
+2024-10-15 02:00:29,903 - root - INFO - epoch: 292, validation loss: 61.77
+2024-10-15 02:01:00,771 - root - INFO - epoch:292,kl loss:0.1011127233505249,nll loss:0.9946635961532593,diffpool loss:64.84407043457031
+2024-10-15 02:01:00,771 - root - INFO - epoch:292,elapsed time:34.85598659515381,total time:10286.821274995804
+2024-10-15 02:01:04,747 - root - INFO - epoch: 293, validation loss: 61.89
+2024-10-15 02:01:35,409 - root - INFO - epoch:293,kl loss:0.10012518614530563,nll loss:0.9990596175193787,diffpool loss:64.85148620605469
+2024-10-15 02:01:35,409 - root - INFO - epoch:293,elapsed time:34.63850712776184,total time:10321.459782123566
+2024-10-15 02:01:39,425 - root - INFO - epoch: 294, validation loss: 61.71
+2024-10-15 02:02:10,319 - root - INFO - epoch:294,kl loss:0.09719397872686386,nll loss:0.9951184391975403,diffpool loss:64.8353042602539
+2024-10-15 02:02:10,319 - root - INFO - epoch:294,elapsed time:34.909355878829956,total time:10356.369138002396
+2024-10-15 02:02:14,288 - root - INFO - epoch: 295, validation loss: 61.72
+2024-10-15 02:02:45,218 - root - INFO - epoch:295,kl loss:0.09354554116725922,nll loss:0.9951073527336121,diffpool loss:64.83979797363281
+2024-10-15 02:02:45,218 - root - INFO - epoch:295,elapsed time:34.89880919456482,total time:10391.26794719696
+2024-10-15 02:02:49,195 - root - INFO - epoch: 296, validation loss: 61.53
+2024-10-15 02:03:20,022 - root - INFO - epoch:296,kl loss:0.09918443858623505,nll loss:0.9953940510749817,diffpool loss:64.8469467163086
+2024-10-15 02:03:20,022 - root - INFO - epoch:296,elapsed time:34.80439615249634,total time:10426.072343349457
+2024-10-15 02:03:24,005 - root - INFO - epoch: 297, validation loss: 61.90
+2024-10-15 02:03:54,735 - root - INFO - epoch:297,kl loss:0.09853750467300415,nll loss:0.9968186616897583,diffpool loss:64.84163665771484
+2024-10-15 02:03:54,735 - root - INFO - epoch:297,elapsed time:34.712852239608765,total time:10460.785195589066
+2024-10-15 02:03:58,694 - root - INFO - epoch: 298, validation loss: 61.53
+2024-10-15 02:04:29,293 - root - INFO - epoch:298,kl loss:0.09837476164102554,nll loss:0.9969407320022583,diffpool loss:64.85114288330078
+2024-10-15 02:04:29,293 - root - INFO - epoch:298,elapsed time:34.55758500099182,total time:10495.342780590057
+2024-10-15 02:04:33,245 - root - INFO - epoch: 299, validation loss: 61.84
+2024-10-15 02:05:03,855 - root - INFO - epoch:299,kl loss:0.09927961230278015,nll loss:0.9953508377075195,diffpool loss:64.83770751953125
+2024-10-15 02:05:03,856 - root - INFO - epoch:299,elapsed time:34.5626335144043,total time:10529.905414104462
+2024-10-15 21:04:38,106 - root - INFO - train: torch.Size([4195, 51, 1, 30]), torch.Size([4195, 51, 1, 30])
+2024-10-15 21:04:38,107 - root - INFO - val: torch.Size([1027, 51, 1, 30]), torch.Size([1027, 51, 1, 30])
+2024-10-15 21:04:38,108 - root - INFO - 训练集文件data/SWAT/train_swat_gcn.npz
+2024-10-15 21:04:38,137 - root - INFO - Grelen(
+  (graph_learner): Graph_learner(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=30, out_features=64, bias=True)
+      (fc2): Linear(in_features=64, out_features=64, bias=True)
+      (bn): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (Wq): Linear(in_features=64, out_features=128, bias=True)
+    (Wk): Linear(in_features=64, out_features=128, bias=True)
+  )
+  (linear1): Linear(in_features=1, out_features=64, bias=True)
+  (encoder_model): ModuleList(
+    (0-2): 3 x EncoderModel(
+      (gcn_layers): ModuleList(
+        (0): SoftPoolingGcnEncoder(
+          (conv_first): GraphConv()
+          (conv_block): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_last): GraphConv()
+          (act): ReLU()
+          (pred_model): Sequential(
+            (0): Linear(in_features=384, out_features=50, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=50, out_features=2, bias=True)
+          )
+          (conv_first_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (conv_block_after_pool): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (conv_last_after_pool): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_first_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_conv_block_modules): ModuleList(
+            (0): ModuleList(
+              (0): GraphConv()
+            )
+          )
+          (assign_conv_last_modules): ModuleList(
+            (0): GraphConv()
+          )
+          (assign_pred_modules): ModuleList(
+            (0): Linear(in_features=140, out_features=12, bias=True)
+          )
+        )
+      )
+    )
+  )
+  (linear_out): Linear(in_features=2, out_features=2, bias=True)
+  (soft_pooling_encoder): SoftPoolingGcnEncoder(
+    (conv_first): GraphConv()
+    (conv_block): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_last): GraphConv()
+    (act): ReLU()
+    (pred_model): Sequential(
+      (0): Linear(in_features=384, out_features=50, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=50, out_features=2, bias=True)
+    )
+    (conv_first_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (conv_block_after_pool): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (conv_last_after_pool): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_first_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_conv_block_modules): ModuleList(
+      (0): ModuleList(
+        (0): GraphConv()
+      )
+    )
+    (assign_conv_last_modules): ModuleList(
+      (0): GraphConv()
+    )
+    (assign_pred_modules): ModuleList(
+      (0): Linear(in_features=140, out_features=12, bias=True)
+    )
+  )
+)
