@@ -176,15 +176,15 @@ if __name__ == '__main__':
         begin_time = time()
         params_filename = os.path.join(params_path, 'epoch_%s.params' % epoch)
         # 验证一个epoch并获取验证损失
-        val_loss = val_epoch(net, val_loader, sw, epoch, config)
+        # val_loss = val_epoch(net, val_loader, sw, epoch, config)
 
-        # 如果验证损失是最好的，则保存模型参数
-        if val_loss < best_val_loss:
-            best_val_loss = val_loss
-            best_epoch = epoch
-            torch.save(net.state_dict(), params_filename)
-            print('save parameters to file: %s' % params_filename)
-            logging.info('save parameters to file: %s' % params_filename)
+        # # 如果验证损失是最好的，则保存模型参数
+        # if val_loss < best_val_loss:
+        #     best_val_loss = val_loss
+        #     best_epoch = epoch
+        #     torch.save(net.state_dict(), params_filename)
+        #     print('save parameters to file: %s' % params_filename)
+        #     logging.info('save parameters to file: %s' % params_filename)
 
         # 设置为训练模式,模型会进行反向传播和参数更新
         # dropout:随机丢弃神经元,batchnorm:使用当前batch的统计信息,并更新内部的均值和方差
@@ -205,23 +205,25 @@ if __name__ == '__main__':
             # prob是图结构的概率分布,output是时间序列预测的输出
             # prob, output = net(encoder_inputs)
             prob, output, adj_out = net(encoder_inputs)
+            print(f"main output shape : {output.shape}")    # torch.Size([128, 2])
+            print(f"main encoder inputs shape : {encoder_inputs.shape}")    # torch.Size([128, 51, 30])
 
             # # 计算KL散度损失和负对数似然损失
             # loss_kl = kl_categorical(torch.mean(prob, 1), log_prior, 1).to(device)
             # loss_nll = nll_gaussian(output, labels, variation).to(device)
 
-            loss_diffpool = net.loss(output,labels,adj=adj_out).to(device)
+            # loss_diffpool = net.loss(output,labels,adj=adj_out).to(device)
 
             # loss = loss_kl + loss_nll + loss_diffpool  # 总损失
             # nll_train.append(loss_nll)  # 记录负对数似然损失
             # kl_train.append(loss_kl)  # 记录KL散度损失
-            diffpool_train.append(loss_diffpool)
+            # diffpool_train.append(loss_diffpool)
 
-            loss = loss_diffpool
+            # loss = loss_diffpool
 
             # 反向传播和优化
-            loss.to(device)
-            loss.backward()  # 反向传播
+            # loss.to(device)
+            # loss.backward()  # 反向传播
             optimizer.step()  # 优化一步
 
             # 记录训练损失
@@ -230,7 +232,7 @@ if __name__ == '__main__':
             # sw.add_scalar('training_loss', training_loss, global_step)  # 记录训练损失
             # sw.add_scalar('kl_loss', loss_kl.item(), global_step)  # 记录KL损失
             # sw.add_scalar('nll_loss', loss_nll.item(), global_step)  # 记录负对数似然损失
-            sw.add_scalar('diffpool_loss',loss_diffpool.item(),global_step)
+            # sw.add_scalar('diffpool_loss',loss_diffpool.item(),global_step)
 
         # 打印并记录每个epoch的平均KL损失和负对数似然损失
         # nll_train_ = torch.tensor(nll_train)

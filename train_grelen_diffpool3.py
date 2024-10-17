@@ -205,6 +205,9 @@ if __name__ == '__main__':
             # prob是图结构的概率分布,output是时间序列预测的输出
             # prob, output = net(encoder_inputs)
             prob, output, adj_out = net(encoder_inputs)
+            print(f"main encoder inputs shape : {encoder_inputs.shape}")    # [128, 51, 30]
+            print(f"main output shape : {output.shape}")    # [128, 51, 29]
+            print(f"main labels shape : {labels.shape}")    # [128, 51, 29]
 
             # 计算KL散度损失和负对数似然损失
             loss_kl = kl_categorical(torch.mean(prob, 1), log_prior, 1).to(device)

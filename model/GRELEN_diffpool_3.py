@@ -355,9 +355,9 @@ class SoftPoolingGcnEncoder(GcnEncoderGraph):
                 out_all.append(out)
 
         output = torch.cat(out_all, dim=1) if self.concat else out
-        print(f"output shape:{output.shape}")   # output shape:torch.Size([1280, 384])
+        # print(f"SoftPoolingGcnEncoder output shape:{output.shape}")   # output shape:torch.Size([128, 384])
         ypred = self.pred_model(output)
-        print(f"ypred:{ypred.shape}")   # ypred:torch.Size([1280, 2])
+        # print(f"SoftPoolingGcnEncoder ypred:{ypred.shape}")   # ypred:torch.Size([128, 2])
         # print(ypred)
         return ypred
 
@@ -428,14 +428,14 @@ class EncoderModel(nn.Module):
             hidden_state = torch.zeros((self.num_rnn_layers, batch_size, self.hidden_state_size)).to(self.device)
         hidden_states = []
         output = inputs
-        print(f"output shape : {output.shape}") # output shape : torch.Size([1280, 51, 64])
+        # print(f"EncoderModel output shape : {output.shape}") # output shape : torch.Size([128, 51, 64])
         for layer_num, gcn_layer in enumerate(self.gcn_layers):
             output = gcn_layer(output, adj, batch_num_nodes=None)
-            print(f"Layer {layer_num} - SoftPoolingGcnEncoder output shape: {output.shape}")
+            # print(f"EncoderModel Layer {layer_num} - SoftPoolingGcnEncoder output shape: {output.shape}")   # torch.Size([128, 2])
             output = self.projection_layer(output)  # [batch_size, num_nodes * rnn_units]
             output = output.view(batch_size, self.num_nodes, self.rnn_units)  # [batch_size, num_nodes, rnn_units]
             hidden_states.append(output)
-        print(f"output shape after SoftPoolingGcnEncoder : {output.shape}") # output shape after SoftPoolingGcnEncoder : torch.Size([1280, 51, 64])
+        # print(f"EncoderModel output shape after SoftPoolingGcnEncoder : {output.shape}") # output shape after SoftPoolingGcnEncoder : torch.Size([1280, 51, 64])
         return output, torch.stack(hidden_states)
 
 

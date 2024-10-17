@@ -42,49 +42,36 @@ def max_min_norm(mat, max_=None, min_=None):
             mat[:, i] = (mat[:, i] - min_[i]) / (max_[i] - min_[i])  # 归一化处理：减去最小值并除以范围
     return mat, max_, min_  # 返回归一化后的矩阵,最大值和最小值
 
-def swat_generate(xx, split, length, filename=None, max_=None, min_=None):
-    """
-    生成SWAT数据集的训练集和验证集。
-    :param xx: 输入数据矩阵
-    :param split: 训练集和验证集划分的比例
-    :param length: 序列长度
-    :param filename: 保存文件名（可选）
-    :param max_: 最大值（可选）
-    :param min_: 最小值（可选）
-    :return: 归一化后的最大值、最小值和生成的数据集
-    """
-    mat_, max_, min_ = max_min_norm(xx, max_, min_)  # 对输入数据进行最大-最小归一化处理
-    nrow, ncol = xx.shape  # 获取矩阵的行数和列数
-
-    xx1 = xx[:int(nrow * split), :]  # 按照划分比例获取训练集数据
-    xx2 = xx[int(nrow * split):, :]  # 按照划分比例获取验证集数据
-    # print(f"xx1.shape:{xx1.shape}")  # (4224, 51)
-    # print(f"xx2.shape:{xx2.shape}")  # (1056, 51)
+def swat_generate_data(xx, train_split, val_split, length, filename=None, max_=None, min_=None):
+    # 对输入数据进行最大-最小归一化处理
+    mat_, max_, min_ = max_min_norm(xx, max_, min_)
+    nrow, ncol = xx.shape  # 获取数据的行数和列数
     
-    # train_x存储训练集样本数据
-    """
-    第一维样本数量xx1.shape[0] - length + 1,即总行数-序列长度+1,训练集中包含多少个时间序列样本,多少个窗口;
-    第二维序列长度length,每个样本包含多少个时间点;
-    第三维是列数col,每个样本的特征维度
-    train_x.shape = (样本数量,时间步长,特征数)  许多深度学习模型(如RNN,LSTM,CNN)中,通常需要具有特定的维度,
-    """
-    train_x = np.zeros((xx1.shape[0] - length + 1, length, ncol))  # 初始化训练集样本矩阵
-    for i in range(train_x.shape[0]):  # 生成训练集样本
-        train_x[i, ...] = xx1[i:i + length, :]
-    valid_x = np.zeros((xx2.shape[0] - length + 1, length, ncol))  # 初始化验证集样本矩阵
-    for i in range(valid_x.shape[0]):  # 生成验证集样本
-        valid_x[i, ...] = xx2[i:i + length, :]
-    # print(valid_x.shape)    # (1027, 30, 51)
-    # np.expand_dims(np.transpose(train_x, (0, 2, 1)), 2)中
-    # np.transpose是进行维度转置
-    # np.expand_dims为每个样本添加一个额外的维度,确保数据结构复合深度学习模型的格式
-    """
-    数据形状变化过程
-    train_x形状(samples,timesteps,features)
-    ——通过np.transpose(train_x, (0, 2, 1))之后变为(samples,features,timesteps)
-    ——通过np.expand_dims(np.transpose(train_x, (0, 2, 1)), 2)之后变为(samples,features,1,timesteps)
-    """
-    all_data = {  # 生成包含训练集、验证集和统计信息的数据字典
+    # 按照划分比例分别获取训练集、验证集和测试集
+    train_end = int(nrow * train_split)
+    val_end = int(nrow * (train_split + val_split))
+    
+    xx_train = xx[:train_end, :]  # 训练集数据
+    xx_val = xx[train_end:val_end, :]  # 验证集数据
+    xx_test = xx[val_end:, :]  # 测试集数据
+
+    # 生成训练集样本
+    train_x = np.zeros((xx_train.shape[0] - length + 1, length, ncol))
+    for i in range(train_x.shape[0]):
+        train_x[i, ...] = xx_train[i:i + length, :]
+
+    # 生成验证集样本
+    valid_x = np.zeros((xx_val.shape[0] - length + 1, length, ncol))
+    for i in range(valid_x.shape[0]):
+        valid_x[i, ...] = xx_val[i:i + length, :]
+
+    # 生成测试集样本
+    test_x = np.zeros((xx_test.shape[0] - length + 1, length, ncol))
+    for i in range(test_x.shape[0]):
+        test_x[i, ...] = xx_test[i:i + length, :]
+
+    # 构建数据字典
+    all_data = {
         'train': {
             'x': np.expand_dims(np.transpose(train_x, (0, 2, 1)), 2),  # 训练集输入数据
             'target': np.expand_dims(np.transpose(train_x, (0, 2, 1)), 2),  # 训练集目标数据
@@ -93,57 +80,28 @@ def swat_generate(xx, split, length, filename=None, max_=None, min_=None):
             'x': np.expand_dims(np.transpose(valid_x, (0, 2, 1)), 2),  # 验证集输入数据
             'target': np.expand_dims(np.transpose(valid_x, (0, 2, 1)), 2),  # 验证集目标数据
         },
-        'stats': {
-            '_mean': np.zeros((1, 1, 3, 1)),  # 初始化均值（可以后续用于标准化）
-            '_std': np.zeros((1, 1, 3, 1)),  # 初始化标准差（可以后续用于标准化）
-        }
-    }
-    # print(all_data['val']['x'].shape)   # (1027, 51, 1, 30)
-    if filename is None:  # 如果没有提供文件名
-        return max_, min_, all_data  # 返回最大值、最小值和生成的数据集
-    # 存储为.npz格式的文件
-    np.savez_compressed(filename,
-                        train_x=all_data['train']['x'], train_target=all_data['train']['target'],
-                        val_x=all_data['val']['x'], val_target=all_data['val']['target'],
-                        mean=all_data['stats']['_mean'], std=all_data['stats']['_std']
-                        )  # 将生成的数据保存到压缩文件中
-
-    return max_, min_, all_data  # 返回最大值、最小值和生成的数据集
-
-def swat_generate_test(xx, length, filename=None, max_=None, min_=None):
-    """
-    生成SWAT测试数据集。
-    :param xx: 输入数据矩阵
-    :param length: 序列长度
-    :param filename: 保存文件名（可选）
-    :param max_: 最大值（可选）
-    :param min_: 最小值（可选）
-    :return: 归一化后的最大值、最小值和生成的测试数据集
-    """
-    mat_, max_, min_ = max_min_norm(xx, max_, min_)  # 对输入数据进行最大-最小归一化处理
-    nrow, ncol = xx.shape  # 获取矩阵的行数和列数
-
-    train_x = np.zeros((xx.shape[0] - length + 1, length, ncol))  # 初始化测试集样本矩阵
-    for i in range(train_x.shape[0]):  # 生成测试集样本
-        train_x[i, ...] = xx[i:i + length, :]
-    all_data = {  # 生成包含测试集和统计信息的数据字典
         'test': {
-            'x': np.expand_dims(np.transpose(train_x, (0, 2, 1)), 2),  # 测试集输入数据
-            'target': np.expand_dims(np.transpose(train_x, (0, 2, 1)), 2),  # 测试集目标数据
+            'x': np.expand_dims(np.transpose(test_x, (0, 2, 1)), 2),  # 测试集输入数据
+            'target': np.expand_dims(np.transpose(test_x, (0, 2, 1)), 2),  # 测试集目标数据
         },
         'stats': {
             '_mean': np.zeros((1, 1, 3, 1)),  # 初始化均值
             '_std': np.zeros((1, 1, 3, 1)),  # 初始化标准差
         }
     }
-    if filename is None:  # 如果没有提供文件名
-        return max_, min_, all_data  # 返回最大值、最小值和生成的测试数据集
-    np.savez_compressed(filename,
-                        test_x=all_data['test']['x'], test_target=all_data['test']['target'],
-                        mean=all_data['stats']['_mean'], std=all_data['stats']['_std']
-                        )  # 将生成的测试数据保存到压缩文件中
 
-    return max_, min_, all_data  # 返回最大值、最小值和生成的测试数据集
+    # 如果没有提供文件名，就直接返回数据
+    if filename is None:
+        return max_, min_, all_data
+
+    # 将数据保存为.npz文件
+    np.savez_compressed(filename,
+                        train_x=all_data['train']['x'], train_target=all_data['train']['target'],
+                        val_x=all_data['val']['x'], val_target=all_data['val']['target'],
+                        test_x=all_data['test']['x'], test_target=all_data['test']['target'],
+                        mean=all_data['stats']['_mean'], std=all_data['stats']['_std'])
+
+    return max_, min_, all_data
 
 if __name__ == '__main__':
     import sys
@@ -156,16 +114,18 @@ if __name__ == '__main__':
     current_dir = os.path.dirname(os.path.abspath(__file__))
 
     # 获取 config_files 目录的绝对路径
-    config_files_dir = os.path.abspath(os.path.join(current_dir, '../../config_files'))
+    config_files_dir = os.path.abspath(os.path.join(current_dir, '../../'))
 
     # 将 config_files 路径添加到 sys.path 中
     sys.path.append(config_files_dir)
 
     # 从 SWAT_config 文件中导入 Config 类
-    from SWAT_config import Config
+    from config_files.SWAT_config import Config
 
     # 初始化配置对象，读取配置参数
     config = Config()
+
+
 
     # 尝试读取正常和异常的数据集
     try:
@@ -175,30 +135,29 @@ if __name__ == '__main__':
         print(f"Error: {e}")
         sys.exit(1)
 
-    # print(swat_normal.iloc[:,-1])
-    # 将正常和异常数据集的第2列到倒数第2列转换为NumPy数组
-    swat_normal_np = np.array(swat_normal.iloc[:, 1: -1])
-    swat_abnormal_np = np.array(swat_abnormal.iloc[:, 1: -1])
 
-    # 确保 downsampling、swat_generate 和 swat_generate_test 函数已定义或导入
-    # 对正常数据集进行降采样处理，并丢弃前3000行数据
-    train_x = downsampling(swat_normal_np, config.downsampling_fre)[3000:, :]
-    # print(train_x.shape)  (5280, 51)
+
+    # 读取异常的SWaT数据集
+    swat_abnormal = pd.read_csv("data/SWAT/SWaT_Dataset_Attack_v0.csv")
+
+    # 新增一列 'Attack_Flag'，如果是 'Attack' 或 'A ttack' 则为 1，否则为 0
+    swat_abnormal['Attack_Flag'] = swat_abnormal['Normal/Attack'].apply(lambda x: 1 if x in ['Attack', 'A ttack'] else 0)
+
+    # 获取 'Normal/Attack' 列的索引
+    col_index = swat_abnormal.columns.get_loc('Normal/Attack')
+
+    # 将 'Attack_Flag' 插入到 'Normal/Attack' 列之前
+    swat_abnormal.insert(col_index, 'Attack_Flag', swat_abnormal.pop('Attack_Flag'))
+    swat_abnormal_np = np.array(swat_abnormal.iloc[:, 1: -1])
 
     split = 0.8  # 训练集和验证集的划分比例，80%数据用于训练
     length = config.target_len  # 配置文件中指定的序列长度
 
     # 设置输出文件的路径
-    train_output_path = os.path.join(current_dir, 'train_swat_gcn.npz')
-    test_output_path = os.path.join(current_dir, 'test_swat_gcn.npz')
+    data_file = "data/SWAT/"
+    data_path = os.path.join(data_file, 'all_data_diffpool.npz')
 
-    # 生成训练数据并保存到 train_output_path 中
-    max_, min_, all_data = swat_generate(copy.copy(train_x), split, length, train_output_path)
-
-    # 对异常数据集进行降采样处理
-    test_x = downsampling(swat_abnormal_np, config.downsampling_fre)
-
-    # 生成测试数据并保存到 test_output_path 中
-    max_, min_, all_data_test = swat_generate_test(copy.copy(test_x), length, test_output_path, copy.copy(max_), copy.copy(min_))
+    data = downsampling(swat_abnormal_np, config.downsampling_fre)
+    max_, min_, all_data = swat_generate_data(copy.copy(data), train_split=0.6, val_split=0.2, length=length, filename=data_path)
 
 

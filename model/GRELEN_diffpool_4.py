@@ -530,39 +530,59 @@ class Grelen(nn.Module):
 
         # 预测输出
         output = self.linear_out(state_for_output)
-        # print(f"GRELEN output shape : {output.shape}")  # GRELEN output shape : torch.Size([128, 2])
+        print(f"GRELEN output shape : {output.shape}")  # GRELEN output shape : torch.Size([128, 2])
         # print(f"GRELEN output {output}")
 
         return probs, output, torch.mean(adj_list, dim=0)
 
+    # # 计算预测值与真实标签之间的损失,用于模型的训练和优化
+    # def loss(self, pred, label, adj=None, batch_num_nodes=None, adj_hop=1):
+    #     eps = 1e-7
+    #     loss = super(SoftPoolingGcnEncoder, self).loss(pred, label)
+    #     if self.linkpred:
+    #         max_num_nodes = adj.size()[1]
+    #         pred_adj0 = self.assign_tensor @ torch.transpose(self.assign_tensor, 1, 2)
+    #         tmp = pred_adj0
+    #         pred_adj = pred_adj0
+    #         for adj_pow in range(adj_hop - 1):
+    #             tmp = tmp @ pred_adj0
+    #             pred_adj = pred_adj + tmp
+    #         pred_adj = torch.min(pred_adj, torch.ones(1, dtype=pred_adj.dtype, device=self.device))
+    #         self.link_loss = -adj * torch.log(pred_adj + eps) - (1 - adj) * torch.log(1 - pred_adj + eps)
+    #         if batch_num_nodes is None:
+    #             num_entries = max_num_nodes * max_num_nodes * adj.size()[0]
+    #             print('Warning: calculating link pred loss without masking')
+    #             logging.info('Warning: calculating link pred loss without masking')
+    #         else:
+    #             num_entries = np.sum(batch_num_nodes * batch_num_nodes)
+    #             embedding_mask = self.construct_mask(max_num_nodes, batch_num_nodes)
+    #             adj_mask = embedding_mask @ torch.transpose(embedding_mask, 1, 2)
+    #             self.link_loss[(1 - adj_mask).bool()] = 0.0
+
+    #         self.link_loss = torch.sum(self.link_loss) / float(num_entries)
+    #         return loss + self.link_loss
+    #     return loss
     # 计算预测值与真实标签之间的损失,用于模型的训练和优化
-    def loss(self, pred, label, adj=None, batch_num_nodes=None, adj_hop=1):
-        eps = 1e-7
-        loss = super(SoftPoolingGcnEncoder, self).loss(pred, label)
-        if self.linkpred:
-            max_num_nodes = adj.size()[1]
-            pred_adj0 = self.assign_tensor @ torch.transpose(self.assign_tensor, 1, 2)
-            tmp = pred_adj0
-            pred_adj = pred_adj0
-            for adj_pow in range(adj_hop - 1):
-                tmp = tmp @ pred_adj0
-                pred_adj = pred_adj + tmp
-            pred_adj = torch.min(pred_adj, torch.ones(1, dtype=pred_adj.dtype, device=self.device))
-            self.link_loss = -adj * torch.log(pred_adj + eps) - (1 - adj) * torch.log(1 - pred_adj + eps)
-            if batch_num_nodes is None:
-                num_entries = max_num_nodes * max_num_nodes * adj.size()[0]
-                print('Warning: calculating link pred loss without masking')
-                logging.info('Warning: calculating link pred loss without masking')
-            else:
-                num_entries = np.sum(batch_num_nodes * batch_num_nodes)
-                embedding_mask = self.construct_mask(max_num_nodes, batch_num_nodes)
-                adj_mask = embedding_mask @ torch.transpose(embedding_mask, 1, 2)
-                self.link_loss[(1 - adj_mask).bool()] = 0.0
-
-            self.link_loss = torch.sum(self.link_loss) / float(num_entries)
-            return loss + self.link_loss
-        return loss
-
+    def loss(self, pred, label,adj, type='softmax'):
+        '''
+        pred : 预测值,形状为 [batch_size, label_dim],表示每个样本的预测输出
+        label : 真实标签,形状为 [batch_size],表示每个样本的真实类别
+        type : 损失类型,默认为 'softmax',可选为 'softmax' 或 'margin'
+        '''
+        # softmax + CE
+        if type == 'softmax':
+            # 交叉熵损失函数 (F.cross_entropy) 计算损失
+            return F.cross_entropy(pred, label, reduction='mean')
+        elif type == 'margin':
+            # 多标签边缘损失 (margin)：用于多标签分类任务,鼓励正确类别的预测分数比其他类别高。
+            batch_size = pred.size()[0]
+            label_onehot = torch.zeros(batch_size, self.label_dim).long().cuda()    # [batch_size, label_dim]
+            # long() 函数将张量元素转换为 torch.int64 类型
+            # 使用 scatter_ 方法将 label 中的类别信息转换为独热编码 (one-hot encoding)
+            label_onehot.scatter_(1, label.view(-1,1), 1)
+            return torch.nn.MultiLabelMarginLoss()(pred, label_onehot)
+            
+        #return F.binary_cross_entropy(F.sigmoid(pred[:,0]), label.float())
     
 
         
